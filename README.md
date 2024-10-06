@@ -1,2 +1,2 @@
 # Web Wizards
-Code for NCR Form website.
+Code for NCR Form website
