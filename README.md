@@ -1,2 +1,2 @@
-# GymManagement
-An MVC project for a gym management database
+# Web Wizards
+Code for NCR Form website.
