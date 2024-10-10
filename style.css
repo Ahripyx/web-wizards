@@ -1,0 +1,26 @@
+h1{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+img{ display: block; }
+
+legend {text-align: center;}
+
+/*  General  */
+
+.fieldset-sml, img{
+    height: 200px;
+    width: 200px;
+}
+
+/*  Classes  */
+
+.fieldset-sml{float: right;}
+
+.two-col{
+	display: grid;
+	gap: 25px;
+	grid-template-columns: 1fr 1fr;
+	margin: auto;
+}
