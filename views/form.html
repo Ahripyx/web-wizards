@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="public/styles/formStyle.css" rel="stylesheet">
+    <link href="../public/styles/headerStyle.css" rel="stylesheet">
+    <link href="../public/styles/formStyle.css" rel="stylesheet">
     <title>Web Wizards</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,16 +14,16 @@
 
 <body>
 
-<!-- Nav Bar -->
-<header>
-    <div class="header-content">
-        <div class="logo">
-            <img src="public\images\Crossfire_Logo_no_bkgd.png" alt="Crossfire Logo">
+    <!-- Nav Bar -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="Crossfire Logo">
+            </div>
+            <div class="user-info">
+                <p>Sign in here</p>
+            </div>
         </div>
-        <div class="user-info">
-            <p>Sign in here</p>
-        </div>
-    </div>
         <nav class="header-nav">
             <a href="index.html" class="nav-item">Home</a>
             <a href="form.html" class="nav-item">Form</a>
@@ -34,87 +35,106 @@
             <button class="header-form-item" onclick="showView('createView')">Create</button>
             <button class="header-form-item" onclick="showView('editView')">Edit</button>
         </div>
-</header>
+    </header>
 
-<!-- Create Form -->
- <div id="createView" class="view">
-<div class="form-container">
+    <!-- Create Form -->
+    <div id="createView" class="view">
+        <div class="form-container">
+            <h2>Create NCR Form</h2>
+            <form action="/submit-ncr" method="POST">
 
-    <h2>Create NCR Form</h2>
-    <form action="/submit-ncr" method="POST">
+                <!-- Fields for Quality Assurance Form -->
+                <fieldset>
+                    <legend>Quality Representative</legend>
 
-        <!-- Fields for Quality Assurance Form -->
-        <fieldset>
-            <legend>Quality Assurance:</legend>
+                    <!-- Identify Process Applicable -->
+                    <label>Identify Process Applicable:</label>
+                    <div class="inline">
+                        <input type="checkbox" id="isWorkInProgress" name="IsWorkInProgress">
+                        <label for="isWorkInProgress">WIP</label>
 
-        <!-- NCR Number (string) -->
-        <!--<label for="ncrNum">NCR Number:</label>
-        <input type="text" id="ncrNum" name="NCRNum" required>-->
-        
-        <!-- Is Work In Progress (bool) -->
-        <div class="inline">
-        <label for="isWorkInProgress">WIP:</label>
-        <input type="checkbox" id="isWorkInProgress" name="IsWorkInProgress">
-    </div>
+                        <input type="checkbox" id="supplierOrInspection" name="SupplierOrReceivingInspection">
+                        <label for="supplierOrInspection">Supplier or Receiving Inspection</label>
+                    </div>
 
-        <!-- Supplier or Receiving Inspection (bool) -->
-        <div class="inline">
-        <label for="supplierOrInspection">Supplier or Receiving Inspection:</label>
-        <input type="checkbox" id="supplierOrInspection" name="SupplierOrReceivingInspection">
-    </div>
-        
-        <!-- Item Description (dropdown) -->
-        
+                    <!-- Item Description (dropdown) -->
+                    <label for="itemDescription">Item:</label>
+                    <select id="itemDescription" name="ItemDescription" required>
+                        <option value="">Select an item</option>
+                        <option value="Item1">Bicycle</option>
+                        <option value="Item2">Toy Robot</option>
+                        <option value="Item3">Electric Tow Tractor</option>
+                    </select>
 
-        <label for="itemDescription">Item:</label>
-        <select id="itemDescription" name="ItemDescription" required>
-            <option value="">Select an item</option>
-            <option value="Item1">Bicycle</option>
-            <option value="Item2">Toy Robot</option>
-            <option value="Item3">Electric Tow Tractor</option>
-        </select>
+                    <!-- Defect Description (dynamic dropdown) -->
+                    <label for="defectDescription">Defect Description:</label>
+                    <select id="defectDescription" name="DefectDescription" required>
+                        <option value="">Select a defect</option>
+                    </select>
 
-        <br/>
-        <!-- Quantity Received (int) -->
-        <div class="inline">
-        <label for="quantityReceived">Quantity Received:</label>
-        <input type="number" id="quantityReceived" name="QuantityReceived" required>
-    </div>
+                    <!-- Quantity Fields -->
+                    <div class="inline">
+                        <label for="quantityReceived">Quantity Received:</label>
+                        <input type="number" id="quantityReceived" name="QuantityReceived" required>
+                    </div>
 
-        <!-- Quantity Defective (int) -->
-        <div class="inline">
-        <label for="quantityDefective">Quantity Defective:</label>
-        <input type="number" id="quantityDefective" name="QuantityDefective" required>
-    </div>
-    
-        <!-- Is Non-Conformance (bool) -->
-        <br/>
-        <div class="inline">
-            <label for="isNonConformance">Is Non-Conformance:</label>
-            <input type="checkbox" id="isNonConformance" name="IsNonConformance">
+                    <div class="inline">
+                        <label for="quantityDefective">Quantity Defective:</label>
+                        <input type="number" id="quantityDefective" name="QuantityDefective" required>
+                    </div>
+
+                    <!-- Is Non-Conformance -->
+                    <div class="inline">
+                        <label for="isNonConformance">Is Non-Conformance:</label>
+                        <input type="checkbox" id="isNonConformance" name="IsNonConformance">
+                    </div>
+
+                    <!-- Details -->
+                    <label for="details">Details:</label> <br/>
+                    <textarea id="details" name="Details" rows="4" required></textarea>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Engineering</legend>
+
+                    <!-- Review by CF Engineering -->
+                    <label>Review by CF Engineering:</label>
+                    <div class="inline">
+                        <input type="checkbox" id="useAsIs" name="useAsIs">
+                        <label for="useAsIs">Use As Is</label>
+
+                        <input type="checkbox" id="repair" name="repair">
+                        <label for="repair">Repair</label>
+
+                        <input type="checkbox" id="rework" name="rework">
+                        <label for="rework">Rework</label>
+
+                        <input type="checkbox" id="scrap" name="scrap">
+                        <label for="scrap">Scrap</label>
+                    </div>
+
+                    <!-- Customer Notification -->
+                    <div class="inline">
+                        <label>Does Customer require notification of NCR:</label>
+                        <input type="radio" id="notifyTrue" name="notifyNCR" value="true">
+                        <label for="notifyTrue">Yes</label>
+
+                        <input type="radio" id="notifyFalse" name="notifyNCR" value="false">
+                        <label for="notifyFalse">No</label>
+                    </div>
+
+                    <!-- Disposition -->
+                    <label for="dispoTxt">Disposition:</label> <br/>
+                    <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
+                </fieldset>
+
+                <!-- Submit Button -->
+                <button type="submit">Create NCR</button>
+            </form>
         </div>
-        
-        
-        <!-- Creation Date (datetime) 
-        <label for="creationDate">Creation Date:</label>
-        <input type="date" id="creationDate" name="CreationDate" required>-->
+    </div>
 
-        <!-- Details (string) -->
-        <label for="details">Details:</label>
-        <textarea id="details" name="Details" rows="4" required></textarea>
-        
-        <!-- Defect Description (dynamic dropdown) -->
-        <label for="defectDescription">Defect Description:</label>
-        <select id="defectDescription" name="DefectDescription" required>
-            <option value="">Select a defect</option>
-        </select>
-
-    </fieldset>
-
-        <!-- Submit Button -->
-        <button type="submit">Create NCR</button>
-    </form>
-</div>
-</div>
-<script src="scripts/createNCR.js"></script>
+    <script src="../public/scripts/createNCR.js"></script>
 </body>
+
+</html>
