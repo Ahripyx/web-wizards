@@ -1,0 +1,86 @@
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
+/* ----- Header ----- */
+
+header {
+    background-color: #e3e7f2;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Flexbox layout for header */
+.header-content {
+    display: flex;
+    justify-content: space-between; /* Spreads the logo and user info to opposite ends */
+    align-items: center; /* Centers items vertically */
+}
+
+/* Logo styling */
+.logo img {
+    width: 100px;
+    height: auto;
+}
+
+/* User info styling */
+.user-info p {
+    font-size: 16px;
+    color: #333;
+    text-decoration: underline;
+}
+
+/* ----- Navigation Bar ----- */
+.header-nav {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    border-top: 1px solid #ddd;
+}
+
+.nav-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 6px 8px;
+    margin-right: 6px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for nav items */
+.nav-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+/* ----- Form Content ----- */
+
+.header-form {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    border-top: 1px solid #ddd;
+    background-color: #fffff0;
+}
+
+.header-form-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 6px 8px;
+    margin-right: 6px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-family: 'Oswald', sans-serif;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for nav items */
+.header-form-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
