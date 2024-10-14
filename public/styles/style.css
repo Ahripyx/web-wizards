@@ -6,8 +6,8 @@ body {
 
 header {
     background-color: #e3e7f2;
-    padding: 10px 20px;
     border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
 }
 
 /* ----- Footer ----- */
@@ -18,50 +18,50 @@ footer{
 
 /* Flexbox layout for header */
 .header-content {
+    align-items: center; /* Centers items vertically */
     display: flex;
     justify-content: space-between; /* Spreads the logo and user info to opposite ends */
-    align-items: center; /* Centers items vertically */
 }
 
 .commit-bottom {
     bottom: 0;
     left: 0;
-    right: 0;
     position: absolute;
+    right: 0;
     width: 100%;
 }
 
 /* Logo styling */
 .logo img {
-    width: 100px;
     height: auto;
+    width: 100px;
 }
 
 /* User info styling */
 .user-info p {
-    font-size: 16px;
     color: #333;
+    font-size: 16px;
     text-decoration: underline;
 }
 
 /* ----- Navigation Bar ----- */
 .header-nav {
+    border-top: 1px solid #ddd;
     display: flex;
     justify-content: flex-start;
     padding: 10px 20px;
-    border-top: 1px solid #ddd;
 }
 
 .nav-item {
     background-color: #fff;
-    border: 1px solid #ccc;
     border-radius: 3px;
-    padding: 6px 8px;
-    margin-right: 6px;
-    text-decoration: none;
+    border: 1px solid #ccc;
     color: #333;
     font-size: 14px;
+    margin-right: 6px;
+    padding: 6px 8px;
     transition: background-color 0.3s;
+    text-decoration: none;
 }
 
 /* Hover effect for nav items */
@@ -73,23 +73,23 @@ footer{
 /* ----- Form Content ----- */
 
 .header-form {
+    background-color: #fffff0;
+    border-top: 1px solid #ddd;
     display: flex;
     justify-content: flex-start;
     padding: 10px 20px;
-    border-top: 1px solid #ddd;
-    background-color: #fffff0;
 }
 
 .header-form-item {
     background-color: #fff;
-    border: 1px solid #ccc;
     border-radius: 3px;
-    padding: 6px 8px;
-    margin-right: 6px;
-    text-decoration: none;
+    border: 1px solid #ccc;
     color: #333;
-    font-size: 14px;
     font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    margin-right: 6px;
+    padding: 6px 8px;
+    text-decoration: none;
     transition: background-color 0.3s;
 }
 
