@@ -16,6 +16,23 @@ footer{
     text-align: center;
 }
 
+/*----- Table -----*/               /* ALL OF THIS TABLE STUFF CAN BE TURNED INTO CLASSES IF NEED BE */
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+/*----- Table Headings -----*/
+th{
+    text-align: left;
+}
+
+/*----- Table Headings and Definitions -----*/
+
+th, td{
+    padding: 5px;
+}
+
 /* Flexbox layout for header */
 .header-content {
     align-items: center; /* Centers items vertically */
