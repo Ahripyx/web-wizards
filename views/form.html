@@ -126,6 +126,32 @@
                     <!-- Disposition -->
                     <label for="dispoTxt">Disposition:</label> <br/>
                     <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
+
+                    <!-- Drawing Requires Updating -->
+                    <div class="inline">
+                        <label for="drawUpdate">Does the drawing require updating:</label>
+                        <input type="radio" id="updTrue" name="updDrawing" value="true">
+                        <label for="updTrue">Yes</label>
+
+                        <input type="radio" id="updFalse" name="updDrawing" value="false">
+                        <label for="updFalse">No</label>
+                    </div>
+
+                    <div class="inline">
+                        <label for="oriRevNum">Original Rev. Number:</label>
+                        <label id="oriRevNum" name="oriRevNum"></label>
+
+                        <label for="updRevNum">Updated Rev. Number:</label>
+                        <input type="text" id="updRevNum" name="updRevNum">
+                    </div>
+
+                    <div class="inline">
+                        <label for="engiName">Name of Engineer:</label>
+                        <label id="engiName" name="engiName"></label>
+
+                        <label for="revDate">Revision Date:</label>
+                        <input type="date" id="revDate" name="revDate">
+                    </div>
                 </fieldset>
 
                 <!-- Submit Button -->
