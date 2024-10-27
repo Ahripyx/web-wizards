@@ -1,19 +1,117 @@
-h1{
-    font-size: 32px;
-    font-weight: 600;
+body {
+    font-family: 'Oswald', sans-serif;
 }
-img{ display: block; }
-legend {text-align: center;}
-/*  General  */
-.fieldset-sml, img{
-    height: 200px;
-    width: 200px;
+
+/* ----- Header ----- */
+
+header {
+    background-color: #e3e7f2;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
 }
-/*  Classes  */
-.fieldset-sml{float: right;}
-.two-col{
-	display: grid;
-	gap: 25px;
-	grid-template-columns: 1fr 1fr;
-	margin: auto;
+
+/* ----- Footer ----- */
+footer{
+    background-color: #e3e7f2;
+    text-align: center;
+}
+
+/*----- Table -----*/               /* ALL OF THIS TABLE STUFF CAN BE TURNED INTO CLASSES IF NEED BE */
+table, th, td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+/*----- Table Headings -----*/
+th{
+    text-align: left;
+}
+
+/*----- Table Headings and Definitions -----*/
+
+th, td{
+    padding: 5px;
+}
+
+/* Flexbox layout for header */
+.header-content {
+    align-items: center; /* Centers items vertically */
+    display: flex;
+    justify-content: space-between; /* Spreads the logo and user info to opposite ends */
+}
+
+.commit-bottom {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
+
+/* Logo styling */
+.logo img {
+    height: auto;
+    width: 100px;
+}
+
+/* User info styling */
+.user-info p {
+    color: #333;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+/* ----- Navigation Bar ----- */
+.header-nav {
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 20px;
+}
+
+.nav-item {
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    color: #333;
+    font-size: 14px;
+    margin-right: 6px;
+    padding: 6px 8px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+/* Hover effect for nav items */
+.nav-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+/* ----- Form Content ----- */
+
+.header-form {
+    background-color: #fffff0;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 20px;
+}
+
+.header-form-item {
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    color: #333;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    margin-right: 6px;
+    padding: 6px 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+/* Hover effect for nav items */
+.header-form-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
 }
