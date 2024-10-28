@@ -27,16 +27,17 @@ itemSelect.addEventListener('change', function() {
     // Clear previous defect options
     defectSelect.innerHTML = '<option value="">Select a defect</option>';
 
-    // If an item is selected and it has defects in the lookup, populate them
+    // Populate defect options based on the selected item
     if (defectLookup[selectedItem]) {
-        defectLookup[selectedItem].forEach(function(defect) {
-            const option = document.createElement('option');
-            option.value = defect;
-            option.textContent = defect;
-            defectSelect.appendChild(option);
-        });
+       defectLookup[selectedItem].forEach(function(defect) {
+          const option = document.createElement('option');
+          option.value = defect;
+          option.textContent = defect;
+          defectSelect.appendChild(option);
+       });
     }
-});
+    
+ });
 
 function showView(viewId) {
     document.getElementById("normView").style.display = viewId === 'normView' ? 'block' : 'none';

@@ -4,7 +4,6 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="../public/styles/style.css" rel="stylesheet">
-      <link href="../public/styles/formStyle.css" rel="stylesheet">
       <title>Web Wizards</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +50,7 @@
                         <input type="checkbox" id="supplierOrInspection" name="SupplierOrReceivingInspection">
                         <label for="supplierOrInspection">Supplier or Receiving Inspection</label>
                      </div>
-                     <!-- Item Description (dropdown) -->
+                     <!-- Item Description -->
                      <div class="form-group">
                         <label for="itemDescription">Item:</label>
                         <select id="itemDescription" name="itemDescription" class="js-example-basic-single" style="width: 300px;" required>
@@ -163,6 +162,7 @@
             <button type="submit">Create NCR</button>
          </form>
       </div>
+      <script src="../public/scripts/createNCR.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <script>
@@ -173,7 +173,7 @@
              });
          });
       </script>
-      <script src="../public/scripts/createNCR.js"></script>
+      
       <!--
          HTML: The select element is enhanced with the class="js-example-basic-single" to apply the Select2 functionality.
          CSS: The Select2 library’s CSS is included via a CDN link.
