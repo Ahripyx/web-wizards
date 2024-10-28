@@ -43,7 +43,7 @@ async function getData(){
                 
             }
             // create a button that passes the item id as a parameter
-            tablerow.innerHTML += `<td><a href="edit.html?id="${id}">Edit: ${id}</a></td>`;
+            tablerow.innerHTML += `<td><a href="edit.html?id=${id}">Edit: ${id}</a></td>`;
         }   
     }       
 };
