@@ -176,14 +176,15 @@
          });
          
          async function loadNCRData() {
-         // Replace with actual ID or method of retrieving the NCR's data
-         const ncrId = 1;
-         
-         // get the json data
          try
          {
             const data = await fetch('../public/data/forms.json');
             const json = await data.json();
+         
+            // Get & Parse the query string
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const ncrId = parseInt(urlParams.get('id'));
          
             const ncrData = json.forms.find(form => form.id === ncrId)
             if (ncrData)
@@ -199,13 +200,13 @@
          
          // Populate fields for the engineering section
          document.getElementById('isNonConformance').checked = ncrData.isNonConformance;
-            document.getElementById('useAsIs').checked = ncrData.useAsIs;
-            document.getElementById('repair').checked = ncrData.repair;
-            document.getElementById('rework').checked = ncrData.rework;
-            document.getElementById('scrap').checked = ncrData.scrap;
-            document.getElementById('dispoTxt').value = ncrData.dispoTxt;
-            document.getElementById('updRevNum').value = ncrData.updRevNum;
-            document.getElementById('revDate').value = ncrData.revDate;
+         document.getElementById('useAsIs').checked = ncrData.useAsIs;
+         document.getElementById('repair').checked = ncrData.repair;
+         document.getElementById('rework').checked = ncrData.rework;
+         document.getElementById('scrap').checked = ncrData.scrap;
+         document.getElementById('dispoTxt').value = ncrData.dispoTxt;
+         document.getElementById('updRevNum').value = ncrData.updRevNum;
+         document.getElementById('revDate').value = ncrData.revDate;
          } else {
             console.error(`NCR with ID ${ncrId} not found.`);
          }
