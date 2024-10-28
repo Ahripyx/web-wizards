@@ -39,6 +39,6 @@ itemSelect.addEventListener('change', function() {
 });
 
 function showView(viewId) {
-    document.getElementById("normView").style.display = 'block';
+    document.getElementById("normView").style.display = viewId === 'normView' ? 'block' : 'none';
     document.getElementById('engiView').style.display = viewId === 'engiView' ? 'block' : 'none';
 }
