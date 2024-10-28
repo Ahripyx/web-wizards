@@ -45,9 +45,9 @@
                      <!-- Identify Process Applicable -->
                      <div class="form-group">
                         <label>Identify Process Applicable:</label>
-                        <input type="checkbox" id="isWorkInProgress" name="IsWorkInProgress">
+                        <input type="checkbox" id="isWorkInProgress" name="isWorkInProgress">
                         <label for="isWorkInProgress">WIP</label>
-                        <input type="checkbox" id="supplierOrInspection" name="SupplierOrReceivingInspection">
+                        <input type="checkbox" id="supplierOrInspection" name="supplierOrInspection">
                         <label for="supplierOrInspection">Supplier or Receiving Inspection</label>
                      </div>
                      <!-- Item Description -->
@@ -83,26 +83,27 @@
                         <label for="defectDescription">Defect Description:</label>
                         <select id="defectDescription" name="defectDescription" required>
                            <option value="">Select a defect</option>
+                           <option value="Test">Test</option>
                         </select>
                      </div>
                      <!-- Quantity Fields -->
                      <div class="form-group">
                         <label for="quantityReceived">Quantity Received:</label>
-                        <input type="number" id="quantityReceived" name="QuantityReceived" required>
+                        <input type="number" id="quantityReceived" name="quantityReceived" required>
                      </div>
                      <div class="form-group">
                         <label for="quantityDefective">Quantity Defective:</label>
-                        <input type="number" id="quantityDefective" name="QuantityDefective" required>
+                        <input type="number" id="quantityDefective" name="quantityDefective" required>
                      </div>
                      <!-- Is Non-Conformance -->
                      <div class="form-group">
                         <label for="isNonConformance">Is Non-Conformance:</label>
-                        <input type="checkbox" id="isNonConformance" name="IsNonConformance">
+                        <input type="checkbox" id="isNonConformance" name="isNonConformance">
                      </div>
                      <!-- Details -->
                      <div class="form-group">
                         <label for="details">Details:</label> <br/>
-                        <textarea id="details" name="Details" rows="4" required></textarea>
+                        <textarea id="details" name="details" rows="4" required></textarea>
                      </div>
                   </fieldset>
                </div>
@@ -137,9 +138,9 @@
                      <!-- Drawing Requires Updating -->
                      <div class="form-group">
                         <label for="drawUpdate">Does the drawing require updating:</label>
-                        <input type="radio" id="updTrue" name="updDrawing" value="true">
+                        <input type="radio" id="updTrue" name="drawUpdate" value="true">
                         <label for="updTrue">Yes</label>
-                        <input type="radio" id="updFalse" name="updDrawing" value="false">
+                        <input type="radio" id="updFalse" name="drawUpdate" value="false">
                         <label for="updFalse">No</label>
                      </div>
                      <div class="form-group">
@@ -171,7 +172,31 @@
                  width: '300px', // Set the width of the dropdown
                  minimumResultsForSearch: 0 
              });
+
+                  // Handle form submission
+        $('form').on('submit', function(event) {
+            event.preventDefault();
+
+            const formData = {};
+
+            // Collect form values
+            $(this).find('input, select, textarea').each(function() {
+                const name = $(this).attr('name');
+                const value = $(this).is(':checkbox') ? $(this).is(':checked') : $(this).val();
+                
+                if (name) {
+                    formData[name] = value;
+                }
+            });
+
+            const jsonData = JSON.stringify(formData, null, 2); 
+            console.log(jsonData);
+        });
          });
+
+         
+
+
       </script>
       
       <!--
