@@ -1,8 +1,19 @@
-// Ideally this would be in a "lookup" file but w/e
 const defectLookup = {
-    'Item1': ['Crack', 'Scratch', 'Deformation'],
-    'Item2': ['Discoloration', 'Improper Assembly', 'Surface Damage'],
-    'Item3': ['Misalignment', 'Missing Parts', 'Incorrect Size']
+    'Magic Wand': ['Bending', 'Power Fluctuation', 'Tip Crack'],
+    'Safety Helmet': ['Strap Break', 'Cracked Shell', 'Improper Fit'],
+    'Giant Bubble Blower': ['Leaking Solution', 'Handle Break', 'Poor Bubble Formation'],
+    'Industrial Vacuum': ['Weak Suction', 'Power Failure', 'Clogged Filter'],
+    'Bicycle': ['Flat Tire', 'Chain Slippage', 'Frame Rust'],
+    'Laser Level': ['Misalignment', 'Weak Laser', 'Battery Compartment Issue'],
+    'Glow-in-the-Dark Frisbee': ['Lack of Glow', 'Warpage', 'Edge Cracking'],
+    'Electric Forklift': ['Battery Malfunction', 'Brake Failure', 'Hydraulic Leak'],
+    'Chocolate Fountain': ['Flow Blockage', 'Heating Element Failure', 'Motor Burnout'],
+    'Toy Robot': ['Loose Joints', 'Sensor Malfunction', 'Battery Drain'],
+    'Electric Tow Tractor': ['Motor Overheating', 'Battery Failure', 'Steering Issue'],
+    'Hydraulic Jack': ['Oil Leak', 'Cylinder Deformation', 'Release Valve Failure'],
+    'Portable Rainbow Maker': ['Color Fading', 'Mechanism Jam', 'Power Failure'],
+    'Air Compressor': ['Pressure Drop', 'Motor Overload', 'Air Leak'],
+    'Holographic Projector': ['Image Distortion', 'Connectivity Issue', 'Overheating']
 };
 
 // Get the item and the defect select lists!
@@ -28,18 +39,6 @@ itemSelect.addEventListener('change', function() {
 });
 
 function showView(viewId) {
-    // Hide all views
-    const views = document.querySelectorAll('.view');
-    views.forEach(view => view.style.display = 'none');
-
     document.getElementById("normView").style.display = 'block';
-
-    if (viewId == "engiView")
-    {
-        
-        document.getElementById(viewId).style.display = 'block';
-    }
-        
-    // Show the selected view
-    //document.getElementById(viewId).style.display = 'block';
+    document.getElementById('engiView').style.display = viewId === 'engiView' ? 'block' : 'none';
 }

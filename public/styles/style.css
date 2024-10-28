@@ -116,11 +116,6 @@ th, td{
     cursor: pointer;
 }
 
-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 fieldset {
     border: 1px solid #ccc;
     padding: 20px;
@@ -138,8 +133,8 @@ legend {
 }
 
 label {
-    width: 150px; /* Fixed width for labels */
-    margin-right: 10px; /* Space between label and input */
+    width: 150px;
+    margin-right: 10px;
 }
 
 input[type="number"] {
@@ -147,7 +142,7 @@ input[type="number"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    flex: 1;  /*Input fields take up the remaining space */
+    flex: 1;  
     box-sizing: border-box;
 }
 
@@ -156,7 +151,7 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    flex: 1;  /*Input fields take up the remaining space */
+    flex: 1;  
     box-sizing: border-box;
 }
 
@@ -172,4 +167,15 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+.view-container {
+    display:flex;
+    gap: 20px; 
+    justify-content: space-between;
+    margin-bottom: 20px; 
+}
+
+.form-container {
+    max-width: 1200px; 
 }

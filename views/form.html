@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
@@ -41,7 +43,7 @@
         <div class="form-container">
             <h2>Create NCR Form</h2>
             <form action="/submit-ncr" method="POST">
-
+                <div class="view-container">
                 <!-- Fields for Quality Assurance Form -->
                 <div id="normView" class="view">
                 <fieldset>
@@ -62,36 +64,36 @@
                     <!-- Item Description (dropdown) -->
                     <div class="form-group">
                     <label for="itemDescription">Item:</label>
-                    <select id="itemDescription" name="ItemDescription" class="js-example-basic-single" style="width: 300px;" required>
+                    <select id="itemDescription" name="itemDescription" class="js-example-basic-single" style="width: 300px;" required>
                         <optgroup label="Recent Options">
-                            <option value="5">Bicycle</option>
-                            <option value="10">Toy Robot</option>
-                            <option value="11">Electric Tow Tractor</option>
+                            <option value="Bicycle">Bicycle</option>
+                            <option value="Toy Robot">Toy Robot</option>
+                            <option value="Electric Tow Tractor">Electric Tow Tractor</option>
                         </optgroup>
                         <optgroup label="All Options">
-                        <option value="1">Magic Wand</option>
-    <option value="2">Safety Helmet</option>
-    <option value="3">Giant Bubble Blower</option>
-    <option value="4">Industrial Vacuum</option>
-    <option value="5">Bicycle</option>
-    <option value="6">Laser Level</option>
-    <option value="7">Glow-in-the-Dark Frisbee</option>
-    <option value="8">Electric Forklift</option>
-    <option value="9">Chocolate Fountain</option>
-    <option value="10">Toy Robot</option>
-    <option value="11">Electric Tow Tractor</option>
-    <option value="12">Hydraulic Jack</option>
-    <option value="13">Portable Rainbow Maker</option>
-    <option value="14">Air Compressor</option>
-    <option value="15">Holographic Projector</option>
-</optgroup>
+                            <option value="Magic Wand">Magic Wand</option>
+                            <option value="Safety Helmet">Safety Helmet</option>
+                            <option value="Giant Bubble Blower">Giant Bubble Blower</option>
+                            <option value="Industrial Vacuum">Industrial Vacuum</option>
+                            <option value="Bicycle">Bicycle</option>
+                            <option value="Laser Level">Laser Level</option>
+                            <option value="Glow-in-the-Dark Frisbee">Glow-in-the-Dark Frisbee</option>
+                            <option value="Electric Forklift">Electric Forklift</option>
+                            <option value="Chocolate Fountain">Chocolate Fountain</option>
+                            <option value="Toy Robot">Toy Robot</option>
+                            <option value="Electric Tow Tractor">Electric Tow Tractor</option>
+                            <option value="Hydraulic Jack">Hydraulic Jack</option>
+                            <option value="Portable Rainbow Maker">Portable Rainbow Maker</option>
+                            <option value="Air Compressor">Air Compressor</option>
+                            <option value="Holographic Projector">Holographic Projector</option>
+                        </optgroup>
                     </select>
                     </div>
 
                     <!-- Defect Description (dynamic dropdown) -->
                     <div class="form-group">
                     <label for="defectDescription">Defect Description:</label>
-                    <select id="defectDescription" name="DefectDescription" required>
+                    <select id="defectDescription" name="defectDescription" required>
                         <option value="">Select a defect</option>
                     </select>
                     </div>
@@ -120,7 +122,7 @@
                     </div>
                 </fieldset>
             </div>
-            <div id="engiView" class="view">
+            <div id="engiView" class="view" style="display: none;">
                 <fieldset>
                     <legend>Engineering</legend>
 
@@ -183,11 +185,14 @@
                         <input type="date" id="revDate" name="revDate">
                     </div>
                 </fieldset>
-                </div></div>
+                </div>
+            </div>
+        
                 <!-- Submit Button -->
+                 <br/>
                 <button type="submit">Create NCR</button>
             </form>
-
+        </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
