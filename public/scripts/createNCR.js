@@ -32,6 +32,14 @@ function showView(viewId) {
     const views = document.querySelectorAll('.view');
     views.forEach(view => view.style.display = 'none');
 
+    document.getElementById("normView").style.display = 'block';
+
+    if (viewId == "engiView")
+    {
+        
+        document.getElementById(viewId).style.display = 'block';
+    }
+        
     // Show the selected view
-    document.getElementById(viewId).style.display = 'block';
+    //document.getElementById(viewId).style.display = 'block';
 }
