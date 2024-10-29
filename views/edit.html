@@ -54,6 +54,7 @@
                      <div class="form-group">
                         <label for="itemDescription">Item:</label>
                         <select id="itemDescription" name="itemDescription" class="js-example-basic-single" style="width: 300px;" required>
+                           <option value="">Select an item</option>
                            <optgroup label="Recent Options">
                               <option value="Bicycle">Bicycle</option>
                               <option value="Toy Robot">Toy Robot</option>
@@ -64,13 +65,10 @@
                               <option value="Safety Helmet">Safety Helmet</option>
                               <option value="Giant Bubble Blower">Giant Bubble Blower</option>
                               <option value="Industrial Vacuum">Industrial Vacuum</option>
-                              <option value="Bicycle">Bicycle</option>
                               <option value="Laser Level">Laser Level</option>
                               <option value="Glow-in-the-Dark Frisbee">Glow-in-the-Dark Frisbee</option>
                               <option value="Electric Forklift">Electric Forklift</option>
                               <option value="Chocolate Fountain">Chocolate Fountain</option>
-                              <option value="Toy Robot">Toy Robot</option>
-                              <option value="Electric Tow Tractor">Electric Tow Tractor</option>
                               <option value="Hydraulic Jack">Hydraulic Jack</option>
                               <option value="Portable Rainbow Maker">Portable Rainbow Maker</option>
                               <option value="Air Compressor">Air Compressor</option>
@@ -78,11 +76,12 @@
                            </optgroup>
                         </select>
                      </div>
-                     <!-- Defect Description (dynamic dropdown) -->
+                     <!-- Defect Description -->
                      <div class="form-group">
                         <label for="defectDescription">Defect Description:</label>
                         <select id="defectDescription" name="defectDescription" required>
                            <option value="">Select a defect</option>
+                           <option value="Test">Test</option>
                         </select>
                      </div>
                      <!-- Quantity Fields -->
@@ -136,21 +135,21 @@
                      </div>
                      <!-- Drawing Requires Updating -->
                      <div class="form-group">
-                        <label for="drawUpdate">Does the drawing require updating:</label>
+                        <label>Does the drawing require updating:</label>
                         <input type="radio" id="updTrue" name="updDrawing" value="true">
                         <label for="updTrue">Yes</label>
                         <input type="radio" id="updFalse" name="updDrawing" value="false">
                         <label for="updFalse">No</label>
                      </div>
                      <div class="form-group">
-                        <label for="oriRevNum">Original Rev. Number:</label>
-                        <label id="oriRevNum" name="oriRevNum"></label>
+                        <span>Original Rev. Number:</span>
+                        <label id="oriRevNum"></label>
                         <label for="updRevNum">Updated Rev. Number:</label>
                         <input type="text" id="updRevNum" name="updRevNum">
                      </div>
                      <div class="form-group">
-                        <label for="engiName">Name of Engineer:</label>
-                        <label id="engiName" name="engiName"></label>
+                        <span>Name of Engineer:</span>
+                        <label id="engiName"></label>
                         <label for="revDate">Revision Date:</label>
                         <input type="date" id="revDate" name="revDate">
                      </div>
@@ -162,9 +161,9 @@
             <button type="submit">Save Changes</button>
          </form>
       </div>
+      <script src="../public/scripts/createNCR.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-      <script src="../public/scripts/createNCR.js"></script>
       <script>
          $(document).ready(function() {
              $('.js-example-basic-single').select2({
@@ -213,7 +212,6 @@
          console.error('Error fetching NCR data:', error);
          }
          }
-         
       </script>
    </body>
 </html>
