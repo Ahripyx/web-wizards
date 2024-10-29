@@ -8,7 +8,7 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
       <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    </head>
    <body>
@@ -102,7 +102,7 @@
                      </div>
                      <!-- Details -->
                      <div class="form-group">
-                        <label for="details">Details:</label> <br/>
+                        <label for="details">Details:</label> <br>
                         <textarea id="details" name="details" rows="4" required></textarea>
                      </div>
                   </fieldset>
@@ -132,7 +132,7 @@
                      </div>
                      <!-- Disposition -->
                      <div class="form-group">
-                        <label for="dispoTxt">Disposition:</label> <br/>
+                        <label for="dispoTxt">Disposition:</label> <br>
                         <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
                      </div>
                      <!-- Drawing Requires Updating -->
@@ -145,13 +145,13 @@
                      </div>
                      <div class="form-group">
                         <label for="oriRevNum">Original Rev. Number:</label>
-                        <label id="oriRevNum" name="oriRevNum"></label>
+                        <span id="oriRevNum"></span>
                         <label for="updRevNum">Updated Rev. Number:</label>
                         <input type="text" id="updRevNum" name="updRevNum">
                      </div>
                      <div class="form-group">
                         <label for="engiName">Name of Engineer:</label>
-                        <label id="engiName" name="engiName"></label>
+                        <span id="engiName"></span>
                         <label for="revDate">Revision Date:</label>
                         <input type="date" id="revDate" name="revDate">
                      </div>
@@ -159,7 +159,7 @@
                </div>
             </div>
             <!-- Submit Button -->
-            <br/>
+            <br>
             <button type="submit">Create NCR</button>
          </form>
       </div>
