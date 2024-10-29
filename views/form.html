@@ -54,6 +54,7 @@
                      <div class="form-group">
                         <label for="itemDescription">Item:</label>
                         <select id="itemDescription" name="itemDescription" class="js-example-basic-single" style="width: 300px;" required>
+                           <option value="" disabled selected>Select an item</option>
                            <optgroup label="Recent Options">
                               <option value="Bicycle">Bicycle</option>
                               <option value="Toy Robot">Toy Robot</option>
@@ -137,21 +138,21 @@
                      </div>
                      <!-- Drawing Requires Updating -->
                      <div class="form-group">
-                        <label for="drawUpdate">Does the drawing require updating:</label>
+                        <label>Does the drawing require updating:</label>
                         <input type="radio" id="updTrue" name="drawUpdate" value="true">
                         <label for="updTrue">Yes</label>
                         <input type="radio" id="updFalse" name="drawUpdate" value="false">
                         <label for="updFalse">No</label>
                      </div>
                      <div class="form-group">
-                        <label for="oriRevNum">Original Rev. Number:</label>
-                        <span id="oriRevNum"></span>
+                        <span>Original Rev. Number:</span>
+                        <label id="oriRevNum"></label>
                         <label for="updRevNum">Updated Rev. Number:</label>
                         <input type="text" id="updRevNum" name="updRevNum">
                      </div>
                      <div class="form-group">
-                        <label for="engiName">Name of Engineer:</label>
-                        <span id="engiName"></span>
+                        <span>Name of Engineer:</span>
+                        <label id="engiName"></label>
                         <label for="revDate">Revision Date:</label>
                         <input type="date" id="revDate" name="revDate">
                      </div>
