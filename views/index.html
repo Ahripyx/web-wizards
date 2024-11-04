@@ -44,40 +44,51 @@
             </form>
          </div>
       </header>
+
+      <!-- Main Content -->
+      <!-- Note: Code is messy but it's still WIP -->
       <main>
-         <!--- Main Content here when provided -->
          <!-- Three main nav layout here -->
-         <div>
+         <div class="home-nav">
             <div>
                <!-- Create nav link here with a round image above -->
+                <img src="place image here later" alt="Icon for Create NCR page">
+                <button>Create NCR</button>
             </div>
             <div>
                <!-- View nav link here with a round image above -->
+               <img src="place image here later" alt="Icon for Existing NCRs page">
+               <button>View NCR</button>
             </div>
             <div>
                <!-- View reports link here with round image above -->
+               <img src="place image here later" alt="Icon for NCR reports page">
+               <button>View Reports</button>
             </div>
          </div>
          <!-- Template for the recently updated NCR Forms -->
-         <div>
+         <section class="recent-forms">
             <div>
                <!-- Filter method for NCRs here -->
             </div>
-            <h1>Existing NCR Forms</h1>
+            <h1>Recent NCR Forms</h1>
             <table id="table">
-                <tr>
-                    <th>NCR Number</th>
-                    <th>Item Name</th>     
-                    <th>Date</th>           
-                    <th>Status</th>
-                </tr>
+                  <tr>
+                     <th>NCR Number</th>
+                     <th>Item Name</th>     
+                     <th>Date</th>           
+                     <th>Status</th>
+                  </tr>
             </table>
-         </div>
+         </section>
       </main>
+
+
       <footer class="commit-bottom">
          <hr>
          <p><small>CROSSFIRE NCR</small></p>
       </footer>
+      <script src="../public/scripts/listScript.js"></script>
       <script>
          function openForm() {
          document.getElementById("myForm").style.display = "block";
