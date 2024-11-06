@@ -69,7 +69,22 @@
          <!-- Template for the recently updated NCR Forms -->
          <section class="recent-forms">
             <div>
-               <!-- Filter method for NCRs here -->
+               <!-- Filter method for NCRs here -->  
+               <div>
+                  <label for="numFilter">NCR Number:</label>
+                  <input type="text" id="numFIlter" name="numFilter">
+               </div>
+               <div>
+                  <label for="itemFilter">Item:</label>
+                  <input type="text" id="itemFilter" name="itemFilter">
+               </div>
+               <div>
+                  <label for="dateFilter">Date:</label>
+                  <input type="text" id="dateFilter" name="dateFilter">
+               </div>
+               <div>
+                  <button type="button">Filter</button>
+               </div>
             </div>
             <h1>Recent NCR Forms</h1>
             <table id="table">
