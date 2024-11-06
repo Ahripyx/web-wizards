@@ -17,20 +17,19 @@
             <div class="logo">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
             </div>
+            <div>
+               <nav class="header-nav">
+                  <a href="index.html" class="nav-item" tabindex="2">Home</a>
+                  <a href="form.html" class="nav-item" tabindex="3">Form</a>
+                  <a href="list.html" class="nav-item" tabindex="4">Existing Forms</a>
+                  <a href="edit.html?id=2" class="nav-item" tabindex="5">Edit Test</a>
+               </nav>
+            </div>
             <div class="user-info">
-               <!-- <p tabindex="1">Sign in here</p>-->
                <!-- A button to open the popup form -->
                <button class="open-button" onclick="openForm()">Sign in here</button>
             </div>
          </div>
-         <!-- Make nav inline with the logo -->
-         <nav class="header-nav">
-            <a href="index.html" class="nav-item" tabindex="2">Home</a>
-            <a href="form.html" class="nav-item" tabindex="3">Form</a>
-            <a href="list.html" class="nav-item" tabindex="4">Existing Forms</a>
-            <a href="edit.html?id=2" class="nav-item" tabindex="5">Edit Test</a>
-         </nav>
-
          <!-- The form -->
          <div class="form-popup" id="myForm" style="display: none;">
             <form action="/action_page.php" class="form-container login-form">
@@ -68,7 +67,8 @@
          </div>
          <!-- Template for the recently updated NCR Forms -->
          <section class="recent-forms">
-            <div>
+            <h2>Recent NCR Forms</h2>
+            <div class="filters">
                <!-- Filter method for NCRs here -->  
                <div>
                   <label for="numFilter">NCR Number:</label>
@@ -83,10 +83,13 @@
                   <input type="text" id="dateFilter" name="dateFilter">
                </div>
                <div>
+                  <label for="statusFilter">Status:</label>
+                  <input type="checkbox" id="statusFilter" name="statusFilter">
+               </div>
+               <div>
                   <button type="button">Filter</button>
                </div>
             </div>
-            <h1>Recent NCR Forms</h1>
             <table id="table">
                   <tr>
                      <th>NCR Number</th>
@@ -103,7 +106,7 @@
          <hr>
          <p><small>CROSSFIRE NCR</small></p>
       </footer>
-      <script src="../public/scripts/listScript.js"></script>
+      <script src="../public/scripts/recentList.js"></script>
       <script>
          function openForm() {
          document.getElementById("myForm").style.display = "block";

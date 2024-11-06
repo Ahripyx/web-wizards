@@ -13,19 +13,36 @@
     <!-- Nav Bar -->
     <header>
         <div class="header-content">
-            <div class="logo">
-                <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
-            </div>
-            <div class="user-info">
-                <p tabindex="1">Sign in here</p>
-            </div>
+           <!-- Size up the logo -->
+           <div class="logo">
+              <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
+           </div>
+           <div>
+              <nav class="header-nav">
+                 <a href="index.html" class="nav-item" tabindex="2">Home</a>
+                 <a href="form.html" class="nav-item" tabindex="3">Form</a>
+                 <a href="list.html" class="nav-item" tabindex="4">Existing Forms</a>
+                 <a href="edit.html?id=2" class="nav-item" tabindex="5">Edit Test</a>
+              </nav>
+           </div>
+           <div class="user-info">
+              <!-- A button to open the popup form -->
+              <button class="open-button" onclick="openForm()">Sign in here</button>
+           </div>
         </div>
-            <nav class="header-nav">
-                <a href="index.html" class="nav-item" tabindex="2">Home</a>
-                <a href="form.html" class="nav-item" tabindex="3">Form</a>
-                <a href="list.html" class="nav-item" tabindex="5">Existing Forms</a>
-            </nav>
-    </header>
+        <!-- The form -->
+        <div class="form-popup" id="myForm" style="display: none;">
+           <form action="/action_page.php" class="form-container login-form">
+              <h1>Login</h1>
+              <label for="email"><b>Email</b></label>
+              <input type="text" placeholder="Enter Email" id="email" class="login-input" required>
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" id="psw" class="login-input" required>
+              <button type="submit" class="btn submit-login">Login</button>
+              <button type="button" class="btn cancel-login" onclick="closeForm()">Close</button>
+           </form>
+        </div>
+     </header>
     <main>
         <h1>Existing NCR Forms</h1>
         <table id="table">
@@ -46,5 +63,14 @@
     </footer>
 
     <script src="../public/scripts/listScript.js"></script>
+    <script>
+        function openForm() {
+        document.getElementById("myForm").style.display = "block";
+        }
+        
+        function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+        }
+     </script>
 </body>
 </html>
