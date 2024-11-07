@@ -90,3 +90,7 @@ app.post('/update', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
+// MAKE SURE TO RUN THIS FILE USING 
+// npm run start
+// IN THE TERMINAL
