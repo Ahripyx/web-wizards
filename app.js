@@ -1,59 +1,31 @@
 import Database from 'better-sqlite3';
-const db = new Database('./db/test_data.db');
-
-// const query = `
-//     CREATE TABLE IF NOT EXISTS test (
-//     id INTEGER PRIMARY KEY,
-//     column1 STRING NOT NULL,
-//     column2 STRING NOT NULL
-// )
-// `;
-
-// db.exec(query);
-
-// const data = [
-//     { column1: 'Hello', column2: 'World' },
-//     { column1: 'Foo', column2: 'Bar' },
-//     { column1: 'Baz', column2: 'Qux' }
-// ];
-
-// const insertData = db.prepare('INSERT INTO test (column1, column2) VALUES (@column1, @column2)');
-
-// data.forEach((row) => {
-//     insertData.run(row);
-// })
-
-// const rows = db.prepare(`SELECT * FROM test`).all();
-
-// const row = db.prepare(`SELECT * FROM test WHERE id = ?`).get(1);
-
-// console.log(row);
-
-// console.log(rows);
-
-// db.close();
-
 import express from 'express';
-
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import { createTables } from './queries.js';
+import { seedTables } from './queries.js';
 
-
+const db = new Database('./db/test_data.db');
 const app = express();
 const port = 5500;
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
-
-app.use(cors()); // not entirely sure what this does
+app.use(cors());
 
 // Serve static files from the public directory
 app.use(express.static('public'));
 
-// Endpoint to fetch records
-app.get('/records', (req, res) => {
+// Create tables
+createTables.forEach(query => db.exec(query));
+
+// Fill tables with seed data ( COMMENT THIS OUT AFTER FIRST RUN )
+seedTables.forEach(query => db.exec(query));
+
+// Endpoint to get NCRForm table
+app.get('/ncrforms', (req, res) => {
     try {
-        const rows = db.prepare('SELECT * FROM test').all();
+        const rows = db.prepare('SELECT * FROM NCRForm').all();
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
@@ -61,12 +33,12 @@ app.get('/records', (req, res) => {
     }
 });
 
-// Endpoint to insert data
-app.post('/insert', (req, res) => {
-    const { id, column1, column2 } = req.body;
+// Endpoint to insert data in NCRForm table
+app.post('/insert-form', (req, res) => {
+    const { CreationDate, LastModified, FormStatus } = req.body;
     try {
-        const stmt = db.prepare('INSERT INTO test (id, column1, column2) VALUES (?, ?, ?)');
-        stmt.run(id, column1, column2);
+        const stmt = db.prepare('INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES (?, ?, ?)');
+        stmt.run(CreationDate, LastModified, FormStatus);
         res.status(200).send("Data inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
@@ -74,16 +46,112 @@ app.post('/insert', (req, res) => {
     }
 });
 
-// Endpoint to update data
-app.post('/update', (req, res) => {
-    const { id, column1, column2 } = req.body;
+// Endpoint to get records from Product table
+app.get('/products', (req, res) => {
     try {
-        const stmt = db.prepare('UPDATE test SET column1 = ?, column2 = ? WHERE id = ?');
-        stmt.run(column1, column2, id);
-        res.status(200).send("Data updated successfully!");
+        const rows = db.prepare('SELECT * FROM Product').all();
+        res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
-        res.status(500).send("Failed to update data.");
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to insert data into Product table
+app.post('/insert-product', (req, res) => {
+    const { id, Name, Number, SupplierID } = req.body;
+    try {
+        const stmt = db.prepare('INSERT INTO Product (id, Name, Number, SupplierID) VALUES (?, ?, ?, ?)');
+        stmt.run(id, Name, Number, SupplierID);
+        res.status(200).send("Product inserted successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to insert product.");
+    }
+});
+
+// Endpoint to update data in Product table
+app.post('/update-product', (req, res) => {
+    const { id, Name, Number, SupplierID } = req.body;
+    try {
+        const stmt = db.prepare('UPDATE Product SET Name = ?, Number = ?, SupplierID = ? WHERE id = ?');
+        stmt.run(Name, Number, SupplierID, id);
+        res.status(200).send("Product updated successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to update product.");
+    }
+});
+
+// Endpoint to get User table
+app.get('/users', (req, res) => {
+    try {
+        const rows = db.prepare('SELECT * FROM User').all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to insert data in User table
+app.post('/insert-user', (req, res) => {
+    const { FName, MName, LName, Email, Password, RoleID } = req.body;
+    try {
+        const stmt = db.prepare('INSERT INTO User (FName, MName, LName, Email, Password, RoleID) VALUES (?, ?, ?, ?, ?, ?)');
+        stmt.run(FName, MName, LName, Email, Password, RoleID);
+        res.status(200).send("Data inserted successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to insert data.");
+    }
+});
+
+// Endpoint to get Supplier table
+app.get('/suppliers', (req, res) => {
+    try {
+        const rows = db.prepare('SELECT * FROM Supplier').all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to get Quality table
+app.get('/quality', (req, res) => {
+    try {
+        const rows = db.prepare('SELECT * FROM Quality').all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to insert data into Quality table
+app.post('/insert-quality', (req, res) => {
+    const { id, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID } = req.body;
+    try {
+        const stmt = db.prepare('INSERT INTO Quality (id, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        stmt.run(id, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID);
+        res.status(200).send("Quality record inserted successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to insert quality record.");
+    }
+});
+
+// Endpoint to update data in Quality table
+app.post('/update-quality', (req, res) => {
+    const { id, NCRNum, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID } = req.body;
+    try {
+        const stmt = db.prepare('UPDATE Quality SET NCRNum = ?, SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, LastModified = ?, ProductID = ? WHERE id = ?');
+        stmt.run(NCRNum, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID, id);
+        res.status(200).send("Quality record updated successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to update quality record.");
     }
 });
 
