@@ -30,59 +30,59 @@
     </footer>
 
     <script>
-        document.getElementById("insertBtn").addEventListener("click", async () => {
-            const dataToInsert = { 
-                id: document.getElementById("id").value,
-                column1: document.getElementById("1input").value,
-                column2: document.getElementById("2input").value,
-            };
+        // document.getElementById("insertBtn").addEventListener("click", async () => {
+        //     const dataToInsert = { 
+        //         id: document.getElementById("id").value,
+        //         column1: document.getElementById("1input").value,
+        //         column2: document.getElementById("2input").value,
+        //     };
             
-            try {
-                const response = await fetch("http://localhost:5500/insert", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(dataToInsert)
-                });
+        //     try {
+        //         const response = await fetch("http://localhost:5500/insert", {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify(dataToInsert)
+        //         });
 
-                if (response.ok) {
-                    alert("Data inserted successfully!");
-                    fetchData(); // Refresh the table data
-                } else {
-                    alert("Failed to save data.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        });
+        //         if (response.ok) {
+        //             alert("Data inserted successfully!");
+        //             fetchData(); // Refresh the table data
+        //         } else {
+        //             alert("Failed to save data.");
+        //         }
+        //     } catch (error) {
+        //         console.error("Error:", error);
+        //     }
+        // });
 
-        document.getElementById("updateBtn").addEventListener("click", async () => {
-            const dataToUpdate = { 
-                id: document.getElementById("id").value,
-                column1: document.getElementById("1input").value,
-                column2: document.getElementById("2input").value,
-            };
+        // document.getElementById("updateBtn").addEventListener("click", async () => {
+        //     const dataToUpdate = { 
+        //         id: document.getElementById("id").value,
+        //         column1: document.getElementById("1input").value,
+        //         column2: document.getElementById("2input").value,
+        //     };
             
-            try {
-                const response = await fetch("http://localhost:5500/update", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(dataToUpdate)
-                });
+        //     try {
+        //         const response = await fetch("http://localhost:5500/update", {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify(dataToUpdate)
+        //         });
 
-                if (response.ok) {
-                    alert("Data updated successfully!");
-                    fetchData(); // Refresh the table data
-                } else {
-                    alert("Failed to update data.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        });
+        //         if (response.ok) {
+        //             alert("Data updated successfully!");
+        //             fetchData(); // Refresh the table data
+        //         } else {
+        //             alert("Failed to update data.");
+        //         }
+        //     } catch (error) {
+        //         console.error("Error:", error);
+        //     }
+        // });
 
         async function fetchData() {
             try {
-                const response = await fetch('http://localhost:5500/records');
+                const response = await fetch('http://localhost:5500/ncrforms');
                 const data = await response.json();
 
                 const tableBody = document.querySelector('#dataTable tbody');
@@ -92,9 +92,10 @@
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${row.id}</td>
-                        <td>${row.column1}</td>
-                        <td>${row.column2}</td>
-                    `;
+                        <td>${row.CreationDate}</td>
+                        <td>${row.LastModified}</td>
+                        <td>${row.FormStatus}</td>
+                        `
                     tableBody.appendChild(tr);
                 });
             } catch (error) {

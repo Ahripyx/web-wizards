@@ -2,8 +2,8 @@ import Database from 'better-sqlite3';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { createTables } from './queries.js';
-import { seedTables } from './queries.js';
+import { createTables } from './cmds/queries.js';
+import { seedTables } from './cmds/queries.js';
 
 const db = new Database('./db/test_data.db');
 const app = express();
@@ -20,7 +20,7 @@ app.use(express.static('public'));
 createTables.forEach(query => db.exec(query));
 
 // Fill tables with seed data ( COMMENT THIS OUT AFTER FIRST RUN )
-seedTables.forEach(query => db.exec(query));
+//seedTables.forEach(query => db.exec(query));
 
 // Endpoint to get NCRForm table
 app.get('/ncrforms', (req, res) => {
@@ -162,3 +162,9 @@ app.listen(port, () => {
 // MAKE SURE TO RUN THIS FILE USING 
 // npm run start
 // IN THE TERMINAL
+
+// Use db.exec when you want to execute SQL statements w/o parameters
+// Use db.prepare when you want to have a select you know you will be executing numerous times or using variable data like
+// const thing = db.prepare("INSERT INTO User (name, email) VALUES (?, ?)");
+// thing.run("Test", "test@test.com");
+// db.close(); for when we are done working with the database and need to shut it off to prevent memory leakage
