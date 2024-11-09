@@ -12,6 +12,16 @@
 <body>
     <!-- Nav Bar -->
     <header>
+       <script type="module" src="../public/scripts/listScript.js"></script>
+       <script>
+           function openForm() {
+           document.getElementById("myForm").style.display = "block";
+           }
+           
+           function closeForm() {
+           document.getElementById("myForm").style.display = "none";
+           }
+        </script>
         <div class="header-content">
            <!-- Size up the logo -->
            <div class="logo">
@@ -62,15 +72,6 @@
         <hr><p><small>CROSSFIRE NCR</small></p>
     </footer>
 
-    <script src="../public/scripts/listScript.js"></script>
-    <script>
-        function openForm() {
-        document.getElementById("myForm").style.display = "block";
-        }
-        
-        function closeForm() {
-        document.getElementById("myForm").style.display = "none";
-        }
-     </script>
+
 </body>
 </html>

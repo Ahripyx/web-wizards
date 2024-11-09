@@ -1,7 +1,18 @@
 // Written by: Hazel Miln
 // Purpose: This script loads json data of NCR reports, and displays the data in a table to the user
+import Database from 'better-sqlite3';
 
 async function getData(){
+
+    const db = new Database('./db/test_data.db')
+
+    const rows = db.prepare("SELECT * FROM NCRform");
+    
+    const label = document.getElementById("lblTest");
+    
+    console.log(rows);
+
+    /*
     // get the json data
     const data = await fetch('../public/data/forms.json');
     const json = await data.json();
@@ -45,7 +56,8 @@ async function getData(){
             // create a button that passes the item id as a parameter
             tablerow.innerHTML += `<td><a href="edit.html?id=${id}">Edit</a></td>`;
         }   
-    }       
+    }   
+*/    
 };
 
 getData();
