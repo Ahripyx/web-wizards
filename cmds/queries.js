@@ -105,7 +105,7 @@ export const seedTables = [
         ('ABB'),
         ('Rexel'),
         ('Ferguson'),
-        ('Graybar') 
+        ('Graybar'), 
         ('Top Electrical Supplies')`,
     `INSERT INTO Product (Name, Number, SupplierID) VALUES
         ('Ball Bearing', '834', '7'),
