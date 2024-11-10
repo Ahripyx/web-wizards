@@ -2,6 +2,20 @@
 // Purpose: This script loads json data of NCR reports, and displays the data in a table to the user
 
 async function getData(){
+    
+        const response = await fetch('http://localhost:5500/records');
+        const data = await response.json();
+
+        const table = document.getElementById("table");
+
+        for (let key in data)
+        {
+            let record = key[key]
+            console.log(record);
+        }
+    
+
+    /*
     // get the json data
     const data = await fetch('../public/data/forms.json');
     const json = await data.json();
@@ -45,7 +59,8 @@ async function getData(){
             // create a button that passes the item id as a parameter
             tablerow.innerHTML += `<td><a href="edit.html?id=${id}">Edit</a></td>`;
         }   
-    }       
+    }  
+    */     
 };
 
 getData();
