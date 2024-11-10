@@ -13,7 +13,6 @@
       <!-- Nav Bar -->
       <header>
          <div class="header-content">
-            <!-- Size up the logo -->
             <div class="logo">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
             </div>
@@ -51,17 +50,17 @@
             <div>
                <!-- Create nav link here with a round image above -->
                 <img src="place image here later" alt="Icon for Create NCR page">
-                <button>Create NCR</button>
+                <button id="btnCreateNCR">Create NCR</button>
             </div>
             <div>
                <!-- View nav link here with a round image above -->
                <img src="place image here later" alt="Icon for Existing NCRs page">
-               <button>View NCR</button>
+               <button id="btnViewNCR">View NCR</button>
             </div>
             <div>
                <!-- View reports link here with round image above -->
                <img src="place image here later" alt="Icon for NCR reports page">
-               <button>View Reports</button>
+               <button id="btnViewRep">View Reports</button>
             </div>
          </div>
          <!-- Template for the recently updated NCR Forms -->
@@ -71,7 +70,7 @@
                <!-- Filter method for NCRs here -->  
                <div>
                   <label for="numFilter">NCR Number:</label>
-                  <input type="text" id="numFIlter" name="numFilter">
+                  <input type="text" id="numFilter" name="numFilter">
                </div>
                <div>
                   <label for="itemFilter">Item:</label>
@@ -79,14 +78,14 @@
                </div>
                <div>
                   <label for="dateFilter">Date:</label>
-                  <input type="text" id="dateFilter" name="dateFilter">
+                  <input type="datetime" placeholder="MM/DD/YYYY" id="dateFilter" name="dateFilter">
                </div>
                <div>
                   <label for="statusFilter">Status:</label>
                   <input type="checkbox" id="statusFilter" name="statusFilter">
                </div>
                <div>
-                  <button type="button">Filter</button>
+                  <button id="btnFilter" type="button">Filter</button>
                </div>
             </div>
             <table id="table">
@@ -106,6 +105,7 @@
          <p><small>CROSSFIRE NCR</small></p>
       </footer>
       <script src="../public/scripts/recentList.js"></script>
+      <script src="../public/scripts/navigate.js"></script>
       <script>
          function openForm() {
          document.getElementById("myForm").style.display = "block";
