@@ -1,3 +1,6 @@
+// Written by: Hazel Miln
+// Edited by: Damion Murcell
+// Purpose: This script loads json data of NCR reports, and displays the data in a table to the user, also including filtering
 
 async function getData() {
     // Get the JSON data
