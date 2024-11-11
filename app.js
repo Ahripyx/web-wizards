@@ -158,7 +158,7 @@ app.post('/update-quality', (req, res) => {
 // Endpoint to get data from the NCRform table, quality table and supplier table for the NCRs page
 app.get('/SummaryInfo', (req, res) => {
     try {
-        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.Name as "SupplierName" FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id').all();
+        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id').all();
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
@@ -168,10 +168,10 @@ app.get('/SummaryInfo', (req, res) => {
 
 // Endpoint to get all NCR data given an id
 app.get('/AllInfo', (req, res) => {
-    //const { id } = req.query;
+    const { id } = req.query;
     try {
-        const rows = db.prepare('SELECT * FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id JOIN Engineer ON NCRForm.id = Engineer.NCRFormID JOIN FormUsers ON NCRForm.id = FormUsers.NCRFormID JOIN User ON FormUsers.UserID = User.id JOIN Role ON User.RoleID = Role.id').all();
-        //const rows = db.prepare('SELECT * FROM NCRForm JOIN Quality ON Quality.NCRFormID = NCRForm.id JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id JOIN Engineer ON NCRForm.id = Engineer.NCRFormID JOIN FormUsers ON NCRForm.id = FormUsers.NCRFormID JOIN User ON FormUsers.UserID = User.id JOIN Role ON User.RoleID = Role.id WHERE NCRForm.id = ?').all(id);
+        //const rows = db.prepare('SELECT * FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id JOIN Engineer ON NCRForm.id = Engineer.NCRFormID').all();
+        const rows = db.prepare('SELECT * FROM NCRForm JOIN Quality ON Quality.NCRFormID = NCRForm.id JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id JOIN Engineer ON NCRForm.id = Engineer.NCRFormID WHERE NCRForm.id = ?').all(id);
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
