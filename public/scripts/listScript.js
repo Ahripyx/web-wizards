@@ -4,11 +4,24 @@
 
 async function getData(){
 
-    const response = await fetch('http://localhost:5500/ncrforms');
+    const response = await fetch('http://localhost:5500/SummaryInfo');
     const data = await response.json();
+    const table = document.getElementById("table");
 
     data.forEach(element => {
-        console.log(element);
+        console.log(element.id);
+        table.innerHTML += `<tr id="${element.id}"></tr>`
+        var tablerow = document.getElementById(element.id);
+        tablerow.innerHTML =
+            `
+            <td>${element.NCRNumber}</td>
+            <td>${element.SupplierName}</td>
+            <td>${element.FormStatus}</td>
+            <td>${element.CreationDate}</td>
+            <td><a href="view.html?id=${element.id}">View</a></td>
+            <td><a href="edit.html?id=${element.id}">Edit</a></td>
+            <td><a>Archive</a></td>
+            `
     });
     
 

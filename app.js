@@ -155,6 +155,17 @@ app.post('/update-quality', (req, res) => {
     }
 });
 
+// Endpoint to get data from the NCRform table, quality table and supplier table for the NCRs page
+app.get('/SummaryInfo', (req, res) => {
+    try {
+        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.Name as "SupplierName" FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id').all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
