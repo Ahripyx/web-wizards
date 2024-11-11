@@ -6,7 +6,11 @@ async function getData(){
 
     const response = await fetch('http://localhost:5500/ncrforms');
     const data = await response.json();
-    console.log(data);
+
+    data.array.forEach(element => {
+        console.log(element);
+    });
+    
 
     /*
     // get the json data
