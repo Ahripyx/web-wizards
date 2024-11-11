@@ -1,7 +1,6 @@
 // Written by: Hazel Miln
 // Purpose: This script loads json data of NCR reports, and displays the data in a table to the user
 
-
 async function getData(){
 
     const response = await fetch('http://localhost:5500/SummaryInfo');
@@ -18,7 +17,7 @@ async function getData(){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.CreationDate}</td>
-            <td class="table-borders"><a href="view.html?id=${element.id}">View</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
             <td class="table-borders"><a href="edit.html?id=${element.id}">Edit</a></td>
             <td class="table-borders"><a>Archive</a></td>
             `
