@@ -14,13 +14,13 @@ async function getData(){
         var tablerow = document.getElementById(element.id);
         tablerow.innerHTML =
             `
-            <td>${element.NCRNumber}</td>
-            <td>${element.SupplierName}</td>
-            <td>${element.FormStatus}</td>
-            <td>${element.CreationDate}</td>
-            <td><a href="view.html?id=${element.id}">View</a></td>
-            <td><a href="edit.html?id=${element.id}">Edit</a></td>
-            <td><a>Archive</a></td>
+            <td class="table-borders">${element.NCRNumber}</td>
+            <td class="table-borders">${element.SupplierName}</td>
+            <td class="table-borders">${element.FormStatus}</td>
+            <td class="table-borders">${element.CreationDate}</td>
+            <td class="table-borders"><a href="view.html?id=${element.id}">View</a></td>
+            <td class="table-borders"><a href="edit.html?id=${element.id}">Edit</a></td>
+            <td class="table-borders"><a>Archive</a></td>
             `
     });
     
