@@ -28,11 +28,11 @@ export const createTables = [
     )`,
     `CREATE TABLE IF NOT EXISTS Supplier (
         id INTEGER PRIMARY KEY,
-        Name STRING NOT NULL
+        SupplierName STRING NOT NULL
     )`,
     `CREATE TABLE IF NOT EXISTS Product (
         id INTEGER PRIMARY KEY,
-        Name STRING NOT NULL,
+        ProductName STRING NOT NULL,
         Number INTEGER NOT NULL,
         SupplierID INTEGER NOT NULL,
         FOREIGN KEY (SupplierID) REFERENCES Supplier(id)
@@ -47,6 +47,7 @@ export const createTables = [
         QuantityDefective INTEGER NOT NULL,
         IsNonConforming BOOLEAN NOT NULL,
         Details STRING NOT NULL,
+        QualityStatus STRING NOT NULL,
         LastModified DATETIME NOT NULL,
         ProductID INTEGER NOT NULL,
         FOREIGN KEY (NCRFormID) REFERENCES NCRForm(id),
@@ -59,6 +60,7 @@ export const createTables = [
         CurrentRevisionNumber INTEGER,
         NewRevisionNumber INTEGER,
         RevisionDate DATETIME,
+        EngineerStatus STRING NOT NULL,
         LastModified DATETIME NOT NULL,
         FOREIGN KEY (NCRFormID) REFERENCES NCRForm(id)
     )`
@@ -83,7 +85,7 @@ export const seedTables = [
         (1, 2), 
         (2, 3), 
         (3, 4)`,
-    `INSERT INTO Supplier (Name) VALUES 
+    `INSERT INTO Supplier (SupplierName) VALUES 
         ('Ace Fasteners'), 
         ('Best Bolts Co.'), 
         ('HomePro Tools'), 
@@ -107,7 +109,7 @@ export const seedTables = [
         ('Ferguson'),
         ('Graybar'), 
         ('Top Electrical Supplies')`,
-    `INSERT INTO Product (Name, Number, SupplierID) VALUES
+    `INSERT INTO Product (ProductName, Number, SupplierID) VALUES
         ('Ball Bearing', '834', '7'),
         ('Steel Pipe', '562', '12'),
         ('Hydraulic Pump', '291', '15'),
@@ -208,12 +210,12 @@ export const seedTables = [
         ('Grease Fitting', '175', '18'),
         ('Metal Clamp', '463', '1'),
         ('Tool Organizer', '104', '6')`,
-    `INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID) VALUES 
-        (1, 'NCR001', 1, 0, 'Hammer - Handle loose', 50, 5, 1, 'Loose hammer handles on 5 units.', '2024-10-02', 1), 
-        (2, 'NCR002', 0, 1, 'Drill - Motor issue', 30, 3, 1, '3 drills with faulty motors.', '2024-10-04', 2), 
-        (3, 'NCR003', 1, 0, 'Paint Can - Lid issues', 100, 7, 1, 'Paint can lids not sealing properly.', '2024-10-06', 3)`,
-    `INSERT INTO Engineer (NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified) VALUES 
-        (1, 'Accepted with Rework', 1, 1, 2, '2024-10-03', '2024-10-02'), 
-        (2, 'Rejected', 0, 1, NULL, NULL, '2024-10-04'), 
-        (3, 'Approved', 1, 2, 3, '2024-10-07', '2024-10-06')`
+    `INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES 
+        (1, 'NCR001', 1, 0, 'Hammer - Handle loose', 50, 5, 1, 'Loose hammer handles on 5 units.', 'Closed', '2024-10-02', 1), 
+        (2, 'NCR002', 0, 1, 'Drill - Motor issue', 30, 3, 1, '3 drills with faulty motors.', 'Closed', '2024-10-04', 2), 
+        (3, 'NCR003', 1, 0, 'Paint Can - Lid issues', 100, 7, 1, 'Paint can lids not sealing properly.', 'Closed', '2024-10-06', 3)`,
+    `INSERT INTO Engineer (NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES 
+        (1, 'Accepted with Rework', 1, 1, 2, '2024-10-03', 'Closed', '2024-10-02'), 
+        (2, 'Rejected', 0, 1, NULL, NULL, 'Open', '2024-10-04'), 
+        (3, 'Approved', 1, 2, 3, '2024-10-07', 'Closed', '2024-10-06')`
 ];
