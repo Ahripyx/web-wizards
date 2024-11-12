@@ -1,18 +1,27 @@
 // Written by: Hazel Miln
 // Purpose: This script loads json data of NCR reports, and displays the data in a table to the user
-
-async function getData(){
     
-        const response = await fetch('http://localhost:5500/records');
-        const data = await response.json();
+async function getData(){
 
-        const table = document.getElementById("table");
+    const response = await fetch('http://localhost:5500/SummaryInfo');
+    const data = await response.json();
+    const table = document.getElementById("table");
 
-        for (let key in data)
-        {
-            let record = key[key]
-            console.log(record);
-        }
+    data.forEach(element => {
+        console.log(element.id);
+        table.innerHTML += `<tr id="${element.id}"></tr>`
+        var tablerow = document.getElementById(element.id);
+        tablerow.innerHTML =
+            `
+            <td class="table-borders">${element.NCRNumber}</td>
+            <td class="table-borders">${element.SupplierName}</td>
+            <td class="table-borders">${element.FormStatus}</td>
+            <td class="table-borders">${element.CreationDate}</td>
+            <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
+            <td class="table-borders"><a href="edit.html?id=${element.id}">Edit</a></td>
+            <td class="table-borders"><a>Archive</a></td>
+            `
+    });
     
 
     /*
