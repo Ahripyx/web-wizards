@@ -45,79 +45,81 @@
             </form>
          </div>
       </header>
-      <!-- Edit Form -->
+            <!-- Edit Form -->
       <div class="form-container">
          <h2>Edit NCR Form</h2>
-         <form action="/edit-ncr" method="POST" id="editForm">
+         <form onsubmit="event.preventDefault(); saveData();">
             <div class="view-container">
                <!-- Fields for Quality Assurance Form -->
-               <div id="normView" class="view">
+               <button type="button" class="collapsible">Quality</button>
+               <div id="QualityView" class="view">
                   <fieldset>
                      <legend>Quality Representative</legend>
-                     <!-- Identify Process Applicable -->
-                     <div class="form-group">
-                        <label>Identify Process Applicable:</label>
-                        <input type="checkbox" id="isWorkInProgress" name="IsWorkInProgress">
-                        <label for="isWorkInProgress">WIP</label>
-                        <input type="checkbox" id="supplierOrInspection" name="SupplierOrReceivingInspection">
-                        <label for="supplierOrInspection">Supplier or Receiving Inspection</label>
-                     </div>
-                     <!-- Item Description (dropdown) -->
-                     <div class="form-group">
-                        <label for="itemDescription">Item:</label>
-                        <select id="itemDescription" name="itemDescription" class="js-example-basic-single" style="width: 300px;" required>
-                           <option value="">Select an item</option>
-                           <optgroup label="Recent Options">
-                              <option value="Bicycle">Bicycle</option>
-                              <option value="Toy Robot">Toy Robot</option>
-                              <option value="Electric Tow Tractor">Electric Tow Tractor</option>
-                           </optgroup>
-                           <optgroup label="All Options">
-                              <option value="Magic Wand">Magic Wand</option>
-                              <option value="Safety Helmet">Safety Helmet</option>
-                              <option value="Giant Bubble Blower">Giant Bubble Blower</option>
-                              <option value="Industrial Vacuum">Industrial Vacuum</option>
-                              <option value="Laser Level">Laser Level</option>
-                              <option value="Glow-in-the-Dark Frisbee">Glow-in-the-Dark Frisbee</option>
-                              <option value="Electric Forklift">Electric Forklift</option>
-                              <option value="Chocolate Fountain">Chocolate Fountain</option>
-                              <option value="Hydraulic Jack">Hydraulic Jack</option>
-                              <option value="Portable Rainbow Maker">Portable Rainbow Maker</option>
-                              <option value="Air Compressor">Air Compressor</option>
-                              <option value="Holographic Projector">Holographic Projector</option>
-                           </optgroup>
-                        </select>
-                     </div>
-                     <!-- Defect Description -->
-                     <div class="form-group">
-                        <label for="defectDescription">Defect Description:</label>
-                        <select id="defectDescription" name="defectDescription" required>
-                           <option value="">Select a defect</option>
-                           <option value="Test">Test</option>
-                        </select>
-                     </div>
-                     <!-- Quantity Fields -->
-                     <div class="form-group">
-                        <label for="quantityReceived">Quantity Received:</label>
-                        <input type="number" id="quantityReceived" name="QuantityReceived" required>
-                     </div>
-                     <div class="form-group">
-                        <label for="quantityDefective">Quantity Defective:</label>
-                        <input type="number" id="quantityDefective" name="QuantityDefective" required>
-                     </div>
-                     <!-- Is Non-Conformance -->
-                     <div class="form-group">
-                        <label for="isNonConformance">Is Non-Conformance:</label>
-                        <input type="checkbox" id="isNonConformance" name="IsNonConformance">
-                     </div>
-                     <!-- Details -->
-                     <div class="form-group">
-                        <label for="details">Details:</label> <br>
-                        <textarea id="details" name="Details" rows="4" required></textarea>
-                     </div>
+                     
+                      <table>
+                        <!-- Item Description -->
+                        <tr>
+                           <td>
+                              <label for="ProductID">Product Name:</label>
+                           </td>
+                           <td>
+                              <select id="ProductID" name="ProductID" style="width: 300px;" required>
+                                 <option value="" disabled selected>Select an item</option>
+                              </select>
+                           </td>
+                        </tr>
+                        <!-- Defect Description -->
+                        <tr>
+                           <td>
+                              <label for="Details">Description of Defect:</label> <br>
+                           </td>
+                           <td>
+                              <textarea id="Details" name="Details" rows="4" required></textarea>
+                           </td>
+                        </tr>
+                        <!-- Quantity Fields -->
+                        <tr>
+                           <td>
+                              <label for="QuantityReceived">Quantity Received:</label>
+                           </td>
+                           <td>
+                              <input type="number" id="QuantityReceived" name="QuantityReceived" min="1" required>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <label for="QuantityDefective">Quantity Defective:</label>
+                           </td>
+                           <td>
+                              <input type="number" id="QuantityDefective" name="QuantityDefective" min="0" required>
+                           </td>
+                        </tr>
+                        <!-- Identify Process Applicable -->
+                        <tr>
+                           <td>
+                              <label>Identify Process Applicable:</label>
+                           </td>
+                           <td>
+                              <input type="checkbox" id="WorkInProgress" name="WorkInProgress" />
+                        <label for="WorkInProgress">WIP</label>
+                        <input type="checkbox" id="SRInspection" name="SRInspection" />
+                        <label for="SRInspection">Supplier or Receiving Inspection</label>
+                           </td>
+                        </tr>
+                        <!-- Is Non-Conformance -->
+                        <tr>
+                           <td>
+                              <label for="IsNonConforming">Is Non-Conformance:</label>
+                           </td>
+                           <td>
+                              <input type="checkbox" id="IsNonConforming" name="IsNonConforming">
+                           </td>
+                        </tr>
+                      </table> 
                   </fieldset>
                </div>
-               <div id="engiView" class="view" style="display: none;">
+               <button type="button" id="btnEngineer" class="collapsible">Engineer</button>
+               <div id="EngineerView" class="view">
                   <fieldset>
                      <legend>Engineering</legend>
                      <!-- Review by CF Engineering -->
@@ -173,6 +175,26 @@
             <button type="submit">Save Changes</button>
          </form>
       </div>
+      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+      <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+
+   var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+});
       <footer class="commit-bottom">
          <hr>
          <p><small>CROSSFIRE NCR</small></p>
