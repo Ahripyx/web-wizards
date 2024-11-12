@@ -9,8 +9,102 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
-      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+      <script>
+         document.addEventListener('DOMContentLoaded', async () => {
+ 
+            // gets the id from URL
+             const id = new URLSearchParams(window.location.search).get('id');
+             if (!id) {
+                 alert('No ID provided in the URL');
+                 return;
+             }
+ 
+             // Fetch quality
+             try {
+                 const response = await fetch(`http://localhost:5500/quality/${id}`);
+                 if (!response.ok) {
+                     throw new Error('Failed to fetch quality data');
+                 }
+                 const data = await response.json();
+ 
+                 document.getElementById('SRInspection').checked = data.SRInspection === 1;
+                 document.getElementById('WorkInProgress').checked = data.WorkInProgress === 1;
+                 document.getElementById('QuantityReceived').value = data.QuantityReceived;
+                 document.getElementById('QuantityDefective').value = data.QuantityDefective;
+                 document.getElementById('IsNonConforming').checked = data.IsNonConforming === 1;
+                 document.getElementById('Details').value = data.Details;
+ 
+                 const productResponse = await fetch('http://localhost:5500/products');
+                 const products = await productResponse.json();
+                 const selectElement = document.getElementById('ProductID');
+                 products.forEach(product => {
+                     const option = document.createElement('option');
+                     option.value = product.id;
+                     option.text = product.ProductName;
+                     if (product.id === data.ProductID) {
+                         option.selected = true;
+                     }
+                     selectElement.appendChild(option);
+                 });
+
+                 if (data.QualityStatus === 'Open') {
+                  document.getElementById('btnEngineer').style.display = 'none';
+                    document.getElementById('EngineerView').style.display = 'none';
+                    document.getElementById('QualityView').style.display = 'block';
+
+                    document.getElementById('dispoTxt').disabled = true;
+                } else {
+                    document.getElementById('EngineerView').style.display = 'block';
+                }
+             } catch (error) {
+                 console.error('Error fetching data:', error);
+                 alert('Failed to fetch data');
+             }
+         });
+ 
+         async function saveData() {
+            const product = document.getElementById("ProductID");
+
+            const dataToUpdate = { 
+                SRInspection: document.getElementById("SRInspection").checked,
+                WorkInProgress: document.getElementById("WorkInProgress").checked,
+                ItemDescription: product.options[product.selectedIndex].text,
+                QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
+                QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
+                IsNonConforming: document.getElementById("IsNonConforming").checked,  
+                Details: document.getElementById("Details").value,
+                ProductID: parseInt(product.value, 10),
+            };
+
+            dataToUpdate.WorkInProgress = dataToUpdate.WorkInProgress ? 1 : 0;
+            dataToUpdate.SRInspection = dataToUpdate.SRInspection ? 1 : 0;
+            dataToUpdate.IsNonConforming = dataToUpdate.IsNonConforming ? 1 : 0;
+
+            // Get the id from the URL
+            const id = new URLSearchParams(window.location.search).get('id');
+
+            try {
+                const response = await fetch(`http://localhost:5500/quality/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(dataToUpdate)
+                });
+
+                if (response.ok) {
+                    alert("Data updated successfully!");
+                    window.location.href = `details.html?id=${id}`;
+                } else {
+                    const errorData = await response.text();
+                    alert(`Failed to update data: ${errorData}`);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An unexpected error occurred.");
+            }
+        }
+     </script>
    </head>
    <body>
       <!-- Nav Bar -->
@@ -32,12 +126,11 @@
       <!-- Edit Form -->
       <div class="form-container">
          <h2>Edit NCR Form</h2>
-         <form action="/edit-ncr" method="POST" id="editForm">
+         <form onsubmit="event.preventDefault(); saveData();">
             <div class="view-container">
                <!-- Fields for Quality Assurance Form -->
                <button type="button" class="collapsible">Quality</button>
                <div id="QualityView" class="view">
-                  
                   <fieldset>
                      <legend>Quality Representative</legend>
                      
@@ -45,60 +138,38 @@
                         <!-- Item Description -->
                         <tr>
                            <td>
-                              <label for="itemDescription">Product Name:</label>
+                              <label for="ProductID">Product Name:</label>
                            </td>
                            <td>
-                              <select id="itemDescription" name="itemDescription" class="js-example-basic-single" style="width: 300px;" required>
+                              <select id="ProductID" name="ProductID" style="width: 300px;" required>
                                  <option value="" disabled selected>Select an item</option>
-                                 <optgroup label="Recent Options">
-                                    <option value="Bicycle">Bicycle</option>
-                                    <option value="Toy Robot">Toy Robot</option>
-                                    <option value="Electric Tow Tractor">Electric Tow Tractor</option>
-                                 </optgroup>
-                                 <optgroup label="All Options">
-                                    <option value="Magic Wand">Magic Wand</option>
-                                    <option value="Safety Helmet">Safety Helmet</option>
-                                    <option value="Giant Bubble Blower">Giant Bubble Blower</option>
-                                    <option value="Industrial Vacuum">Industrial Vacuum</option>
-                                    <option value="Bicycle">Bicycle</option>
-                                    <option value="Laser Level">Laser Level</option>
-                                    <option value="Glow-in-the-Dark Frisbee">Glow-in-the-Dark Frisbee</option>
-                                    <option value="Electric Forklift">Electric Forklift</option>
-                                    <option value="Chocolate Fountain">Chocolate Fountain</option>
-                                    <option value="Toy Robot">Toy Robot</option>
-                                    <option value="Electric Tow Tractor">Electric Tow Tractor</option>
-                                    <option value="Hydraulic Jack">Hydraulic Jack</option>
-                                    <option value="Portable Rainbow Maker">Portable Rainbow Maker</option>
-                                    <option value="Air Compressor">Air Compressor</option>
-                                    <option value="Holographic Projector">Holographic Projector</option>
-                                 </optgroup>
                               </select>
                            </td>
                         </tr>
-                        <!-- Defect Description (dynamic dropdown) -->
+                        <!-- Defect Description -->
                         <tr>
                            <td>
-                              <label for="details">Description of Defect:</label> <br>
+                              <label for="Details">Description of Defect:</label> <br>
                            </td>
                            <td>
-                              <textarea id="details" name="details" rows="4" required></textarea>
+                              <textarea id="Details" name="Details" rows="4" required></textarea>
                            </td>
                         </tr>
                         <!-- Quantity Fields -->
                         <tr>
                            <td>
-                              <label for="quantityReceived">Quantity Received:</label>
+                              <label for="QuantityReceived">Quantity Received:</label>
                            </td>
                            <td>
-                              <input type="number" id="quantityReceived" name="quantityReceived" required>
+                              <input type="number" id="QuantityReceived" name="QuantityReceived" min="1" required>
                            </td>
                         </tr>
                         <tr>
                            <td>
-                              <label for="quantityDefective">Quantity Defective:</label>
+                              <label for="QuantityDefective">Quantity Defective:</label>
                            </td>
                            <td>
-                              <input type="number" id="quantityDefective" name="quantityDefective" required>
+                              <input type="number" id="QuantityDefective" name="QuantityDefective" min="0" required>
                            </td>
                         </tr>
                         <!-- Identify Process Applicable -->
@@ -107,26 +178,25 @@
                               <label>Identify Process Applicable:</label>
                            </td>
                            <td>
-                              <input type="checkbox" id="isWorkInProgress" name="isWorkInProgress">
-                        <label for="isWorkInProgress">WIP</label>
-                        <input type="checkbox" id="supplierOrInspection" name="supplierOrInspection">
-                        <label for="supplierOrInspection">Supplier or Receiving Inspection</label>
+                              <input type="checkbox" id="WorkInProgress" name="WorkInProgress" />
+                        <label for="WorkInProgress">WIP</label>
+                        <input type="checkbox" id="SRInspection" name="SRInspection" />
+                        <label for="SRInspection">Supplier or Receiving Inspection</label>
                            </td>
                         </tr>
                         <!-- Is Non-Conformance -->
                         <tr>
                            <td>
-                              <label for="isNonConformance">Is Non-Conformance:</label>
+                              <label for="IsNonConforming">Is Non-Conformance:</label>
                            </td>
                            <td>
-                              <input type="checkbox" id="isNonConformance" name="isNonConformance">
+                              <input type="checkbox" id="IsNonConforming" name="IsNonConforming">
                            </td>
                         </tr>
                       </table> 
                   </fieldset>
-               
                </div>
-               <button type="button" class="collapsible">Engineer</button>
+               <button type="button" id="btnEngineer" class="collapsible">Engineer</button>
                <div id="EngineerView" class="view">
                   <fieldset>
                      <legend>Engineering</legend>
@@ -183,14 +253,12 @@
             <button type="submit">Save Changes</button>
          </form>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script>
-         $(document).ready(function() {
-             $('.js-example-basic-single').select2({
-                 width: '300px', // Set the width of the dropdown
-                 minimumResultsForSearch: 0 
-             });
-             var coll = document.getElementsByClassName("collapsible");
+
+document.addEventListener('DOMContentLoaded', () => {
+
+   var coll = document.getElementsByClassName("collapsible");
 var i;
 
 for (i = 0; i < coll.length; i++) {
@@ -204,8 +272,9 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
-         });
-         
+});
+
+
          
       </script>
    </body>

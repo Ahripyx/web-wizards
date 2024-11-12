@@ -129,6 +129,22 @@ app.get('/quality', (req, res) => {
     }
 });
 
+// Endpoint to get a Quality table by ID
+app.get('/quality/:id', (req, res) => {
+    const { id } = req.params;
+    try {
+        const row = db.prepare('SELECT * FROM Quality WHERE NCRFormID = ?').get(id);
+        if (row) {
+            res.json(row);
+        } else {
+            res.status(404).send("Quality record not found.");
+        }
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
 // Endpoint to insert data into Quality table
 app.post('/insert-quality', (req, res) => {
     const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID } = req.body;
@@ -139,57 +155,39 @@ app.post('/insert-quality', (req, res) => {
 
         // Create NCRForm
         const ncrFormStmt = db.prepare('INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES (?, ?, ?)');
-        console.log({
-            creationDate,
-            lastModified,
-            formStatus,
-            SRInspection,
-            WorkInProgress,
-            ItemDescription,
-            QuantityReceived,
-            QuantityDefective,
-            IsNonConforming,
-            Details,
-            ProductID
-        });
 
-        ncrFormStmt.run(creationDate, lastModified, formStatus, function (err) {
-            if (err) {
-                console.error("Error creating NCRForm:", err);
-                return res.status(500).send("Failed to create NCRForm.");
-            }
-            const ncrFormID = this.lastID;
-            console.log({ ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID });
-            const currentYear = new Date().getFullYear();
-            db.get("SELECT COUNT(*) AS count FROM Quality WHERE NCRNumber LIKE ?", [`${currentYear}-%`], (err, row) => {
-                if (err) {
-                    console.error("Error fetching NCRNumber count:", err);
-                    return res.status(500).send("Failed to generate NCRNumber.");
-                }
+        const info = ncrFormStmt.run(creationDate, lastModified, formStatus);
+        const ncrFormID = info.lastInsertRowid;
+        console.log({ ncrFormID, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID });
+        const currentYear = new Date().getFullYear();
+        const row = db.prepare("SELECT COUNT(*) AS count FROM Quality WHERE NCRNumber LIKE ?").get(`${currentYear}-%`);
+        const ncrCount = row.count + 1;
+        const ncrNumber = `${currentYear}-${String(ncrCount).padStart(3, '0')}`;
 
-                const ncrCount = row.count + 1;
-                const ncrNumber = `${currentYear}-${String(ncrCount).padStart(3, '0')}`;
+        // Create the Quality data
+        const qualityStmt = db.prepare('INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        qualityStmt.run(ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
 
-                // Create the Quality data
-                const qualityStmt = db.prepare('INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-                qualityStmt.run(ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
-
-                res.status(200).send("NCRForm and Quality record inserted successfully!");
-            });
-        });
+        res.status(200).send("NCRForm and Quality record inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to insert quality record.");
     }
 });
 
-// Endpoint to update data in Quality table
-app.post('/update-quality', (req, res) => {
-    const { id, NCRNum, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID } = req.body;
+// Endpoint to update a specific record in the Quality table by ID
+app.put('/quality/:NCRFormID', (req, res) => {
+    const { NCRFormID } = req.params;
+    const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID } = req.body;
     try {
-        const stmt = db.prepare('UPDATE Quality SET NCRNum = ?, SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, LastModified = ?, ProductID = ? WHERE id = ?');
-        stmt.run(NCRNum, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID, id);
-        res.status(200).send("Quality record updated successfully!");
+        const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
+        const stmt = db.prepare('UPDATE Quality SET SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, ProductID = ?, LastModified = ? WHERE NCRFormID = ?');
+        const result = stmt.run(SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, LastModified, NCRFormID);
+        if (result.changes > 0) {
+            res.status(200).send("Quality record updated successfully!");
+        } else {
+            res.status(404).send("Quality record not found.");
+        }
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to update quality record.");
