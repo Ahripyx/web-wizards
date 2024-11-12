@@ -131,11 +131,52 @@ app.get('/quality', (req, res) => {
 
 // Endpoint to insert data into Quality table
 app.post('/insert-quality', (req, res) => {
-    const { id, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID } = req.body;
+    const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID } = req.body;
     try {
-        const stmt = db.prepare('INSERT INTO Quality (id, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        stmt.run(id, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, LastModified, ProductID);
-        res.status(200).send("Quality record inserted successfully!");
+        const lastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toISOString().split('T')[1].split('.')[0];
+        const creationDate = lastModified;
+        const formStatus = 'Open';
+
+        // Create NCRForm
+        const ncrFormStmt = db.prepare('INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES (?, ?, ?)');
+        console.log({
+            creationDate,
+            lastModified,
+            formStatus,
+            SRInspection,
+            WorkInProgress,
+            ItemDescription,
+            QuantityReceived,
+            QuantityDefective,
+            IsNonConforming,
+            Details,
+            ProductID
+        });
+
+        ncrFormStmt.run(creationDate, lastModified, formStatus, function (err) {
+            if (err) {
+                console.error("Error creating NCRForm:", err);
+                return res.status(500).send("Failed to create NCRForm.");
+            }
+            const ncrFormID = this.lastID;
+            console.log({ ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID });
+            const currentYear = new Date().getFullYear();
+            db.get("SELECT COUNT(*) AS count FROM Quality WHERE NCRNumber LIKE ?", [`${currentYear}-%`], (err, row) => {
+                if (err) {
+                    console.error("Error fetching NCRNumber count:", err);
+                    return res.status(500).send("Failed to generate NCRNumber.");
+                }
+
+                const ncrCount = row.count + 1;
+                const ncrNumber = `${currentYear}-${String(ncrCount).padStart(3, '0')}`;
+
+                // Create the Quality data
+                const qualityStmt = db.prepare('INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                qualityStmt.run(ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
+
+                res.status(200).send("NCRForm and Quality record inserted successfully!");
+            });
+        });
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to insert quality record.");
@@ -152,6 +193,19 @@ app.post('/update-quality', (req, res) => {
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to update quality record.");
+    }
+});
+
+// Endpoint to insert data into Engineer table
+app.post('/insert-engineer', (req, res) => {
+    const { NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified } = req.body;
+    try {
+        const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, "Open", ?)');
+        stmt.run(NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified);
+        res.status(200).send("Engineer record inserted successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to insert engineer record.");
     }
 });
 

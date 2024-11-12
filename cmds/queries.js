@@ -211,9 +211,9 @@ export const seedTables = [
         ('Metal Clamp', '463', '1'),
         ('Tool Organizer', '104', '6')`,
     `INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES 
-        (1, 'NCR001', 1, 0, 'Hammer - Handle loose', 50, 5, 1, 'Loose hammer handles on 5 units.', 'Closed', '2024-10-02', 1), 
-        (2, 'NCR002', 0, 1, 'Drill - Motor issue', 30, 3, 1, '3 drills with faulty motors.', 'Closed', '2024-10-04', 2), 
-        (3, 'NCR003', 1, 0, 'Paint Can - Lid issues', 100, 7, 1, 'Paint can lids not sealing properly.', 'Closed', '2024-10-06', 3)`,
+        (1, '2024-001', 1, 0, 'Hammer - Handle loose', 50, 5, 1, 'Loose hammer handles on 5 units.', 'Closed', '2024-10-02', 1), 
+        (2, '2024-002', 0, 1, 'Drill - Motor issue', 30, 3, 1, '3 drills with faulty motors.', 'Closed', '2024-10-04', 2), 
+        (3, '2024-003', 1, 0, 'Paint Can - Lid issues', 100, 7, 1, 'Paint can lids not sealing properly.', 'Closed', '2024-10-06', 3)`,
     `INSERT INTO Engineer (NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES 
         (1, 'Accepted with Rework', 1, 1, 2, '2024-10-03', 'Closed', '2024-10-02'), 
         (2, 'Rejected', 0, 1, NULL, NULL, 'Open', '2024-10-04'), 
