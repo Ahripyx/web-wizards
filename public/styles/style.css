@@ -2,22 +2,19 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 
-/* ----- Header ----- */
-
-header {
-    background-color: #e3e7f2;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 20px;
-}
-
 /* ----- Footer ----- */
 footer{
     background-color: #e3e7f2;
     text-align: center;
 }
 
-/*----- Table -----*/               /* ALL OF THIS TABLE STUFF CAN BE TURNED INTO CLASSES IF NEED BE */
-table, th, td{
+
+/*====================
+    Header Styles
+====================*/
+
+/*----- borders for table and table elements -----*/        
+.table-borders{
     border: 1px solid black;
     border-collapse: collapse;
 }
@@ -33,81 +30,23 @@ th, td{
     padding: 5px;
 }
 
+
+/*====================
+    Header Styles
+====================*/
+
+header {
+    background-color: #e3e7f2;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
+}
+
 /* Flexbox layout for header */
 .header-content {   
     align-items: center; /* Centers items vertically */
     display: flex;
     justify-content: space-between; /* Spreads the logo and user info to opposite ends */
 }
-
-/* LOGIN FORM */
-.login-form * {
-    box-sizing: border-box;
-}
-
-.login-form .open-button {
-    background-color: #555;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    opacity: 0.8;
-    position: fixed;
-    bottom: 23px;
-    right: 28px;
-    width: 280px;
-}
-
-.login-form .form-popup {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
-}
-
-.login-form .form-container {
-    max-width: 300px;
-    padding: 10px;
-    background-color: white;
-}
-
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-}
-
-.login-form input[type="text"]:focus,
-.login-form input[type="password"]:focus {
-    background-color: #ddd;
-    outline: none;
-}
-
-.login-form .btn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 10px;
-    opacity: 0.8;
-}
-
-.login-form .cancel-login {
-    background-color: red;
-}
-
-.login-form .btn:hover,
-.login-form .open-button:hover {
-    opacity: 1;
-}
-/* --------- */
 
 .commit-bottom {
     bottom: 0;
@@ -130,7 +69,9 @@ th, td{
     text-decoration: underline;
 }
 
-/* ----- Navigation Bar ----- */
+/*====================
+    Navigation Styles
+====================*/
 .header-nav {
     border-top: 1px solid #ddd;
     display: flex;
@@ -156,7 +97,9 @@ th, td{
     cursor: pointer;
 }
 
-/* ----- Form Content ----- */
+/*====================
+Create / Edit Page Styles
+====================*/
 
 .header-form {
     background-color: #fffff0;
@@ -239,17 +182,53 @@ button:hover {
 }
 
 .view-container {
-    display:flex;
     gap: 20px; 
     justify-content: space-between;
     margin-bottom: 20px; 
 }
 
 .form-container {
-    max-width: 1200px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Home Page Content */
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 60%;
+    min-width: 400px;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    margin: 10px auto;
+    
+  }
+
+  .view {
+    padding: 0 18px;
+    display: none;
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+.create {
+    display: block;
+}
+
+  .active, .collapsible:hover {
+    background-color: #ccc;
+  }
+
+/*====================
+    Home Page Styles
+====================*/
+
 .recent-forms, .home-nav {
     max-width: 80%;
     margin: 0 auto;
@@ -265,11 +244,6 @@ button:hover {
     padding: 20px; /* Add padding for better spacing */
  }
 
-.recent-forms h2 {
-    margin-top: 8px;
-    margin-bottom: 0%;
-}
-
 .home-nav {
     display: grid;
     grid-template-columns: repeat(3, 1fr);  
@@ -282,20 +256,12 @@ button:hover {
     align-items: center; /* Center content within each item */
 }
 
-.home-nav img {
-    height: auto;
-    width: 150px;
-    padding: 20px;
-}
-
-.home-nav button {
-    width: 200px;
-}
-
 /* CHATGPT */
 .filters {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 20px;
 }
+
+
+
