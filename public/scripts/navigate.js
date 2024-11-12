@@ -6,7 +6,7 @@
 
 // Navigation For Home Page Buttons
 document.getElementById("btnCreateNCR").addEventListener('click', function(){
-    window.location.href = 'form.html'
+    window.location.href = 'create.html'
 })
 document.getElementById("btnViewNCR").addEventListener('click', function(){
     window.location.href = 'list.html';

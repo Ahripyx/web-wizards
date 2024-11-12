@@ -268,6 +268,18 @@ app.get('/AllInfo', (req, res) => {
     }
 });
 
+// Endpoint to get NCR data sorted by a field ASCENDING
+app.get('SortAsc'), (req, res) => {
+    const {sortfield} = req.query;
+    try {
+        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE ').all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+}
+
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
