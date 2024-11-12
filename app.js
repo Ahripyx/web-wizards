@@ -209,13 +209,14 @@ app.get('/engineer/:id', (req, res) => {
         res.status(500).send("Failed to fetch data.");
     }
 });
-
-// Endpoint to insert data into Engineer table
-app.post('/insert-engineer', (req, res) => {
-    const { NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified } = req.body;
+// Endpoint to insert data into Engineer table with NCRFormID as a parameter
+app.post('/engineer/:NCRFormID', (req, res) => {
+    const { NCRFormID } = req.params;
+    const { Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate } = req.body;
     try {
-        const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, "Open", ?)');
-        stmt.run(NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified);
+        const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
+        const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "Open", ?)');
+        stmt.run(NCRFormID, Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified);
         res.status(200).send("Engineer record inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
@@ -223,6 +224,24 @@ app.post('/insert-engineer', (req, res) => {
     }
 });
 
+// Endpoint to update a specific record in the Engineer table by ID
+app.put('/engineer/:NCRFormID', (req, res) => {
+    const { NCRFormID } = req.params;
+    const { Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate } = req.body;
+    try {
+        const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
+        const stmt = db.prepare('UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, DrawingUpdateRequired = ?, CurrentRevisionNumber = ?, NewRevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?');
+        const result = stmt.run(Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified, NCRFormID);
+        if (result.changes > 0) {
+            res.status(200).send("Engineer record updated successfully!");
+        } else {
+            res.status(404).send("Engineer record not found.");
+        }
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to update engineer record.");
+    }
+});
 
 
 // Endpoint to get data from the NCRform table, quality table and supplier table for the NCRs page
