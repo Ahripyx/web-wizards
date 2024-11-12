@@ -265,6 +265,11 @@ button:hover {
     padding: 20px; /* Add padding for better spacing */
  }
 
+.recent-forms h2 {
+    margin-top: 8px;
+    margin-bottom: 0%;
+}
+
 .home-nav {
     display: grid;
     grid-template-columns: repeat(3, 1fr);  
@@ -277,9 +282,20 @@ button:hover {
     align-items: center; /* Center content within each item */
 }
 
+.home-nav img {
+    height: auto;
+    width: 150px;
+    padding: 20px;
+}
+
+.home-nav button {
+    width: 200px;
+}
+
 /* CHATGPT */
 .filters {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    padding: 20px;
 }

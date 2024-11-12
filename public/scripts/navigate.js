@@ -11,7 +11,6 @@ document.getElementById("btnCreateNCR").addEventListener('click', function(){
 document.getElementById("btnViewNCR").addEventListener('click', function(){
     window.location.href = 'list.html';
 });
-document.getElementById("btnViewReports").addEventListener('click', function(){
-    console.log("Remove the // when reports exist")
-    //window.location.href = "reports.html"
+document.getElementById("btnViewRep").addEventListener('click', function(){
+    window.location.href = "reports.html"
 })
