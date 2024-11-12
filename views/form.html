@@ -48,127 +48,163 @@
       <!-- Create Form -->
       <div class="form-container">
          <h2>Create NCR Form</h2>
-         <form action="/submit-ncr" method="POST">
+         <form >
             <div class="view-container">
                <!-- Fields for Quality Assurance Form -->
-               <div id="normView" class="view">
+               <div id="normView" class="view create">
                   <fieldset>
                      <legend>Quality Representative</legend>
-                     <!-- Identify Process Applicable -->
-                     <div class="form-group">
-                        <label>Identify Process Applicable:</label>
-                        <input type="checkbox" id="isWorkInProgress" name="isWorkInProgress">
-                        <label for="isWorkInProgress">WIP</label>
-                        <input type="checkbox" id="supplierOrInspection" name="supplierOrInspection">
-                        <label for="supplierOrInspection">Supplier or Receiving Inspection</label>
-                     </div>
-                     <!-- Item Description -->
-                     <div class="form-group">
-                        <label for="itemDescription">Item:</label>
-                        <select id="itemDescription" name="itemDescription" class="js-example-basic-single" style="width: 300px;" required>
-                           <option value="" disabled selected>Select an item</option>
-                           <optgroup label="Recent Options">
-                              <option value="Bicycle">Bicycle</option>
-                              <option value="Toy Robot">Toy Robot</option>
-                              <option value="Electric Tow Tractor">Electric Tow Tractor</option>
-                           </optgroup>
-                           <optgroup label="All Options">
-                              <option value="Magic Wand">Magic Wand</option>
-                              <option value="Safety Helmet">Safety Helmet</option>
-                              <option value="Giant Bubble Blower">Giant Bubble Blower</option>
-                              <option value="Industrial Vacuum">Industrial Vacuum</option>
-                              <option value="Bicycle">Bicycle</option>
-                              <option value="Laser Level">Laser Level</option>
-                              <option value="Glow-in-the-Dark Frisbee">Glow-in-the-Dark Frisbee</option>
-                              <option value="Electric Forklift">Electric Forklift</option>
-                              <option value="Chocolate Fountain">Chocolate Fountain</option>
-                              <option value="Toy Robot">Toy Robot</option>
-                              <option value="Electric Tow Tractor">Electric Tow Tractor</option>
-                              <option value="Hydraulic Jack">Hydraulic Jack</option>
-                              <option value="Portable Rainbow Maker">Portable Rainbow Maker</option>
-                              <option value="Air Compressor">Air Compressor</option>
-                              <option value="Holographic Projector">Holographic Projector</option>
-                           </optgroup>
-                        </select>
-                     </div>
-                     <!-- Defect Description (dynamic dropdown) -->
-                     <div class="form-group">
-                        <label for="defectDescription">Defect Description:</label>
-                        <select id="defectDescription" name="defectDescription" required>
-                           <option value="">Select a defect</option>
-                           <option value="Test">Test</option>
-                        </select>
-                     </div>
-                     <!-- Quantity Fields -->
-                     <div class="form-group">
-                        <label for="quantityReceived">Quantity Received:</label>
-                        <input type="number" id="quantityReceived" name="quantityReceived" required>
-                     </div>
-                     <div class="form-group">
-                        <label for="quantityDefective">Quantity Defective:</label>
-                        <input type="number" id="quantityDefective" name="quantityDefective" required>
-                     </div>
-                     <!-- Is Non-Conformance -->
-                     <div class="form-group">
-                        <label for="isNonConformance">Is Non-Conformance:</label>
-                        <input type="checkbox" id="isNonConformance" name="isNonConformance">
-                     </div>
-                     <!-- Details -->
-                     <div class="form-group">
-                        <label for="details">Details:</label> <br>
-                        <textarea id="details" name="details" rows="4" required></textarea>
-                     </div>
+                     
+                      <table>
+                        <!-- Item Description -->
+                        <tr>
+                           <td>
+                              <label for="ProductID">Product Name:</label>
+                           </td>
+                           <td>
+                              <select id="ProductID" name="ProductID" style="width: 300px;" required>
+                                 <option value="" disabled selected>Select an item</option>
+                              </select>
+                           </td>
+                        </tr>
+                        <!-- Defect Description -->
+                        <tr>
+                           <td>
+                              <label for="Details">Description of Defect:</label> <br>
+                           </td>
+                           <td>
+                              <textarea id="Details" name="Details" rows="4" required></textarea>
+                           </td>
+                        </tr>
+                        <!-- Quantity Fields -->
+                        <tr>
+                           <td>
+                              <label for="QuantityReceived">Quantity Received:</label>
+                           </td>
+                           <td>
+                              <input type="number" id="QuantityReceived" name="QuantityReceived" min="1" required>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <label for="QuantityDefective">Quantity Defective:</label>
+                           </td>
+                           <td>
+                              <input type="number" id="QuantityDefective" name="QuantityDefective" min="0" required>
+                           </td>
+                        </tr>
+                        <!-- Identify Process Applicable -->
+                        <tr>
+                           <td>
+                              <label>Identify Process Applicable:</label>
+                           </td>
+                           <td>
+                              <input type="checkbox" id="WorkInProgress" name="WorkInProgress" />
+                        <label for="WorkInProgress">WIP</label>
+                        <input type="checkbox" id="SRInspection" name="SRInspection" />
+                        <label for="SRInspection">Supplier or Receiving Inspection</label>
+                           </td>
+                        </tr>
+                        <!-- Is Non-Conformance -->
+                        <tr>
+                           <td>
+                              <label for="IsNonConforming">Is Non-Conformance:</label>
+                           </td>
+                           <td>
+                              <input type="checkbox" id="IsNonConforming" name="IsNonConforming">
+                           </td>
+                        </tr>
+                      </table> 
                   </fieldset>
                </div>
-               <div id="engiView" class="view" style="display: none;">
-                  <fieldset>
-                     <legend>Engineering</legend>
+              <div id="engiView" class="view" style="display: none;">
+                 <fieldset>
+                   <legend>Engineering</legend>
+                   <table>
                      <!-- Review by CF Engineering -->
-                     <div class="form-group">
-                        <label>Review by CF Engineering:</label>
-                        <input type="checkbox" id="useAsIs" name="useAsIs">
-                        <label for="useAsIs">Use As Is</label>
-                        <input type="checkbox" id="repair" name="repair">
-                        <label for="repair">Repair</label>
-                        <input type="checkbox" id="rework" name="rework">
-                        <label for="rework">Rework</label>
-                        <input type="checkbox" id="scrap" name="scrap">
-                        <label for="scrap">Scrap</label>
-                     </div>
+                     <tr>
+                        <td>
+                          <label>Review by CF Engineering:</label>
+                        </td>
+                        <td>
+                          <input type="checkbox" id="useAsIs" name="useAsIs">
+                          <label for="useAsIs">Use As Is</label>
+                          <input type="checkbox" id="repair" name="repair">
+                          <label for="repair">Repair</label>
+                          <input type="checkbox" id="rework" name="rework">
+                          <label for="rework">Rework</label>
+                          <input type="checkbox" id="scrap" name="scrap">
+                          <label for="scrap">Scrap</label>
+                        </td>
+                     </tr>
                      <!-- Customer Notification -->
-                     <div class="form-group">
-                        <label>Does Customer require notification of NCR:</label>
-                        <input type="radio" id="notifyTrue" name="notifyNCR" value="true">
-                        <label for="notifyTrue">Yes</label>
-                        <input type="radio" id="notifyFalse" name="notifyNCR" value="false">
-                        <label for="notifyFalse">No</label>
-                     </div>
+                     <tr>
+                        <td>
+                          <label>Does Customer require notification of NCR:</label>
+                        </td>
+                        <td>
+                          <input type="radio" id="notifyTrue" name="notifyNCR" value="true">
+                          <label for="notifyTrue">Yes</label>
+                          <input type="radio" id="notifyFalse" name="notifyNCR" value="false">
+                          <label for="notifyFalse">No</label>
+                        </td>
+                     </tr>
                      <!-- Disposition -->
-                     <div class="form-group">
-                        <label for="dispoTxt">Disposition:</label> <br>
-                        <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
-                     </div>
+                     <tr>
+                        <td>
+                          <label for="dispoTxt">Disposition:</label>
+                        </td>
+                        <td>
+                          <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
+                        </td>
+                     </tr>
                      <!-- Drawing Requires Updating -->
-                     <div class="form-group">
-                        <label>Does the drawing require updating:</label>
-                        <input type="radio" id="updTrue" name="drawUpdate" value="true">
-                        <label for="updTrue">Yes</label>
-                        <input type="radio" id="updFalse" name="drawUpdate" value="false">
-                        <label for="updFalse">No</label>
-                     </div>
-                     <div class="form-group">
-                        <span>Original Rev. Number:</span>
-                        <label id="oriRevNum"></label>
-                        <label for="updRevNum">Updated Rev. Number:</label>
-                        <input type="text" id="updRevNum" name="updRevNum">
-                     </div>
-                     <div class="form-group">
-                        <span>Name of Engineer:</span>
-                        <label id="engiName"></label>
-                        <label for="revDate">Revision Date:</label>
-                        <input type="date" id="revDate" name="revDate">
-                     </div>
-                  </fieldset>
+                     <tr>
+                        <td>
+                          <label>Does the drawing require updating:</label>
+                        </td>
+                        <td>
+                          <input type="radio" id="updTrue" name="drawUpdate" value="true">
+                          <label for="updTrue">Yes</label>
+                          <input type="radio" id="updFalse" name="drawUpdate" value="false">
+                          <label for="updFalse">No</label>
+                        </td>
+                     </tr>
+                     <!-- Revision Information -->
+                     <tr>
+                        <td>
+                          <span>Original Rev. Number:</span>
+                        </td>
+                        <td>
+                          <label id="oriRevNum"></label>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                          <label for="updRevNum">Updated Rev. Number:</label>
+                        </td>
+                        <td>
+                          <input type="text" id="updRevNum" name="updRevNum">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                          <span>Name of Engineer:</span>
+                        </td>
+                        <td>
+                          <label id="engiName"></label>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                          <label for="revDate">Revision Date:</label>
+                        </td>
+                        <td>
+                          <input type="date" id="revDate" name="revDate">
+                        </td>
+                     </tr>
+                   </table>
+                 </fieldset>
                </div>
             </div>
             <!-- Submit Button -->
@@ -176,47 +212,81 @@
             <button type="submit">Create NCR</button>
          </form>
       </div>
-      <footer class="commit-bottom">
-         <hr>
-         <p><small>CROSSFIRE NCR</small></p>
-      </footer>
-      <script src="../public/scripts/createNCR.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+      <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
+     <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script> -->
       <script>
-         $(document).ready(function() {
-             $('.js-example-basic-single').select2({
-                 width: '300px', // Set the width of the dropdown
-                 minimumResultsForSearch: 0 
-             });
+         // Fetch product data
+          async function fetchData() {
+            try
+            {
+    
+    const response = await fetch('http://localhost:5500/products');
+                const data = await response.json();
+                const selectElement = document.getElementById('ProductID');
 
-                  // Handle form submission
-        $('form').on('submit', function(event) {
-            event.preventDefault();
-
-            const formData = {};
-
-            // Collect form values
-            $(this).find('input, select, textarea').each(function() {
-                const name = $(this).attr('name');
-                const value = $(this).is(':checkbox') ? $(this).is(':checked') : $(this).val();
-                
-                if (name) {
-                    formData[name] = value;
-                }
+            data.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.text = product.ProductName;
+                selectElement.appendChild(option);
             });
 
-            const jsonData = JSON.stringify(formData, null, 2); 
-            console.log(jsonData);
+          /*  $('.js-example-basic-single').select2({
+                width: '300px',
+                minimumResultsForSearch: 0
+            });*/
+         } catch (err) {
+        console.error('Error fetching products:', err);
+    }
+};
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+   fetchData();
+
+   const form = document.querySelector("form");
+
+form.addEventListener("submit", async (event) => {
+event.preventDefault(); // this stops it from refreshing i think
+const product = document.getElementById("ProductID");
+
+console.log(product.options[product.selectedIndex].text);
+console.log(product.options[product.selectedIndex].value);
+    const dataToInsert = { 
+        SRInspection: document.getElementById("SRInspection").checked,
+        WorkInProgress: document.getElementById("WorkInProgress").checked,
+        ItemDescription: product.options[product.selectedIndex].text,
+        QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
+        QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
+        IsNonConforming: document.getElementById("IsNonConforming").checked,  
+        Details: document.getElementById("Details").value,
+        ProductID: parseInt(product.value, 10),
+    };
+
+    dataToInsert.WorkInProgress = dataToInsert.WorkInProgress ? 1 : 0;
+    dataToInsert.SRInspection = dataToInsert.SRInspection ? 1 : 0;
+    dataToInsert.IsNonConforming = dataToInsert.SRInspection ? 1 : 0;
+
+    try {
+        const response = await fetch("http://localhost:5500/insert-quality", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dataToInsert)
         });
-         });
-         function openForm() {
-         document.getElementById("myForm").style.display = "block";
-         }
-         
-         function closeForm() {
-         document.getElementById("myForm").style.display = "none";
-         }
+
+        if (response.ok) {
+            alert("Data inserted successfully!");
+        } else {
+            const errorData = await response.text();
+            alert(`Failed to save data: ${errorData}`);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An unexpected error occurred.");
+    }
+});
+});
       </script>
       
       <!--
