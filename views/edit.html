@@ -115,7 +115,7 @@
          });
 
          if (response.ok) {
-            //alert("Quality data updated successfully!");
+            alert("Quality data updated successfully!");
             window.location.href = `details.html?id=${id}`;
          } else {
             const errorData = await response.text();
@@ -144,7 +144,7 @@
             });
 
             if (response.ok) {
-               //alert("Engineer form created successfully!");
+               alert("Engineer form created successfully!");
                window.location.href = `details.html?id=${id}`;
             } else {
                const errorData = await response.text();
@@ -163,7 +163,7 @@
             });
 
             if (response.ok) {
-               //alert("Engineer form updated successfully!");
+               alert("Engineer form updated successfully!");
                window.location.href = `details.html?id=${id}`;
             } else {
                const errorData = await response.text();
