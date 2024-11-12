@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCR Forms</title>
+    <title>NCRs</title>
     <link href="../public/styles/style.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,6 +12,16 @@
 <body>
     <!-- Nav Bar -->
     <header>
+       <script type="module" src="../public/scripts/listScript.js"></script>
+       <script>
+           function openForm() {
+           document.getElementById("myForm").style.display = "block";
+           }
+           
+           function closeForm() {
+           document.getElementById("myForm").style.display = "none";
+           }
+        </script>
         <div class="header-content">
            <!-- Size up the logo -->
            <div class="logo">
@@ -20,30 +30,20 @@
            <div>
               <nav class="header-nav">
                  <a href="index.html" class="nav-item" tabindex="2">Home</a>
-                 <a href="form.html" class="nav-item" tabindex="3">Form</a>
-                 <a href="list.html" class="nav-item" tabindex="4">Existing Forms</a>
-                 <a href="edit.html?id=2" class="nav-item" tabindex="5">Edit Test</a>
+                 <a href="create.html" class="nav-item" tabindex="3">Create</a>
+                 <a href="list.html" class="nav-item" tabindex="4">NCRs</a>
               </nav>
            </div>
-           <!--<div class="user-info"> -->
-               <!-- A button to open the popup form -->
-               <!--<button class="open-button" onclick="openForm()">Sign in here</button>-->
-               <!--<p>Hello, User</p>-->
-            <!--</div>-->
         </div>
      </header>
     <main>
-        <h1>Existing NCR Forms</h1>
-        <table id="table">
+        <h1>NCRs</h1>
+        <table id="table" class="table-borders">
             <tr>
-                <th>NCR Number</th>
-                <th>Item Name</th>                
-                <th>Quantity Recieved</th>
-                <th>Quantity Defective</th>
-                <th>Defect Description</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>User</th>
+                <th class="table-borders">NCR</th>
+                <th class="table-borders">Supplier</th>                
+                <th class="table-borders">Status</th>
+                <th class="table-borders">Date</th>
             </tr>
         </table>
     </main>
@@ -51,15 +51,6 @@
         <hr><p><small>CROSSFIRE NCR</small></p>
     </footer>
 
-    <script src="../public/scripts/listScript.js"></script>
-    <script>
-        function openForm() {
-        document.getElementById("myForm").style.display = "block";
-        }
-        
-        function closeForm() {
-        document.getElementById("myForm").style.display = "none";
-        }
-     </script>
+
 </body>
 </html>
