@@ -216,7 +216,7 @@ export const seedTables = [
         (1, '2024-001', 1, 0, 'Hammer - Handle loose', 50, 5, 1, 'Loose hammer handles on 5 units.', 'Closed', '2024-10-02', 1), 
         (2, '2024-002', 0, 1, 'Drill - Motor issue', 30, 3, 1, '3 drills with faulty motors.', 'Closed', '2024-10-04', 2), 
         (3, '2024-003', 1, 0, 'Paint Can - Lid issues', 100, 7, 1, 'Paint can lids not sealing properly.', 'Closed', '2024-10-06', 3)`,
-    `INSERT INTO Engineer (NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES 
+    `INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES 
         (1, 'Rework', 0, 'Accepted with Rework', 1, 1, 2, '2024-10-03', 'Closed', '2024-10-02'), 
         (2, 'Scrap', 1, 'Rejected', 0, 1, NULL, NULL, 'Open', '2024-10-04'), 
         (3, 'Repair', 0, 'Approved', 1, 2, 3, '2024-10-07', 'Closed', '2024-10-06')`

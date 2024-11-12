@@ -194,6 +194,22 @@ app.put('/quality/:NCRFormID', (req, res) => {
     }
 });
 
+// Endpoint to get an Engineer table by ID
+app.get('/engineer/:id', (req, res) => {
+    const { id } = req.params;
+    try {
+        const row = db.prepare('SELECT * FROM Engineer WHERE NCRFormID = ?').get(id);
+        if (row) {
+            res.json(row);
+        } else {
+            res.status(404).send("Engineer record not found.");
+        }
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
 // Endpoint to insert data into Engineer table
 app.post('/insert-engineer', (req, res) => {
     const { NCRFormID, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified } = req.body;
@@ -206,6 +222,8 @@ app.post('/insert-engineer', (req, res) => {
         res.status(500).send("Failed to insert engineer record.");
     }
 });
+
+
 
 // Endpoint to get data from the NCRform table, quality table and supplier table for the NCRs page
 app.get('/SummaryInfo', (req, res) => {

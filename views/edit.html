@@ -23,40 +23,60 @@
  
              // Fetch quality
              try {
-                 const response = await fetch(`http://localhost:5500/quality/${id}`);
-                 if (!response.ok) {
+                 const QualityResponse = await fetch(`http://localhost:5500/quality/${id}`);
+                 if (!QualityResponse.ok) {
                      throw new Error('Failed to fetch quality data');
                  }
-                 const data = await response.json();
+                 const QualityData = await QualityResponse.json();
  
-                 document.getElementById('SRInspection').checked = data.SRInspection === 1;
-                 document.getElementById('WorkInProgress').checked = data.WorkInProgress === 1;
-                 document.getElementById('QuantityReceived').value = data.QuantityReceived;
-                 document.getElementById('QuantityDefective').value = data.QuantityDefective;
-                 document.getElementById('IsNonConforming').checked = data.IsNonConforming === 1;
-                 document.getElementById('Details').value = data.Details;
+                 document.getElementById('SRInspection').checked = QualityData.SRInspection === 1;
+                 document.getElementById('WorkInProgress').checked = QualityData.WorkInProgress === 1;
+                 document.getElementById('QuantityReceived').value = QualityData.QuantityReceived;
+                 document.getElementById('QuantityDefective').value = QualityData.QuantityDefective;
+                 document.getElementById('IsNonConforming').checked = QualityData.IsNonConforming === 1;
+                 document.getElementById('Details').value = QualityData.Details;
  
-                 const productResponse = await fetch('http://localhost:5500/products');
-                 const products = await productResponse.json();
+                 const ProductResponse = await fetch('http://localhost:5500/products');
+                 const Products = await ProductResponse.json();
                  const selectElement = document.getElementById('ProductID');
-                 products.forEach(product => {
+                 Products.forEach(product => {
                      const option = document.createElement('option');
                      option.value = product.id;
                      option.text = product.ProductName;
-                     if (product.id === data.ProductID) {
+                     if (product.id === QualityData.ProductID) {
                          option.selected = true;
                      }
                      selectElement.appendChild(option);
                  });
 
-                 if (data.QualityStatus === 'Open') {
+                 if (QualityData.QualityStatus === 'Open') {
                   document.getElementById('btnEngineer').style.display = 'none';
                     document.getElementById('EngineerView').style.display = 'none';
                     document.getElementById('QualityView').style.display = 'block';
 
                     document.getElementById('dispoTxt').disabled = true;
+                  
                 } else {
-                    document.getElementById('EngineerView').style.display = 'block';
+                  document.querySelectorAll('#QualityView input, #QualityView select, #QualityView textarea').forEach(element => {
+                     element.disabled = true;
+                  });
+
+                  const EngineerResponse = await fetch(`http://localhost:5500/engineer/${id}`);
+                 if (!EngineerResponse.ok) {
+                     throw new Error('Failed to fetch engineer data');
+                 }
+                 const EngineerData = await EngineerResponse.json();
+                 console.log(EngineerData.NotifyCustomer);
+                 //document.getElementById('SRInspection').checked = QualityData.SRInspection === 1;
+                  document.querySelector(`input[name="Review"][value="${EngineerData.Review}"]`).checked = true;
+                  document.getElementById('NotifyTrue').checked = EngineerData.NotifyCustomer === 1;
+                  document.getElementById('NotifyFalse').checked = EngineerData.NotifyCustomer === 0;
+                  document.getElementById('Disposition').value = EngineerData.Disposition;
+                  document.getElementById('UpdateTrue').checked = EngineerData.DrawingUpdateRequired === 1;
+                  document.getElementById('UpdateFalse').checked = EngineerData.DrawingUpdateRequired === 0;
+                  document.getElementById('CurrentRevisionNumber').textContent = EngineerData.CurrentRevisionNumber;
+                  document.getElementById('NewRevisionNumber').value = EngineerData.NewRevisionNumber;
+                  document.getElementById('RevisionDate').value = EngineerData.RevisionDate;
                 }
              } catch (error) {
                  console.error('Error fetching data:', error);
@@ -200,51 +220,82 @@
                <div id="EngineerView" class="view">
                   <fieldset>
                      <legend>Engineering</legend>
-                     <!-- Review by CF Engineering -->
-                     <div class="form-group">
-                        <label>Review by CF Engineering:</label>
-                        <input type="checkbox" id="useAsIs" name="useAsIs">
-                        <label for="useAsIs">Use As Is</label>
-                        <input type="checkbox" id="repair" name="repair">
-                        <label for="repair">Repair</label>
-                        <input type="checkbox" id="rework" name="rework">
-                        <label for="rework">Rework</label>
-                        <input type="checkbox" id="scrap" name="scrap">
-                        <label for="scrap">Scrap</label>
-                     </div>
-                     <!-- Customer Notification -->
-                     <div class="form-group">
-                        <label>Does Customer require notification of NCR:</label>
-                        <input type="radio" id="notifyTrue" name="notifyNCR" value="true">
-                        <label for="notifyTrue">Yes</label>
-                        <input type="radio" id="notifyFalse" name="notifyNCR" value="false">
-                        <label for="notifyFalse">No</label>
-                     </div>
-                     <!-- Disposition -->
-                     <div class="form-group">
-                        <label for="dispoTxt">Disposition:</label> <br>
-                        <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
-                     </div>
-                     <!-- Drawing Requires Updating -->
-                     <div class="form-group">
-                        <label>Does the drawing require updating:</label>
-                        <input type="radio" id="updTrue" name="updDrawing" value="true">
-                        <label for="updTrue">Yes</label>
-                        <input type="radio" id="updFalse" name="updDrawing" value="false">
-                        <label for="updFalse">No</label>
-                     </div>
-                     <div class="form-group">
-                        <span>Original Rev. Number:</span>
-                        <label id="oriRevNum"></label>
-                        <label for="updRevNum">Updated Rev. Number:</label>
-                        <input type="text" id="updRevNum" name="updRevNum">
-                     </div>
-                     <div class="form-group">
-                        <span>Name of Engineer:</span>
-                        <label id="engiName"></label>
-                        <label for="revDate">Revision Date:</label>
-                        <input type="date" id="revDate" name="revDate">
-                     </div>
+                     <table>
+                        <!-- Review by CF Engineering -->
+                        <tr>
+                           <td>
+                             <label>Review by CF Engineering:</label>
+                           </td>
+                           <td>
+                            <input type="radio" id="useAsIs" name="Review" value="Use As Is">
+                            <label for="useAsIs">Use As Is</label>
+                            <input type="radio" id="repair" name="Review" value="Repair">
+                            <label for="repair">Repair</label>
+                            <input type="radio" id="rework" name="Review" value="Rework">
+                            <label for="rework">Rework</label>
+                            <input type="radio" id="scrap" name="Review" value="Scrap">
+                            <label for="scrap">Scrap</label>
+                           </td>
+                        </tr>
+                        <!-- Customer Notification -->
+                        <tr>
+                           <td>
+                             <label>Does Customer require notification of NCR:</label>
+                           </td>
+                           <td>
+                             <input type="radio" id="NotifyTrue" name="NotifyCustomer">
+                             <label for="NotifyTrue">Yes</label>
+                             <input type="radio" id="NotifyFalse" name="NotifyCustomer">
+                             <label for="NotifyFalse">No</label>
+                           </td>
+                        </tr>
+                        <!-- Disposition -->
+                        <tr>
+                           <td>
+                             <label for="Disposition">Disposition:</label>
+                           </td>
+                           <td>
+                             <textarea id="Disposition" name="Disposition" rows="4" ></textarea>
+                           </td>
+                        </tr>
+                        <!-- Drawing Requires Updating -->
+                        <tr>
+                           <td>
+                             <label>Does the drawing require updating:</label>
+                           </td>
+                           <td>
+                             <input type="radio" id="UpdateTrue" name="DrawingUpdateRequired" value="1">
+                             <label for="UpdateTrue">Yes</label>
+                             <input type="radio" id="UpdateFalse" name="DrawingUpdateRequired" value="0">
+                             <label for="UpdateFalse">No</label>
+                           </td>
+                        </tr>
+                        <!-- Revision Information -->
+                        <tr>
+                           <td>
+                             <span>Original Rev. Number:</span>
+                           </td>
+                           <td>
+                             <label id="CurrentRevisionNumber"></label>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <label for="NewRevisionNumber">Updated Rev. Number:</label>
+                           </td>
+                           <td>
+                             <input type="text" id="NewRevisionNumber">
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+                             <label for="RevisionDate">Revision Date:</label>
+                           </td>
+                           <td>
+                             <input type="date" id="RevisionDate">
+                           </td>
+                        </tr>
+                      </table>
                   </fieldset>
                </div>
             </div>
