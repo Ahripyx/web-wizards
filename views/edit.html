@@ -9,174 +9,7 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
-      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-      <script>
-         document.addEventListener('DOMContentLoaded', async () => {
- 
-            // gets the id from URL
-             const id = new URLSearchParams(window.location.search).get('id');
-             if (!id) {
-                 alert('No ID provided in the URL');
-                 return;
-             }
- 
-             // Fetch quality
-             try {
-                 const QualityResponse = await fetch(`http://localhost:5500/quality/${id}`);
-                 if (!QualityResponse.ok) {
-                     throw new Error('Failed to fetch quality data');
-                 }
-                 const QualityData = await QualityResponse.json();
- 
-                 document.getElementById('SRInspection').checked = QualityData.SRInspection === 1;
-                 document.getElementById('WorkInProgress').checked = QualityData.WorkInProgress === 1;
-                 document.getElementById('QuantityReceived').value = QualityData.QuantityReceived;
-                 document.getElementById('QuantityDefective').value = QualityData.QuantityDefective;
-                 document.getElementById('IsNonConforming').checked = QualityData.IsNonConforming === 1;
-                 document.getElementById('Details').value = QualityData.Details;
- 
-                 const ProductResponse = await fetch('http://localhost:5500/products');
-                 const Products = await ProductResponse.json();
-                 const selectElement = document.getElementById('ProductID');
-                 Products.forEach(product => {
-                     const option = document.createElement('option');
-                     option.value = product.id;
-                     option.text = product.ProductName;
-                     if (product.id === QualityData.ProductID) {
-                         option.selected = true;
-                     }
-                     selectElement.appendChild(option);
-                 });
-
-                 if (QualityData.QualityStatus === 'Open') {
-                  document.getElementById('QualityStatus').value = 'Open';
-                  document.getElementById('btnEngineer').style.display = 'none';
-                    document.getElementById('EngineerView').style.display = 'none';
-                    document.getElementById('QualityView').style.display = 'block';
-                  
-                    document.querySelectorAll('#EngineerView input, #EngineerView select, #EngineerView textarea').forEach(element => {
-                     element.disabled = true;
-                  });
-
-                } else {
-                  document.querySelectorAll('#QualityView input, #QualityView select, #QualityView textarea').forEach(element => {
-                     element.disabled = true;
-                  });
-
-                  const EngineerResponse = await fetch(`http://localhost:5500/engineer/${id}`);
-                 if (!EngineerResponse.ok) {
-                     document.getElementById('EngineerNewOrEdit').value = 'Create';
-                     //throw new Error('Failed to fetch engineer data');
-                 }
-                 const EngineerData = await EngineerResponse.json();
-                  document.querySelector(`input[name="Review"][value="${EngineerData.Review}"]`).checked = true;
-                  document.getElementById('NotifyTrue').checked = EngineerData.NotifyCustomer === 1;
-                  document.getElementById('NotifyFalse').checked = EngineerData.NotifyCustomer === 0;
-                  document.getElementById('Disposition').value = EngineerData.Disposition;
-                  document.getElementById('UpdateTrue').checked = EngineerData.DrawingUpdateRequired === 1;
-                  document.getElementById('UpdateFalse').checked = EngineerData.DrawingUpdateRequired === 0;
-                  document.getElementById('CurrentRevisionNumber').textContent = EngineerData.CurrentRevisionNumber;
-                  document.getElementById('NewRevisionNumber').value = EngineerData.NewRevisionNumber;
-                  document.getElementById('RevisionDate').value = EngineerData.RevisionDate;
-                }
-             } catch (error) {
-                 console.error('Error fetching data:', error);
-                 //alert('Failed to fetch data');
-             }
-         });
- 
-         async function saveData(id) {
-            const product = document.getElementById("ProductID");
-
-   const QualityStatus = document.getElementById('QualityStatus').value;
-
-   if (QualityStatus === 'Open') {
-      const dataToUpdate = { 
-         SRInspection: document.getElementById("SRInspection").checked,
-         WorkInProgress: document.getElementById("WorkInProgress").checked,
-         ItemDescription: product.options[product.selectedIndex].text,
-         QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
-         QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
-         IsNonConforming: document.getElementById("IsNonConforming").checked,  
-         Details: document.getElementById("Details").value,
-         ProductID: parseInt(product.value, 10),
-      };
-
-      dataToUpdate.WorkInProgress = dataToUpdate.WorkInProgress ? 1 : 0;
-      dataToUpdate.SRInspection = dataToUpdate.SRInspection ? 1 : 0;
-      dataToUpdate.IsNonConforming = dataToUpdate.IsNonConforming ? 1 : 0;
-
-      try {
-         const response = await fetch(`http://localhost:5500/quality/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dataToUpdate)
-         });
-
-         if (response.ok) {
-            alert("Quality data updated successfully!");
-            window.location.href = `details.html?id=${id}`;
-         } else {
-            const errorData = await response.text();
-            alert(`Failed to update quality data: ${errorData}`);
-         }
-      } catch (error) {
-         console.error("Error:", error);
-         alert("An unexpected error occurred.");
-      }
-   } else {
-      const engineerData = {
-         Review: document.querySelector('input[name="Review"]:checked').value,
-         NotifyCustomer: document.getElementById('NotifyTrue').checked ? 1 : 0,
-         Disposition: document.getElementById('Disposition').value,
-         DrawingUpdateRequired: document.getElementById('UpdateTrue').checked ? 1 : 0,
-         NewRevisionNumber: document.getElementById('NewRevisionNumber').value,
-         RevisionDate: document.getElementById('RevisionDate').value,
-      };
-
-      if (document.getElementById('EngineerNewOrEdit').value === 'Create') {
-         try {
-            const response = await fetch(`http://localhost:5500/engineer/${id}`, {
-               method: "POST",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify(engineerData)
-            });
-
-            if (response.ok) {
-               alert("Engineer form created successfully!");
-               window.location.href = `details.html?id=${id}`;
-            } else {
-               const errorData = await response.text();
-               alert(`Failed to create engineer form: ${errorData}`);
-            }
-         } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred.");
-         }
-      } else {
-         try {
-            const response = await fetch(`http://localhost:5500/engineer/${id}`, {
-               method: "PUT",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify(engineerData)
-            });
-
-            if (response.ok) {
-               alert("Engineer form updated successfully!");
-               window.location.href = `details.html?id=${id}`;
-            } else {
-               const errorData = await response.text();
-               alert(`Failed to update engineer form: ${errorData}`);
-            }
-         } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred.");
-         }
-      }
-   }
-}
-     </script>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    </head>
    <body>
       <!-- Nav Bar -->
@@ -189,18 +22,22 @@
             <div>
                <nav class="header-nav">
                   <a href="index.html" class="nav-item" tabindex="2">Home</a>
-                  <a href="create.html" class="nav-item" tabindex="3">Create</a>
-                  <a href="list.html" class="nav-item" tabindex="4">NCRs</a>
+                  <a href="form.html" class="nav-item" tabindex="3">Form</a>
+                  <a href="list.html" class="nav-item" tabindex="4">Existing Forms</a>
+                  <a href="edit.html?id=2" class="nav-item" tabindex="5">Edit Test</a>
                </nav>
             </div>
+            <!--<div class="user-info"> -->
+               <!-- A button to open the popup form -->
+               <!--<button class="open-button" onclick="openForm()">Sign in here</button>-->
+               <!--<p>Hello, User</p>-->
+            <!--</div>-->
          </div>
       </header>
-      <!-- Edit Form -->
-       <div id="QualityStatus"></div>
-       <div id="EngineerNewOrEdit"></div>
+            <!-- Edit Form -->
       <div class="form-container">
-         <h2>Non-Conformance Report</h2>
-         <form onsubmit="event.preventDefault(); saveData(new URLSearchParams(window.location.search).get('id'));">
+         <h2>Edit NCR Form</h2>
+         <form onsubmit="event.preventDefault(); saveData();">
             <div class="view-container">
                <!-- Fields for Quality Assurance Form -->
                <button type="button" class="collapsible">Quality</button>
@@ -274,82 +111,51 @@
                <div id="EngineerView" class="view">
                   <fieldset>
                      <legend>Engineering</legend>
-                     <table>
-                        <!-- Review by CF Engineering -->
-                        <tr>
-                           <td>
-                             <label>Review by CF Engineering:</label>
-                           </td>
-                           <td>
-                            <input type="radio" id="useAsIs" name="Review" value="Use As Is">
-                            <label for="useAsIs">Use As Is</label>
-                            <input type="radio" id="repair" name="Review" value="Repair">
-                            <label for="repair">Repair</label>
-                            <input type="radio" id="rework" name="Review" value="Rework">
-                            <label for="rework">Rework</label>
-                            <input type="radio" id="scrap" name="Review" value="Scrap">
-                            <label for="scrap">Scrap</label>
-                           </td>
-                        </tr>
-                        <!-- Customer Notification -->
-                        <tr>
-                           <td>
-                             <label>Does Customer require notification of NCR:</label>
-                           </td>
-                           <td>
-                             <input type="radio" id="NotifyTrue" name="NotifyCustomer">
-                             <label for="NotifyTrue">Yes</label>
-                             <input type="radio" id="NotifyFalse" name="NotifyCustomer">
-                             <label for="NotifyFalse">No</label>
-                           </td>
-                        </tr>
-                        <!-- Disposition -->
-                        <tr>
-                           <td>
-                             <label for="Disposition">Disposition:</label>
-                           </td>
-                           <td>
-                             <textarea id="Disposition" name="Disposition" rows="4" ></textarea>
-                           </td>
-                        </tr>
-                        <!-- Drawing Requires Updating -->
-                        <tr>
-                           <td>
-                             <label>Does the drawing require updating:</label>
-                           </td>
-                           <td>
-                             <input type="radio" id="UpdateTrue" name="DrawingUpdateRequired" value="1">
-                             <label for="UpdateTrue">Yes</label>
-                             <input type="radio" id="UpdateFalse" name="DrawingUpdateRequired" value="0">
-                             <label for="UpdateFalse">No</label>
-                           </td>
-                        </tr>
-                        <!-- Revision Information -->
-                        <tr>
-                           <td>
-                             <span>Original Rev. Number:</span>
-                           </td>
-                           <td>
-                             <label id="CurrentRevisionNumber"></label>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                             <label for="NewRevisionNumber">Updated Rev. Number:</label>
-                           </td>
-                           <td>
-                             <input type="text" id="NewRevisionNumber">
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                             <label for="RevisionDate">Revision Date:</label>
-                           </td>
-                           <td>
-                             <input type="date" id="RevisionDate">
-                           </td>
-                        </tr>
-                      </table>
+                     <!-- Review by CF Engineering -->
+                     <div class="form-group">
+                        <label>Review by CF Engineering:</label>
+                        <input type="checkbox" id="useAsIs" name="useAsIs">
+                        <label for="useAsIs">Use As Is</label>
+                        <input type="checkbox" id="repair" name="repair">
+                        <label for="repair">Repair</label>
+                        <input type="checkbox" id="rework" name="rework">
+                        <label for="rework">Rework</label>
+                        <input type="checkbox" id="scrap" name="scrap">
+                        <label for="scrap">Scrap</label>
+                     </div>
+                     <!-- Customer Notification -->
+                     <div class="form-group">
+                        <label>Does Customer require notification of NCR:</label>
+                        <input type="radio" id="notifyTrue" name="notifyNCR" value="true">
+                        <label for="notifyTrue">Yes</label>
+                        <input type="radio" id="notifyFalse" name="notifyNCR" value="false">
+                        <label for="notifyFalse">No</label>
+                     </div>
+                     <!-- Disposition -->
+                     <div class="form-group">
+                        <label for="dispoTxt">Disposition:</label> <br>
+                        <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
+                     </div>
+                     <!-- Drawing Requires Updating -->
+                     <div class="form-group">
+                        <label>Does the drawing require updating:</label>
+                        <input type="radio" id="updTrue" name="updDrawing" value="true">
+                        <label for="updTrue">Yes</label>
+                        <input type="radio" id="updFalse" name="updDrawing" value="false">
+                        <label for="updFalse">No</label>
+                     </div>
+                     <div class="form-group">
+                        <span>Original Rev. Number:</span>
+                        <label id="oriRevNum"></label>
+                        <label for="updRevNum">Updated Rev. Number:</label>
+                        <input type="text" id="updRevNum" name="updRevNum">
+                     </div>
+                     <div class="form-group">
+                        <span>Name of Engineer:</span>
+                        <label id="engiName"></label>
+                        <label for="revDate">Revision Date:</label>
+                        <input type="date" id="revDate" name="revDate">
+                     </div>
                   </fieldset>
                </div>
             </div>
@@ -358,6 +164,10 @@
             <button type="submit">Save Changes</button>
          </form>
       </div>
+      <footer class="commit-bottom">
+         <hr>
+         <p><small>CROSSFIRE NCR</small></p>
+      </footer>
       <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script>
 
@@ -378,9 +188,68 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 });
-
-
+      <footer class="commit-bottom">
+         <hr>
+         <p><small>CROSSFIRE NCR</small></p>
+      </footer>
+      <script src="../public/scripts/createNCR.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+      <script>
+         $(document).ready(function() {
+             $('.js-example-basic-single').select2({
+                 width: '300px', // Set the width of the dropdown
+                 minimumResultsForSearch: 0 
+             });
+             loadNCRData();
+         });
          
+         async function loadNCRData() {
+         try
+         {
+            const data = await fetch('../public/data/forms.json');
+            const json = await data.json();
+         
+            // Get & Parse the query string
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const ncrId = parseInt(urlParams.get('id'));
+         
+            const ncrData = json.forms.find(form => form.id === ncrId)
+            if (ncrData)
+         {
+         // Populate fields for the QA section
+         document.getElementById('isWorkInProgress').checked = ncrData.isWorkInProgress;
+         document.getElementById('supplierOrInspection').checked = ncrData.supplierOrInspection;
+         document.getElementById('itemDescription').value = ncrData.itemDescription;
+         document.getElementById('quantityReceived').value = ncrData.quantityReceived;
+         document.getElementById('quantityDefective').value = ncrData.quantityDefective;
+         document.getElementById('defectDescription').value = ncrData.defectDescription;
+         document.getElementById('details').value = ncrData.details;
+         
+         // Populate fields for the engineering section
+         document.getElementById('isNonConformance').checked = ncrData.isNonConformance;
+         document.getElementById('useAsIs').checked = ncrData.useAsIs;
+         document.getElementById('repair').checked = ncrData.repair;
+         document.getElementById('rework').checked = ncrData.rework;
+         document.getElementById('scrap').checked = ncrData.scrap;
+         document.getElementById('dispoTxt').value = ncrData.dispoTxt;
+         document.getElementById('updRevNum').value = ncrData.updRevNum;
+         document.getElementById('revDate').value = ncrData.revDate;
+         } else {
+            console.error(`NCR with ID ${ncrId} not found.`);
+         }
+         } catch (error) {
+         console.error('Error fetching NCR data:', error);
+         }
+         }
+         function openForm() {
+         document.getElementById("myForm").style.display = "block";
+         }
+         
+         function closeForm() {
+         document.getElementById("myForm").style.display = "none";
+         }
       </script>
    </body>
 </html>

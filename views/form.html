@@ -8,8 +8,8 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-     <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
-     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    </head>
    <body>
       <!-- Nav Bar -->
@@ -22,15 +22,21 @@
             <div>
                <nav class="header-nav">
                   <a href="index.html" class="nav-item" tabindex="2">Home</a>
-                  <a href="create.html" class="nav-item" tabindex="3">Create</a>
-                  <a href="list.html" class="nav-item" tabindex="4">NCRs</a>
+                  <a href="form.html" class="nav-item" tabindex="3">Form</a>
+                  <a href="list.html" class="nav-item" tabindex="4">Existing Forms</a>
+                  <a href="edit.html?id=2" class="nav-item" tabindex="5">Edit Test</a>
                </nav>
             </div>
+            <!--<div class="user-info"> -->
+               <!-- A button to open the popup form -->
+               <!--<button class="open-button" onclick="openForm()">Sign in here</button>-->
+               <!--<p>Hello, User</p>-->
+            <!--</div>-->
          </div>
       </header>
       <!-- Create Form -->
       <div class="form-container">
-         <h2>Non-Conformance Report</h2>
+         <h2>Create NCR Form</h2>
          <form >
             <div class="view-container">
                <!-- Fields for Quality Assurance Form -->
@@ -99,6 +105,95 @@
                         </tr>
                       </table> 
                   </fieldset>
+               </div>
+              <div id="engiView" class="view" style="display: none;">
+                 <fieldset>
+                   <legend>Engineering</legend>
+                   <table>
+                     <!-- Review by CF Engineering -->
+                     <tr>
+                        <td>
+                          <label>Review by CF Engineering:</label>
+                        </td>
+                        <td>
+                          <input type="checkbox" id="useAsIs" name="useAsIs">
+                          <label for="useAsIs">Use As Is</label>
+                          <input type="checkbox" id="repair" name="repair">
+                          <label for="repair">Repair</label>
+                          <input type="checkbox" id="rework" name="rework">
+                          <label for="rework">Rework</label>
+                          <input type="checkbox" id="scrap" name="scrap">
+                          <label for="scrap">Scrap</label>
+                        </td>
+                     </tr>
+                     <!-- Customer Notification -->
+                     <tr>
+                        <td>
+                          <label>Does Customer require notification of NCR:</label>
+                        </td>
+                        <td>
+                          <input type="radio" id="notifyTrue" name="notifyNCR" value="true">
+                          <label for="notifyTrue">Yes</label>
+                          <input type="radio" id="notifyFalse" name="notifyNCR" value="false">
+                          <label for="notifyFalse">No</label>
+                        </td>
+                     </tr>
+                     <!-- Disposition -->
+                     <tr>
+                        <td>
+                          <label for="dispoTxt">Disposition:</label>
+                        </td>
+                        <td>
+                          <textarea id="dispoTxt" name="dispoTxt" rows="4" required></textarea>
+                        </td>
+                     </tr>
+                     <!-- Drawing Requires Updating -->
+                     <tr>
+                        <td>
+                          <label>Does the drawing require updating:</label>
+                        </td>
+                        <td>
+                          <input type="radio" id="updTrue" name="drawUpdate" value="true">
+                          <label for="updTrue">Yes</label>
+                          <input type="radio" id="updFalse" name="drawUpdate" value="false">
+                          <label for="updFalse">No</label>
+                        </td>
+                     </tr>
+                     <!-- Revision Information -->
+                     <tr>
+                        <td>
+                          <span>Original Rev. Number:</span>
+                        </td>
+                        <td>
+                          <label id="oriRevNum"></label>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                          <label for="updRevNum">Updated Rev. Number:</label>
+                        </td>
+                        <td>
+                          <input type="text" id="updRevNum" name="updRevNum">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                          <span>Name of Engineer:</span>
+                        </td>
+                        <td>
+                          <label id="engiName"></label>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>
+                          <label for="revDate">Revision Date:</label>
+                        </td>
+                        <td>
+                          <input type="date" id="revDate" name="revDate">
+                        </td>
+                     </tr>
+                   </table>
+                 </fieldset>
                </div>
             </div>
             <!-- Submit Button -->
