@@ -171,6 +171,9 @@ console.log(product.options[product.selectedIndex].value);
 
         if (response.ok) {
             alert("Data inserted successfully!");
+            //const responseData = await response.json();
+            //const id = responseData.id; 
+            //window.location.href = `./details.html?id=${id}`;
         } else {
             const errorData = await response.text();
             alert(`Failed to save data: ${errorData}`);
