@@ -1,6 +1,6 @@
 // Written by: Hazel Miln
 // Purpose: This script loads json data of NCR reports, and displays the data in a table to the user
-
+    
 async function getData(){
 
     const response = await fetch('http://localhost:5500/SummaryInfo');
@@ -68,8 +68,8 @@ async function getData(){
             // create a button that passes the item id as a parameter
             tablerow.innerHTML += `<td><a href="edit.html?id=${id}">Edit</a></td>`;
         }   
-    }   
-*/    
+    }  
+    */     
 };
 
 getData();
