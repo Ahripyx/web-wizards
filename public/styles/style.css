@@ -52,7 +52,7 @@ th, td{
 /* Logo styling */
 .logo img {
     height: auto;
-    width: 250px;
+    width: 500px;
 }
 
 /* User info styling */
@@ -187,7 +187,10 @@ button:hover {
     background-color: #ccc;
   }
 
-/* Home Page Content */
+
+/*====================
+    Dashboard Styles
+====================*/
 .recent-forms, .home-nav {
     max-width: 80%;
     margin: 0 auto;
@@ -210,14 +213,20 @@ button:hover {
 
 .home-nav {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  
-}
+    grid-template-columns: repeat(3, 1fr); 
+    justify-items: center;            
+}  
 
-/* CHATGPT */
-.home-nav > div {
+.home-nav div {
     display: flex;
     flex-direction: column; /* Stack image and button vertically */
     align-items: center; /* Center content within each item */
+    width: 225px;
+    border: 10px;
+    border-style: solid;
+    border-color: black;
+    padding: 20px;
+    margin: 10px;     
 }
 
 .home-nav img {
@@ -228,12 +237,4 @@ button:hover {
 
 .home-nav button {
     width: 200px;
-}
-
-/* CHATGPT */
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 20px;
 }

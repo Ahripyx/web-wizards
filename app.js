@@ -280,6 +280,26 @@ app.get('SortAsc'), (req, res) => {
     }
 }
 
+// New endpoint to get the 5 most recent NCR forms with summary info
+app.get('/recent-ncrs', (req, res) => {
+    try {
+        const rows = db.prepare(`
+            SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, 
+                   Quality.NCRNumber, Supplier.SupplierName 
+            FROM NCRForm 
+            JOIN Quality ON NCRForm.id = Quality.NCRFormID 
+            JOIN Product ON Quality.ProductID = Product.id 
+            JOIN Supplier ON Product.SupplierID = Supplier.id 
+            ORDER BY NCRForm.LastModified DESC 
+            LIMIT 5
+        `).all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

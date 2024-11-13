@@ -4,7 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="../public/styles/style.css" rel="stylesheet">
-      <title>Home Page</title>
+      <title>Dashboard</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
@@ -54,28 +54,6 @@
          <!-- Template for the recently updated NCR Forms -->
          <section class="recent-forms">
             <h2>Recent NCR Forms</h2>
-            <div class="filters">
-               <!-- Filter method for NCRs here -->  
-               <div>
-                  <label for="numFilter">NCR Number:</label>
-                  <input type="text" id="numFilter" name="numFilter">
-               </div>
-               <div>
-                  <label for="itemFilter">Item:</label>
-                  <input type="text" id="itemFilter" name="itemFilter">
-               </div>
-               <div>
-                  <label for="dateFilter">Date:</label>
-                  <input type="datetime" placeholder="MM/DD/YYYY" id="dateFilter" name="dateFilter">
-               </div>
-               <div>
-                  <label for="statusFilter">Status:</label>
-                  <input type="checkbox" id="statusFilter" name="statusFilter">
-               </div>
-               <div>
-                  <button id="btnFilter" type="button">Filter</button>
-               </div>
-            </div>
             <table id="table">
                   <tr>
                      <th>NCR Number</th>
