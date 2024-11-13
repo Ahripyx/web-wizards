@@ -23,7 +23,7 @@ createTables.forEach(query => db.exec(query));
 //seedTables.forEach(query => db.exec(query));
 
 // Endpoint to get NCRForm table
-app.get('/ncrforms', (req, res) => {
+app.get('/ncrs', (req, res) => {
     try {
         const rows = db.prepare('SELECT * FROM NCRForm').all();
         res.json(rows);
@@ -33,16 +33,19 @@ app.get('/ncrforms', (req, res) => {
     }
 });
 
-// Endpoint to insert data in NCRForm table
-app.post('/insert-form', (req, res) => {
-    const { CreationDate, LastModified, FormStatus } = req.body;
+// Endpoint to get all Supplier related data by NCRForm ID
+app.get('/ncrs/:id', (req, res) => {
+    const { id } = req.params;
     try {
-        const stmt = db.prepare('INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES (?, ?, ?)');
-        stmt.run(CreationDate, LastModified, FormStatus);
-        res.status(200).send("Data inserted successfully!");
+        const row = db.prepare('SELECT * FROM NCRForm JOIN Quality ON Quality.NCRFormID = NCRForm.id JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE NCRForm.id = ?').all(id);
+        if (row.length > 0) {
+            res.json(row);
+        } else {
+            res.status(404).send("NCRForm not found.");
+        }
     } catch (error) {
         console.error("Database error:", error);
-        res.status(500).send("Failed to insert data.");
+        res.status(500).send("Failed to fetch data.");
     }
 });
 
@@ -67,6 +70,45 @@ app.put('/products/', (req, res) => {
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to insert product.");
+    }
+});
+
+// Endpoint to get a specific Product by ID
+app.get('/products/:id', (req, res) => {
+    const { id } = req.params;
+    try {
+        const row = db.prepare('SELECT * FROM Product WHERE id = ?').get(id);
+        if (row) {
+            res.json(row);
+        } else {
+            res.status(404).send("Product not found.");
+        }
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+app.get('/product&suppliers', (req, res) => {
+    try {
+        const rows = db.prepare('SELECT * FROM Supplier JOIN Product ON Supplier.id = Product.SupplierID').all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+
+    }
+});
+
+// Endpoint to get all products by SupplierID
+app.get('/products/suppliers/:id', (req, res) => {
+    const { id } = req.params;
+    try {
+        const rows = db.prepare('SELECT * FROM Product WHERE SupplierID = ?').all(id);
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch products.");
     }
 });
 
@@ -117,6 +159,9 @@ app.get('/suppliers', (req, res) => {
         res.status(500).send("Failed to fetch data.");
     }
 });
+
+
+
 
 // Endpoint to insert data into Supplier table
 app.put('/suppliers', (req, res) => {

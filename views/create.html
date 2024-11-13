@@ -31,7 +31,7 @@
       <!-- Create Form -->
       <div class="form-container">
          <h2>Non-Conformance Report</h2>
-         <form >
+         <form onsubmit="event.preventDefault();">
             <div class="view-container">
                <!-- Fields for Quality Assurance Form -->
                <div id="normView" class="view create">
@@ -39,13 +39,19 @@
                      <legend>Quality Representative</legend>
                      
                       <table>
+                        <tr>
+                           <td>
+                              <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
+                                 <option value="" disabled selected>Select a supplier</option>
+                           </td>
+                        </tr>
                         <!-- Item Description -->
                         <tr>
                            <td>
                               <label for="ProductID">Product Name:</label>
                            </td>
                            <td>
-                              <select id="ProductID" name="ProductID" style="width: 300px;" required>
+                              <select id="ProductID" name="ProductID" style="width: 300px;" disabled required>
                                  <option value="" disabled selected>Select an item</option>
                               </select>
                            </td>
@@ -108,41 +114,20 @@
       </div>
       <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script> -->
-      <script>
+      <script type="module">
+         import * as lookup from '../public/scripts/lookup.js';
+         
          // Fetch product data
-          async function fetchData() {
-            try
-            {
-    
-    const response = await fetch('http://localhost:5500/products');
-                const data = await response.json();
-                const selectElement = document.getElementById('ProductID');
-
-            data.forEach(product => {
-                const option = document.createElement('option');
-                option.value = product.id;
-                option.text = product.ProductName;
-                selectElement.appendChild(option);
-            });
-
-          /*  $('.js-example-basic-single').select2({
-                width: '300px',
-                minimumResultsForSearch: 0
-            });*/
-         } catch (err) {
-        console.error('Error fetching products:', err);
-    }
-};
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
-   fetchData();
+   lookup.fillForm();
+
 
    const form = document.querySelector("form");
 
 form.addEventListener("submit", async (event) => {
-event.preventDefault(); // this stops it from refreshing i think
 const product = document.getElementById("ProductID");
 
 console.log(product.options[product.selectedIndex].text);

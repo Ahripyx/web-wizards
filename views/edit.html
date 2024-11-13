@@ -1,6 +1,10 @@
+
+
 <!DOCTYPE html>
+
 <html lang="en">
    <head>
+      
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="../public/styles/style.css" rel="stylesheet">
@@ -11,7 +15,9 @@
       <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
       <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-      <script>
+      <script type="module">
+         import * as lookup from '../public/scripts/lookup.js';
+
          document.addEventListener('DOMContentLoaded', async () => {
  
             // gets the id from URL
@@ -20,162 +26,13 @@
                  alert('No ID provided in the URL');
                  return;
              }
- 
-             // Fetch quality
-             try {
-                 const QualityResponse = await fetch(`http://localhost:5500/quality/${id}`);
-                 if (!QualityResponse.ok) {
-                     throw new Error('Failed to fetch quality data');
-                 }
-                 const QualityData = await QualityResponse.json();
- 
-                 document.getElementById('SRInspection').checked = QualityData.SRInspection === 1;
-                 document.getElementById('WorkInProgress').checked = QualityData.WorkInProgress === 1;
-                 document.getElementById('QuantityReceived').value = QualityData.QuantityReceived;
-                 document.getElementById('QuantityDefective').value = QualityData.QuantityDefective;
-                 document.getElementById('IsNonConforming').checked = QualityData.IsNonConforming === 1;
-                 document.getElementById('Details').value = QualityData.Details;
- 
-                 const ProductResponse = await fetch('http://localhost:5500/products');
-                 const Products = await ProductResponse.json();
-                 const selectElement = document.getElementById('ProductID');
-                 Products.forEach(product => {
-                     const option = document.createElement('option');
-                     option.value = product.id;
-                     option.text = product.ProductName;
-                     if (product.id === QualityData.ProductID) {
-                         option.selected = true;
-                     }
-                     selectElement.appendChild(option);
-                 });
-
-                 if (QualityData.QualityStatus === 'Open') {
-                  document.getElementById('QualityStatus').value = 'Open';
-                  document.getElementById('btnEngineer').style.display = 'none';
-                    document.getElementById('EngineerView').style.display = 'none';
-                    document.getElementById('QualityView').style.display = 'block';
-                  
-                    document.querySelectorAll('#EngineerView input, #EngineerView select, #EngineerView textarea').forEach(element => {
-                     element.disabled = true;
-                  });
-
-                } else {
-                  document.querySelectorAll('#QualityView input, #QualityView select, #QualityView textarea').forEach(element => {
-                     element.disabled = true;
-                  });
-
-                  const EngineerResponse = await fetch(`http://localhost:5500/engineer/${id}`);
-                 if (!EngineerResponse.ok) {
-                     document.getElementById('EngineerNewOrEdit').value = 'Create';
-                     //throw new Error('Failed to fetch engineer data');
-                 }
-                 const EngineerData = await EngineerResponse.json();
-                  document.querySelector(`input[name="Review"][value="${EngineerData.Review}"]`).checked = true;
-                  document.getElementById('NotifyTrue').checked = EngineerData.NotifyCustomer === 1;
-                  document.getElementById('NotifyFalse').checked = EngineerData.NotifyCustomer === 0;
-                  document.getElementById('Disposition').value = EngineerData.Disposition;
-                  document.getElementById('UpdateTrue').checked = EngineerData.DrawingUpdateRequired === 1;
-                  document.getElementById('UpdateFalse').checked = EngineerData.DrawingUpdateRequired === 0;
-                  document.getElementById('CurrentRevisionNumber').textContent = EngineerData.CurrentRevisionNumber;
-                  document.getElementById('NewRevisionNumber').value = EngineerData.NewRevisionNumber;
-                  document.getElementById('RevisionDate').value = EngineerData.RevisionDate;
-                }
-             } catch (error) {
-                 console.error('Error fetching data:', error);
-                 //alert('Failed to fetch data');
-             }
-         });
- 
-         async function saveData(id) {
-            const product = document.getElementById("ProductID");
-
-   const QualityStatus = document.getElementById('QualityStatus').value;
-
-   if (QualityStatus === 'Open') {
-      const dataToUpdate = { 
-         SRInspection: document.getElementById("SRInspection").checked,
-         WorkInProgress: document.getElementById("WorkInProgress").checked,
-         ItemDescription: product.options[product.selectedIndex].text,
-         QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
-         QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
-         IsNonConforming: document.getElementById("IsNonConforming").checked,  
-         Details: document.getElementById("Details").value,
-         ProductID: parseInt(product.value, 10),
-      };
-
-      dataToUpdate.WorkInProgress = dataToUpdate.WorkInProgress ? 1 : 0;
-      dataToUpdate.SRInspection = dataToUpdate.SRInspection ? 1 : 0;
-      dataToUpdate.IsNonConforming = dataToUpdate.IsNonConforming ? 1 : 0;
-
-      try {
-         const response = await fetch(`http://localhost:5500/quality/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dataToUpdate)
-         });
-
-         if (response.ok) {
-            alert("Quality data updated successfully!");
-            window.location.href = `details.html?id=${id}`;
-         } else {
-            const errorData = await response.text();
-            alert(`Failed to update quality data: ${errorData}`);
-         }
-      } catch (error) {
-         console.error("Error:", error);
-         alert("An unexpected error occurred.");
-      }
-   } else {
-      const engineerData = {
-         Review: document.querySelector('input[name="Review"]:checked').value,
-         NotifyCustomer: document.getElementById('NotifyTrue').checked ? 1 : 0,
-         Disposition: document.getElementById('Disposition').value,
-         DrawingUpdateRequired: document.getElementById('UpdateTrue').checked ? 1 : 0,
-         NewRevisionNumber: document.getElementById('NewRevisionNumber').value,
-         RevisionDate: document.getElementById('RevisionDate').value,
-      };
-
-      if (document.getElementById('EngineerNewOrEdit').value === 'Create') {
-         try {
-            const response = await fetch(`http://localhost:5500/engineer/${id}`, {
-               method: "POST",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify(engineerData)
+             lookup.fillForm(id);
+            const form = document.querySelector('form');
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                await lookup.insertForm(id);
             });
-
-            if (response.ok) {
-               alert("Engineer form created successfully!");
-               window.location.href = `details.html?id=${id}`;
-            } else {
-               const errorData = await response.text();
-               alert(`Failed to create engineer form: ${errorData}`);
-            }
-         } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred.");
-         }
-      } else {
-         try {
-            const response = await fetch(`http://localhost:5500/engineer/${id}`, {
-               method: "PUT",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify(engineerData)
-            });
-
-            if (response.ok) {
-               alert("Engineer form updated successfully!");
-               window.location.href = `details.html?id=${id}`;
-            } else {
-               const errorData = await response.text();
-               alert(`Failed to update engineer form: ${errorData}`);
-            }
-         } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred.");
-         }
-      }
-   }
-}
+         });
      </script>
    </head>
    <body>
@@ -200,7 +57,7 @@
        <div id="EngineerNewOrEdit"></div>
       <div class="form-container">
          <h2>Non-Conformance Report</h2>
-         <form onsubmit="event.preventDefault(); saveData(new URLSearchParams(window.location.search).get('id'));">
+         <form>
             <div class="view-container">
                <!-- Fields for Quality Assurance Form -->
                <button type="button" class="collapsible">Quality</button>
@@ -209,6 +66,13 @@
                      <legend>Quality Representative</legend>
                      
                       <table>
+                        <tr>
+                           <td>
+                              <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
+                                 <option value="" disabled selected>Select a Supplier</option>
+                              </select>
+                           </td>
+                        </tr>
                         <!-- Item Description -->
                         <tr>
                            <td>
