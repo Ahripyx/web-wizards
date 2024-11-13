@@ -173,17 +173,40 @@ export async function fillEngineer(selectedID = null) {
         document.getElementById('EngineerNewOrEdit').value = 'Create';
         //throw new Error('Failed to fetch engineer data');
     }
+    const UpdateTrue = document.getElementById('UpdateTrue');
+    const UpdateFalse = document.getElementById('UpdateFalse');
+    const CurrentRevisionNumber = document.getElementById('CurrentRevisionNumber');
+    const NewRevisionNumber = document.getElementById('NewRevisionNumber');
+    const RevisionDate = document.getElementById('RevisionDate');
+
+    UpdateTrue.addEventListener("click", function() {
+        if (this.checked) {
+           NewRevisionNumber.disabled = false;
+           RevisionDate.disabled = false;
+        } 
+     });
+     UpdateFalse.addEventListener("click", function() {
+        if (this.checked) {
+            NewRevisionNumber.value = null;
+            RevisionDate.value = null;
+           NewRevisionNumber.disabled = true;
+           RevisionDate.disabled = true;
+        } 
+     });
+
     const EngineerData = await EngineerResponse.json();
      document.querySelector(`input[name="Review"][value="${EngineerData.Review}"]`).checked = true;
      document.getElementById('NotifyTrue').checked = EngineerData.NotifyCustomer === 1;
      document.getElementById('NotifyFalse').checked = EngineerData.NotifyCustomer === 0;
      document.getElementById('Disposition').value = EngineerData.Disposition;
-     document.getElementById('UpdateTrue').checked = EngineerData.DrawingUpdateRequired === 1;
-     document.getElementById('UpdateFalse').checked = EngineerData.DrawingUpdateRequired === 0;
-     document.getElementById('CurrentRevisionNumber').textContent = EngineerData.CurrentRevisionNumber;
-     document.getElementById('NewRevisionNumber').value = EngineerData.NewRevisionNumber;
-     document.getElementById('RevisionDate').value = EngineerData.RevisionDate;
-}
+     UpdateTrue.checked = EngineerData.DrawingUpdateRequired === 1;
+     UpdateFalse.checked = EngineerData.DrawingUpdateRequired === 0;
+     CurrentRevisionNumber.textContent = EngineerData.CurrentRevisionNumber;
+     NewRevisionNumber.value = EngineerData.NewRevisionNumber;
+     RevisionDate.value = EngineerData.RevisionDate;
+
+     
+    }
 
 export async function insertForm(id) {
     const product = document.getElementById("ProductID");
