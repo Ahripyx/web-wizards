@@ -58,11 +58,11 @@ app.get('/products', (req, res) => {
 });
 
 // Endpoint to insert data into Product table
-app.post('/insert-product', (req, res) => {
-    const { id, Name, Number, SupplierID } = req.body;
+app.put('/products/', (req, res) => {
+    const { ProductName, Number, SupplierID } = req.body;
     try {
-        const stmt = db.prepare('INSERT INTO Product (id, Name, Number, SupplierID) VALUES (?, ?, ?, ?)');
-        stmt.run(id, Name, Number, SupplierID);
+        const stmt = db.prepare('INSERT INTO Product (ProductName, Number, SupplierID) VALUES (?, ?, ?)');
+        stmt.run(ProductName, Number, SupplierID);
         res.status(200).send("Product inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
@@ -95,15 +95,15 @@ app.get('/users', (req, res) => {
 });
 
 // Endpoint to insert data in User table
-app.post('/insert-user', (req, res) => {
+app.put('/users/', (req, res) => {
     const { FName, MName, LName, Email, Password, RoleID } = req.body;
     try {
         const stmt = db.prepare('INSERT INTO User (FName, MName, LName, Email, Password, RoleID) VALUES (?, ?, ?, ?, ?, ?)');
         stmt.run(FName, MName, LName, Email, Password, RoleID);
-        res.status(200).send("Data inserted successfully!");
+        res.status(200).send("User inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
-        res.status(500).send("Failed to insert data.");
+        res.status(500).send("Failed to insert user.");
     }
 });
 
@@ -111,6 +111,30 @@ app.post('/insert-user', (req, res) => {
 app.get('/suppliers', (req, res) => {
     try {
         const rows = db.prepare('SELECT * FROM Supplier').all();
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to insert data into Supplier table
+app.put('/suppliers', (req, res) => {
+    const { SupplierName } = req.body;
+    try {
+        const stmt = db.prepare('INSERT INTO Supplier (SupplierName) VALUES (?)');
+        stmt.run(SupplierName);
+        res.status(200).send("Supplier inserted successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to insert supplier.");
+    }
+});
+
+// Endpoint to get Role table
+app.get('/roles', (req, res) => {
+    try {
+        const rows = db.prepare('SELECT * FROM Role').all();
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
