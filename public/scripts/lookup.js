@@ -1,3 +1,5 @@
+import { newProduct, newEngineer, updateEngineer } from './crud.js';
+
 // fetch supplier data to fill any Supplier Select dropdowns
 export async function getSuppliers(selectedID = null) {
     
@@ -75,9 +77,17 @@ export async function getProducts(selectedID = null) {
 export async function fillForm(selectedID = null) {
     try
     {
+      
+        // Get the Product select element and add an event to make the product number visible when a product is selected
         document.getElementById("ProductID").addEventListener("change", async function() {
             try
             {
+                if (this.value === 'new') 
+                    {
+                        document.getElementById('ProductNumberContainer').hidden = true;
+                        newProductModal();
+                        return;
+                    }
                 const productID = this.value;
                 const ProductResponse = await fetch(`http://localhost:5500/products/${productID}`);
                 if (!ProductResponse.ok) {
@@ -93,56 +103,12 @@ export async function fillForm(selectedID = null) {
             }
         });
 
-        document.getElementById("SupplierID").addEventListener("change", async function() {
-            const supplierID = this.value;
-            const ProductElement = document.getElementById("ProductID");
-            ProductElement.disabled = true;
-            ProductElement.innerHTML = '';
-        
-            if (supplierID) {
-                try {
-
-                document.getElementById('ProductNumberContainer').hidden = true;
-                    const ProductResponse = await fetch(`http://localhost:5500/product&suppliers`);
-                    if (!ProductResponse.ok) {
-                        throw new Error('Failed to fetch products');
-                    }
-                    const ProductData = await ProductResponse.json();
-                    const selectOption = document.createElement('option');
-
-                    selectOption.text = 'Select a product';
-                    selectOption.disabled = true;
-                    selectOption.selected = true;
-                    ProductElement.appendChild(selectOption);
-
-                    ProductData.forEach(product => {
-                        if (product.SupplierID === Number(supplierID)) {
-                            const option = document.createElement('option');
-                        option.value = product.id;
-                        option.text = product.ProductName;
-                        ProductElement.appendChild(option);
-                        }
-                        
-                    });
-                    if (ProductElement.options.length > 1) {
-                        ProductElement.disabled = false;
-                    }
-                    else 
-                    {
-                        ProductElement.innerHTML = '';
-                        const option = document.createElement('option');
-                        option.text = 'No products found';
-                        ProductElement.appendChild(option);
-                    }
-                    
-                } catch (error) {
-                    console.error('Failed to fetch products:', error);
-                }
-            }
+        // Get the Supplier select element and add an event to get products attributed to the selected supplier
+        document.getElementById("SupplierID").addEventListener("change", function() {
+            supplierSelect(document.getElementById("SupplierID"));
         });
 
-       
-
+        // If we have an ID (as in we are editing a form), get the form data and fill the form
         if (selectedID)
         {
             const QualityResponse = await fetch(`http://localhost:5500/ncrs/${selectedID}`);
@@ -172,7 +138,7 @@ export async function fillForm(selectedID = null) {
                     
                       toggleElements('#engineer input, #engineer select, #engineer textarea', 'Closed');
   
-                  } else {
+                  } else {  
                     toggleElements('#quality input, #quality select, #quality textarea', QualityData.QualityStatus);
    
                     fillEngineer(selectedID);
@@ -191,6 +157,98 @@ export async function fillForm(selectedID = null) {
     }
 }
 
+// REFRESHES PRODUCT LIST WHEN SUPPLIER IS SELECTED
+async function supplierSelect(supplierElement) {
+    // Get the Supplier select element and add an event to get products attributed to the selected supplier
+
+        const supplierID = supplierElement.value;
+        const ProductElement = document.getElementById("ProductID");
+        ProductElement.disabled = true;
+        ProductElement.innerHTML = '';
+    
+        // If a supplier is selected, get products attributed to that supplier
+        if (supplierID) {
+            try {
+
+            document.getElementById('ProductNumberContainer').hidden = true;
+                const ProductResponse = await fetch(`http://localhost:5500/product&suppliers`);
+                if (!ProductResponse.ok) {
+                    throw new Error('Failed to fetch products');
+                }
+
+                // Get the products and add them to the Product select element
+                const ProductData = await ProductResponse.json();
+                const selectOption = document.createElement('option');
+
+                selectOption.text = 'Select a product';
+                selectOption.disabled = true;
+                selectOption.selected = true;
+                ProductElement.appendChild(selectOption);
+
+                ProductData.forEach(product => {
+                    if (product.SupplierID === Number(supplierID)) {
+                        const option = document.createElement('option');
+                    option.value = product.id;
+                    option.text = product.ProductName;
+                    ProductElement.appendChild(option);
+                    }
+                    
+                });
+                if (ProductElement.options.length > 1) {
+                    ProductElement.disabled = false;
+                    const newProduct = document.createElement('option');
+                    newProduct.value = 'new';
+                    newProduct.text = 'New Product';
+                    ProductElement.appendChild(newProduct);
+                }
+                else 
+                {
+                    ProductElement.innerHTML = '';
+                    const option = document.createElement('option');
+                    option.text = 'No products found';
+                    ProductElement.appendChild(option);
+                }
+                
+            } catch (error) {
+                console.error('Failed to fetch products:', error);
+            }
+        }
+}
+
+// CREATE NEW PRODUCT MODAL
+async function newProductModal()
+{
+    // Get the modal
+    const productModal = document.getElementById('product-modal');
+    productModal.style.display = "block";
+
+    // Get the <span> element that closes the modal
+    const close = document.getElementById('close');
+    close.onclick = function() {
+        productModal.style.display = "none";
+    }
+
+    // Create a new product
+    const btnNewProduct = document.getElementById('btnNewProduct');
+    btnNewProduct.onclick = function () {
+        try
+        {
+            newProduct(
+                document.getElementById('SupplierID'), 
+                document.getElementById('newProductName'), 
+                document.getElementById('newProductNumber')
+            );
+            supplierSelect(document.getElementById('SupplierID'));
+            
+        } catch (error) {
+            alert("Failed to create new product.");
+            console.error('Failed to create new product:', error);
+        }
+        
+    } 
+   
+}
+
 export async function fillEngineer(selectedID = null) {
     const EngineerResponse = await fetch(`http://localhost:5500/engineer/${selectedID}`);
     if (!EngineerResponse.ok) {
@@ -199,7 +257,7 @@ export async function fillEngineer(selectedID = null) {
     }
     const UpdateTrue = document.getElementById('UpdateTrue');
     const UpdateFalse = document.getElementById('UpdateFalse');
-    const CurrentRevisionNumber = document.getElementById('CurrentRevisionNumber');
+    const RevisionNumber = document.getElementById('RevisionNumber');
     const NewRevisionNumber = document.getElementById('NewRevisionNumber');
     const RevisionDate = document.getElementById('RevisionDate');
 
@@ -208,16 +266,17 @@ export async function fillEngineer(selectedID = null) {
      document.getElementById('NotifyTrue').checked = EngineerData.NotifyCustomer === 1;
      document.getElementById('NotifyFalse').checked = EngineerData.NotifyCustomer === 0;
      document.getElementById('Disposition').value = EngineerData.Disposition;
-     UpdateTrue.checked = EngineerData.DrawingUpdateRequired === 1;
-     UpdateFalse.checked = EngineerData.DrawingUpdateRequired === 0;
-     CurrentRevisionNumber.textContent = EngineerData.CurrentRevisionNumber;
+     RevisionNumber.textContent = EngineerData.RevisionNumber;
+     if (EngineerData.RevisionNumber === null) {
+        RevisionNumber.textContent = 'N/A';
+     }
      //RevisionDate.value = new Date().toISOString().split('T')[0];
 
     UpdateTrue.addEventListener("click", function() {
         if (this.checked) {
             document.getElementById('NewRevisionNumberRow').hidden = false;
             document.getElementById('RevisionDateRow').hidden = false;
-           NewRevisionNumber.textContent = incrementRevisionNumber(EngineerData.CurrentRevisionNumber);
+           NewRevisionNumber.textContent = incrementRevisionNumber(EngineerData.RevisionNumber);
         } 
      });
      UpdateFalse.addEventListener("click", function() {
@@ -282,69 +341,27 @@ export async function insertForm(id) {
          alert("An unexpected error occurred.");
       }
    } else {
-    const CurrentRevisionNumber = document.getElementById('CurrentRevisionNumber');
-    const NewRevisionNumber = document.getElementById('NewRevisionNumber');
+    const Review = document.querySelector('input[name="Review"]:checked');
+    const NotifyCustomer = document.getElementById('NotifyTrue');
+    const Disposition = document.getElementById('Disposition');
+    var RevisionNumber = document.getElementById('RevisionNumber');
+    if (NewRevisionNumber.hidden === false) { RevisionNumber = NewRevisionNumber; }
 
-      const engineerData = {
-         Review: document.querySelector('input[name="Review"]:checked').value,
-         NotifyCustomer: document.getElementById('NotifyTrue').checked ? 1 : 0,
-         Disposition: document.getElementById('Disposition').value,
-         DrawingUpdateRequired: document.getElementById('UpdateTrue').checked ? 1 : 0,
-         CurrentRevisionNumber: CurrentRevisionNumber.textContent,
-      };
-
-      if (NewRevisionNumber.hidden === false) 
-        {
-            engineerData.CurrentRevisionNumber = NewRevisionNumber.textContent;
-        }
-        if (RevisionDate.hidden === false)
-        {
-            engineerData.RevisionDate = new Date().toISOString().split('T')[0];
-        }
+    const RevisionDate = document.getElementById('RevisionDate');
 
       if (document.getElementById('EngineerNewOrEdit').value === 'Create') {
-         try {
-            const response = await fetch(`http://localhost:5500/engineer/${id}`, {
-               method: "POST",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify(engineerData)
-            });
-
-            if (response.ok) {
-               alert("Engineer form created successfully!");
-               window.location.href = `details.html?id=${id}`;
-            } else {
-               const errorData = await response.text();
-               alert(`Failed to create engineer form: ${errorData}`);
-            }
-         } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred.");
-         }
+        newEngineer(id, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate);
       } else {
-         try {
-            const response = await fetch(`http://localhost:5500/engineer/${id}`, {
-               method: "PUT",
-               headers: { "Content-Type": "application/json" },
-               body: JSON.stringify(engineerData)
-            });
-
-            if (response.ok) {
-               alert("Engineer form updated successfully!");
-               window.location.href = `details.html?id=${id}`;
-            } else {
-               const errorData = await response.text();
-               alert(`Failed to update engineer form: ${errorData}`);
-            }
-         } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred.");
-         }
+        updateEngineer(id, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate);
       }
    }
 }
 
 function incrementRevisionNumber(revisionNumber) {
+    if (revisionNumber === null)
+    {
+        return incrementRevisionNumber(Math.floor(Math.random() * (999 - 100 + 1) + 100).toString() + '-@');
+    }
     console.log(revisionNumber);
     const parts = revisionNumber.split('-');
     console.log(parts);

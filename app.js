@@ -20,7 +20,7 @@ app.use(express.static('public'));
 createTables.forEach(query => db.exec(query));
 
 // Fill tables with seed data ( COMMENT THIS OUT AFTER FIRST RUN )
-//seedTables.forEach(query => db.exec(query));
+seedTables.forEach(query => db.exec(query));
 
 // Endpoint to get NCRForm table
 app.get('/ncrs', (req, res) => {
@@ -281,11 +281,11 @@ app.get('/engineer/:id', (req, res) => {
 // Endpoint to insert data into Engineer table with NCRFormID as a parameter
 app.post('/engineer/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
-    const { Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate } = req.body;
+    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate } = req.body;
     try {
         const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
-        const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "Open", ?)');
-        stmt.run(NCRFormID, Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified);
+        const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, "Open", ?)');
+        stmt.run(NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, LastModified);
         res.status(200).send("Engineer record inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
@@ -296,11 +296,11 @@ app.post('/engineer/:NCRFormID', (req, res) => {
 // Endpoint to update a specific record in the Engineer table by ID
 app.put('/engineer/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
-    const { Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate } = req.body;
+    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate } = req.body;
     try {
         const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
-        const stmt = db.prepare('UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, DrawingUpdateRequired = ?, CurrentRevisionNumber = ?, NewRevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?');
-        const result = stmt.run(Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, LastModified, NCRFormID);
+        const stmt = db.prepare('UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, RevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?');
+        const result = stmt.run(Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, LastModified, NCRFormID);
         if (result.changes > 0) {
             res.status(200).send("Engineer record updated successfully!");
         } else {

@@ -37,14 +37,37 @@
             <!-- Notification Modal -->
             <div id="notification-modal" class="modal">
                <!-- Modal content -->
-               
+               <div class="modal-content">
+                 
+               </div>
+            </div>
+            <div id="product-modal" class="modal" style="z-index: 2;">
+               <div class="modal-content">
+               <span class="close" id="close">&times;</span>
+               <h2>New Product</h2>
+               <form onsubmit="event.preventDefault();" id="newProductForm">
+                  <div class="row">
+                     <div class="col-6">
+                        <label for="newProductName">Product Name:</label>
+                        <input type="text" id="newProductName" name="newProductName" placeholder="Product Name" required>
+                     </div>
+                     <div class="col-6">
+                        <label for="newProductNumber">Product Number:</label>
+                        <input type="number" id="newProductNumber" name="newProductNumber" placeholder="---" min="100" max="999" required>
+                     </div>
+                     <div class="col-12">
+                        <button type="submit" id="btnNewProduct">Add Product</button>
+                     </div>
+                  </div>
+               </form>
             </div>
          </div>
+      </div>
       </header>
       <!-- Create Form -->
       <div class="content-section create">
          <h2>Non-Conformance Report</h2>
-         <form onsubmit="event.preventDefault();">
+         <form id="ncrform" onsubmit="event.preventDefault();">
             <div class="container">
                <!-- Fields for Quality Assurance Form -->
                <div id="qualityView" class="view create">
@@ -57,6 +80,7 @@
                            <td>
                               <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
                                  <option value="" disabled selected>Select a supplier</option>
+                                 </select>
                            </td>
                         </tr>
                         <!-- Item Description -->
@@ -143,7 +167,7 @@
       import * as lookup from '../public/scripts/lookup.js';
       document.addEventListener('DOMContentLoaded', () => {
          lookup.fillForm();
-         const form = document.querySelector("form");
+         const form = document.getElementById("ncrform");
          form.addEventListener("submit", async (event) => {
             const product = document.getElementById("ProductID");
             console.log(product.options[product.selectedIndex].text);
