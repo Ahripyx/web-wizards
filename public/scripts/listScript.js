@@ -20,6 +20,35 @@ async function getData(){
             <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
             `
     });
+};
+getData();
+
+    document.getElementById("btnFilter").addEventListener("click", async function(){
+        
+        const text = document.getElementById("filterSupplier").value;
+
+        console.log(text);
+
+        const statusOption = "Open";
+
+        const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=${text}`);
+        const data = await response.json();
+        const table = document.getElementById("table");
+    
+        data.forEach(element => {
+            console.log(element.id);
+            table.innerHTML += `<tr id="${element.id}"></tr>`
+            var tablerow = document.getElementById(element.id);
+            tablerow.innerHTML =
+                `
+                <td class="table-borders">${element.NCRNumber}</td>
+                <td class="table-borders">${element.SupplierName}</td>
+                <td class="table-borders">${element.FormStatus}</td>
+                <td class="table-borders">${element.CreationDate}</td>
+                <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
+                `
+        })
+    });
     
 
     /*
@@ -68,6 +97,4 @@ async function getData(){
         }   
     }   
 */    
-};
 
-getData();
