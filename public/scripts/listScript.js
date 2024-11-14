@@ -33,7 +33,9 @@ getData();
 
         const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=${text}`);
         const data = await response.json();
+        console.log(data);
         const table = document.getElementById("table");
+        table.innerHTML = "";
     
         data.forEach(element => {
             console.log(element.id);

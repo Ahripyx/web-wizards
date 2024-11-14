@@ -329,7 +329,7 @@ app.get('/FilterSummaryInfo', (req, res) => {
     const { supplierFilter } = req.query;
     try {
         const supplierWildcards = `%${supplierFilter}%`;
-        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE Supplier.SupplierName LIKE %?%').all(supplierWildcards);
+        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE Supplier.SupplierName LIKE ?').all(supplierWildcards);
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
