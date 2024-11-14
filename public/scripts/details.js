@@ -91,8 +91,6 @@ document.getElementById("btnClose").addEventListener("click", async function(){
 });
 
 document.getElementById("btnArchive").addEventListener("click", async function(){
-    // close quality first, and if quality is already closed, close engineer, if engineer is closed, set NCRFormStatus to "closed"
-    //console.log("Archived!")
 
     const arch = "Archived";
     
