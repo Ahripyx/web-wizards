@@ -75,20 +75,46 @@ export async function getProducts(selectedID = null) {
 export async function fillForm(selectedID = null) {
     try
     {
+        document.getElementById("ProductID").addEventListener("change", async function() {
+            try
+            {
+                const productID = this.value;
+                const ProductResponse = await fetch(`http://localhost:5500/products/${productID}`);
+                if (!ProductResponse.ok) {
+                    throw new Error('Failed to fetch products');
+                }
+                const ProductData = await ProductResponse.json();
+                document.getElementById('ProductNumber').textContent = ProductData.Number;
+                document.getElementById('ProductNumberContainer').hidden = false;
+
+            } catch (error) {
+                document.getElementById('ProductNumberContainer').hidden = true;
+                console.error('Failed to fetch products:', error);
+            }
+        });
+
         document.getElementById("SupplierID").addEventListener("change", async function() {
             const supplierID = this.value;
             const ProductElement = document.getElementById("ProductID");
             ProductElement.disabled = true;
-            ProductElement.innerHTML = ''; // Clear existing options
+            ProductElement.innerHTML = '';
         
             if (supplierID) {
                 try {
-                    
+
+                document.getElementById('ProductNumberContainer').hidden = true;
                     const ProductResponse = await fetch(`http://localhost:5500/product&suppliers`);
                     if (!ProductResponse.ok) {
                         throw new Error('Failed to fetch products');
                     }
                     const ProductData = await ProductResponse.json();
+                    const selectOption = document.createElement('option');
+
+                    selectOption.text = 'Select a product';
+                    selectOption.disabled = true;
+                    selectOption.selected = true;
+                    ProductElement.appendChild(selectOption);
+
                     ProductData.forEach(product => {
                         if (product.SupplierID === Number(supplierID)) {
                             const option = document.createElement('option');
@@ -98,12 +124,12 @@ export async function fillForm(selectedID = null) {
                         }
                         
                     });
-                    if (ProductElement.options.length > 0) {
+                    if (ProductElement.options.length > 1) {
                         ProductElement.disabled = false;
                     }
                     else 
                     {
-                        
+                        ProductElement.innerHTML = '';
                         const option = document.createElement('option');
                         option.text = 'No products found';
                         ProductElement.appendChild(option);
@@ -114,6 +140,8 @@ export async function fillForm(selectedID = null) {
                 }
             }
         });
+
+       
 
         if (selectedID)
         {
@@ -130,24 +158,27 @@ export async function fillForm(selectedID = null) {
                  document.getElementById('WorkInProgress').checked = QualityData.WorkInProgress === 1;
                  document.getElementById('QuantityReceived').value = QualityData.QuantityReceived;
                  document.getElementById('QuantityDefective').value = QualityData.QuantityDefective;
-                 document.getElementById('IsNonConforming').checked = QualityData.IsNonConforming === 1;
+                 if (QualityData.IsNonConforming === 1) {
+                     document.getElementById('IsNonConformingYes').checked = true;
+                 } else {
+                     document.getElementById('IsNonConformingNo').checked = true;
+                 }
                  document.getElementById('Details').value = QualityData.Details;
 
                  if (QualityData.QualityStatus === 'Open') {
                     document.getElementById('QualityStatus').value = 'Open';
-                    document.getElementById('btnEngineer').style.display = 'none';
-                      document.getElementById('EngineerView').style.display = 'none';
-                      document.getElementById('QualityView').style.display = 'block';
+                      document.getElementById('engineer').style.display = 'none';
+                      document.getElementById('quality').style.display = 'block';
                     
-                      document.querySelectorAll('#EngineerView input, #EngineerView select, #EngineerView textarea').forEach(element => {
+                      document.querySelectorAll('#engineer input, #engineer select, #engineer textarea').forEach(element => {
                        element.disabled = true;
                     });
   
                   } else {
-                    document.querySelectorAll('#QualityView input, #QualityView select, #QualityView textarea').forEach(element => {
+                    document.querySelectorAll('#quality input, #quality select, #quality textarea').forEach(element => {
                        element.disabled = true;
                     });
-                    document.querySelectorAll('#QualityView input, #QualityView select, #QualityView textarea').forEach(element => {
+                    document.querySelectorAll('#quality input, #quality select, #quality textarea').forEach(element => {
                         element.disabled = true;
                      });
    
@@ -179,10 +210,6 @@ export async function fillEngineer(selectedID = null) {
     const NewRevisionNumber = document.getElementById('NewRevisionNumber');
     const RevisionDate = document.getElementById('RevisionDate');
 
-    
-
-    
-
     const EngineerData = await EngineerResponse.json();
      document.querySelector(`input[name="Review"][value="${EngineerData.Review}"]`).checked = true;
      document.getElementById('NotifyTrue').checked = EngineerData.NotifyCustomer === 1;
@@ -195,15 +222,16 @@ export async function fillEngineer(selectedID = null) {
 
     UpdateTrue.addEventListener("click", function() {
         if (this.checked) {
-        NewRevisionNumber.hidden = false;
-        RevisionDate.hidden = false;
+            document.getElementById('NewRevisionNumberRow').hidden = false;
+            document.getElementById('RevisionDateRow').hidden = false;
            NewRevisionNumber.textContent = incrementRevisionNumber(EngineerData.CurrentRevisionNumber);
         } 
      });
      UpdateFalse.addEventListener("click", function() {
         if (this.checked) {
-            NewRevisionNumber.hidden = true;
-        RevisionDate.hidden = true;
+            document.getElementById('NewRevisionNumberRow').hidden = true;
+            document.getElementById('RevisionDateRow').hidden = true;
+            NewRevisionNumber.textContent = '';
         } 
      });
     }
@@ -220,7 +248,7 @@ export async function insertForm(id) {
          ItemDescription: product.options[product.selectedIndex].text,
          QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
          QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
-         IsNonConforming: document.getElementById("IsNonConforming").checked,  
+         IsNonConforming: document.getElementById("IsNonConformingYes").checked,  
          Details: document.getElementById("Details").value,
          ProductID: parseInt(product.value, 10),
       };

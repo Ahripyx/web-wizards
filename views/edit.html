@@ -8,6 +8,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="../public/styles/style.css" rel="stylesheet">
+      <link href="../public/styles/jadestyle.css" rel="stylesheet">
       <title>Web Wizards</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,25 +68,58 @@
             </div>
          </div>
       </header>
+
+       <!-- Navigation -->
+       <nav id="nav">
+         <div class="top">
+            <ul>
+               <li>
+                  <a href="#" onclick="toggleSection('quality')">
+                     <i class="fa-solid fa-magnifying-glass"></i>
+                  Quality
+                  </a>
+               </li>
+            </ul>
+            <ul>
+               <li>
+                  <a href="#" onclick="toggleSection('engineer')">
+                     <i class="fa-solid fa-helmet-safety"></i>
+                  Engineer
+                  </a>
+               </li>
+            </ul>
+            <ul>
+               <li>
+                  <a href="#" onclick="toggleSection('purchasing')">
+                     <i class="fa-solid fa-cart-shopping"></i>
+                  Purchasing
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+
       <!-- Edit Form -->
        <div id="QualityStatus"></div>
        <div id="EngineerNewOrEdit"></div>
-      <div class="form-container">
-         <h2>Non-Conformance Report</h2>
+      
          <form>
-            <div class="view-container">
+           
                <!-- Fields for Quality Assurance Form -->
-               <button type="button" class="collapsible">Quality</button>
-               <div id="QualityView" class="view">
-                  <fieldset>
-                     <legend>Quality Representative</legend>
-                     
+               <section class="content-section" id="quality">
+                  <div class="container">
+                     <header>
+                        <h2>Quality Representative</h2>
+                     </header>
+                  <fieldset>                     
                       <table>
                         <tr>
                            <td>
+                              <label for="SupplierID">Supplier:</label>
+                           </td>
+                           <td>
                               <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
-                                 <option value="" disabled selected>Select a Supplier</option>
-                              </select>
+                                 <option value="" disabled selected>Select a supplier</option>
                            </td>
                         </tr>
                         <!-- Item Description -->
@@ -97,6 +131,14 @@
                               <select id="ProductID" name="ProductID" style="width: 300px;" required>
                                  <option value="" disabled selected>Select an item</option>
                               </select>
+                           </td>
+                        </tr>
+                        <tr id="ProductNumberContainer" hidden>
+                           <td>
+                              <label for="ProductNumber">Product Number:</label>
+                           </td>
+                           <td>
+                              <label id="ProductNumber"></label>
                            </td>
                         </tr>
                         <!-- Defect Description -->
@@ -131,28 +173,44 @@
                               <label>Identify Process Applicable:</label>
                            </td>
                            <td>
-                              <input type="checkbox" id="WorkInProgress" name="WorkInProgress" />
-                        <label for="WorkInProgress">WIP</label>
-                        <input type="checkbox" id="SRInspection" name="SRInspection" />
-                        <label for="SRInspection">Supplier or Receiving Inspection</label>
+                              <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required />
+                              <label for="WorkInProgress">WIP</label>
+                           <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required />
+                           <label for="SRInspection">Supplier or Receiving Inspection</label>
                            </td>
                         </tr>
                         <!-- Is Non-Conformance -->
                         <tr>
                            <td>
-                              <label for="IsNonConforming">Is Non-Conformance:</label>
+                              <label for="IsNonConforming">Is Item Non-Conforming:</label>
                            </td>
                            <td>
-                              <input type="checkbox" id="IsNonConforming" name="IsNonConforming">
+                              <input type="radio" id="IsNonConformingYes" name="IsNonConforming" value="Yes" required>
+                              <label for="IsNonConformingYes">Yes</label>
+                              <input type="radio" id="IsNonConformingNo" name="IsNonConforming" value="No" required>
+                              <label for="IsNonConformingNo">No</label>    
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>
+
+                           </td>
+                           <td>
+                              <button type="submit" >Save Changes</button>
                            </td>
                         </tr>
                       </table> 
                   </fieldset>
                </div>
-               <button type="button" id="btnEngineer" class="collapsible">Engineer</button>
-               <div id="EngineerView" class="view">
+               </section>
+               </div>
+
+               <section class="content-section" id="engineer">
+                  <div class="container">
                   <fieldset>
-                     <legend>Engineering</legend>
+                     <header>
+                        <h2>Engineer</h2>
+                     </header>
                      <table>
                         <!-- Review by CF Engineering -->
                         <tr>
@@ -212,33 +270,53 @@
                              <label id="CurrentRevisionNumber"></label>
                            </td>
                         </tr>
-                        <tr>
+                        <tr id="NewRevisionNumberRow" hidden>
                            <td>
-                             <label for="NewRevisionNumber" hidden>Updated Rev. Number:</label>
+                             <label for="NewRevisionNumber">Updated Rev. Number:</label>
                            </td>
                            <td>
-                             <label id="NewRevisionNumber" hidden>
+                             <label id="NewRevisionNumber">
+                           </td>
+                        </tr>
+                        <tr id="RevisionDateRow" hidden>
+                           <td>
+                             <label for="RevisionDate" id="lblRevisionDate">Revision Date:</label>
+                           </td>
+                           <td>
+                             <input type="date" id="RevisionDate">
                            </td>
                         </tr>
                         <tr>
                            <td>
-                             <label for="RevisionDate" hidden>Revision Date:</label>
+
                            </td>
                            <td>
-                             <input type="date" id="RevisionDate" hidden>
+                              <button type="submit">Save Changes</button>
                            </td>
                         </tr>
                       </table>
                   </fieldset>
                </div>
+               </section>
             </div>
             <!-- Submit Button -->
-            <br>
-            <button type="submit">Save Changes</button>
+
+            
          </form>
       </div>
       <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script>
+
+function toggleSection(sectionId) {
+             var sections = document.querySelectorAll('.content-section');
+             sections.forEach(function(section) {
+                 if (section.id === sectionId) {
+                     section.style.display = section.style.display === 'none' ? 'block' : 'none';
+                 } else {
+                     section.style.display = 'none';
+                 }
+             });
+         }
 
 document.addEventListener('DOMContentLoaded', () => {
 

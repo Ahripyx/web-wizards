@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="../public/styles/style.css" rel="stylesheet">
+      <link href="../public/styles/jadestyle.css" rel="stylesheet">
       <title>Web Wizards</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +35,7 @@
                 </button>
           </div>
           <!-- Notification Modal -->
-<div id="notification-modal" class="modal">
+<div id="notification-modal" class="modal" style="z-index: 150;">
  <!-- Modal content -->
  <div class="modal-content" id="notification-content">
    <span class="close">&times;</span>
@@ -162,80 +163,6 @@
             </form>
          </div>
       </section>
-      <style>
-         body {
-         background-color: whitesmoke;
-         }
-         section {
-         padding: 3em;
-         height: 100%;
-         position: relative;
-         z-index: 0;
-         }
-         .container header {
-         background-color: whitesmoke;
-         }
-         .col-sm {
-         padding:25px 0 0 25px;
-         box-sizing: border-box;
-         }  
-         .col-6 {
-         width: 50%;
-         padding: 25px;
-         box-sizing: border-box;
-         }
-         .col-12 {
-         width: 100%;
-         padding: 25px;
-         box-sizing: border-box;
-         }
-         .row {
-         display: flex;
-         flex-wrap: wrap;
-         box-sizing: border-box;
-         align-items: stretch;
-         }
-         form {
-         border: solid 1px rgba(0, 0, 0, 0.15);
-         }
-         form input[type="text"], form input[type="number"], form input[type="email"], form input[type="password"], form select {
-         padding: 0.75em 1em 0.75em 1em;
-         box-shadow: inset 0 0.1em 0.1em 0 rgba(0, 0, 0, 0.05);
-         border: solid 1px rgba(0, 0, 0, 0.15);
-         width: 100%;
-         box-sizing: border-box;
-         }
-         #nav ul {
-         list-style: none;
-         border-bottom: white 1px solid;
-         }
-         #nav ul li a {
-         display: block;
-         padding: 0.5em 1.5em 0.5em 1.5em;
-         color: white;
-         text-decoration: none;
-         }
-         #nav {
-         z-index: 100;
-         display: flex;
-         flex-direction: column;
-         justify-content: space-between;
-         text-align: right;
-         box-shadow: inset -0.25em 0.25em rgba(0, 0, 0, 0.25);
-         background: #282a35;
-         width: 15%;
-         height: 100%;
-         position: fixed;
-         }
-         .container {
-         margin-left: 25%;
-         margin-right: 10%;
-         }
-         .content-section {
-         text-align: center;
-         display: none;
-         }
-      </style>
       <script>
          function toggleSection(sectionId) {
              var sections = document.querySelectorAll('.content-section');

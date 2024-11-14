@@ -324,6 +324,19 @@ app.get('/SummaryInfo', (req, res) => {
     }
 });
 
+// app to get summary data filtered by supplier number, status, and date range
+app.get('/FilterSummaryInfo', (req, res) => {
+    const { supplierFilter } = req.query;
+    try {
+        const supplierWildcards = `%${supplierFilter}%`;
+        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE Supplier.SupplierName LIKE ?').all(supplierWildcards);
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
 // Endpoint to get all NCR data given an id
 app.get('/AllInfo', (req, res) => {
     const { id } = req.query;
@@ -348,6 +361,8 @@ app.get('SortAsc'), (req, res) => {
         res.status(500).send("Failed to fetch data.");
     }
 }
+
+
 
 // Endpoint to get the 5 most recent NCR forms
 app.get('/recent-ncrs', (req, res) => {
