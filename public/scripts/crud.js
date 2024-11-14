@@ -26,7 +26,7 @@ export async function newProduct(supplier, productName, productNumber) {
 }
 
 // CREATE NEW SUPPLIER
-async function newSupplier(supplier) {
+export async function newSupplier(supplier) {
     try {
         const dataToInsert = {
             SupplierName: supplier.value
@@ -51,7 +51,7 @@ async function newSupplier(supplier) {
 }
 
 // CREATE NEW USER
-async function newUser(FName, MName, LName, Email, Password, RoleID) {
+export async function newUser(FName, MName, LName, Email, Password, RoleID) {
     try {
     const dataToInsert = {
         FName: FName.value,

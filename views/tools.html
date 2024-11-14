@@ -10,11 +10,28 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <script src="../public/scripts/tools.js"></script>
-      <script src="../public/scripts/crud.js"></script>
       <script src="../public/scripts/notification.js" defer></script>
-      <script>
+      <script type="module" defer>
+         import * as crud from '../public/scripts/crud.js';
          document.addEventListener('DOMContentLoaded', async () => {
             await fetchData();
+            const productform =document.getElementById('productform');
+            productform.addEventListener('submit', async (event) => {
+               event.preventDefault();
+               await crud.newProduct(document.getElementById('SupplierID'), document.getElementById('ProductName'), document.getElementById('ProductNumber'));
+            });
+
+            const userform = document.getElementById('userform');
+            userform.addEventListener('submit', async (event) => {
+               event.preventDefault();
+               await crud.newUser(document.getElementById('FName'), document.getElementById('MName'), document.getElementById('LName'), document.getElementById('Email'), document.getElementById('Password'), document.getElementById('RoleID'));
+            });
+
+            const supplierform = document.getElementById('supplierform');
+            supplierform.addEventListener('submit', async (event) => {
+               event.preventDefault();
+               await crud.newSupplier(document.getElementById('SupplierName'));
+            });
          });
       </script>
       <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
@@ -87,14 +104,7 @@
             <header>
                <h2>User Overview</h2>
             </header>
-            <form onsubmit="event.preventDefault(); newUser(
-               document.getElementById('FName'),
-               document.getElementById('MName'),
-               document.getElementById('LName'),
-               document.getElementById('Email'),
-               document.getElementById('Password'),
-               document.getElementById('RoleID')
-            );">
+            <form id="userform">
                <div class="row">
                   <div class="col-6">
                      <input type="text" id="FName" name="FName" placeholder="First name">
@@ -130,7 +140,7 @@
             <header>
                <h2>Product Overview</h2>
             </header>
-            <form onsubmit="event.preventDefault(); newProduct(document.getElementById('SupplierID'), document.getElementById('ProductName'), document.getElementById('ProductNumber'));">
+            <form id="productform">
                <div class="row">
 
                   <div class="col-12">
@@ -159,7 +169,7 @@
             <header>
                <h2>Supplier Overview</h2>
             </header>
-            <form onsubmit="event.preventDefault(); newSupplier(document.getElementById('SupplierName'));">
+            <form id="supplierform">
                <div class="row">
                   <div class="col-12">
                      <input type="text" id="SupplierName" name="SupplierName" placeholder="Name">
