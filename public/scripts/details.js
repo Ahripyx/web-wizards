@@ -4,9 +4,11 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const ncrId = parseInt(urlParams.get('id'));
+const table = document.getElementById("displayTable");
 
 function fillTables(data){
-    const table = document.getElementById("displayTable");
+    
+    
     data.forEach(element =>{
         for (let item in element){
             if (item.substr(-2).toUpperCase() == "ID"){
@@ -43,10 +45,11 @@ async function getData(){
     const ncrData = await ncrRes.json();
     const qaData = await qaRes.json();
     const engData = await engRes.json();
-    console.log(ncrData);
-    console.log(qaData);
-    console.log(engData);
+    //console.log(ncrData);
+    //console.log(qaData);
+    //console.log(engData);
 
+    table.innerHTML="";
     fillTables(ncrData);
     fillTables(qaData);
     fillTables(engData);
