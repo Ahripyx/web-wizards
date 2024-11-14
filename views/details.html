@@ -11,38 +11,34 @@
       <script src="../public/scripts/notification.js" defer></script>
    </head>
 <body>
-    <header>
+   <header>
       <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-        <div class="header-content">
-            <div class="logo">
-               <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
-            </div>
-            <div>
-               <button class="notification" id="btnNotification">
-                  <span class="fa-solid fa-bell"></span>
-                 <span class="badge" id="notification-count">0</span>
-               </button>
+      <div class="header-content">
+         <div class="logo">
+            <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
          </div>
-         <!-- Notification Modal -->
-<div id="notification-modal" class="modal">
-<!-- Modal content -->
-<div class="modal-content" id="notification-content">
-  <span class="close">&times;</span>
-</div>
-</div>
+         <div>
             <nav class="header-nav">
                <button id="btnNavHome" tabindex="2">Home</button>
                <button id="btnNavCreateNCR" tabindex="3">Create NCR</button>
                <button id="btnNavNCRs" tabindex="4">NCR Logs</button>
             </nav>
-            </div>
-            <!--<div class="user-info"> -->
-               <!-- A button to open the popup form -->
-               <!--<button class="open-button" onclick="openForm()">Sign in here</button>-->
-               <!--<p>Hello, User</p>-->
-            <!--</div>-->
          </div>
-    </header>
+         <div>
+            <button class="notification" id="btnNotification">
+               <span class="fa-solid fa-bell"></span>
+              <span class="badge" id="notification-count">0</span>
+            </button>
+         </div>
+         <!-- Notification Modal -->
+         <div id="notification-modal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content" id="notification-content">
+               <span class="close">&times;</span>
+            </div>
+         </div>
+      </div>
+   </header>
     <table id="displayTable">
    <Button id="btnClose">Close Form</Button>
    <Button id="btnArchive">Archive Form</Button>

@@ -18,29 +18,28 @@
       <header>
          <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
          <div class="header-content">
-            <!-- Size up the logo -->
             <div class="logo">
                <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
             </div>
-            <div>
-                  <button class="notification" id="btnNotification">
-                     <span class="fa-solid fa-bell"></span>
-                    <span class="badge" id="notification-count">0</span>
-                  </button>
-            </div>
-            <!-- Notification Modal -->
-<div id="notification-modal" class="modal">
-   <!-- Modal content -->
-   <div class="modal-content" id="notification-content">
-     <span class="close">&times;</span>
-   </div>
- </div>
             <div>
                <nav class="header-nav">
                   <button id="btnNavHome" tabindex="2">Home</button>
                   <button id="btnNavCreateNCR" tabindex="3">Create NCR</button>
                   <button id="btnNavNCRs" tabindex="4">NCR Logs</button>
                </nav>
+            </div>
+            <div>
+               <button class="notification" id="btnNotification">
+                  <span class="fa-solid fa-bell"></span>
+                 <span class="badge" id="notification-count">0</span>
+               </button>
+            </div>
+            <!-- Notification Modal -->
+            <div id="notification-modal" class="modal">
+               <!-- Modal content -->
+               <div class="modal-content" id="notification-content">
+                  <span class="close">&times;</span>
+               </div>
             </div>
          </div>
       </header>
@@ -208,6 +207,7 @@ console.log(product.options[product.selectedIndex].value);
 });
 });
       </script>
+      <script src="../public/scripts/navigate.js"></script>
       
       <!--
         </script> HTML: The select element is enhanced with the class="js-example-basic-single" to apply the Select2 functionality.
