@@ -366,7 +366,43 @@ app.get('SortAsc'), (req, res) => {
 app.put('/UpdateNCRStatus', (req, res) => {
     const { newStatus, id  } = req.query;
     try {
-        const stmt = db.prepare('UPDATE NCRForm SET NCRForm.Status = ? WHERE NCRForm.id = ?');
+        const stmt = db.prepare('UPDATE NCRForm SET NCRForm.FormStatus = ? WHERE NCRForm.id = ?');
+        const result = stmt.run(newStatus, id);
+        if (result.changes > 0) {
+            res.status(200).send("NCR record updated successfully!");
+        } else {
+            res.status(404).send("NCR record not found.");
+        }
+    }
+    catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to update NCR form record.");
+    }
+});
+
+// Endpoint to update status on Quality
+app.put('/UpdateQAStatus', (req, res) => {
+    const { newStatus, id  } = req.query;
+    try {
+        const stmt = db.prepare('UPDATE Quality SET Quality.QualityStatus = ? WHERE Quality.NCRFormID = ?');
+        const result = stmt.run(newStatus, id);
+        if (result.changes > 0) {
+            res.status(200).send("Quality Assurance record updated successfully!");
+        } else {
+            res.status(404).send("Quality Assurance record not found.");
+        }
+    }
+    catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Quality Assurance to update NCR form record.");
+    }
+});
+
+// Endpoint to update status on Engineer
+app.put('/UpdateEngineerStatus', (req, res) => {
+    const { newStatus, id  } = req.query;
+    try {
+        const stmt = db.prepare('UPDATE Engineer SET Engineer.EngineerStatus = ? WHERE Engineer.NCRFormID = ?');
         const result = stmt.run(newStatus, id);
         if (result.changes > 0) {
             res.status(200).send("Engineer record updated successfully!");
@@ -377,6 +413,42 @@ app.put('/UpdateNCRStatus', (req, res) => {
     catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to update NCR form record.");
+    }
+});
+
+// Endpoint to get NCR by id
+app.get('/ncrFromID', (req, res) => {
+    const { ncrID } = req.query;
+    try {
+        const rows = db.prepare('SELECT * FROM NCRForm WHERE NCRForm.id = ?').all(ncrID);
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to get Quality by NCRFormID
+app.get('/QualityFromNCR', (req, res) => {
+    const { ncrID } = req.query;
+    try {
+        const rows = db.prepare('SELECT * FROM Quality WHERE Quality.NCRFormID = ?').all(ncrID);
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to get Engineer by NCRFormID
+app.get('/EngineerFromNCR', (req, res) => {
+    const { ncrID } = req.query;
+    try {
+        const rows = db.prepare('SELECT * FROM Engineer WHERE Engineer.NCRFormID = ?').all(ncrID);
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
     }
 });
 
