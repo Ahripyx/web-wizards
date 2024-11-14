@@ -93,7 +93,9 @@ document.getElementById("btnClose").addEventListener("click", async function(){
 document.getElementById("btnArchive").addEventListener("click", async function(){
 
     const arch = "Archived";
-    
+    const response1 = await fetch(`http://localhost:5500/ncrFromID?ncrID=${ncrId}`);
+    const wow = await response1.json();
+    console.log(wow);
     const response = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=${arch}&id=${ncrId}`, {
         method: 'PUT'
     });

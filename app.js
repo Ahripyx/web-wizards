@@ -331,7 +331,7 @@ app.get('/FilterSummaryInfo', (req, res) => {
     const { supplierFilter, status } = req.query;
     try {
         const supplierWildcards = `%${supplierFilter}%`;
-        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE Supplier.SupplierName LIKE ? && NCRForm.FormStatus = ?').all(supplierWildcards, status);
+        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE Supplier.SupplierName LIKE ? AND NCRForm.FormStatus = ?').all(supplierWildcards, status);
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
@@ -368,7 +368,7 @@ app.get('SortAsc'), (req, res) => {
 app.put('/UpdateNCRStatus', (req, res) => {
     const { newStatus, id  } = req.query;
     try {
-        const stmt = db.prepare('UPDATE NCRForm SET NCRForm.FormStatus = ? WHERE NCRForm.id = ?');
+        const stmt = db.prepare('UPDATE NCRForm SET FormStatus = ? WHERE id = ?');
         const result = stmt.run(newStatus, id);
         if (result.changes > 0) {
             res.status(200).send("NCR record updated successfully!");

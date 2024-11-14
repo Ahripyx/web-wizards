@@ -19,8 +19,6 @@ async function getData() {
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${new Date(element.LastModified).toLocaleDateString()}</td>
             <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
-            <td class="table-borders"><a href="edit.html?id=${element.id}">Edit</a></td>
-            <td class="table-borders"><a href="#" onclick="archiveNCR(${element.id})">Archive</a></td>
         `;
     });
 }
