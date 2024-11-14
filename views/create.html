@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="../public/styles/style.css" rel="stylesheet">
+      <link href="../public/styles/jadestyle.css" rel="stylesheet">
       <title>Web Wizards</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,22 +40,26 @@
                   <a href="index.html"  class="nav-item" tabindex="2">Home</a>
                   <a href="create.html" class="nav-item" tabindex="3">Create NCR</a>
                   <a href="list.html" class="nav-item" tabindex="4">NCRs</a>
+                  <a href="tools.html" class="nav-item" tabindex="5">Tools</a>
                </nav>
             </div>
          </div>
       </header>
       <!-- Create Form -->
-      <div class="form-container">
+      <div class="content-section create">
          <h2>Non-Conformance Report</h2>
          <form onsubmit="event.preventDefault();">
-            <div class="view-container">
+            <div class="container">
                <!-- Fields for Quality Assurance Form -->
-               <div id="normView" class="view create">
+               <div id="qualityView" class="view create">
                   <fieldset>
-                     <legend>Quality Representative</legend>
+                   <!--  <legend>Quality Representative</legend>-->
                      
                       <table>
                         <tr>
+                           <td>
+                              <label for="SupplierID">Supplier:</label>
+                           </td>
                            <td>
                               <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
                                  <option value="" disabled selected>Select a supplier</option>
@@ -63,12 +68,20 @@
                         <!-- Item Description -->
                         <tr>
                            <td>
-                              <label for="ProductID">Product Name:</label>
+                              <label for="ProductID">Product:</label>
                            </td>
                            <td>
                               <select id="ProductID" name="ProductID" style="width: 300px;" disabled required>
                                  <option value="" disabled selected>Select an item</option>
                               </select>
+                           </td>
+                        </tr>
+                        <tr id="ProductNumberContainer" hidden>
+                           <td>
+                              <label for="ProductNumber">Product Number:</label>
+                           </td>
+                           <td>
+                              <label id="ProductNumber"></label>
                            </td>
                         </tr>
                         <!-- Defect Description -->
@@ -103,19 +116,26 @@
                               <label>Identify Process Applicable:</label>
                            </td>
                            <td>
-                              <input type="checkbox" id="WorkInProgress" name="WorkInProgress" />
-                        <label for="WorkInProgress">WIP</label>
-                        <input type="checkbox" id="SRInspection" name="SRInspection" />
-                        <label for="SRInspection">Supplier or Receiving Inspection</label>
+                              
+                                <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required />
+                                <label for="WorkInProgress">WIP</label>
+                             <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required />
+                             <label for="SRInspection">Supplier or Receiving Inspection</label>
+
+                           
+                        
                            </td>
                         </tr>
                         <!-- Is Non-Conformance -->
                         <tr>
                            <td>
-                              <label for="IsNonConforming">Is Non-Conformance:</label>
+                              <label for="IsNonConforming">Is Item Non-Conforming:</label>
                            </td>
                            <td>
-                              <input type="checkbox" id="IsNonConforming" name="IsNonConforming">
+                              <input type="radio" id="IsNonConformingYes" name="IsNonConforming" value="Yes" required>
+                              <label for="IsNonConformingYes">Yes</label>
+                              <input type="radio" id="IsNonConformingNo" name="IsNonConforming" value="No" required>
+                              <label for="IsNonConformingNo">No</label>    
                            </td>
                         </tr>
                       </table> 
@@ -153,7 +173,7 @@ console.log(product.options[product.selectedIndex].value);
         ItemDescription: product.options[product.selectedIndex].text,
         QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
         QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
-        IsNonConforming: document.getElementById("IsNonConforming").checked,  
+        IsNonConforming: document.getElementById("IsNonConformingYes").checked,  
         Details: document.getElementById("Details").value,
         ProductID: parseInt(product.value, 10),
     };
@@ -189,13 +209,5 @@ console.log(product.options[product.selectedIndex].value);
 });
 });
       </script>
-      
-      <!--
-        </script> HTML: The select element is enhanced with the class="js-example-basic-single" to apply the Select2 functionality.
-         CSS: The Select2 library’s CSS is included via a CDN link.
-         JavaScript: jQuery and Select2 libraries are included via CDN links. The script initializes the Select2 plugin on the select element when the document is ready.
-         HTML: The select element is divided into two optgroup elements. The first group, labeled “Popular Options,” contains the most popular items (Options 5, 10, and 11). 
-         The second group, labeled “All Options,” contains all the options, including the popular ones for completeness.
-         -->
    </body>
 </html>
