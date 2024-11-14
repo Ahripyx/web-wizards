@@ -10,6 +10,7 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <script src="../public/scripts/tools.js"></script>
+      <script src="../public/scripts/crud.js"></script>
       <script src="../public/scripts/notification.js" defer></script>
       <script>
          document.addEventListener('DOMContentLoaded', async () => {
@@ -86,7 +87,14 @@
             <header>
                <h2>User Overview</h2>
             </header>
-            <form onsubmit="event.preventDefault(); newUser();">
+            <form onsubmit="event.preventDefault(); newUser(
+               document.getElementById('FName'),
+               document.getElementById('MName'),
+               document.getElementById('LName'),
+               document.getElementById('Email'),
+               document.getElementById('Password'),
+               document.getElementById('RoleID')
+            );">
                <div class="row">
                   <div class="col-6">
                      <input type="text" id="FName" name="FName" placeholder="First name">
@@ -122,7 +130,7 @@
             <header>
                <h2>Product Overview</h2>
             </header>
-            <form onsubmit="event.preventDefault(); newProduct();">
+            <form onsubmit="event.preventDefault(); newProduct(document.getElementById('SupplierID'), document.getElementById('ProductName'), document.getElementById('ProductNumber'));">
                <div class="row">
 
                   <div class="col-12">
@@ -151,7 +159,7 @@
             <header>
                <h2>Supplier Overview</h2>
             </header>
-            <form onsubmit="event.preventDefault(); newSupplier();">
+            <form onsubmit="event.preventDefault(); newSupplier(document.getElementById('SupplierName'));">
                <div class="row">
                   <div class="col-12">
                      <input type="text" id="SupplierName" name="SupplierName" placeholder="Name">
