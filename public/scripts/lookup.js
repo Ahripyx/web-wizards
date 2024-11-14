@@ -179,20 +179,9 @@ export async function fillEngineer(selectedID = null) {
     const NewRevisionNumber = document.getElementById('NewRevisionNumber');
     const RevisionDate = document.getElementById('RevisionDate');
 
-    UpdateTrue.addEventListener("click", function() {
-        if (this.checked) {
-           NewRevisionNumber.disabled = false;
-           RevisionDate.disabled = false;
-        } 
-     });
-     UpdateFalse.addEventListener("click", function() {
-        if (this.checked) {
-            NewRevisionNumber.value = null;
-            RevisionDate.value = null;
-           NewRevisionNumber.disabled = true;
-           RevisionDate.disabled = true;
-        } 
-     });
+    
+
+    
 
     const EngineerData = await EngineerResponse.json();
      document.querySelector(`input[name="Review"][value="${EngineerData.Review}"]`).checked = true;
@@ -202,10 +191,21 @@ export async function fillEngineer(selectedID = null) {
      UpdateTrue.checked = EngineerData.DrawingUpdateRequired === 1;
      UpdateFalse.checked = EngineerData.DrawingUpdateRequired === 0;
      CurrentRevisionNumber.textContent = EngineerData.CurrentRevisionNumber;
-     NewRevisionNumber.value = EngineerData.NewRevisionNumber;
-     RevisionDate.value = EngineerData.RevisionDate;
+     //RevisionDate.value = new Date().toISOString().split('T')[0];
 
-     
+    UpdateTrue.addEventListener("click", function() {
+        if (this.checked) {
+        NewRevisionNumber.hidden = false;
+        RevisionDate.hidden = false;
+           NewRevisionNumber.textContent = incrementRevisionNumber(EngineerData.CurrentRevisionNumber);
+        } 
+     });
+     UpdateFalse.addEventListener("click", function() {
+        if (this.checked) {
+            NewRevisionNumber.hidden = true;
+        RevisionDate.hidden = true;
+        } 
+     });
     }
 
 export async function insertForm(id) {
@@ -248,14 +248,25 @@ export async function insertForm(id) {
          alert("An unexpected error occurred.");
       }
    } else {
+    const CurrentRevisionNumber = document.getElementById('CurrentRevisionNumber');
+    const NewRevisionNumber = document.getElementById('NewRevisionNumber');
+
       const engineerData = {
          Review: document.querySelector('input[name="Review"]:checked').value,
          NotifyCustomer: document.getElementById('NotifyTrue').checked ? 1 : 0,
          Disposition: document.getElementById('Disposition').value,
          DrawingUpdateRequired: document.getElementById('UpdateTrue').checked ? 1 : 0,
-         NewRevisionNumber: document.getElementById('NewRevisionNumber').value,
-         RevisionDate: document.getElementById('RevisionDate').value,
+         CurrentRevisionNumber: CurrentRevisionNumber.textContent,
       };
+
+      if (NewRevisionNumber.hidden === false) 
+        {
+            engineerData.CurrentRevisionNumber = NewRevisionNumber.textContent;
+        }
+        if (RevisionDate.hidden === false)
+        {
+            engineerData.RevisionDate = new Date().toISOString().split('T')[0];
+        }
 
       if (document.getElementById('EngineerNewOrEdit').value === 'Create') {
          try {
@@ -297,4 +308,16 @@ export async function insertForm(id) {
          }
       }
    }
+}
+
+function incrementRevisionNumber(revisionNumber) {
+    console.log(revisionNumber);
+    const parts = revisionNumber.split('-');
+    console.log(parts);
+    const number = parts[0];
+    let letter = parts[1].charCodeAt(0);
+    console.log(letter);
+    letter = String.fromCharCode(letter + 1);
+    console.log(letter);
+    return `${number}-${letter}`;
 }

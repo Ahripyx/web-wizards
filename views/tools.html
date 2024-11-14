@@ -9,6 +9,7 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <script src="../public/scripts/tools.js"></script>
+      <script src="../public/scripts/notification.js" defer></script>
       <script>
          document.addEventListener('DOMContentLoaded', async () => {
             await fetchData();
@@ -26,6 +27,19 @@
             <div class="logo">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
             </div>
+            <div>
+                <button class="notification" id="btnNotification">
+                   <span class="fa-solid fa-bell"></span>
+                  <span class="badge" id="notification-count">0</span>
+                </button>
+          </div>
+          <!-- Notification Modal -->
+<div id="notification-modal" class="modal">
+ <!-- Modal content -->
+ <div class="modal-content" id="notification-content">
+   <span class="close">&times;</span>
+ </div>
+</div>
             <div>
                <nav class="header-nav">
                   <a href="index.html" class="nav-item" tabindex="2">Home</a>

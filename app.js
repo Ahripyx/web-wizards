@@ -20,7 +20,7 @@ app.use(express.static('public'));
 createTables.forEach(query => db.exec(query));
 
 // Fill tables with seed data ( COMMENT THIS OUT AFTER FIRST RUN )
-//seedTables.forEach(query => db.exec(query));
+seedTables.forEach(query => db.exec(query));
 
 // Endpoint to get NCRForm table
 app.get('/ncrs', (req, res) => {

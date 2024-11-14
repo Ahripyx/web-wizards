@@ -59,8 +59,8 @@ export const createTables = [
         NotifyCustomer BOOLEAN NOT NULL,
         Disposition STRING NOT NULL,
         DrawingUpdateRequired BOOLEAN NOT NULL,
-        CurrentRevisionNumber INTEGER,
-        NewRevisionNumber INTEGER,
+        CurrentRevisionNumber STRING,
+        NewRevisionNumber STRING,
         RevisionDate DATETIME,
         EngineerStatus STRING NOT NULL,
         LastModified DATETIME NOT NULL,
@@ -217,7 +217,7 @@ export const seedTables = [
         (2, '2024-002', 0, 1, 'Drill - Motor issue', 30, 3, 1, '3 drills with faulty motors.', 'Closed', '2024-10-04', 2), 
         (3, '2024-003', 1, 0, 'Paint Can - Lid issues', 100, 7, 1, 'Paint can lids not sealing properly.', 'Closed', '2024-10-06', 3)`,
     `INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, DrawingUpdateRequired, CurrentRevisionNumber, NewRevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES 
-        (1, 'Rework', 0, 'Accepted with Rework', 1, 1, 2, '2024-10-03', 'Closed', '2024-10-02'), 
-        (2, 'Scrap', 1, 'Rejected', 0, 1, NULL, NULL, 'Open', '2024-10-04'), 
-        (3, 'Repair', 0, 'Approved', 1, 2, 3, '2024-10-07', 'Closed', '2024-10-06')`
+        (1, 'Rework', 0, 'Accepted with Rework', 0, '399-B', NULL, '2024-10-03', 'Closed', '2024-10-02'), 
+        (2, 'Scrap', 1, 'Rejected', 0, NULL, NULL, NULL, 'Open', '2024-10-04'), 
+        (3, 'Repair', 0, 'Approved', 0, '456-C', NULL, '2024-10-07', 'Closed', '2024-10-06')`
 ];

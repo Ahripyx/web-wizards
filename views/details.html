@@ -8,13 +8,28 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-</head>
+      <script src="../public/scripts/notification.js" defer></script>
+   </head>
 <body>
     <header>
+      <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
         <div class="header-content">
             <div class="logo">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
             </div>
+            <div>
+               <button class="notification" id="btnNotification">
+                  <span class="fa-solid fa-bell"></span>
+                 <span class="badge" id="notification-count">0</span>
+               </button>
+         </div>
+         <!-- Notification Modal -->
+<div id="notification-modal" class="modal">
+<!-- Modal content -->
+<div class="modal-content" id="notification-content">
+  <span class="close">&times;</span>
+</div>
+</div>
             <div>
                <nav class="header-nav">
                   <a href="index.html" class="nav-item" tabindex="2">Home</a>
