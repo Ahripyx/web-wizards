@@ -44,7 +44,7 @@
          <div class="header-content">
             <!-- Size up the logo -->
             <div class="logo">
-               <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
+               <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
             </div>
             <div>
                <button class="notification" id="btnNotification">
@@ -61,10 +61,9 @@
 </div>
             <div>
                <nav class="header-nav">
-                  <a href="index.html" class="nav-item" tabindex="2">Home</a>
-                  <a href="create.html" class="nav-item" tabindex="3">Create</a>
-                  <a href="list.html" class="nav-item" tabindex="4">NCRs</a>
-                  <a href="tools.html" class="nav-item" tabindex="5">Tools</a>
+                  <button id="btnNavHome" tabindex="2">Home</button>
+                  <button id="btnNavCreateNCR" tabindex="3">Create NCR</button>
+                  <button id="btnNavNCRs" tabindex="4">NCR Logs</button>
                </nav>
             </div>
          </div>
@@ -340,5 +339,6 @@ for (i = 0; i < coll.length; i++) {
 
          
       </script>
+      <script src="../public/scripts/navigate.js"></script>
    </body>
 </html>

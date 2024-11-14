@@ -20,7 +20,7 @@
          <div class="header-content">
             <!-- Size up the logo -->
             <div class="logo">
-               <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
+               <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
             </div>
             <div>
                   <button class="notification" id="btnNotification">
@@ -37,10 +37,9 @@
  </div>
             <div>
                <nav class="header-nav">
-                  <a href="index.html"  class="nav-item" tabindex="2">Home</a>
-                  <a href="create.html" class="nav-item" tabindex="3">Create NCR</a>
-                  <a href="list.html" class="nav-item" tabindex="4">NCRs</a>
-                  <a href="tools.html" class="nav-item" tabindex="5">Tools</a>
+                  <button id="btnNavHome" tabindex="2">Home</button>
+                  <button id="btnNavCreateNCR" tabindex="3">Create NCR</button>
+                  <button id="btnNavNCRs" tabindex="4">NCR Logs</button>
                </nav>
             </div>
          </div>
@@ -209,5 +208,13 @@ console.log(product.options[product.selectedIndex].value);
 });
 });
       </script>
+      
+      <!--
+        </script> HTML: The select element is enhanced with the class="js-example-basic-single" to apply the Select2 functionality.
+         CSS: The Select2 library’s CSS is included via a CDN link.
+         JavaScript: jQuery and Select2 libraries are included via CDN links. The script initializes the Select2 plugin on the select element when the document is ready.
+         HTML: The select element is divided into two optgroup elements. The first group, labeled “Popular Options,” contains the most popular items (Options 5, 10, and 11). 
+         The second group, labeled “All Options,” contains all the options, including the popular ones for completeness.
+         -->
    </body>
 </html>

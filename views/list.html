@@ -15,20 +15,10 @@
     <header>
         <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
        <script type="module" src="../public/scripts/listScript.js"></script>
-
-       <script>
-           function openForm() {
-           document.getElementById("myForm").style.display = "block";
-           }
-           
-           function closeForm() {
-           document.getElementById("myForm").style.display = "none";
-           }
-        </script>
         <div class="header-content">
            <!-- Size up the logo -->
            <div class="logo">
-              <img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo">
+            <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
            </div>
            <div>
             <button class="notification" id="btnNotification">
@@ -45,15 +35,19 @@
 </div>
            <div>
             <nav class="header-nav">
-                <a href="index.html" class="nav-item" tabindex="2">Home</a>
-                <a href="create.html" class="nav-item" tabindex="3">Create NCR</a>
-                <a href="list.html" class="nav-item" tabindex="4">NCRs</a>
+                <button id="btnNavHome" tabindex="2">Home</button>
+                <button id="btnNavCreateNCR" tabindex="3">Create NCR</button>
+                <button id="btnNavNCRs" tabindex="4">NCR Logs</button>
              </nav>
            </div>
         </div>
      </header>
     <main>
         <h1>NCRs</h1>
+        <section>
+            <input type="text" id="filterSupplier">
+            
+        </section>
         <table id="table" class="table-borders">
             <tr>
                 <th class="table-borders">NCR</th>
@@ -66,7 +60,6 @@
     <footer class="commit-bottom">
         <hr><p><small>CROSSFIRE NCR</small></p>
     </footer>
-
-
+    <script src="../public/scripts/navigate.js"></script>
 </body>
 </html>
