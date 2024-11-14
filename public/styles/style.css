@@ -35,12 +35,11 @@ th, td{
 
 /* Flexbox layout for header */
 .header-content {   
-    align-items: center; /* Centers items vertically */
-    display: flex;
-    justify-content: space-between; /* Spreads the logo and user info to opposite ends */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    justify-items: center;  
 }
-
-
+    
 .commit-bottom {
     bottom: 0;
     left: 0;
@@ -65,8 +64,8 @@ th, td{
 /*====================
     Navigation Styles
 ====================*/
+
 .header-nav {
-    border-bottom: 3px solid #ddd;
     display: flex;
     justify-content: flex-end;
     padding: 10px 20px;
@@ -77,7 +76,13 @@ th, td{
     font-size: 14px;
     margin-right: 6px;
     padding: 6px 8px;
-    text-decoration: underline;
+    text-decoration: none;
+}
+
+.header-nav button{
+    font-size: 25px;
+    margin: 8px;
+    text-decoration: none;
 }
 
 /* Hover effect for nav items */
@@ -183,9 +188,9 @@ button:hover {
     display: block;
 }
 
-  .active, .collapsible:hover {
-    background-color: #ccc;
-  }
+.active, .collapsible:hover {
+background-color: #ccc;
+}
 
 
 /*====================
