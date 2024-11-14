@@ -2,8 +2,7 @@ import Database from 'better-sqlite3';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { createTables } from './cmds/queries.js';
-import { seedTables } from './cmds/queries.js';
+import { createTables, seedTables, dropTables } from './cmds/queries.js';
 
 const db = new Database('./db/test_data.db');
 const app = express();
@@ -16,10 +15,13 @@ app.use(cors());
 // Serve static files from the public directory
 app.use(express.static('public'));
 
+// Drop tables if they exist
+dropTables.forEach(query => db.exec(query));
+
 // Create tables
 createTables.forEach(query => db.exec(query));
 
-// Fill tables with seed data ( COMMENT THIS OUT AFTER FIRST RUN )
+// Fill tables with seed data
 seedTables.forEach(query => db.exec(query));
 
 // Endpoint to get NCRForm table

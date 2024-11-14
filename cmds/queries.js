@@ -66,6 +66,17 @@ export const createTables = [
     )`
 ];
 
+export const dropTables = [
+    'DROP TABLE IF EXISTS FormUsers',
+    'DROP TABLE IF EXISTS Quality',
+    'DROP TABLE IF EXISTS Engineer',
+    'DROP TABLE IF EXISTS Product',
+    'DROP TABLE IF EXISTS Supplier',
+    'DROP TABLE IF EXISTS User',
+    'DROP TABLE IF EXISTS Role',
+    'DROP TABLE IF EXISTS NCRForm'
+];
+
 export const seedTables = [
     `INSERT INTO Role (Title) VALUES 
         ('Admin'),
