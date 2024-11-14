@@ -46,9 +46,12 @@ document.getElementById("btnClose").addEventListener("click", function(){
     console.log("Closed!")
 });
 
-document.getElementById("btnArchive").addEventListener("click", function(){
+document.getElementById("btnArchive").addEventListener("click", async function(){
     // close quality first, and if quality is already closed, close engineer, if engineer is closed, set NCRFormStatus to "closed"
     console.log("Archived!")
+    
+    const response = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus="Archived"&id=${ncrId}`);
+    getData();
 });
 
 document.getElementById("btnEdit").addEventListener("click", function(){

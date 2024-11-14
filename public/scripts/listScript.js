@@ -21,6 +21,7 @@ async function getData(){
             `
     });
 };
+
 getData();
 
     document.getElementById("btnFilter").addEventListener("click", async function(){
