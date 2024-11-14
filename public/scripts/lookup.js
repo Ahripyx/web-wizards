@@ -170,17 +170,10 @@ export async function fillForm(selectedID = null) {
                       document.getElementById('engineer').style.display = 'none';
                       document.getElementById('quality').style.display = 'block';
                     
-                      document.querySelectorAll('#engineer input, #engineer select, #engineer textarea').forEach(element => {
-                       element.disabled = true;
-                    });
+                      toggleElements('#engineer input, #engineer select, #engineer textarea', 'Closed');
   
                   } else {
-                    document.querySelectorAll('#quality input, #quality select, #quality textarea').forEach(element => {
-                       element.disabled = true;
-                    });
-                    document.querySelectorAll('#quality input, #quality select, #quality textarea').forEach(element => {
-                        element.disabled = true;
-                     });
+                    toggleElements('#quality input, #quality select, #quality textarea', QualityData.QualityStatus);
    
                     fillEngineer(selectedID);
                    }
@@ -234,7 +227,20 @@ export async function fillEngineer(selectedID = null) {
             NewRevisionNumber.textContent = '';
         } 
      });
-    }
+
+     toggleElements('#engineer input, #engineer select, #engineer textarea', EngineerData.EngineerStatus);
+}
+
+function toggleElements (element, status) {
+    if (status === 'Open')
+        status = false;
+    else
+        status = true;
+
+    document.querySelectorAll(element).forEach(element => {
+        element.disabled = status;
+    });
+}
 
 export async function insertForm(id) {
     const product = document.getElementById("ProductID");

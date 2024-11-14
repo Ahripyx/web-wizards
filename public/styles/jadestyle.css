@@ -92,3 +92,8 @@ body {
         display: inline;
         text-align: left;
     }
+
+    .alt-style {
+        background-color: black;
+        color: white;
+    }
