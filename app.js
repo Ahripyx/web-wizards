@@ -362,7 +362,23 @@ app.get('SortAsc'), (req, res) => {
     }
 }
 
-
+// Endpoint to update status on NCRForm
+app.put('/UpdateNCRStatus', (req, res) => {
+    const { newStatus, id  } = req.query;
+    try {
+        const stmt = db.prepare('UPDATE NCRForm SET NCRForm.Status = ? WHERE NCRForm.id = ?');
+        const result = stmt.run(newStatus, id);
+        if (result.changes > 0) {
+            res.status(200).send("Engineer record updated successfully!");
+        } else {
+            res.status(404).send("Engineer record not found.");
+        }
+    }
+    catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to update NCR form record.");
+    }
+});
 
 // Endpoint to get the 5 most recent NCR forms
 app.get('/recent-ncrs', (req, res) => {
