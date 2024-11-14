@@ -24,34 +24,37 @@ async function getData(){
 
 getData();
 
-    document.getElementById("btnFilter").addEventListener("click", async function(){
+document.getElementById("btnFilter").addEventListener("click", async function(){
         
-        const text = document.getElementById("filterSupplier").value;
+    const supplier = document.getElementById("filterSupplier").value;
 
-        console.log(text);
+    console.log(supplier);
 
-        const statusOption = "Open";
+    const ddl = document.getElementById("filterStatus");
+    const status = ddl.options[ddl.selectedIndex].value;
+    console.log(ddl[ddl.selectedIndex]);
+    console.log(status);
 
-        const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=${text}`);
-        const data = await response.json();
-        console.log(data);
-        const table = document.getElementById("table");
-        table.innerHTML = "";
+    const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=${supplier}&status=${status}`);
+    const data = await response.json();
+    console.log(data);
+    const table = document.getElementById("table");
+    table.innerHTML = "";
     
-        data.forEach(element => {
-            console.log(element.id);
-            table.innerHTML += `<tr id="${element.id}"></tr>`
-            var tablerow = document.getElementById(element.id);
-            tablerow.innerHTML =
-                `
-                <td class="table-borders">${element.NCRNumber}</td>
-                <td class="table-borders">${element.SupplierName}</td>
-                <td class="table-borders">${element.FormStatus}</td>
-                <td class="table-borders">${element.CreationDate}</td>
-                <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
-                `
-        })
-    });
+    data.forEach(element => {
+        console.log(element.id);
+        table.innerHTML += `<tr id="${element.id}"></tr>`
+        var tablerow = document.getElementById(element.id);
+        tablerow.innerHTML =
+            `
+            <td class="table-borders">${element.NCRNumber}</td>
+            <td class="table-borders">${element.SupplierName}</td>
+            <td class="table-borders">${element.FormStatus}</td>
+            <td class="table-borders">${element.CreationDate}</td>
+            <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
+            `
+    })
+});
     
 
     /*
