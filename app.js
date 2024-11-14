@@ -20,7 +20,7 @@ app.use(express.static('public'));
 createTables.forEach(query => db.exec(query));
 
 // Fill tables with seed data ( COMMENT THIS OUT AFTER FIRST RUN )
-seedTables.forEach(query => db.exec(query));
+//seedTables.forEach(query => db.exec(query));
 
 // Endpoint to get NCRForm table
 app.get('/ncrs', (req, res) => {
@@ -349,23 +349,25 @@ app.get('SortAsc'), (req, res) => {
     }
 }
 
-// New endpoint to get the 5 most recent NCR forms with summary info
+// Endpoint to get the 5 most recent NCR forms
 app.get('/recent-ncrs', (req, res) => {
     try {
+        // Query to get the 5 most recent NCR forms ordered by LastModified
         const rows = db.prepare(`
-            SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, 
-                   Quality.NCRNumber, Supplier.SupplierName 
-            FROM NCRForm 
-            JOIN Quality ON NCRForm.id = Quality.NCRFormID 
-            JOIN Product ON Quality.ProductID = Product.id 
-            JOIN Supplier ON Product.SupplierID = Supplier.id 
-            ORDER BY NCRForm.LastModified DESC 
+            SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName
+            FROM NCRForm
+            JOIN Quality ON NCRForm.id = Quality.NCRFormID
+            JOIN Product ON Quality.ProductID = Product.id
+            JOIN Supplier ON Product.SupplierID = Supplier.id
+            ORDER BY NCRForm.LastModified DESC
             LIMIT 5
         `).all();
+
+        // Send the result as JSON
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
-        res.status(500).send("Failed to fetch data.");
+        res.status(500).send("Failed to fetch recent NCR forms.");
     }
 });
 
