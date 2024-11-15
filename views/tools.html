@@ -11,7 +11,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <script src="../public/scripts/tools.js"></script>
       <script src="../public/scripts/notification.js" defer></script>
-      <script type="module" defer>
+      <script type="module">
          import * as crud from '../public/scripts/crud.js';
          document.addEventListener('DOMContentLoaded', async () => {
             await fetchData();
@@ -20,13 +20,13 @@
                event.preventDefault();
                await crud.newProduct(document.getElementById('SupplierID'), document.getElementById('ProductName'), document.getElementById('ProductNumber'));
             });
-
+         
             const userform = document.getElementById('userform');
             userform.addEventListener('submit', async (event) => {
                event.preventDefault();
                await crud.newUser(document.getElementById('FName'), document.getElementById('MName'), document.getElementById('LName'), document.getElementById('Email'), document.getElementById('Password'), document.getElementById('RoleID'));
             });
-
+         
             const supplierform = document.getElementById('supplierform');
             supplierform.addEventListener('submit', async (event) => {
                event.preventDefault();
@@ -36,6 +36,13 @@
       </script>
       <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
          <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
+      <style>
+         nav.header-nav ul li {
+         display: inline;
+         padding-right: 5px;
+         padding-left: 5px;
+         }
+      </style>
    </head>
    <body>
       <!-- Nav Bar -->
@@ -47,23 +54,26 @@
                <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
             </div>
             <div>
-                <button class="notification" id="btnNotification">
-                   <span class="fa-solid fa-bell"></span>
-                  <span class="badge" id="notification-count">0</span>
-                </button>
-          </div>
-          <!-- Notification Modal -->
-<div id="notification-modal" class="modal" style="z-index: 150;">
- <!-- Modal content -->
- <div class="modal-content" id="notification-content">
-   <span class="close">&times;</span>
- </div>
-</div>
+               <button class="notification" id="btnNotification">
+               <span class="fa-solid fa-bell"></span>
+               <span class="badge" id="notification-count">0</span>
+               </button>
+            </div>
+            <!-- Notification Modal -->
+            <div id="notification-modal" class="modal" style="z-index: 150;">
+               <!-- Modal content -->
+               <div class="modal-content" id="notification-content">
+                  <span class="close">&times;</span>
+               </div>
+            </div>
             <div>
-               <nav class="header-nav">
-                  <button id="btnNavHome" tabindex="2">Home</button>
-                  <button id="btnNavCreateNCR" tabindex="3">Create NCR</button>
-                  <button id="btnNavNCRs" tabindex="4">NCR Logs</button>
+               <nav class="header-nav" >
+                  <ul>
+                     <li><a href="index.html" tabindex="1">Home</a></li>
+                     <li><a href="create.html" tabindex="2">Create NCR</a></li>
+                     <li><a href="list.html" tabindex="3">NCR Logs</a></li>
+                     <li><a href="tools.html" tabindex="4">Tools</a></li>
+                  </ul>
                </nav>
             </div>
          </div>
@@ -97,7 +107,6 @@
             </ul>
          </div>
       </nav>
-
       <!-- User Section -->
       <section class="content-section" id="users">
          <div class="container">
@@ -107,19 +116,19 @@
             <form id="userform">
                <div class="row">
                   <div class="col-6">
-                     <input type="text" id="FName" name="FName" placeholder="First name">
+                     <input type="text" id="FName" name="FName" placeholder="First name" aria-label="First name">
                   </div>
                   <div class="col-6">
-                     <input type="text" id="MName" name="MName" placeholder="Middle name">
+                     <input type="text" id="MName" name="MName" placeholder="Middle name" aria-label="Middle name">
                   </div>
                   <div class="col-6">
-                     <input type="text" id="LName" name="LName" placeholder="Last name">
+                     <input type="text" id="LName" name="LName" placeholder="Last name" aria-label="Last name">
                   </div>
                   <div class="col-12">
-                     <input type="email" id="Email" name="Email" placeholder="Email">
+                     <input type="email" id="Email" name="Email" placeholder="Email" aria-label="Email">
                   </div>
                   <div class="col-12">
-                     <input type="password" id="Password" name="Password" placeholder="Password">
+                     <input type="password" id="Password" name="Password" placeholder="Password" aria-label="Password">
                   </div>
                   <div class="col-6">
                      <select id="RoleID" name="RoleID">
@@ -127,13 +136,12 @@
                      </select>
                   </div>
                   <div class="col-12">
-                     <button type="submit">Add New User</button>
+                     <button type="submit" class="submit">Add New User</button>
                   </div>
                </div>
             </form>
          </div>
       </section>
-
       <!--  Product Section -->
       <section class="content-section" id="products">
          <div class="container">
@@ -142,27 +150,24 @@
             </header>
             <form id="productform">
                <div class="row">
-
                   <div class="col-12">
                      <select id="SupplierID" name="SupplierID">
                         <option value="" disabled selected>Select a supplier</option>
                      </select>
                   </div>
                   <div class="col-6">
-                     <input type="text" id="ProductName" name="ProductName" placeholder="Name">
+                     <input type="text" id="ProductName" name="ProductName" placeholder="Name" aria-label="Product Name">
                   </div>
-
                   <div class="col-6">
-                     <input type="number" id="ProductNumber" name="Number" placeholder="Number" min="0"></input>
+                     <input type="number" id="ProductNumber" name="Number" placeholder="Number" min="0" aria-label="Product Number">
                   </div>
                   <div class="col-12">
-                     <button type="submit">Add New Product</button>
+                     <button type="submit" class="submit">Add New Product</button>
                   </div>
                </div>
             </form>
          </div>
       </section>
-
       <!-- Supplier Section -->
       <section class="content-section" id="suppliers">
          <div class="container">
@@ -172,10 +177,10 @@
             <form id="supplierform">
                <div class="row">
                   <div class="col-12">
-                     <input type="text" id="SupplierName" name="SupplierName" placeholder="Name">
+                     <input type="text" id="SupplierName" name="SupplierName" placeholder="Name" aria-label="Supplier Name">
                   </div>
                   <div class="col-12">
-                     <button type="submit">Add New Supplier</button>
+                     <button type="submit" class="submit">Add New Supplier</button>
                   </div>
                </div>
             </form>

@@ -314,3 +314,54 @@ background-color: #ccc;
     text-decoration: none;
     cursor: pointer;
   }
+
+  /*====================
+    Color Scheme
+====================*/
+
+label.error {
+    color: #C1121F;
+}
+
+/* ERROR & SUBMIT BUTTONS */
+
+
+button.submit, button.error {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+button.submit:focus, button.error:focus {
+    outline-offset: 2px;
+    outline: 2px solid #0806A2;
+}
+
+button.submit {
+    background-color: #3b8741;
+}
+
+button.submit:hover {
+    background-color: #306339;
+}
+
+button.error {
+    background-color: #C1121F;
+}
+
+button.error:hover {
+    background-color: #af0606;
+}
+
+ /*====================
+    WCAG Compliance
+====================*/
+
+input[type="text"]:focus, input[type="number"]:focus, form textarea:focus, form select:focus {
+    outline-offset: 2px;
+    outline: 2px solid #0806A2;
+}
