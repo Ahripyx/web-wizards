@@ -251,7 +251,7 @@ label.error {
     Body Style
 ====================*/
 
-section {
+section.tools {
     padding: 3em;
     height: 100%;
     position: relative;
@@ -293,6 +293,11 @@ form input[type="text"], form input[type="number"], form input[type="email"], fo
 }
 
 /* ----- Buttons ----- */
+
+button{
+    min-height: 44px;
+    min-width: 44px;
+}
 
 button.yes, button.no {
     padding: 10px 20px;
@@ -346,13 +351,18 @@ form:focus, form textarea:focus{
 .center{
     margin:auto;
     padding: 10px;
-    width: 50%;
+    width: 80%;
 }
 
 .light-cells{
     border-style: none;
     border-width: 0px;
     background-color: #e3e7f2;
+}
+
+.inline-table{
+
+    display: inline-block;
 }
 
 .shaded-cells{
