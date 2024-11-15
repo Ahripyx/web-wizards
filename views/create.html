@@ -10,8 +10,8 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <script src="../public/scripts/notification.js" defer></script>
-     <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
-     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
+      <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
+         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
    </head>
    <body>
       <!-- Nav Bar -->
@@ -30,39 +30,38 @@
             </div>
             <div>
                <button class="notification" id="btnNotification">
-                  <span class="fa-solid fa-bell"></span>
-                 <span class="badge" id="notification-count">0</span>
+               <span class="fa-solid fa-bell"></span>
+               <span class="badge" id="notification-count">0</span>
                </button>
             </div>
             <!-- Notification Modal -->
             <div id="notification-modal" class="modal">
                <!-- Modal content -->
                <div class="modal-content">
-                 
                </div>
             </div>
             <div id="product-modal" class="modal" style="z-index: 2;">
                <div class="modal-content">
-               <span class="close" id="close">&times;</span>
-               <h2>New Product</h2>
-               <form onsubmit="event.preventDefault();" id="newProductForm">
-                  <div class="row">
-                     <div class="col-6">
-                        <label for="newProductName">Product Name:</label>
-                        <input type="text" id="newProductName" name="newProductName" placeholder="Product Name" required>
+                  <span class="close" id="close">&times;</span>
+                  <h2>New Product</h2>
+                  <form onsubmit="event.preventDefault();" id="newProductForm">
+                     <div class="row">
+                        <div class="col-6">
+                           <label for="newProductName">Product Name:</label>
+                           <input type="text" id="newProductName" name="newProductName" placeholder="Product Name" required>
+                        </div>
+                        <div class="col-6">
+                           <label for="newProductNumber">Product Number:</label>
+                           <input type="number" id="newProductNumber" name="newProductNumber" placeholder="---" min="100" max="999" required>
+                        </div>
+                        <div class="col-12">
+                           <button type="submit" id="btnNewProduct">Add Product</button>
+                        </div>
                      </div>
-                     <div class="col-6">
-                        <label for="newProductNumber">Product Number:</label>
-                        <input type="number" id="newProductNumber" name="newProductNumber" placeholder="---" min="100" max="999" required>
-                     </div>
-                     <div class="col-12">
-                        <button type="submit" id="btnNewProduct">Add Product</button>
-                     </div>
-                  </div>
-               </form>
+                  </form>
+               </div>
             </div>
          </div>
-      </div>
       </header>
       <!-- Create Form -->
       <div class="content-section create">
@@ -72,7 +71,7 @@
                <!-- Fields for Quality Assurance Form -->
                <div id="qualityView" class="view create">
                   <fieldset>
-                      <table>
+                     <table>
                         <tr>
                            <td>
                               <label for="SupplierID">Supplier:</label>
@@ -80,7 +79,7 @@
                            <td>
                               <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
                                  <option value="" disabled selected>Select a supplier</option>
-                                 </select>
+                              </select>
                            </td>
                         </tr>
                         <!-- Item Description -->
@@ -134,10 +133,10 @@
                               <label>Identify Process Applicable:</label>
                            </td>
                            <td>
-                                <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required />
-                                <label for="WorkInProgress">WIP</label>
-                             <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required />
-                             <label for="SRInspection">Supplier or Receiving Inspection</label>
+                              <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required>
+                              <label for="WorkInProgress">WIP</label>
+                              <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required>
+                              <label for="SRInspection">Supplier or Receiving Inspection</label>
                            </td>
                         </tr>
                         <!-- Is Non-Conformance -->
@@ -152,7 +151,7 @@
                               <label for="IsNonConformingNo">No</label>    
                            </td>
                         </tr>
-                      </table> 
+                     </table>
                   </fieldset>
                </div>
             </div>
@@ -162,55 +161,55 @@
          </form>
       </div>
       <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
-     <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script> -->
+      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script> -->
       <script type="module">
-      import * as lookup from '../public/scripts/lookup.js';
-      document.addEventListener('DOMContentLoaded', () => {
-         lookup.fillForm();
-         const form = document.getElementById("ncrform");
-         form.addEventListener("submit", async (event) => {
-            const product = document.getElementById("ProductID");
-            console.log(product.options[product.selectedIndex].text);
-            console.log(product.options[product.selectedIndex].value);
-               const dataToInsert = { 
-                  SRInspection: document.getElementById("SRInspection").checked,
-                  WorkInProgress: document.getElementById("WorkInProgress").checked,
-                  ItemDescription: product.options[product.selectedIndex].text,
-                  QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
-                  QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
-                  IsNonConforming: document.getElementById("IsNonConformingYes").checked,  
-                  Details: document.getElementById("Details").value,
-                  ProductID: parseInt(product.value, 10),
-               };
-               dataToInsert.WorkInProgress = dataToInsert.WorkInProgress ? 1 : 0;
-               dataToInsert.SRInspection = dataToInsert.SRInspection ? 1 : 0;
-               dataToInsert.IsNonConforming = dataToInsert.IsNonConforming ? 1 : 0;
-    try {
-        const response = await fetch("http://localhost:5500/insert-quality", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dataToInsert)
-        });
-
-        if (response.ok) {
-         const response2 = await fetch('http://localhost:5500/recent-ncrs');
-      const data = await response2.json();
-       
-         console.log(data[0]);
-data[0].type = "Quality";
-            alert("Data inserted successfully!");
+         import * as lookup from '../public/scripts/lookup.js';
+         document.addEventListener('DOMContentLoaded', () => {
+            lookup.fillForm();
+            const form = document.getElementById("ncrform");
+            form.addEventListener("submit", async (event) => {
+               const product = document.getElementById("ProductID");
+               console.log(product.options[product.selectedIndex].text);
+               console.log(product.options[product.selectedIndex].value);
+                  const dataToInsert = { 
+                     SRInspection: document.getElementById("SRInspection").checked,
+                     WorkInProgress: document.getElementById("WorkInProgress").checked,
+                     ItemDescription: product.options[product.selectedIndex].text,
+                     QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
+                     QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
+                     IsNonConforming: document.getElementById("IsNonConformingYes").checked,  
+                     Details: document.getElementById("Details").value,
+                     ProductID: parseInt(product.value, 10),
+                  };
+                  dataToInsert.WorkInProgress = dataToInsert.WorkInProgress ? 1 : 0;
+                  dataToInsert.SRInspection = dataToInsert.SRInspection ? 1 : 0;
+                  dataToInsert.IsNonConforming = dataToInsert.IsNonConforming ? 1 : 0;
+         try {
+           const response = await fetch("http://localhost:5500/insert-quality", {
+               method: "POST",
+               headers: { "Content-Type": "application/json" },
+               body: JSON.stringify(dataToInsert)
+           });
          
-           newNotification(JSON.stringify(data[0]));
-        } else {
-            const errorData = await response.text();
-            alert(`Failed to save data: ${errorData}`);
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("An unexpected error occurred." + error);
-    }
-});
-});
+           if (response.ok) {
+            const response2 = await fetch('http://localhost:5500/recent-ncrs');
+         const data = await response2.json();
+          
+            console.log(data[0]);
+         data[0].type = "Quality";
+               alert("Data inserted successfully!");
+            
+              newNotification(JSON.stringify(data[0]));
+           } else {
+               const errorData = await response.text();
+               alert(`Failed to save data: ${errorData}`);
+           }
+         } catch (error) {
+           console.error("Error:", error);
+           alert("An unexpected error occurred." + error);
+         }
+         });
+         });
       </script>
       <script src="../public/scripts/navigate.js"></script>
    </body>
