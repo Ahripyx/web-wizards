@@ -7,6 +7,7 @@ async function getData(){
     const data = await response.json();
     const table = document.getElementById("table");
 
+    
     var tabindex = 50;
     var row = 0;
 
