@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../public/styles/style.css" rel="stylesheet">
+      <title>Web Wizards</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
+      <script src="../public/scripts/login.js" defer></script>
+   </head>
+   <body>
+    <header>
+        <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
+        <div class="header-content">
+            <div class="logo">
+               <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <form id="login" class="px-4" action="">
+            <h2>CrossfireNCR</h2>
+            <p>Enter your login credentials</p>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label-lg">Email:</label>
+                <div class="col-auto">
+                    <input type="email" class="form-control-lg" id="email" name="email" placeholder="youremail@crossfire.ca" aria-required="true" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label-lg">Password:</label>
+                <div class="col-auto">
+                    <input type="password" class="form-control-lg" id="password" name="password" aria-required="true" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label id="error"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <button type="submit" class="yes">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+   </body>
+</html>
