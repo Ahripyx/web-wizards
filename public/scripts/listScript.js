@@ -8,10 +8,16 @@ async function getData(){
     const table = document.getElementById("table");
 
     var tabindex = 50;
+    var row = 0;
 
     data.forEach(element => {
         console.log(element.id);
-        table.innerHTML += `<tr id="${element.id}"></tr>`
+        if (row % 2 == 1){
+            table.innerHTML += `<tr id="${element.id}" class="light-cells"></tr>`
+        }
+        else{
+            table.innerHTML += `<tr id="${element.id}"></tr>`
+        }
         var tablerow = document.getElementById(element.id);
         tablerow.innerHTML =
             `
@@ -22,6 +28,7 @@ async function getData(){
             <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex}>View</a></td>
             `
         tabindex+=5;
+        row++;
     });
 };
 

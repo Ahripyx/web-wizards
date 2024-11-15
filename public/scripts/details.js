@@ -19,17 +19,17 @@ function fillTables(data){
             else{
                 if (item == "SRInspection" || item == "WorkInProgress" || item == "IsNonConforming" || item == "NotifyCustomer" || item == "DrawingUpdateRequired"){
                     if(element[item] == 0){
-                        table.innerHTML += `<tr><td>${item}:</td><td>No</td></tr>`;
+                        table.innerHTML += `<tr><td class="shaded-cells">${item}:</td><td class="light-cells">No</td></tr>`;
                     }
                     else if(element[item] == 1){
-                        table.innerHTML += `<tr><td>${item}:</td><td>Yes</td></tr>`;
+                        table.innerHTML += `<tr><td class="shaded-cells">${item}:</td><td class="light-cells">Yes</td></tr>`;
                     }
                     else{
-                        table.innerHTML += `<tr><td>${item}:</td><td>UH OH</td></tr>`;
+                        table.innerHTML += `<tr><td class="shaded-cells">${item}:</td><td class="light-cells">UH OH</td></tr>`;
                     }
                 }
                 else{
-                    table.innerHTML += `<tr><td>${item}:</td><td>${element[item]}</td></tr>`;
+                    table.innerHTML += `<tr><td class="shaded-cells">${item}:</td><td class="light-cells">${element[item]}</td></tr>`;
                 }
             }  
         }
