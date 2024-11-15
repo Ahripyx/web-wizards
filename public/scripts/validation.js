@@ -14,38 +14,43 @@ const currentDate = new Date();
 //document.getElementById("SalesNumber").text.value = randomNumber
 
 //Submit button event handler
-ncrform.addEventListener("submit", (e) =>{
+addEventListener("submit", (e) =>{
 
     //GetElements
-    const quantityRec = parseInt(document.getElementById("QuantityDefective").value);
+    const quantityRec = parseInt(document.getElementById("QuantityReceived").value);
     const quantityDef = parseInt(document.getElementById("QuantityDefective").value);
     const qaDate = document.getElementById("QADate").value;
 
+     //Call Functions
+     QuantityRecValidation(quantityRec);
+     QuantityDefValidation(quantityDef, quantityRec);
+     QADateValidation(qaDate, currentDate);
+
     //Functions
-    QuantityRecValidation();
-    QuantityDefValidation();
-    QADateValidation();
-});
 
     //Quantity Received
-function QuantityRecValidation(quantityRec){
-    if (quantityRec > 0) {
-        alert("Quantity Received has to be greater than 0");
-    }
-};
+    function QuantityRecValidation(quantityRec){
+        if (quantityRec < 0) {
+            alert("Quantity Received has to be greater than 0");
+        }
+    };
 
-    //Quantity Defective
-function QuantityDefValidation(quantityDef, quantityRec){
+        //Quantity Defective
+    function QuantityDefValidation(quantityDef, quantityRec){
+        if (quantityDef < quantityRec) {
+            alert("Quantity Defective cannot be greater than Quantity Recieved");
+        }
+    };
 
-    if (quantityDef < quantityRec) {
-        alert("Quantity Defective cannot be greater than Quantity Recieved");
-    }
-};
-    
-    //Quality Date
-function QADateValidation(qaDate, currentDate){
-    if (qaDate < currentDate) {
-        alert("Date cannot be in the past");
-    }
-};
+        //Quality Date
+    function QADateValidation(qaDate, currentDate){
+        if (qaDate < currentDate) {
+            alert("Date cannot be in the past");
+        }
+    };
+
+
+   
+});
+
 
