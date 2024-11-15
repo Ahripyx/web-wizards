@@ -42,49 +42,52 @@
         </div>
      </header>
     <main>
-        <h1>NCRs</h1>
-        <section id="filterSection">
-         <h2>Filters:</h2>
-            <table>
-               <tr>
-                  <td><label>Enter a Supplier Name:</label></td>
-                  <td><input type="text" id="filterSupplier" tabindex="10"></td>
-               </tr>
-               <tr>
-                  <td><label>Select an NCR Status:</label></td>
-                  <td>
-                     <select id="filterStatus" tabindex="15">
-                        <option value="">Any Status</option>
-                        <option value="Open">Open</option>
-                        <option value="Closed">Closed</option>
-                        <option value="Archived">Archived</option>
-                     </select>
-                  </td>
-               </tr>
-               <tr>
-                  <td><label>Select a Date Range:</label></td>
-                  <td>
-                     <input type="date" id="dateBox1" tabindex="20">
-                     <input type="date" id="dateBox2" tabindex="25">
-                  </td>
-               </tr>
-               <tr>
-                  <td><button id="btnFilter" tabindex="30">Filter</button></td>
-               </tr>
-            </table>
-            
-            
-        </section>
-        <section id="dataSection">
-         <table id="table" class="table-borders">
-            <tr>
-                <th class="table-borders">NCR</th>
-                <th class="table-borders">Supplier</th>                
-                <th class="table-borders">Status</th>
-                <th class="table-borders">Date</th>
-            </tr>
-        </table>
-        </section>
+      <div class="center">
+         <h1 class="text-center">NCRs</h1>
+         <section id="filterSection">
+          <h2  class="text-center">Filters:</h2>
+            <div class="center">
+               <table>
+                  <tr>
+                     <td><label>Enter a Supplier Name:</label></td>
+                     <td><input type="text" id="filterSupplier" tabindex="10"></td>
+                  </tr>
+                  <tr>
+                     <td><label>Select an NCR Status:</label></td>
+                     <td>
+                        <select id="filterStatus" tabindex="15">
+                           <option value="">Any Status</option>
+                           <option value="Open">Open</option>
+                           <option value="Closed">Closed</option>
+                           <option value="Archived">Archived</option>
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><label>Select a Date Range:</label></td>
+                     <td>
+                        <input type="date" id="dateBox1" tabindex="20">
+                        <input type="date" id="dateBox2" tabindex="25">
+                     </td>
+                  </tr>                    
+               </table>
+               <button id="btnFilter" tabindex="30"  class="wide-button">Filter</button>
+            </div>   
+         </section>
+         <section id="dataSection" class="info-section">
+            <div class="center">
+               <table id="table" class="wide-table">
+                  <tr class="shaded-cells">
+                      <th>NCR</th>
+                      <th>Supplier</th>                
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th></th>
+                  </tr>
+              </table>
+            </div>
+         </section>
+      </div>
     </main>
     <footer class="commit-bottom">
         <hr><p><small>CROSSFIRE NCR</small></p>
