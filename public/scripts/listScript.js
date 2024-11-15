@@ -3,7 +3,7 @@
 
 async function getData(){
 
-    const response = await fetch('http://localhost:5500/SummaryInfo');
+    const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=&status=Open&date1=0001-01-01&date2=9999-12-12`);
     const data = await response.json();
     const table = document.getElementById("table");
 

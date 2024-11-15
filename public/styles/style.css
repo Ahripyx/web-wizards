@@ -346,13 +346,18 @@ form:focus, form textarea:focus{
 .center{
     margin:auto;
     padding: 10px;
-    width: 50%;
+    width: 80%;
 }
 
 .light-cells{
     border-style: none;
     border-width: 0px;
     background-color: #e3e7f2;
+}
+
+.inline-table{
+
+    display: inline-block;
 }
 
 .shaded-cells{
