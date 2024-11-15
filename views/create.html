@@ -3,8 +3,8 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
       <link href="../public/styles/style.css" rel="stylesheet">
-      <link href="../public/styles/jadestyle.css" rel="stylesheet">
       <title>Web Wizards</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,15 +31,15 @@
             </div>
             <div>
                <button class="notification" id="btnNotification">
-                  <span class="fa-solid fa-bell"></span>
-                  <span class="badge" id="notification-count">0</span>
+               <span class="fa-solid fa-bell"></span>
+               <span class="badge" id="notification-count">0</span>
                </button>
             </div>
             <!-- Notification Modal -->
             <div id="notification-modal" class="modal">
                <!-- Modal content -->
-            <div class="modal-content">
-            </div>
+               <div class="modal-content">
+               </div>
             </div>
             <div id="product-modal" class="modal" style="z-index: 2;">
                <div class="modal-content">
@@ -65,146 +65,113 @@
          </div>
       </header>
       <!-- Create Form -->
-      <div class="content-section create">
-         <h2>Non-Conformance Report</h2>
-         <form id="ncrform" onsubmit="event.preventDefault();">
-            <div class="container">
-               <!-- Fields for Quality Assurance Form -->
-               <div id="qualityView" class="view create">
-                  <fieldset>
-                      <table>
-                         <!-- NCR Number -->
-                         <tr>
-                           <td>
-                              <label for="NCRNumber" name="NCRNumber">NCR Number: </label>
-                           </td>
-                           <td>
-                              <input type="text" placeholder="" id="ISONumber" disabled>
-                           </td>
-                         </tr>
-                        <!-- ISO Number -->
-                        <tr>
-                           <td>
-                              <label for="ISONumber" name="ISONumber">ISO Number: </label>
-                           </td>
-                           <td>
-                              <input type="text" placeholder="OPS-00011" id="ISONumber" disabled>
-                           </td>
-                        </tr>
-                        <!-- Sales Order Number -->
-                        <tr>
-                           <td>
-                              <label for="SalesNumber" name="SalesNumber">Sales Order Number: </label>
-                           </td>
-                           <td>
-                              <input type="text" placeholder="" id="SalesNumber" required>
-                           </td>
-                        </tr>
-                        <!-- Supplier -->
-                        <tr>
-                           <td>
-                              <label for="SupplierID">Supplier:</label>
-                           </td>
-                           <td>
-                              <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
-                                 <option value="" disabled selected>Select a supplier</option>
-                              </select>
-                           </td>
-                        </tr>
-                        <!-- Product Info -->
-                        <tr>
-                           <td>
-                              <label for="ProductID">Product:</label>
-                           </td>
-                           <td>
-                              <select id="ProductID" name="ProductID" style="width: 300px;" disabled required>
-                                 <option value="" disabled selected >Select an item</option>
-                              </select>
-                           </td>
-                        </tr>
-                        <tr id="ProductNumberContainer" hidden>
-                           <td>
-                              <label for="ProductNumber">Product Number:</label>
-                           </td>
-                           <td>
-                              <label id="ProductNumber"></label>
-                           </td>
-                        </tr>
-                        <!-- Defect Description -->
-                        <tr>
-                           <td>
-                              <label for="Details">Description of Defect:</label> <br>
-                           </td>
-                           <td>
-                              <textarea id="Details" name="Details" rows="4" required></textarea>
-                           </td>
-                        </tr>
-                        <!-- Quantity Fields -->
-                        <tr>
-                           <td>
-                              <label for="QuantityReceived">Quantity Received:</label>
-                           </td>
-                           <td>
-                              <input type="number" id="QuantityReceived" name="QuantityReceived" min="1" required>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                              <label for="QuantityDefective">Quantity Defective:</label>
-                           </td>
-                           <td>
-                              <input type="number" id="QuantityDefective" name="QuantityDefective" min="0" required>
-                           </td>
-                        </tr>
-                        <!-- Identify Process Applicable -->
-                        <tr>
-                           <td>
-                              <label>Identify Process Applicable:</label>
-                           </td>
-                           <td>
-                                <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required />
-                                   <label for="WorkInProgress">WIP</label>
-                             <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required />
-                             <label for="SRInspection">Supplier or Receiving Inspection</label>
-                           </td>
-                        </tr>
-                        <!-- Is Non-Conformance -->
-                        <tr>
-                           <td>
-                              <label for="IsNonConforming">Is Item Non-Conforming:</label>
-                           </td>
-                           <td>
-                              <input type="radio" id="IsNonConformingYes" name="IsNonConforming" value="Yes" required>
-                              <label for="IsNonConformingYes">Yes</label>
-                              <input type="radio" id="IsNonConformingNo" name="IsNonConforming" value="No" required>
-                              <label for="IsNonConformingNo">No</label>    
-                           </td>
-                        </tr>
-                        <!-- QA Name -->
-                        <tr>
-                           <td>
-                              <label for="QAName" name="QAName">Quality Representatives Name: </label>
-                           </td>
-                           <td>
-                              <input type="text" placeholder="Enter Your Name" id="QAName" required>
-                           </td>
-                        </tr>
-                        <!-- QA Date -->
-                        <tr>
-                           <td>
-                              <label for="QADate" name="QADate">Date: </label>
-                           </td>
-                           <td>
-                              <input type="date" id="QADate" required>
-                           </td>
-                        </tr>                
-                      </table> 
-                  </fieldset>
+      <div class="container">
+         <header>
+            <h2>Non-Conformance Report</h2>
+         </header>
+         <form class="px-4" id="ncrform" onsubmit="event.preventDefault();">
+            <fieldset>
+               <legend>Quality Assurance Form</legend>
+            
+            <!-- Fields for Quality Assurance Form -->
+            <div class="row g-3">
+               <!-- NCR Number -->
+               <div class="form-group col-md-6">
+                  <label for="NCRNumber" class="form-label">NCR Number: </label>
+                  <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX"   readonly>
+               </div>
+               <!-- Sales Order Number -->
+                <div class="form-group col-md-6">
+                  <label for="SaleNumber" class="form-label">Sales Order Number: </label>
+                  <input type="text" class="form-control" placeholder="" id="SaleNumber" required>
+                </div>
+
+            </div>
+            <div class="row g-3">
+               <!-- Supplier -->
+               <div class="form-group col-md-6">
+                  <label for="SupplierID" class="form-label">Supplier: </label> <br/>
+                  <select class="form-select" id="SupplierID" name="SupplierID" required>
+                     <option selected>Select a supplier</option>
+                  </select>
+               </div>
+               <!-- Product Info -->
+               <div class="form-group col-md-6">
+                  <label for="ProductID" class="form-label">Product: </label> <br/>
+                  <select class="form-select" id="ProductID" name="ProductID" disabled required>
+                     <option selected>No products available</option>
+                  </select>
+                  <!-- Product Number -->
+                  <span id="ProductNumber" class="form-text text-muted">Number:</span>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Defect Description -->
+               <div class="form-group col-md-12">
+                  <label for="Details" class="form-label">Description of Defect:</label> <br>
+                  <textarea class="form-control" id="Details" name="Details" rows="3" required></textarea>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Quantity Received -->
+               <div class="form-group col-md-6">
+                  <label for="QuantityReceived" class="form-label">Quantity Received:</label>
+                  <input type="number" class="form-control" id="QuantityReceived" min="1" required>
+               </div>
+               <!-- Quantity Defective -->
+               <div class="form-group col-md-6">
+                  <label for="QuantityDefective" class="form-label">Quantity Defective:</label>
+                  <input type="number" class="form-control" id="QuantityDefective" min="0" required>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Identify Process Applicable -->
+               <div class="form-group col-md-6">
+                  <label>Identify Process Applicable:</label>
+                  <div>
+                     <div class="form-check form-check-inline">
+                        <input name="ProcessApplicable" id="ProcessApplicable_0" type="radio" required="required" class="form-check-input" value="WorkInProgress">
+                        <label for="ProcessApplicable_0" class="form-check-label">WIP</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="ProcessApplicable" id="ProcessApplicable_1" type="radio" required="required" class="form-check-input" value="SRInspection">
+                        <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving Inspection</label>
+                     </div>
+                  </div>
+               </div>
+               <!-- Is Non-Conformance -->
+               <div class="form-group col-md-6">
+                  <Label>Is Item Non-Conforming?</Label>
+                  <div>
+                     <div class="form-check form-check-inline">
+                        <input name="IsNonConforming" id="IsNonConforming_0" type="radio" required="required" class="form-check-input" value="Yes">
+                        <label for="IsNonConforming_0" class="form-check-label">Yes</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="IsNonConforming" id="IsNonConforming_1" type="radio" required="required" class="form-check-input" value="No">
+                        <label for="IsNonConforming_1" class="form-check-label">No</label>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row g-3">
+               <div class="form-group col-md-6">
+                  <label for="QAName">Quality Representatives Name: </label>
+                  <input type="text" class="form-control" placeholder="Enter Your Name" id="QAName" required>
+               </div>
+               <div class="form-group col-md-6">
+                  <label for="QADate">Date: </label>
+                  <input type="date" class="form-control" id="QADate" required>
                </div>
             </div>
             <!-- Submit Button -->
-            <br>
-            <button type="submit">Create NCR</button>
+            <div class="row g-3">
+               <div class="form group col-md-6">
+                  <button type="submit" class="yes">Create NCR</button>
+                  <button type="reset" class="no">Reset NCR</button>
+               </div>
+            </div>
+         </fieldset>
          </form>
       </div>
       <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
@@ -216,15 +183,14 @@
             const form = document.getElementById("ncrform");
             form.addEventListener("submit", async (event) => {
                const product = document.getElementById("ProductID");
-               console.log(product.options[product.selectedIndex].text);
-               console.log(product.options[product.selectedIndex].value);
+
                   const dataToInsert = { 
-                     SRInspection: document.getElementById("SRInspection").checked,
-                     WorkInProgress: document.getElementById("WorkInProgress").checked,
+                     SRInspection: document.getElementById("ProcessApplicable_1").checked,
+                     WorkInProgress: document.getElementById("ProcessApplicable_0").checked,
                      ItemDescription: product.options[product.selectedIndex].text,
                      QuantityReceived: parseInt(document.getElementById("QuantityReceived").value, 10),
                      QuantityDefective: parseInt(document.getElementById("QuantityDefective").value, 10),
-                     IsNonConforming: document.getElementById("IsNonConformingYes").checked,  
+                     IsNonConforming: document.getElementById("IsNonConforming_0").checked,  
                      Details: document.getElementById("Details").value,
                      ProductID: parseInt(product.value, 10),
                   };

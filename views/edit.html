@@ -4,8 +4,8 @@
       <title>Web Wizards</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
       <link href="../public/styles/style.css" rel="stylesheet">
-      <link href="../public/styles/jadestyle.css" rel="stylesheet">
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
@@ -26,10 +26,23 @@
                  return;
              }
              lookup.fillForm(id);
-            const form = document.getElementById('ncrform');
-            form.addEventListener('submit', async (event) => {
+         
+         
+         
+             //lookup.getForm(id);
+         
+            const form_quality = document.getElementById('ncrform_quality');
+            const form_engineer = document.getElementById('ncrform_engineer');
+            const form_purchasing = document.getElementById('ncrform_purchasing');
+         
+            form_quality.addEventListener('submit', async (event) => {
                 event.preventDefault();
-                await lookup.insertForm(id);
+                await lookup.updateForm(id, 'quality');
+            });
+
+            form_engineer.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                await lookup.insertEngineer(id);
             });
          });
       </script>
@@ -90,7 +103,7 @@
          <div class="top">
             <ul>
                <li>
-                  <a href="#" onclick="toggleSection('quality')">
+                  <a href="#" id="btnQuality" onclick="toggleForm('ncrform_quality')">
                   <i class="fa-solid fa-magnifying-glass"></i>
                   Quality
                   </a>
@@ -98,7 +111,7 @@
             </ul>
             <ul>
                <li>
-                  <a href="#" onclick="toggleSection('engineer')">
+                  <a href="#" id="btnEngineer" onclick="toggleForm('ncrform_engineer')">
                   <i class="fa-solid fa-helmet-safety"></i>
                   Engineer
                   </a>
@@ -106,7 +119,7 @@
             </ul>
             <ul>
                <li>
-                  <a href="#" onclick="toggleSection('purchasing')">
+                  <a href="#" id=btnPurchasing onclick="toggleForm('ncrform_purchasing')">
                   <i class="fa-solid fa-cart-shopping"></i>
                   Purchasing
                   </a>
@@ -115,244 +128,222 @@
          </div>
       </nav>
       <!-- Edit Form -->
-       <div id="QualityStatus"></div>
-       <div id="EngineerNewOrEdit"></div>
-      
-         <form id="ncrform">
-           
-               <!-- Fields for Quality Assurance Form -->
-               <section class="content-section" id="quality">
-                  <div class="container">
-                     <header>
-                        <h2>Quality Representative</h2>
-                     </header>
-                  <fieldset>                     
-                      <table>
-                        <tr>
-                           <th>
-                              <label for="SupplierID">Supplier:</label>
-                           </th>
-                           <td>
-                              <select id="SupplierID" name="SupplierID" style="width: 300px;" required>
-                                 <option value="" disabled selected>Select a supplier</option>
-                           </td>
-                        </tr>
-                        <!-- Item Description -->
-                        <tr>
-                           <td>
-                              <label for="ProductID">Product Name:</label>
-                           </td>
-                           <td>
-                              <select id="ProductID" name="ProductID" style="width: 300px;" required>
-                                 <option value="" disabled selected>Select an item</option>
-                              </select>
-                           </td>
-                        </tr>
-                        <tr id="ProductNumberContainer" hidden>
-                           <td>
-                              <label for="ProductNumber">Product Number:</label>
-                           </td>
-                           <td>
-                              <label id="ProductNumber"></label>
-                           </td>
-                        </tr>
-                        <!-- Defect Description -->
-                        <tr>
-                           <td>
-                              <label for="Details">Description of Defect:</label> <br>
-                           </td>
-                           <td>
-                              <textarea id="Details" name="Details" rows="4" required></textarea>
-                           </td>
-                        </tr>
-                        <!-- Quantity Fields -->
-                        <tr>
-                           <td>
-                              <label for="QuantityReceived">Quantity Received:</label>
-                           </td>
-                           <td>
-                              <input type="number" id="QuantityReceived" name="QuantityReceived" min="1" required>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-                              <label for="QuantityDefective">Quantity Defective:</label>
-                           </td>
-                           <td>
-                              <input type="number" id="QuantityDefective" name="QuantityDefective" min="0" required>
-                           </td>
-                        </tr>
-                        <!-- Identify Process Applicable -->
-                        <tr>
-                           <td>
-                              <label>Identify Process Applicable:</label>
-                           </td>
-                           <td>
-                              <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required />
-                              <label for="WorkInProgress">WIP</label>
-                           <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required />
-                           <label for="SRInspection">Supplier or Receiving Inspection</label>
-                           </td>
-                        </tr>
-                        <!-- Is Non-Conformance -->
-                        <tr>
-                           <td>
-                              <label for="IsNonConforming">Is Item Non-Conforming:</label>
-                           </td>
-                           <td>
-                              <input type="radio" id="IsNonConformingYes" name="IsNonConforming" value="Yes" required>
-                              <label for="IsNonConformingYes">Yes</label>
-                              <input type="radio" id="IsNonConformingNo" name="IsNonConforming" value="No" required>
-                              <label for="IsNonConformingNo">No</label>    
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-
-                           </td>
-                           <td>
-                              <button type="submit" >Save Changes</button>
-                           </td>
-                        </tr>
-                      </table> 
-                  </fieldset>
+      <div id="QualityStatus"></div>
+      <div id="EngineerNewOrEdit"></div>
+      <!-- Create Form -->
+      <div class="container edit">
+      <header>
+         <h2>Non-Conformance Report</h2>
+      </header>
+      <form class="px-4" id="ncrform_quality" onsubmit="event.preventDefault();" style="display: none;">
+         <fieldset>
+            <legend>Quality Assurance Form</legend>
+            <!-- Fields for Quality Assurance Form -->
+            <div class="row g-3">
+               <!-- NCR Number -->
+               <div class="form-group col-md-6">
+                  <label for="NCRNumber" class="form-label">NCR Number: </label>
+                  <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX"   readonly>
                </div>
-               </section>
+               <!-- ISO Number -->
+               <div class="form-group col-md-6">
+                  <label for="ISONumber" class="form-label">ISO Number: </label>
+                  <input type="text" class="form-control-plaintext" id="ISONumber" placeholder="XXXXX"   readonly>
                </div>
-
-               <section class="content-section" id="engineer">
-                  <div class="container">
-                  <fieldset>
-                     <header>
-                        <h2>Engineer</h2>
-                     </header>
-                     <table>
-                        <!-- Review by CF Engineering -->
-                        <tr>
-                           <td>
-                             <label>Review by CF Engineering:</label>
-                           </td>
-                           <td>
-                            <input type="radio" id="useAsIs" name="Review" value="Use As Is">
-                            <label for="useAsIs">Use As Is</label>
-                            <input type="radio" id="repair" name="Review" value="Repair">
-                            <label for="repair">Repair</label>
-                            <input type="radio" id="rework" name="Review" value="Rework">
-                            <label for="rework">Rework</label>
-                            <input type="radio" id="scrap" name="Review" value="Scrap">
-                            <label for="scrap">Scrap</label>
-                           </td>
-                        </tr>
-                        <!-- Customer Notification -->
-                        <tr>
-                           <td>
-                             <label>Does Customer require notification of NCR:</label>
-                           </td>
-                           <td>
-                             <input type="radio" id="NotifyTrue" name="NotifyCustomer">
-                             <label for="NotifyTrue">Yes</label>
-                             <input type="radio" id="NotifyFalse" name="NotifyCustomer">
-                             <label for="NotifyFalse">No</label>
-                           </td>
-                        </tr>
-                        <!-- Disposition -->
-                        <tr>
-                           <td>
-                             <label for="Disposition">Disposition:</label>
-                           </td>
-                           <td>
-                             <textarea id="Disposition" name="Disposition" rows="4" ></textarea>
-                           </td>
-                        </tr>
-                        <!-- Drawing Requires Updating -->
-                        <tr>
-                           <td>
-                             <label>Does the drawing require updating:</label>
-                           </td>
-                           <td>
-                             <input type="radio" id="UpdateTrue" name="DrawingUpdateRequired" value="1">
-                             <label for="UpdateTrue">Yes</label>
-                             <input type="radio" id="UpdateFalse" name="DrawingUpdateRequired" value="0">
-                             <label for="UpdateFalse">No</label>
-                           </td>
-                        </tr>
-                        <!-- Revision Information -->
-                        <tr>
-                           <td>
-                             <label for="RevisionNumber">Rev. Number:</label>
-                           </td>
-                           <td>
-                             <label id="RevisionNumber"></label>
-                           </td>
-                        </tr>
-                        <tr id="NewRevisionNumberRow" hidden>
-                           <td>
-                             <label for="NewRevisionNumber">Updated Rev. Number:</label>
-                           </td>
-                           <td>
-                              <label id="NewRevisionNumber"></label>
-                           </td>
-                        </tr>
-                        <tr id="RevisionDateRow" hidden>
-                           <td>
-                             <label for="RevisionDate" id="lblRevisionDate">Revision Date:</label>
-                           </td>
-                           <td>
-                             <input type="date" id="RevisionDate">
-                           </td>
-                        </tr>
-                        <tr>
-                           <td>
-
-                           </td>
-                           <td>
-                              <button type="submit">Save Changes</button>
-                           </td>
-                        </tr>
-                      </table>
-                  </fieldset>
+            </div>
+            <div class="row g-3">
+               <!-- Supplier -->
+               <div class="form-group col-md-6">
+                  <label for="SupplierID" class="form-label">Supplier: </label> <br/>
+                  <select class="form-select" id="SupplierID" name="SupplierID" required>
+                     <option selected>Select a supplier</option>
+                  </select>
                </div>
-               </section>
+               <!-- Product Info -->
+               <div class="form-group col-md-6">
+                  <label for="ProductID" class="form-label">Product: </label> <br/>
+                  <select class="form-select" id="ProductID" name="ProductID" disabled required>
+                     <option selected>No products available</option>
+                  </select>
+                  <!-- Product Number -->
+                  <span id="ProductNumber" class="form-text text-muted">Number:</span>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Sales Order Number -->
+               <div class="form-group col-md-6">
+                  <label for="SaleNumber" class="form-label">Sales Order Number: </label>
+                  <input type="text" class="form-control" placeholder="" id="SaleNumber" required>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Defect Description -->
+               <div class="form-group col-md-12">
+                  <label for="Details" class="form-label">Description of Defect:</label> <br>
+                  <textarea class="form-control" id="Details" name="Details" rows="3" required></textarea>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Quantity Received -->
+               <div class="form-group col-md-6">
+                  <label for="QuantityReceived" class="form-label">Quantity Received:</label>
+                  <input type="number" class="form-control" id="QuantityReceived" min="1" required>
+               </div>
+               <!-- Quantity Defective -->
+               <div class="form-group col-md-6">
+                  <label for="QuantityDefective" class="form-label">Quantity Defective:</label>
+                  <input type="number" class="form-control" id="QuantityDefective" min="0" required>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Identify Process Applicable -->
+               <div class="form-group col-md-6">
+                  <label>Identify Process Applicable:</label>
+                  <div>
+                     <div class="form-check form-check-inline">
+                        <input name="ProcessApplicable" id="ProcessApplicable_0" type="radio" required="required" class="form-check-input" value="WorkInProgress">
+                        <label for="ProcessApplicable_0" class="form-check-label">WIP</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="ProcessApplicable" id="ProcessApplicable_1" type="radio" required="required" class="form-check-input" value="SRInspection">
+                        <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving Inspection</label>
+                     </div>
+                  </div>
+               </div>
+               <!-- Is Non-Conformance -->
+               <div class="form-group col-md-6">
+                  <Label>Is Item Non-Conforming?</Label>
+                  <div>
+                     <div class="form-check form-check-inline">
+                        <input name="IsNonConforming" id="IsNonConforming_0" type="radio" required="required" class="form-check-input" value="Yes">
+                        <label for="IsNonConforming_0" class="form-check-label">Yes</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="IsNonConforming" id="IsNonConforming_1" type="radio" required="required" class="form-check-input" value="No">
+                        <label for="IsNonConforming_1" class="form-check-label">No</label>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row g-3">
+               <div class="form-group col-md-6">
+                  <label for="QAName">Quality Representatives Name: </label>
+                  <input type="text" class="form-control" placeholder="Enter Your Name" id="QAName" required>
+               </div>
+               <div class="form-group col-md-6">
+                  <label for="QADate">Date: </label>
+                  <input type="date" class="form-control" id="QADate" required>
+               </div>
             </div>
             <!-- Submit Button -->
-
-            
-         </form>
-      </div>
+            <div class="row g-3">
+               <div class="form group col-md-6">
+                  <button type="submit" class="yes" id="btnSubmit_Quality">Save NCR</button>
+               </div>
+            </div>
+         </fieldset>
+      </form>
+      <form class="px-4" id="ncrform_engineer" onsubmit="event.preventDefault();" style="display: none;">
+         <fieldset>
+            <legend>Engineer Form</legend>
+            <!-- Fields for Engineer Form -->
+            <div class="row g-3">
+               <!-- Review by CF Engineering -->
+               <div class="form-group col-md-6">
+                  <label>Review by CF Engineering:</label>
+                  <div>
+                     <div class="form-check form-check-inline">
+                        <input name="Review" id="Review_0" type="radio" required="required" aria-required="true" class="form-check-input" value="Use As Is">
+                        <label for="Review_0" class="form-check-label">Use As Is</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="Review" id="Review_1" type="radio" required="required" aria-required="true" class="form-check-input" value="Repair">
+                        <label for="Review_1" class="form-check-label">Repair</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="Review" id="Review_2" type="radio" required="required" aria-required="true" class="form-check-input" value="Rework">
+                        <label for="Review_2" class="form-check-label">Rework</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="Review" id="Review_3" type="radio" required="required" aria-required="true" class="form-check-input" value="Scrap">
+                        <label for="Review_3" class="form-check-label">Scrap</label>
+                     </div>
+                  </div>
+               </div>
+               <!-- Customer Notification -->
+               <div class="form-group col-md-6">
+                  <label>Notify customer of NCR:</label>
+                  <div>
+                     <div class="form-check form-check-inline">
+                        <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required" class="form-check-input" value="Yes">
+                        <label for="NotifyCustomer_0" class="form-check-label">Yes</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="NotifyCustomer" id="NotifyCustomer_1" type="radio" required="required" class="form-check-input" value="No">
+                        <label for="NotifyCustomer_1" class="form-check-label">No</label>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Disposition -->
+            <div class="row g-3">
+               <div class="form-group col-md-12">
+                  <label for="Disposition">Disposition:</label>
+                  <textarea class="form-control" id="Disposition" name="Disposition" rows="3" required></textarea>
+               </div>
+            </div>
+            <!-- Drawing Requires Updating -->
+            <div class="row g-3">
+               <div class="form-group col-md-6">
+                  <label>Does the drawing require updating:</label>
+                  <div>
+                     <div class="form-check form-check-inline">
+                        <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_0" type="radio" class="form-check-input" value="1">
+                        <label for="DrawingUpdateRequired_0" class="form-check-label">Yes</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_1" type="radio" class="form-check-input" value="0">
+                        <label for="DrawingUpdateRequired_1" class="form-check-label">No</label>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row g-3">
+               <!-- Revision Information -->
+               <div class="form-group col-md-4">
+                  <label for="RevisionNumber">Rev. Number:</label>
+                  <input type="text" class="form-control-plaintext" id="RevisionNumber" placeholder="N/A" readonly>
+               </div>
+               <div class="form-group col-md-4" id="NewRevNum" style="display: none;">
+                  <label for="NewRevisionNumber">Updated Rev. Number:</label>
+                  <input type="text" class="form-control-plaintext" id="NewRevisionNumber" readonly>
+               </div>
+               <div class="form-group col-md-4" id="NewRevDate" style="display: none;">
+                  <label for="RevisionDate" id="lblRevisionDate">Revision Date:</label>
+                  <input type="date" class="form-control" id="RevisionDate">
+               </div>
+            </div>
+              <!-- Submit Button -->
+              <div class="row g-3">
+               <div class="form group col-md-6">
+                  <button type="submit" class="yes" id="btnSubmit_Engineer">Save NCR</button>
+               </div>
+            </div>
+         </fieldset>
+      </form>
       <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script>
-         function toggleSection(sectionId) {
-                      var sections = document.querySelectorAll('.content-section');
-                      sections.forEach(function(section) {
-                          if (section.id === sectionId) {
-                              section.style.display = section.style.display === 'none' ? 'block' : 'none';
+         function toggleForm(formId) {
+                      var forms = document.querySelectorAll('form');
+                      forms.forEach(function(form) {
+                          if (form.id === formId) {
+                           form.style.display = form.style.display === 'none' ? 'block' : 'none';
                           } else {
-                              section.style.display = 'none';
+                           form.style.display = 'none';
                           }
                       });
                   }
          
-         document.addEventListener('DOMContentLoaded', () => {
-         
-            var coll = document.getElementsByClassName("collapsible");
-         var i;
-         
-         for (i = 0; i < coll.length; i++) {
-           coll[i].addEventListener("click", function() {
-             this.classList.toggle("active");
-             var content = this.nextElementSibling;
-             if (content.style.display === "block") {
-               content.style.display = "none";
-             } else {
-               content.style.display = "block";
-             }
-           });
-         }
-         });
-         
-         
-                  
-               
       </script>
       <script src="../public/scripts/navigate.js"></script>
    </body>
