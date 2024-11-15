@@ -328,10 +328,11 @@ app.get('/SummaryInfo', (req, res) => {
 
 // app to get summary data filtered by supplier number, status, and date range
 app.get('/FilterSummaryInfo', (req, res) => {
-    const { supplierFilter, status } = req.query;
+    const { supplierFilter, status, date1, date2 } = req.query;
     try {
+        const statusWild = `%${status}%`
         const supplierWildcards = `%${supplierFilter}%`;
-        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE Supplier.SupplierName LIKE ? AND NCRForm.FormStatus = ?').all(supplierWildcards, status);
+        const rows = db.prepare('SELECT NCRForm.id, NCRForm.CreationDate, NCRForm.LastModified, NCRForm.FormStatus, Quality.NCRNumber, Supplier.SupplierName FROM NCRForm JOIN Quality ON NCRForm.id = Quality.NCRFormID JOIN Product ON Quality.ProductID = Product.id JOIN Supplier ON Product.SupplierID = Supplier.id WHERE Supplier.SupplierName LIKE ? AND NCRForm.FormStatus LIKE ? AND NCRForm.LastModified BETWEEN ? AND ?').all(supplierWildcards, statusWild, date1, date2);
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);

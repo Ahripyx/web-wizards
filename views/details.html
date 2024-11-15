@@ -39,13 +39,20 @@
          </div>
       </div>
    </header>
-    <table id="displayTable">
-   <Button id="btnClose">Close Form</Button>
-   <Button id="btnArchive">Archive Form</Button>
-   <Button id="btnEdit">Edit Form</Button>
-    </table>
-    <script src="../public/scripts/details.js" defer></script>
-    <script src="../public/scripts/navigate.js"></script>
-
+   <main>
+      <h1 id="h1"></h1>
+      <section id="actionButtons">
+         <h2>Actions:</h2>
+         <Button id="btnClose">Close Form</Button>
+         <Button id="btnArchive">Archive Form</Button>
+         <Button id="btnEdit">Edit Form</Button>
+      </section>
+      <h3>NCR Info:</h3>
+      <section id="dataTable">
+         <table id="displayTable"></table>
+      </section>
+   </main>  
+   <script src="../public/scripts/details.js" defer></script>
+   <script src="../public/scripts/navigate.js"></script>
 </body>
 </html>

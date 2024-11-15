@@ -8,9 +8,11 @@ const table = document.getElementById("displayTable");
 
 function fillTables(data){
     
-    
     data.forEach(element =>{
         for (let item in element){
+            if (item == "NCRNumber"){
+                document.getElementById('h1').innerHTML = `NCR #${element[item]}`;
+            }
             if (item.substr(-2).toUpperCase() == "ID"){
                 
             }
@@ -29,7 +31,6 @@ function fillTables(data){
                 else{
                     table.innerHTML += `<tr><td>${item}:</td><td>${element[item]}</td></tr>`;
                 }
-                
             }  
         }
     });
@@ -37,38 +38,17 @@ function fillTables(data){
 
 async function getData(){
 
-    // /ncrs , /QualityFromNCR , /EngineerFromNCR
-
     const ncrRes = await fetch(`http://localhost:5500/ncrFromID?ncrID=${ncrId}`);
     const qaRes = await fetch(`http://localhost:5500/QualityFromNCR?ncrID=${ncrId}`);
     const engRes = await fetch(`http://localhost:5500/EngineerFromNCR?ncrID=${ncrId}`);
     const ncrData = await ncrRes.json();
     const qaData = await qaRes.json();
     const engData = await engRes.json();
-    //console.log(ncrData);
-    //console.log(qaData);
-    //console.log(engData);
 
     table.innerHTML="";
     fillTables(ncrData);
     fillTables(qaData);
-    fillTables(engData);
-
-    //const response = await fetch(`http://localhost:5500/AllInfo?id=${ncrId}`);
-    //const data = await response.json();
-
-    //const data = Object.assign({}, engData, qaData, ncrData);
-    //const data = { ...engData, ...ncrData, ...qaData  };
-    //const data = {};
-    //Object.keys(ncrData).forEach(key=> data[key]=ncrData[key]);
-    //Object.keys(qaData).forEach(key=> data[key]=qaData[key]);
-    //Object.keys(engData).forEach(key=> data[key]=engData[key]);
-    //console.log(data);
-    //new Array();
-    //data.push(json.Stringify(ncrData));
-    //data.push(qaData);
-    //data.push(engData);
-     
+    fillTables(engData);     
 };
 
 getData();
@@ -85,8 +65,6 @@ document.getElementById("btnClose").addEventListener("click", async function(){
     const qualityData = await qualityResponse.json();
     console.log(qualityData);
 
-    
-
     getData();
 });
 
@@ -95,7 +73,7 @@ document.getElementById("btnArchive").addEventListener("click", async function()
     const arch = "Archived";
     const response1 = await fetch(`http://localhost:5500/ncrFromID?ncrID=${ncrId}`);
     const wow = await response1.json();
-    console.log(wow);
+
     const response = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=${arch}&id=${ncrId}`, {
         method: 'PUT'
     });
