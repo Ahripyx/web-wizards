@@ -47,31 +47,19 @@
          <section id="filterSection">
           <h2  class="text-center">Filters:</h2>
             <div class="center">
-               <table>
-                  <tr>
-                     <td><label>Enter a Supplier Name:</label></td>
-                     <td><input type="text" id="filterSupplier" tabindex="10"></td>
-                  </tr>
-                  <tr>
-                     <td><label>Select an NCR Status:</label></td>
-                     <td>
-                        <select id="filterStatus" tabindex="15">
-                           <option value="">Any Status</option>
-                           <option value="Open">Open</option>
-                           <option value="Closed">Closed</option>
-                           <option value="Archived">Archived</option>
-                        </select>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td><label>Select a Date Range:</label></td>
-                     <td>
-                        <input type="date" id="dateBox1" tabindex="20">
-                        <input type="date" id="dateBox2" tabindex="25">
-                     </td>
-                  </tr>                    
-               </table>
-               <button id="btnFilter" tabindex="30"  class="wide-button">Filter</button>
+               <label>Enter a Supplier Name:</label>
+               <input type="text" id="filterSupplier" tabindex="10">
+               <label>Select an NCR Status:</label>
+               <select id="filterStatus" tabindex="15">
+                  <option value="">Any Status</option>
+                  <option value="Open">Open</option>
+                  <option value="Closed">Closed</option>
+                  <option value="Archived">Archived</option>
+               </select>
+               <label>Select a Date Range:</label>
+               <input type="date" id="dateBox1" tabindex="20">
+               <input type="date" id="dateBox2" tabindex="25">
+               <button id="btnFilter" tabindex="30">Filter</button>
             </div>   
          </section>
          <section id="dataSection" class="info-section">

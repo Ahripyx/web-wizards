@@ -294,6 +294,11 @@ form input[type="text"], form input[type="number"], form input[type="email"], fo
 
 /* ----- Buttons ----- */
 
+button{
+    min-height: 44px;
+    min-width: 44px;
+}
+
 button.yes, button.no {
     padding: 10px 20px;
     color: white;
