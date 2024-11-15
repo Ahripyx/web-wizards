@@ -30,15 +30,25 @@
             </div>
             <div>
                <button class="notification" id="btnNotification">
+<<<<<<< Updated upstream
                <span class="fa-solid fa-bell"></span>
                <span class="badge" id="notification-count">0</span>
+=======
+                  <span class="fa-solid fa-bell"></span>
+                  <span class="badge" id="notification-count">0</span>
+>>>>>>> Stashed changes
                </button>
             </div>
             <!-- Notification Modal -->
             <div id="notification-modal" class="modal">
                <!-- Modal content -->
+<<<<<<< Updated upstream
                <div class="modal-content">
                </div>
+=======
+            <div class="modal-content">
+            </div>
+>>>>>>> Stashed changes
             </div>
             <div id="product-modal" class="modal" style="z-index: 2;">
                <div class="modal-content">
@@ -71,7 +81,39 @@
                <!-- Fields for Quality Assurance Form -->
                <div id="qualityView" class="view create">
                   <fieldset>
+<<<<<<< Updated upstream
                      <table>
+=======
+                      <table>
+                         <!-- NCR Number -->
+                         <tr>
+                           <td>
+                              <label for="NCRNumber" name="NCRNumber">NCR Number: </label>
+                           </td>
+                           <td>
+                              <input type="text" placeholder="" id="ISONumber" disabled>
+                           </td>
+                         </tr>
+                        <!-- ISO Number -->
+                        <tr>
+                           <td>
+                              <label for="ISONumber" name="ISONumber">ISO Number: </label>
+                           </td>
+                           <td>
+                              <input type="text" placeholder="OPS-00011" id="ISONumber" disabled>
+                           </td>
+                        </tr>
+                        <!-- Sales Order Number -->
+                        <tr>
+                           <td>
+                              <label for="SalesNumber" name="SalesNumber">Sales Order Number: </label>
+                           </td>
+                           <td>
+                              <input type="text" placeholder="" id="SalesNumber" required>
+                           </td>
+                        </tr>
+                        <!-- Supplier -->
+>>>>>>> Stashed changes
                         <tr>
                            <td>
                               <label for="SupplierID">Supplier:</label>
@@ -82,14 +124,14 @@
                               </select>
                            </td>
                         </tr>
-                        <!-- Item Description -->
+                        <!-- Product Info -->
                         <tr>
                            <td>
                               <label for="ProductID">Product:</label>
                            </td>
                            <td>
                               <select id="ProductID" name="ProductID" style="width: 300px;" disabled required>
-                                 <option value="" disabled selected>Select an item</option>
+                                 <option value="" disabled selected >Select an item</option>
                               </select>
                            </td>
                         </tr>
@@ -133,10 +175,17 @@
                               <label>Identify Process Applicable:</label>
                            </td>
                            <td>
+<<<<<<< Updated upstream
                               <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required>
                               <label for="WorkInProgress">WIP</label>
                               <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required>
                               <label for="SRInspection">Supplier or Receiving Inspection</label>
+=======
+                                <input type="radio" id="WorkInProgress" name="ProcessApplicable" value="WorkInProgress" required />
+                                   <label for="WorkInProgress">WIP</label>
+                             <input type="radio" id="SRInspection" name="ProcessApplicable" value="SRInspection" required />
+                             <label for="SRInspection">Supplier or Receiving Inspection</label>
+>>>>>>> Stashed changes
                            </td>
                         </tr>
                         <!-- Is Non-Conformance -->
@@ -151,7 +200,29 @@
                               <label for="IsNonConformingNo">No</label>    
                            </td>
                         </tr>
+<<<<<<< Updated upstream
                      </table>
+=======
+                        <!-- QA Name -->
+                        <tr>
+                           <td>
+                              <label for="QAName" name="QAName">Quality Representatives Name: </label>
+                           </td>
+                           <td>
+                              <input type="text" placeholder="Enter Your Name" id="QAName" required>
+                           </td>
+                        </tr>
+                        <!-- QA Date -->
+                        <tr>
+                           <td>
+                              <label for="QADate" name="QADate">Date: </label>
+                           </td>
+                           <td>
+                              <input type="date" id="QADate" required>
+                           </td>
+                        </tr>                
+                      </table> 
+>>>>>>> Stashed changes
                   </fieldset>
                </div>
             </div>
