@@ -25,7 +25,7 @@ async function getData(){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.CreationDate}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex}>View</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex}>Details</a></td>
             `
         tabindex+=5;
         row++;
@@ -85,7 +85,7 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.LastModified}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}">Details</a></td>
             `
         tabindex+=5;
         row++;
