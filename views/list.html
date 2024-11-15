@@ -44,14 +44,18 @@
     <main>
         <h1>NCRs</h1>
         <section>
+            <label>Enter a Supplier Name:</label>
             <input type="text" id="filterSupplier">
+            <label>Select an NCR Status:</label>
             <select id="filterStatus">
-               <option value="ANY">Any Status</option>
+               <option value="">Any Status</option>
                 <option value="Open">Open</option>
                 <option value="Closed">Closed</option>
                 <option value="Archived">Archived</option>
-                <option value="test">test</option>
             </select>
+            <label>Select a Date Range:</label>
+            <input type="date" id="dateBox1">
+            <input type="date" id="dateBox2">
             <button id="btnFilter">Filter</button>
         </section>
         <table id="table" class="table-borders">

@@ -28,16 +28,23 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
         
     const supplier = document.getElementById("filterSupplier").value;
 
-    console.log(supplier);
-
     const ddl = document.getElementById("filterStatus");
     const status = ddl.options[ddl.selectedIndex].value;
-    console.log(ddl[ddl.selectedIndex]);
-    console.log(status);
+    console.log(status)
 
-    const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=${supplier}&status=${status}`);
+    var date1 = document.getElementById("dateBox1").value;
+    var date2 = document.getElementById("dateBox2").value;
+
+    if (date1 == '' || date2 == ''){
+        date1 = '0001-01-01';
+        date2 = '9999-12-12';
+    }
+
+
+
+    const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=${supplier}&status=${status}&date1=${date1}&date2=${date2}`);
     const data = await response.json();
-    console.log(data);
+
     const table = document.getElementById("table");
     table.innerHTML = "";
     
@@ -50,7 +57,7 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
             <td class="table-borders">${element.NCRNumber}</td>
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
-            <td class="table-borders">${element.CreationDate}</td>
+            <td class="table-borders">${element.LastModified}</td>
             <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
             `
     })
