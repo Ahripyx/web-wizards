@@ -251,7 +251,7 @@ label.error {
     Body Style
 ====================*/
 
-section {
+section.tools {
     padding: 3em;
     height: 100%;
     position: relative;
