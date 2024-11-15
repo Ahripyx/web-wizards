@@ -10,6 +10,9 @@ function fillTables(data){
     
     data.forEach(element =>{
         for (let item in element){
+            if (item == "NCRNumber"){
+                document.getElementById('h1').innerHTML = `NCR #${element[item]}`;
+            }
             if (item.substr(-2).toUpperCase() == "ID"){
                 
             }

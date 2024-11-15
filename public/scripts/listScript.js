@@ -7,6 +7,8 @@ async function getData(){
     const data = await response.json();
     const table = document.getElementById("table");
 
+    var tabindex = 50;
+
     data.forEach(element => {
         console.log(element.id);
         table.innerHTML += `<tr id="${element.id}"></tr>`
@@ -17,8 +19,9 @@ async function getData(){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.CreationDate}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex}>View</a></td>
             `
+        tabindex+=5;
     });
 };
 

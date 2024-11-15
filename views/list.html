@@ -43,22 +43,40 @@
      </header>
     <main>
         <h1>NCRs</h1>
-        <section>
-            <label>Enter a Supplier Name:</label>
-            <input type="text" id="filterSupplier">
-            <label>Select an NCR Status:</label>
-            <select id="filterStatus">
-               <option value="">Any Status</option>
-                <option value="Open">Open</option>
-                <option value="Closed">Closed</option>
-                <option value="Archived">Archived</option>
-            </select>
-            <label>Select a Date Range:</label>
-            <input type="date" id="dateBox1">
-            <input type="date" id="dateBox2">
-            <button id="btnFilter">Filter</button>
+        <section id="filterSection">
+         <h2>Filters:</h2>
+            <table>
+               <tr>
+                  <td><label>Enter a Supplier Name:</label></td>
+                  <td><input type="text" id="filterSupplier" tabindex="10"></td>
+               </tr>
+               <tr>
+                  <td><label>Select an NCR Status:</label></td>
+                  <td>
+                     <select id="filterStatus" tabindex="15">
+                        <option value="">Any Status</option>
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Archived">Archived</option>
+                     </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td><label>Select a Date Range:</label></td>
+                  <td>
+                     <input type="date" id="dateBox1" tabindex="20">
+                     <input type="date" id="dateBox2" tabindex="25">
+                  </td>
+               </tr>
+               <tr>
+                  <td><button id="btnFilter" tabindex="30">Filter</button></td>
+               </tr>
+            </table>
+            
+            
         </section>
-        <table id="table" class="table-borders">
+        <section id="dataSection">
+         <table id="table" class="table-borders">
             <tr>
                 <th class="table-borders">NCR</th>
                 <th class="table-borders">Supplier</th>                
@@ -66,6 +84,7 @@
                 <th class="table-borders">Date</th>
             </tr>
         </table>
+        </section>
     </main>
     <footer class="commit-bottom">
         <hr><p><small>CROSSFIRE NCR</small></p>
