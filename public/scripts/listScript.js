@@ -25,7 +25,7 @@ async function getData(){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.CreationDate}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex}>View</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex}>Details</a></td>
             `
         tabindex+=5;
         row++;
@@ -56,11 +56,28 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
     const data = await response.json();
 
     const table = document.getElementById("table");
-    table.innerHTML = "";
+    table.innerHTML = `
+        <tr class="shaded-cells">
+            <th>NCR</th>
+            <th>Supplier</th>                
+            <th>Status</th>
+            <th>Date</th>
+            <th></th>
+        </tr>`;
+
+        var tabindex = 50;
+        var row = 0;
     
     data.forEach(element => {
+        
+
         console.log(element.id);
-        table.innerHTML += `<tr id="${element.id}"></tr>`
+        if (row % 2 == 1){
+            table.innerHTML += `<tr id="${element.id}" class="light-cells"></tr>`
+        }
+        else{
+            table.innerHTML += `<tr id="${element.id}"></tr>`
+        }
         var tablerow = document.getElementById(element.id);
         tablerow.innerHTML =
             `
@@ -68,8 +85,10 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.LastModified}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}">Details</a></td>
             `
+        tabindex+=5;
+        row++;
     })
 });
     
