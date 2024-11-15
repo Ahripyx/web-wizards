@@ -80,6 +80,50 @@ export async function newUser(FName, MName, LName, Email, Password, RoleID) {
     }
 }
 
+// UPDATE QUALITY
+// METHOD: PUT
+export async function updateQuality(id, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID) {
+    try {
+      console.log(id);
+      console.log(SRInspection.checked);
+      console.log(WorkInProgress.checked);
+      console.log(ItemDescription);
+      console.log(QuantityReceived.value);
+      console.log(QuantityDefective.value);
+      console.log(IsNonConforming.checked);
+      console.log(Details.value);
+      console.log(ProductID);
+
+        const qualtyData = {
+            SRInspection: SRInspection.checked ? 1 : 0,
+            WorkInProgress: WorkInProgress.checked ? 1 : 0,
+            ItemDescription: ItemDescription,
+            QuantityReceived: parseInt(QuantityReceived.value, 10),
+            QuantityDefective: parseInt(QuantityDefective.value, 10),
+            IsNonConforming: IsNonConforming.checked ? 1 : 0,
+            Details: Details.value,
+            ProductID: parseInt(ProductID, 10)
+        };
+
+        const response = await fetch(`http://localhost:5500/quality/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(qualtyData)
+         });
+
+         if (response.ok) {
+            alert("Quality data updated successfully!");
+            window.location.href = `details.html?id=${id}`;
+         } else {
+            const errorData = await response.text();
+            alert(`Failed to update quality form: ${errorData}`);
+         }
+    } catch (error) {
+        console.error('Error:', error);
+        alert("An unexpected error occurred." + error);
+    }
+}
+
 // CREATE NEW ENGINEER
 // METHOD: POST
 export async function newEngineer(id, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate)
