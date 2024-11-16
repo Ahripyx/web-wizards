@@ -20,11 +20,11 @@ export const createTables = [
         FOREIGN KEY(RoleID) REFERENCES Role(id)
     )`,
     `CREATE TABLE IF NOT EXISTS FormUsers (
-        NCRFormID INTEGER NOT NULL,
-        UserID INTEGER NOT NULL,
-        PRIMARY KEY (NCRFormID, UserID),
-        FOREIGN KEY (NCRFormID) REFERENCES NCRForm(id) ON DELETE CASCADE,
-        FOREIGN KEY (UserID) REFERENCES User(id) ON DELETE CASCADE
+        NCRForm_id INTEGER NOT NULL,
+        User_id INTEGER NOT NULL,
+        PRIMARY KEY (NCRForm_id, User_id),
+        FOREIGN KEY (NCRForm_id) REFERENCES NCRForm(id),
+        FOREIGN KEY (User_id) REFERENCES User(id)
     )`,
     `CREATE TABLE IF NOT EXISTS Supplier (
         id INTEGER PRIMARY KEY,
@@ -98,7 +98,7 @@ export const seedTables = [
         ('2024-10-15', '2024-10-16', 'Open'),
         ('2024-10-17', '2024-10-18', 'Open'),
         ('2024-10-19', '2024-10-20', 'Open')`,
-    `INSERT INTO FormUsers (NCRFormID, UserID) VALUES 
+    `INSERT INTO FormUsers (NCRForm_ID, User_ID) VALUES 
         (1, 1), 
         (1, 2), 
         (2, 3), 
@@ -247,7 +247,7 @@ export const seedTables = [
                 (9, '2024-009', 1, 0, 'Safety Helmet', 50, 5, 1, 'Helmets arent the right colour', 'Open', '2024-10-18', 18),
                 (10, '2024-010', 0, 1, 'Hydraulic Oil', 100, 50, 1, 'Recieved AW46 oil instead of the AW32 oil', 'Open', '2024-10-20', 26)`,
 `INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES 
-                (1, 'Rework', 0, 'Accepted with Rework', '399-B', '2024-10-03', 'Closed', '2024-10-02'), 
+                (1, 'Rework', 0, 'Accepted with Rework', '399-B', '2024-10-03', 'Open', '2024-10-02'), 
                 (2, 'Scrap', 1, 'Rejected', NULL, NULL, 'Closed', '2024-10-04'), 
                 (3, 'Repair', 0, 'Approved', '456-C', '2024-10-07', 'Closed', '2024-10-06'), 
                 (4, 'Repair', 0, 'Approved', NULL, NULL, 'Open', '2024-10-09'), 

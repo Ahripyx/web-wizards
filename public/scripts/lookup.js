@@ -1,4 +1,4 @@
-import { newProduct, updateQuality, newEngineer, updateEngineer } from './crud.js';
+import { newProduct, crudQuality, crudEngineer, fetchData } from './crud.js';
 
 // fetch supplier data to fill any Supplier Select dropdowns
 export async function getSuppliers(selectedID = null) {
@@ -66,9 +66,20 @@ export async function fillForm(selectedID = null) {
         // If we have an ID (as in we are editing a form), get the form data and fill the form
         if (selectedID)
         {
+            
+            try {
+                const formusers = await fetchData(`http://localhost:5500/formusers/${selectedID}`);
+                console.log(formusers);
+                formusers.forEach(formuser => {
+                    if (formuser.Title = 'Quality') document.getElementById('QAName').value = formuser.FName + ' ' + formuser.LName;
+                    if (formuser.Title = 'Engineer') document.getElementById('ENGName').value = formuser.FName + ' ' + formuser.LName;
+                });
 
                 fillQuality(selectedID);
                 fillEngineer(user, selectedID);
+            } catch (error) {
+                console.error('Failed to fill form:', error);
+            }
         }
         else
         {
@@ -112,7 +123,7 @@ async function supplierSelect(supplierElement) {
 
                 selectOption.text = 'Select a product';
                 selectOption.selected = true;
-                selectOption.value = '';
+                selectOption.value = null;
                 ProductElement.appendChild(selectOption);
 
                 ProductData.forEach(product => {
@@ -137,6 +148,7 @@ async function supplierSelect(supplierElement) {
                     const option = document.createElement('option');
                     option.text = 'No products available';
                     option.selected = true;
+                    option.value = null;
                     ProductElement.appendChild(option);
                 }
                 
@@ -204,6 +216,7 @@ export async function fillQuality(selectedID = null) {
 // FETCHES ENGINEER DATA
 export async function fillEngineer(user, selectedID = null) {
     if (document.getElementById('QualityStatus').hidden === false) return;
+    if (user.RoleID === 3) document.getElementById('ENGName').value = user.FName + ' ' + user.LName;
     const EngineerResponse = await fetch(`http://localhost:5500/engineer/${selectedID}`);
     if (!EngineerResponse.ok) {
         document.getElementById('EngineerNewOrEdit').value = 'Create';
@@ -244,12 +257,19 @@ UpdateFalse.addEventListener("click", function() {
 
 export async function updateForm(id, formType) 
 {
-if (formType === 'quality') {
-    const product = document.getElementById("ProductID");
-    updateQuality(id, document.getElementById("ProcessApplicable_1"), document.getElementById("ProcessApplicable_0"), 
-                  product.options[product.selectedIndex].text, document.getElementById("QuantityReceived"), 
-                  document.getElementById("QuantityDefective"), document.getElementById("IsNonConforming_0"),
-                  document.getElementById("Details"), product.value);
+if (formType === 'quality') { 
+    await crudQuality(
+        "PUT",
+        document.getElementById("ProcessApplicable_1"), 
+        document.getElementById("ProcessApplicable_0"), 
+        document.getElementById("ProductID"),
+        document.getElementById("QuantityReceived"),
+        document.getElementById("QuantityDefective"), 
+        document.getElementById("IsNonConforming_0"),
+        document.getElementById("Details"), 
+        document.getElementById("ProductID"), 
+        id
+    );
 }
 }
 
@@ -258,7 +278,7 @@ export async function insertForm(id) {
       try {
        
     const Review = document.querySelector('input[name="Review"]:checked');
-    const NotifyCustomer = document.getElementById('NotifyTrue');
+    const NotifyCustomer = document.getElementById('NotifyCustomer_0');
     const Disposition = document.getElementById('Disposition');
     var RevisionNumber = document.getElementById('RevisionNumber');
     if (NewRevisionNumber.hidden === false) { RevisionNumber = NewRevisionNumber; }
@@ -266,9 +286,9 @@ export async function insertForm(id) {
     const RevisionDate = document.getElementById('RevisionDate');
 
       if (document.getElementById('EngineerNewOrEdit').value === 'Create') {
-        newEngineer(id, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate);
+        crudEngineer("POST", Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, id);
       } else {
-        updateEngineer(id, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate);
+        crudEngineer("PUT", Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, id);
       }
    }
    catch (error) {
@@ -328,18 +348,7 @@ function toggleForms(formType) {
     }
 }
 
-async function fetchData(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch data from ${url}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error(error.message);
-        return null;
-    }
-}
+
 
 function populateSelect(id, data, text, value, selectedID = null)
 {

@@ -1,14 +1,20 @@
+
 // Function to increment the notification count
 function newNotification(form) {
     try
-    {       
-        let count = parseInt(localStorage.getItem('notificationCount') || '0', 10);
-        count += 1;
-        localStorage.setItem('notificationCount', count);
+    {
+        let admin_count = parseInt(localStorage.getItem('admin_count') || '0', 10);
+        let quality_count = parseInt(localStorage.getItem('quality_count') || '0', 10);
+        let engineer_count = parseInt(localStorage.getItem('engineer_count') || '0', 10);
+        let purchasing_count = parseInt(localStorage.getItem('purchasing_count') || '0', 10);
 
         const parsedForm = JSON.parse(form);
         
-        localStorage.setItem(`form-${parsedForm.id}`, form);
+    if (parsedForm.type == "Quality") increment('quality_count', quality_count, admin_count);
+    else if (parsedForm.type == "Engineering") increment('engineer_count', engineer_count, admin_count);
+    else if (parsedForm.type == "Purchasing") increment('purchasing_count', purchasing_count, admin_count);
+
+        localStorage.setItem(`form-${parsedForm.lastInsertRowid}-${parsedForm.type}`, form);
         updateNotification();
     }
     catch (error)
@@ -17,6 +23,13 @@ function newNotification(form) {
         alert("Failed to add notification." + error);
     }
    
+}
+
+function increment(type, count, admin) {
+    count += 1;
+    admin += 1;
+    localStorage.setItem(type, count);
+    localStorage.setItem('admin_count', admin);
 }
 
 // Function to update the notification modal
@@ -43,10 +56,14 @@ function updateNotification() {
     `;
 
     const notificationContent = document.getElementById('notification-content');
-
+    const user = JSON.parse(localStorage.getItem('user'));
     // Set the notif count to the current count
-    if (notificationCount) {
-        notificationCount.textContent = parseInt(localStorage.getItem('notificationCount') || '0', 10);
+    if (notificationCount)
+    {
+        if (user.RoleID == 1) notificationCount.textContent = parseInt(localStorage.getItem('admin_count') || '0', 10);
+            else if (user.RoleID == 2) notificationCount.textContent = parseInt(localStorage.getItem('quality_count') || '0', 10);
+            else if (user.RoleID == 3) notificationCount.textContent = parseInt(localStorage.getItem('engineer_count') || '0', 10);
+            else if (user.RoleID == 4) notificationCount.textContent = parseInt(localStorage.getItem('purchasing_count') || '0', 10);
     }
 
     // Set the notif modal to display the forms
@@ -54,34 +71,54 @@ function updateNotification() {
         //notificationModal.innerHTML = '<span class="close">&times;</span><p>New forms to review.</p>';
         const qualitylist = document.getElementById('quality-list');
         const engineerlist = document.getElementById('engineer-list');
-        for (var i = 0; i < localStorage.length; i++){
-            if (localStorage.key(i).startsWith('form-'))
-            {
-                // IT WORKS!!! IOT WORKS!!!!!!!!
-                const value = localStorage.getItem(localStorage.key(i));
-                const parsedForm = JSON.parse(value);
-                const notifText = `<li><a href="details.html?id=${parsedForm.id}" onclick="deleteNotification(${parsedForm.id})"> ${parsedForm.NCRNumber} - ${parsedForm.LastModified} </a></li>`;
-                if (parsedForm.type == "Quality" && qualitylist)
+
+            for (var i = 0; i < localStorage.length; i++){
+                if (localStorage.key(i).startsWith('form-'))
                 {
-                    qualitylist.innerHTML += notifText;
+                    // IT WORKS!!! IOT WORKS!!!!!!!!
+                    const value = localStorage.getItem(localStorage.key(i));
+                    const parsedForm = JSON.parse(value);
+                    const notifText = `<li><a href="details.html?id=${parsedForm.lastInsertRowid}" onclick="deleteNotification(${parsedForm.lastInsertRowid}, '${parsedForm.type}')"> ${parsedForm.NCRNumber} </a></li>`;
+                    if (parsedForm.type == "Quality" && qualitylist)
+                    {
+                        qualitylist.innerHTML += notifText;
+                    }
+                    else if (parsedForm.type == "Engineering")
+                    {
+                        engineerlist.innerHTML += notifText;
+                    }
                 }
-                else if (parsedForm.type == "Engineering")
-                {
-                    engineerlist.innerHTML += notifText;
-                }
-            }
-        };
+            };
+
+       
     }
 }
 
-function deleteNotification(id) {
-    localStorage.removeItem(`form-${id}`);
-    let count = parseInt(localStorage.getItem('notificationCount') || '0', 10);
-    count -= 1;
-    localStorage.setItem('notificationCount', count);
+function deleteNotification(id, type) {
+    try
+    {
+        localStorage.removeItem(`form-${id}-${type}`);
+
+        if (type == "Quality") decrement('quality_count', 'admin_count');
+        else if (type == "Engineering") decrement('engineer_count', 'admin_count');
+        else if (type == "Purchasing") decrement('purchasing_count', 'admin_count');
+    } catch (error)
+    {
+        console.error('Failed to delete notification:', error);
+        alert("Failed to delete notification.");
+    }
 }
 
-// Initialize the notif display when page load
+function decrement(type, adminType) {
+    let count = parseInt(localStorage.getItem(type) || '0', 10);
+    let adminCount = parseInt(localStorage.getItem(adminType) || '0', 10);
+
+        count -= 1;
+        localStorage.setItem(type, count);
+        adminCount -= 1;
+        localStorage.setItem(adminType, adminCount);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     updateNotification();
 });

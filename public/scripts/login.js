@@ -41,3 +41,11 @@ async function login(email, password) {
     }
    
 }
+
+function getuser() {
+    if (localStorage.getItem('user') == null) {
+        return null;
+    }
+    else
+    return JSON.parse(localStorage.getItem('user'));
+}
