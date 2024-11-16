@@ -80,8 +80,8 @@ export const dropTables = [
 export const seedTables = [
     `INSERT INTO Role (Title) VALUES 
         ('Admin'),
-        ('Engineer'), 
-        ('Inspector')`,
+        ('Inspector'),
+        ('Engineer')`,
     `INSERT INTO User (FName, MName, LName, Email, Password, RoleID) VALUES 
         ('Alan', 'W', 'Wake', 'alan.wake@crossfire.ca', 'password123', 1), 
         ('Parappa', 'tha', 'Rappa', 'parappa.rappa@crossfire.ca', 'password123', 2), 

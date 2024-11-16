@@ -2,85 +2,39 @@ import { newProduct, updateQuality, newEngineer, updateEngineer } from './crud.j
 
 // fetch supplier data to fill any Supplier Select dropdowns
 export async function getSuppliers(selectedID = null) {
-    
-    try {
-        const SupplierResponse = await fetch('http://localhost:5500/suppliers/');
-        if (!SupplierResponse.ok) {
-            throw new Error('Failed to fetch suppliers');
-        }
-        const SupplierData = await SupplierResponse.json();
-        const SupplierElement = document.getElementById("SupplierID");
-        SupplierData.forEach(supplier => {
-            const option = document.createElement('option');
-            option.value = supplier.id;
-            option.text = supplier.SupplierName;
-           
-                if (supplier.id === selectedID) {
-                
-                    option.selected = true;
-                }
-            
-            
-            SupplierElement.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Failed to fetch suppliers:', error);
-    }
+        const SupplierData = await fetchData('http://localhost:5500/suppliers/');
+        populateSelect('SupplierID', SupplierData, 'SupplierName', 'id', selectedID);
 }
 
 // fetch role data to fill any Role Select dropdowns
 export async function getRoles(selectedID = null) {
-    try {
-        const RoleResponse = await fetch('http://localhost:5500/roles/');
-        if (!RoleResponse.ok) {
-            throw new Error('Failed to fetch roles');
-        }
-        const RoleData = await RoleResponse.json();
-        const RoleElement = document.getElementById("RoleID");
-        RoleData.forEach(role => {
-            const option = document.createElement('option');
-            option.value = role.id;
-            option.text = role.Title;
-            if (role.id === selectedID) {
-                option.selected = true;
-            }
-            RoleElement.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Failed to fetch roles:', error);
-    }
+        const RoleData = await fetchData('http://localhost:5500/roles/');
+        populateSelect('RoleID', RoleData, 'Title', 'id', selectedID);
 }
 
 // fetch product data to fill any Product Select dropdowns
 export async function getProducts(selectedID = null) {
-    try {
-        const ProductResponse = await fetch('http://localhost:5500/products/');
-        if (!ProductResponse.ok) {
-            throw new Error('Failed to fetch products');
-        }
-        const ProductData = await ProductResponse.json();
-        const ProductElement = document.getElementById("ProductID");
-        ProductData.forEach(product => {
-            const option = document.createElement('option');
-            option.value = product.id;
-            option.text = product.ProductName;
-            if (product.id === selectedID) {
-                option.selected = true;
-                document.getElementById("ProductNumber").textContent = `Number: ${product.Number}`;
+        const ProductData = await fetchData('http://localhost:5500/products/');
+        if (ProductData !== null)
+        {
+            populateSelect('ProductID', ProductData, 'ProductName', 'id', selectedID);
+
+            const selectedProduct = ProductData.find(product => product.id === selectedID);
+            if (selectedProduct !== null) {
+                document.getElementById("ProductNumber").textContent = `Number: ${selectedProduct.Number}`;
             }
-            ProductElement.appendChild(option);
-        });
-        document.getElementById("ProductID").disabled = false;
-        
-    } catch (error) {
-        console.error('Failed to fetch products:', error);
-    }
+        }
 }
 
 export async function fillForm(selectedID = null) {
     try
     {
       const user = JSON.parse(localStorage.getItem('user'));
+
+      if (user.RoleID === 1) toggleForms('admin');
+        else if (user.RoleID === 2) toggleForms('quality');
+        else if (user.RoleID === 3) toggleForms('engineer');
+
         // Get the Product select element and add an event to make the product number visible when a product is selected
         
         document.getElementById("ProductID").addEventListener("change", async function() {
@@ -94,11 +48,7 @@ export async function fillForm(selectedID = null) {
                         return;
                     }
                 const productID = this.value;
-                const ProductResponse = await fetch(`http://localhost:5500/products/${productID}`);
-                if (!ProductResponse.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-                const ProductData = await ProductResponse.json();
+                const ProductData = await fetchData(`http://localhost:5500/products/${productID}`);
                 
                 document.getElementById('ProductNumber').textContent = `Number: ${ProductData.Number}`;
 
@@ -116,42 +66,10 @@ export async function fillForm(selectedID = null) {
         // If we have an ID (as in we are editing a form), get the form data and fill the form
         if (selectedID)
         {
-            const QualityResponse = await fetch(`http://localhost:5500/ncrs/${selectedID}`);
-            if (!QualityResponse.ok) {
-                throw new Error('Failed to fetch quality');
-            }
-            const QualityDataArray = await QualityResponse.json();
-            const QualityData = QualityDataArray[0];
-            await getSuppliers(QualityData.SupplierID);
-            await getProducts(QualityData.ProductID);
 
-            document.getElementById('ProcessApplicable_0').checked = QualityData.WorkInProgress === 1;
-            document.getElementById('ProcessApplicable_1').checked = QualityData.SRInspection === 1;
-                 
-                 document.getElementById('QuantityReceived').value = QualityData.QuantityReceived;
-                 document.getElementById('QuantityDefective').value = QualityData.QuantityDefective;
-                 if (QualityData.IsNonConforming === 1) {
-                     document.getElementById('IsNonConforming_0').checked = true;
-                 } else {
-                     document.getElementById('IsNonConforming_1').checked = true;
-                 }
-                 document.getElementById('Details').value = QualityData.Details;
-
-                 if (QualityData.QualityStatus === 'Open') {
-                
-                    
-                      toggleForms('quality');
-  
-                  } else { 
-                    
-                    toggleForms('engineer');
-                    //toggleElements('#ncrform_quality input, #ncrform_quality select, #ncrform_quality textarea', QualityData.QualityStatus);
-   
-                    fillEngineer(selectedID);
-                   }
-                } 
-            
-            
+                fillQuality(selectedID);
+                fillEngineer(user, selectedID);
+        }
         else
         {
             await getSuppliers();
@@ -261,8 +179,31 @@ async function newProductModal()
     } 
    
 }
+export async function fillQuality(selectedID = null) {
+    const QualityArray = await fetchData(`http://localhost:5500/ncrs/${selectedID}`);
+    const QualityData = QualityArray[0];
+    await getSuppliers(QualityData.SupplierID);
+    await getProducts(QualityData.ProductID);
 
-export async function fillEngineer(selectedID = null) {
+    document.getElementById('ProcessApplicable_0').checked = QualityData.WorkInProgress === 1;
+    document.getElementById('ProcessApplicable_1').checked = QualityData.SRInspection === 1;
+         
+         document.getElementById('QuantityReceived').value = QualityData.QuantityReceived;
+         document.getElementById('QuantityDefective').value = QualityData.QuantityDefective;
+         if (QualityData.IsNonConforming === 1) {
+             document.getElementById('IsNonConforming_0').checked = true;
+         } else {
+             document.getElementById('IsNonConforming_1').checked = true;
+         }
+         document.getElementById('Details').value = QualityData.Details;
+         if (selectedID)
+            document.getElementById('QualityStatus').hidden = QualityData.QualityStatus === 'Closed';
+}
+
+
+// FETCHES ENGINEER DATA
+export async function fillEngineer(user, selectedID = null) {
+    if (document.getElementById('QualityStatus').hidden === false) return;
     const EngineerResponse = await fetch(`http://localhost:5500/engineer/${selectedID}`);
     if (!EngineerResponse.ok) {
         document.getElementById('EngineerNewOrEdit').value = 'Create';
@@ -386,3 +327,33 @@ function toggleForms(formType) {
         navPurchasing.hidden = true;
     }
 }
+
+async function fetchData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch data from ${url}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error.message);
+        return null;
+    }
+}
+
+function populateSelect(id, data, text, value, selectedID = null)
+{
+    const select = document.getElementById(id);
+    select.innerHTML = '';
+
+    data.forEach(thing => {
+        const option = document.createElement('option');
+        option.text = thing[text];
+        option.value = thing[value];
+        if (thing[value] === selectedID) {
+            option.selected = true;
+        }
+        select.appendChild(option)
+    });
+}
+
