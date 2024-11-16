@@ -377,6 +377,10 @@ form:focus, form textarea:focus{
     width: 80%;
 }
 
+.half-table{
+    width: 50%;
+}
+
 .light-cells{
     border-style: none;
     border-width: 0px;

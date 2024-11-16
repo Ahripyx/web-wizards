@@ -1,13 +1,16 @@
 // Written by: Hazel Miln
-// Purpose: This script loads json data of NCR reports, and displays the data in a table to the user
+// Purpose: 
 
-async function getData(){
-
-    const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=&status=Open&date1=0001-01-01&date2=9999-12-12`);
-    const data = await response.json();
-    const table = document.getElementById("table");
-
-    
+async function filltables(data, table){
+    table.innerHTML = `
+    <tr class="shaded-cells">
+        <th>NCR</th>
+        <th>Supplier</th>                
+        <th>Status</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+    </tr>`;
     var tabindex = 50;
     var row = 0;
 
@@ -26,11 +29,21 @@ async function getData(){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.CreationDate}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex}>Details</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex+5}>Details</a></td>
+            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex=${tabindex+10}>Edit</a></td>
             `
-        tabindex+=5;
+        tabindex+=20;
         row++;
     });
+};      
+
+async function getData(){
+
+    const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=&status=Open&date1=0001-01-01&date2=9999-12-12`);
+    const data = await response.json();
+    const table = document.getElementById("table");
+
+    filltables(data, table);
 };
 
 getData();
@@ -46,98 +59,19 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
     var date1 = document.getElementById("dateBox1").value;
     var date2 = document.getElementById("dateBox2").value;
 
-    if (date1 == '' || date2 == ''){
+    if (date1 == ''){
         date1 = '0001-01-01';
+        
+    }
+    if(date2 == ''){
         date2 = '9999-12-12';
     }
 
-
-
     const response = await fetch(`http://localhost:5500/FilterSummaryInfo?supplierFilter=${supplier}&status=${status}&date1=${date1}&date2=${date2}`);
     const data = await response.json();
-
     const table = document.getElementById("table");
-    table.innerHTML = `
-        <tr class="shaded-cells">
-            <th>NCR</th>
-            <th>Supplier</th>                
-            <th>Status</th>
-            <th>Date</th>
-            <th></th>
-        </tr>`;
 
-        var tabindex = 50;
-        var row = 0;
-    
-    data.forEach(element => {
-        
-
-        console.log(element.id);
-        if (row % 2 == 1){
-            table.innerHTML += `<tr id="${element.id}" class="light-cells"></tr>`
-        }
-        else{
-            table.innerHTML += `<tr id="${element.id}"></tr>`
-        }
-        var tablerow = document.getElementById(element.id);
-        tablerow.innerHTML =
-            `
-            <td class="table-borders">${element.NCRNumber}</td>
-            <td class="table-borders">${element.SupplierName}</td>
-            <td class="table-borders">${element.FormStatus}</td>
-            <td class="table-borders">${element.LastModified}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}">Details</a></td>
-            `
-        tabindex+=5;
-        row++;
-    })
+    filltables(data, table);
 });
-    
 
-    /*
-    // get the json data
-    const data = await fetch('../public/data/forms.json');
-    const json = await data.json();
-
-    // retrieve table
-    const table = document.getElementById("table");
-
-    // stores the current row
-    row = 0;
-
-    // loops through json file
-    for (let key in json){
-        for (let subKey in json[key]) {
-
-            // keep track of which row loop is on, and add a row to the table
-            row++; 
-            table.innerHTML += `<tr id="${row}"></tr>`;
-            var id;
-
-            // loops through json file
-            for (let subsubKey in json[key][subKey]){
-
-                // store each value part of value-key pair
-                var field = JSON.stringify(json[key][subKey][subsubKey]);
-                // console.log(subsubKey+ ": "+field);
-
-                // get the current row using the tracking variable
-                var tablerow = document.getElementById(row);
-
-                if (subsubKey == "id"){
-                    id = field;
-                    console.log(id);
-                }
-                // add a rowdefinition to the current row containing the matching data to the table headings
-                if (subsubKey == "ncrNum"|| subsubKey=="itemDescription" || subsubKey == "quantityReceived" || subsubKey == "quantityDefective" || subsubKey == "defectDescription"
-                || subsubKey == "status" || subsubKey == "date" || subsubKey == "user"){
-                    tablerow.innerHTML += `<td>${field}</td>`
-                }
-                
-            }
-            // create a button that passes the item id as a parameter
-            tablerow.innerHTML += `<td><a href="edit.html?id=${id}">Edit</a></td>`;
-        }   
-    }   
-*/    
-
+document.getElementById("")
