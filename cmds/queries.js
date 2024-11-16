@@ -83,10 +83,10 @@ export const seedTables = [
         ('Engineer'), 
         ('Inspector')`,
     `INSERT INTO User (FName, MName, LName, Email, Password, RoleID) VALUES 
-        ('Alan', 'W', 'Wake', 'alan.wake@example.com', 'password123', 1), 
-        ('Parappa', 'tha', 'Rappa', 'parappa.rappa@example.com', 'password123', 2), 
-        ('Cave', 'G', 'Johnson', 'cave.johnson@example.com', 'password123', 3),
-        ('Alduin', 'Twilight', 'World Eater', 'alduin.worldeater@example.com', 'password123', 3)`,
+        ('Alan', 'W', 'Wake', 'alan.wake@crossfire.ca', 'password123', 1), 
+        ('Parappa', 'tha', 'Rappa', 'parappa.rappa@crossfire.ca', 'password123', 2), 
+        ('Cave', 'G', 'Johnson', 'cave.johnson@crossfire.ca', 'password123', 3),
+        ('Alduin', 'Twilight', 'World Eater', 'admin@crossfire.ca', 'admin', 1)`,
     `INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES 
         ('2024-10-01', '2024-10-02', 'Open'), 
         ('2024-10-03', '2024-10-04', 'Open'), 

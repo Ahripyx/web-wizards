@@ -36,12 +36,22 @@
             const form_purchasing = document.getElementById('ncrform_purchasing');
          
             form_quality.addEventListener('submit', async (event) => {
-                event.preventDefault();
+               if (!form_quality.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form_quality.classList.add('was-validated'); // add validation class?
+            return; // Exit if  form invalid
+        }
                 await lookup.updateForm(id, 'quality');
             });
 
             form_engineer.addEventListener('submit', async (event) => {
-                event.preventDefault();
+               if (!form_engineer.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form_engineer.classList.add('was-validated'); // add validation class?
+            return; // Exit if  form invalid
+        }
                 await lookup.insertEngineer(id);
             });
          });
@@ -103,7 +113,7 @@
          <div class="top">
             <ul>
                <li>
-                  <a href="#" id="btnQuality" onclick="toggleForm('ncrform_quality')">
+                  <a href="#" id="btnNavQuality" onclick="toggleForm('ncrform_quality')">
                   <i class="fa-solid fa-magnifying-glass"></i>
                   Quality
                   </a>
@@ -111,7 +121,7 @@
             </ul>
             <ul>
                <li>
-                  <a href="#" id="btnEngineer" onclick="toggleForm('ncrform_engineer')">
+                  <a href="#" id="btnNavEngineer" onclick="toggleForm('ncrform_engineer')">
                   <i class="fa-solid fa-helmet-safety"></i>
                   Engineer
                   </a>
@@ -119,7 +129,7 @@
             </ul>
             <ul>
                <li>
-                  <a href="#" id=btnPurchasing onclick="toggleForm('ncrform_purchasing')">
+                  <a href="#" id=btnNavPurchasing onclick="toggleForm('ncrform_purchasing')">
                   <i class="fa-solid fa-cart-shopping"></i>
                   Purchasing
                   </a>
@@ -133,10 +143,10 @@
       <!-- Create Form -->
       <div class="container edit">
       <header>
-         <h2>Non-Conformance Report</h2>
+         <h2>Non-Conformance Report - ISO: XXXXX</h2>
       </header>
-      <form class="px-4" id="ncrform_quality" onsubmit="event.preventDefault();" style="display: none;">
-         <fieldset>
+      <form class="px-4 needs-validation" id="ncrform_quality" onsubmit="event.preventDefault();" style="display: none;" novalidate>
+         <fieldset id="fs_quality">
             <legend>Quality Assurance Form</legend>
             <!-- Fields for Quality Assurance Form -->
             <div class="row g-3">
@@ -145,11 +155,11 @@
                   <label for="NCRNumber" class="form-label">NCR Number: </label>
                   <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX"   readonly>
                </div>
-               <!-- ISO Number -->
-               <div class="form-group col-md-6">
-                  <label for="ISONumber" class="form-label">ISO Number: </label>
-                  <input type="text" class="form-control-plaintext" id="ISONumber" placeholder="XXXXX"   readonly>
-               </div>
+                <!-- Sales Order Number -->
+                <div class="form-group col-md-6">
+                  <label for="SaleNumber" class="form-label">Sales Order Number: </label>
+                  <input type="text" class="form-control" placeholder="" id="SaleNumber" required>
+                </div>
             </div>
             <div class="row g-3">
                <!-- Supplier -->
@@ -170,13 +180,6 @@
                </div>
             </div>
             <div class="row g-3">
-               <!-- Sales Order Number -->
-               <div class="form-group col-md-6">
-                  <label for="SaleNumber" class="form-label">Sales Order Number: </label>
-                  <input type="text" class="form-control" placeholder="" id="SaleNumber" required>
-               </div>
-            </div>
-            <div class="row g-3">
                <!-- Defect Description -->
                <div class="form-group col-md-12">
                   <label for="Details" class="form-label">Description of Defect:</label> <br>
@@ -192,7 +195,7 @@
                <!-- Quantity Defective -->
                <div class="form-group col-md-6">
                   <label for="QuantityDefective" class="form-label">Quantity Defective:</label>
-                  <input type="number" class="form-control" id="QuantityDefective" min="0" required>
+                  <input type="number" class="form-control" id="QuantityDefective" min="1" required>
                </div>
             </div>
             <div class="row g-3">
@@ -243,8 +246,8 @@
             </div>
          </fieldset>
       </form>
-      <form class="px-4" id="ncrform_engineer" onsubmit="event.preventDefault();" style="display: none;">
-         <fieldset>
+      <form class="px-4 needs-validation" id="ncrform_engineer" onsubmit="event.preventDefault();" style="display: none;" novalidate>
+         <fieldset id="fs_engineer">
             <legend>Engineer Form</legend>
             <!-- Fields for Engineer Form -->
             <div class="row g-3">
@@ -333,6 +336,28 @@
       </form>
       <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
       <script>
+       
+         </script>
+      <script>
+           // Example starter JavaScript for disabling form submissions if there are invalid fields
+           (function() {
+           'use strict';
+           window.addEventListener('load', function() {
+             // Fetch all the forms we want to apply custom Bootstrap validation styles to
+             var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+             var validation = Array.prototype.filter.call(forms, function(form) {
+               form.addEventListener('submit', function(event) {
+                 if (form.checkValidity() === false) {
+                   event.preventDefault();
+                   event.stopPropagation();
+                 }
+                 form.classList.add('was-validated');
+               }, false);
+             });
+           }, false);
+         })();
+
          function toggleForm(formId) {
                       var forms = document.querySelectorAll('form');
                       forms.forEach(function(form) {
@@ -344,6 +369,23 @@
                       });
                   }
          
+      </script>
+      <script>
+           document.addEventListener('DOMContentLoaded', () => {
+            const formControls = document.querySelectorAll('.form-control, .form-select');
+            formControls.forEach(control => {
+               const validFeedback = document.createElement('div');
+               validFeedback.className = 'valid-feedback';
+               validFeedback.textContent = 'Looks good!';
+               
+               const invalidFeedback = document.createElement('div');
+               invalidFeedback.className = 'invalid-feedback';
+               invalidFeedback.textContent = 'Please enter a valid value.';
+               
+               control.parentNode.appendChild(validFeedback);
+               control.parentNode.appendChild(invalidFeedback);
+            });
+         });
       </script>
       <script src="../public/scripts/navigate.js"></script>
    </body>

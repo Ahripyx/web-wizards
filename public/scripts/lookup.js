@@ -80,7 +80,7 @@ export async function getProducts(selectedID = null) {
 export async function fillForm(selectedID = null) {
     try
     {
-      
+      const user = JSON.parse(localStorage.getItem('user'));
         // Get the Product select element and add an event to make the product number visible when a product is selected
         
         document.getElementById("ProductID").addEventListener("change", async function() {
@@ -138,17 +138,14 @@ export async function fillForm(selectedID = null) {
                  document.getElementById('Details').value = QualityData.Details;
 
                  if (QualityData.QualityStatus === 'Open') {
-                    document.getElementById('QualityStatus').value = 'Open';
-                    document.getElementById('btnEngineer').style.display = 'none';
-                    document.getElementById('btnPurchasing').style.display = 'none';
-                      document.getElementById('ncrform_engineer').style.display = 'none';
-                      document.getElementById('ncrform_quality').style.display = 'block';
+                
                     
-                      toggleElements('#ncrform_engineer input, #ncrform_engineer select, #ncrform_engineer textarea', 'Closed');
+                      toggleForms('quality');
   
                   } else { 
-                    document.getElementById('btnSubmit_Quality').style.display = 'none';
-                    toggleElements('#ncrform_quality input, #ncrform_quality select, #ncrform_quality textarea', QualityData.QualityStatus);
+                    
+                    toggleForms('engineer');
+                    //toggleElements('#ncrform_quality input, #ncrform_quality select, #ncrform_quality textarea', QualityData.QualityStatus);
    
                     fillEngineer(selectedID);
                    }
@@ -158,6 +155,12 @@ export async function fillForm(selectedID = null) {
         else
         {
             await getSuppliers();
+
+                 const user = JSON.parse(localStorage.getItem('user'));
+                 if (user !== null)
+                    {
+                  document.getElementById('QAName').value = user.FName + ' ' + user.LName;
+                }
         }
        
 
@@ -191,6 +194,7 @@ async function supplierSelect(supplierElement) {
 
                 selectOption.text = 'Select a product';
                 selectOption.selected = true;
+                selectOption.value = '';
                 ProductElement.appendChild(selectOption);
 
                 ProductData.forEach(product => {
@@ -295,18 +299,6 @@ UpdateFalse.addEventListener("click", function() {
     } 
 });
 
-    toggleElements('#ncrform_engineer input, #ncrform_engineer select, #ncrform_engineer textarea, #ncrform_engineer button', EngineerData.EngineerStatus);
-}
-
-function toggleElements (element, status) {
-    if (status === 'Open')
-        status = false;
-    else
-        status = true;
-
-    document.querySelectorAll(element).forEach(element => {
-        element.disabled = status;
-    });
 }
 
 export async function updateForm(id, formType) 
@@ -357,4 +349,40 @@ function incrementRevisionNumber(revisionNumber) {
     letter = String.fromCharCode(letter + 1);
     console.log(letter);
     return `${number}-${letter}`;
+}
+
+function toggleForms(formType) {
+    const qualityForm = document.getElementById('fs_quality');
+    const engineerForm = document.getElementById('fs_engineer');
+
+    const btnQuality = document.getElementById('btnSubmit_Quality');
+    const btnEngineer = document.getElementById('btnSubmit_Engineer');
+    //const btnPurchasing = document.getElementById('btnSubmit_Purchasing');
+
+    const navQuality = document.getElementById('btnNavQuality');
+    const navEngineer = document.getElementById('btnNavEngineer');
+    const navPurchasing = document.getElementById('btnNavPurchasing');
+
+    if (formType === 'quality') {
+        btnEngineer.style.display = 'none';
+        //btnPurchasing.style.display = 'none';
+
+        qualityForm.disabled = false;
+        engineerForm.disabled = true;
+
+        engineerForm.style.display = 'none';
+        //purchasingForm.style.display = 'none';
+
+        navEngineer.hidden = true;
+        navPurchasing.hidden = true;
+    } else if (formType === 'engineer') {
+        btnQuality.style.display = 'none';
+
+        qualityForm.disabled = true;
+        engineerForm.disabled = false;
+
+        //purchasingForm.style.display = 'none';
+
+        navPurchasing.hidden = true;
+    }
 }

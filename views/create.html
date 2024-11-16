@@ -67,9 +67,9 @@
       <!-- Create Form -->
       <div class="container">
          <header>
-            <h2>Non-Conformance Report</h2>
+            <h2>Non-Conformance Report - ISO: XXXXX</h2>
          </header>
-         <form class="px-4" id="ncrform" onsubmit="event.preventDefault();">
+         <form class="px-4 needs-validation" id="ncrform" onsubmit="event.preventDefault();" novalidate>
             <fieldset>
                <legend>Quality Assurance Form</legend>
             
@@ -92,14 +92,14 @@
                <div class="form-group col-md-6">
                   <label for="SupplierID" class="form-label">Supplier: </label> <br/>
                   <select class="form-select" id="SupplierID" name="SupplierID" required>
-                     <option selected>Select a supplier</option>
+                     <option selected value="">Select a supplier</option>
                   </select>
                </div>
                <!-- Product Info -->
                <div class="form-group col-md-6">
                   <label for="ProductID" class="form-label">Product: </label> <br/>
                   <select class="form-select" id="ProductID" name="ProductID" disabled required>
-                     <option selected>No products available</option>
+                     <option selected value="">No products available</option>
                   </select>
                   <!-- Product Number -->
                   <span id="ProductNumber" class="form-text text-muted">Number:</span>
@@ -121,7 +121,7 @@
                <!-- Quantity Defective -->
                <div class="form-group col-md-6">
                   <label for="QuantityDefective" class="form-label">Quantity Defective:</label>
-                  <input type="number" class="form-control" id="QuantityDefective" min="0" required>
+                  <input type="number" class="form-control" id="QuantityDefective" min="1" required>
                </div>
             </div>
             <div class="row g-3">
@@ -156,12 +156,12 @@
             </div>
             <div class="row g-3">
                <div class="form-group col-md-6">
-                  <label for="QAName">Quality Representatives Name: </label>
-                  <input type="text" class="form-control" placeholder="Enter Your Name" id="QAName" required>
+                  <label for="QAName">Quality Representative: </label>
+                  <input type="text" class="form-control-plaintext" id="QAName" readonly>
                </div>
                <div class="form-group col-md-6">
                   <label for="QADate">Date: </label>
-                  <input type="date" class="form-control" id="QADate" required>
+                  <input type="date" class="form-control" id="QADate" readonly>
                </div>
             </div>
             <!-- Submit Button -->
@@ -176,12 +176,56 @@
       </div>
       <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
       <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script> -->
+      <script>
+         // Example starter JavaScript for disabling form submissions if there are invalid fields
+         (function() {
+           'use strict';
+           window.addEventListener('load', function() {
+             // Fetch all the forms we want to apply custom Bootstrap validation styles to
+             var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+             var validation = Array.prototype.filter.call(forms, function(form) {
+               form.addEventListener('submit', function(event) {
+                 if (form.checkValidity() === false) {
+                   event.preventDefault();
+                   event.stopPropagation();
+                 }
+                 form.classList.add('was-validated');
+               }, false);
+             });
+           }, false);
+         })();
+         </script>
       <script type="module">
          import * as lookup from '../public/scripts/lookup.js';
          document.addEventListener('DOMContentLoaded', () => {
             lookup.fillForm();
+
+            const formControls = document.querySelectorAll('.form-control, .form-select');
+            formControls.forEach(control => {
+               const validFeedback = document.createElement('div');
+               validFeedback.className = 'valid-feedback';
+               validFeedback.textContent = 'Looks good!';
+               
+               const invalidFeedback = document.createElement('div');
+               invalidFeedback.className = 'invalid-feedback';
+               invalidFeedback.textContent = 'Please enter a valid value.';
+               
+               control.parentNode.appendChild(validFeedback);
+               control.parentNode.appendChild(invalidFeedback);
+            });
+
+
             const form = document.getElementById("ncrform");
             form.addEventListener("submit", async (event) => {
+
+               if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated'); // add validation class?
+            return; // Exit if  form invalid
+        }
+
                const product = document.getElementById("ProductID");
 
                   const dataToInsert = { 
