@@ -151,6 +151,41 @@ app.put('/users/', (req, res) => {
     }
 });
 
+// Endpoint to get all users who worked on a specific NCRForm
+app.get('/formusers/:id', (req, res) => {
+    const { id } = req.params;
+    try {
+        const rows = db.prepare(`
+            SELECT 
+                "User".FName, "User".LName, Role.Title
+            FROM FormUsers
+            JOIN "User" ON FormUsers.User_id = "User".id
+            JOIN Role ON "User".RoleID = Role.id 
+            WHERE FormUsers.NCRForm_id = ?`).all(id);
+        if (rows.length > 0) {
+            res.json(rows);
+        } else {
+            res.status(404).send("Users not found.");
+        }
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch data.");
+    }
+});
+
+// Endpoint to insert data into FormUsers table
+app.post('/formusers', (req, res) => {
+    const { NCRForm_id, User_id } = req.body;
+    try {
+        const stmt = db.prepare('INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)');
+        stmt.run(NCRForm_id, User_id);
+        res.status(200).send("FormUsers record inserted successfully!");
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to insert FormUsers record.");
+    }
+});
+
 // Endpoint to get Supplier table
 app.get('/suppliers', (req, res) => {
     try {
@@ -161,6 +196,7 @@ app.get('/suppliers', (req, res) => {
         res.status(500).send("Failed to fetch data.");
     }
 });
+
 
 
 
@@ -217,8 +253,8 @@ app.get('/quality/:id', (req, res) => {
 });
 
 // Endpoint to insert data into Quality table
-app.post('/insert-quality', (req, res) => {
-    const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID } = req.body;
+app.post('/quality/', (req, res) => {
+    const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, User_id } = req.body;
     try {
         const lastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toISOString().split('T')[1].split('.')[0];
         const creationDate = lastModified;
@@ -229,7 +265,7 @@ app.post('/insert-quality', (req, res) => {
 
         const info = ncrFormStmt.run(creationDate, lastModified, formStatus);
         const ncrFormID = info.lastInsertRowid;
-        console.log({ ncrFormID, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID });
+
         const currentYear = new Date().getFullYear();
         const row = db.prepare("SELECT COUNT(*) AS count FROM Quality WHERE NCRNumber LIKE ?").get(`${currentYear}-%`);
         const ncrCount = row.count + 1;
@@ -237,9 +273,15 @@ app.post('/insert-quality', (req, res) => {
 
         // Create the Quality data
         const qualityStmt = db.prepare('INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        qualityStmt.run(ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
+        const newQuality = qualityStmt.run(ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
 
-        res.status(200).send("NCRForm and Quality record inserted successfully!");
+        // Create the formusers relation
+        const formUsersStmt = db.prepare('INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)');
+        formUsersStmt.run(ncrFormID, User_id);
+        res.json({ formID: ncrFormID, NCRNumber: ncrNumber, form: newQuality });
+        //res.status(200).send("NCRForm and Quality record inserted successfully!");
+
+        
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to insert quality record.");
@@ -311,6 +353,17 @@ app.put('/engineer/:NCRFormID', (req, res) => {
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to update engineer record.");
+    }
+});
+
+// Endpoint to get the single most recent NCRFormID
+app.get('/recent-ncr', (req, res) => {
+    try {
+        const row = db.prepare('SELECT id FROM NCRForm ORDER BY creationDate DESC LIMIT 1').get();
+        res.json(row);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch recent NCRFormID.");
     }
 });
 
