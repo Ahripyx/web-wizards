@@ -40,10 +40,10 @@ th, td{
     justify-items: center;  
 }
     
-.commit-bottom {
+.footer {
+    position: fixed;
     bottom: 0;
     left: 0;
-    position: absolute;
     right: 0;
     width: 100%;
 }
