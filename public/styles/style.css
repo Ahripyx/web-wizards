@@ -65,6 +65,12 @@ th, td{
     Navigation Styles
 ====================*/
 
+nav.header-nav ul li {
+    display: inline;
+    padding-right: 5px;
+    padding-left: 5px;
+    }
+
 .header-nav {
     display: flex;
     justify-content: flex-end;
