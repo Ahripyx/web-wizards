@@ -35,13 +35,6 @@
       </script>
       <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
          <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
-      <style>
-         nav.header-nav ul li {
-         display: inline;
-         padding-right: 5px;
-         padding-left: 5px;
-         }
-      </style>
    </head>
    <body>
       <!-- Nav Bar -->
@@ -51,6 +44,16 @@
             <!-- Size up the logo -->
             <div class="logo">
                <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="An image of Crossfire Logo"></a>
+            </div>
+            <div>
+               <nav class="header-nav" >
+                  <ul>
+                     <li><a id="ancHome" tabindex="1">Home</a></li>
+                     <li><a id="ancCreate" tabindex="2">Create NCR</a></li>
+                     <li><a id="ancLogs" tabindex="3">NCR Logs</a></li>
+                     <li><a id="ancTools" tabindex="4">Tools</a></li>
+                  </ul>
+               </nav>
             </div>
             <div>
                <button class="notification" id="btnNotification">
@@ -64,16 +67,6 @@
                <div class="modal-content" id="notification-content">
                   <span class="close">&times;</span>
                </div>
-            </div>
-            <div>
-               <nav class="header-nav" >
-                  <ul>
-                     <li><a href="index.html" tabindex="1">Home</a></li>
-                     <li><a href="create.html" tabindex="2">Create NCR</a></li>
-                     <li><a href="list.html" tabindex="3">NCR Logs</a></li>
-                     <li><a href="tools.html" tabindex="4">Tools</a></li>
-                  </ul>
-               </nav>
             </div>
          </div>
       </header>

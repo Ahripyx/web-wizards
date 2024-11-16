@@ -2,24 +2,31 @@
 // Purpose: This script is for any navigations in the pages
 
 // ====== Navigation For Nav Bar ====== 
-const btnNavHome = document.getElementById("btnNavHome");
-if (btnNavHome) {
-    btnNavHome.addEventListener('click', function() {
+const ancHome = document.getElementById("ancHome");
+if (ancHome) {
+    ancHome.addEventListener('click', function() {
         window.location.href = "index.html";
     });
 }
 
-const btnNavCreateNCR = document.getElementById("btnNavCreateNCR");
-if (btnNavCreateNCR) {
-    btnNavCreateNCR.addEventListener('click', function() {
+const ancCreate = document.getElementById("ancCreate");
+if (ancCreate) {
+    ancCreate.addEventListener('click', function() {
         window.location.href = "create.html";
     });
 }
 
-const btnNavNCRs = document.getElementById("btnNavNCRs");
-if (btnNavNCRs) {
-    btnNavNCRs.addEventListener('click', function() {
+const ancLogs = document.getElementById("ancLogs");
+if (ancLogs) {
+    ancLogs.addEventListener('click', function() {
         window.location.href = "list.html";
+    });
+}
+
+const ancTools = document.getElementById("ancTools");
+if (ancTools){
+    ancTools.addEventListener('click', function(){
+        window.location.href = "tools.html"
     });
 }
 
