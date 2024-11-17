@@ -11,14 +11,14 @@ const engTable = document.getElementById("engTable");
 function fillTables(tablename, data, table){
     row = 0;
     data.forEach(element =>{
-        rowname = 
-        table.innerHTML += `<tr id="${}"></tr>`;
-        tablerow = document.getElementById(`${row}`);
+        rowname = `${tablename}${row}`;
+        table.innerHTML += `<tr id="${rowname}" class="light-cells"></tr>`;
+        tablerow = document.getElementById(`${rowname}`);
         for (let item in element){
             
             // include NCR number in heading
             if (item == "NCRNumber"){
-                document.getElementById('h1').innerHTML = `NCR #${element[item]}`;
+                document.getElementById('ncrHeading').innerHTML += element[item];
             }
              
             if (item.substr(-2).toUpperCase() == "ID"){
@@ -28,17 +28,17 @@ function fillTables(tablename, data, table){
             else{
                 if (item == "SRInspection" || item == "WorkInProgress" || item == "IsNonConforming" || item == "NotifyCustomer" || item == "DrawingUpdateRequired"){
                     if(element[item] == 0){
-                        tablerow.innerHTML += `<td class="light-cells">No</td>`;
+                        tablerow.innerHTML += `<td>No</td>`;
                     }
                     else if(element[item] == 1){
-                        tablerow.innerHTML += `<td class="light-cells">Yes</td>`;
+                        tablerow.innerHTML += `<td>Yes</td>`;
                     }
                     else{
-                        tablerow.innerHTML += `<td class="light-cells">UH OH</td>`;
+                        tablerow.innerHTML += `<td>UH OH</td>`;
                     }
                 }
                 else{
-                    tablerow.innerHTML +=`<td>${element[item]}</td>`
+                    tablerow.innerHTML +=`<td>${element[item]}</td>`;
                 }
             }
             /*
@@ -85,7 +85,7 @@ async function getData(){
                         </tr>`;
     qaTable.innerHTML =`<tr class="shaded-cells">
                         <th>NCR Number</th>
-                        <th>SRInspection</th>
+                        <th>Supplier/Recieving Inspection?</th>
                         <th>Work in Progress?</th>
                         <th>Item Description</th>
                         <th>Quantity Recieved</th>

@@ -369,7 +369,7 @@ form:focus, form textarea:focus{
 .center{
     margin:auto;
     padding: 10px;
-    width: 80%;
+    width: 90%;
 }
 
 .light-cells{
@@ -390,7 +390,7 @@ form:focus, form textarea:focus{
     text-align: center;
 }
 
-.wide-table{
+.wide{
     width: 100%;
 }   
 

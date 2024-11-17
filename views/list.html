@@ -46,32 +46,32 @@
         </div>
      </header>
     <main>
-      <div class="center">
+
          <h1 class="text-center">NCRs</h1>
          <section id="filterSection">
           <h2  class="text-center">Filters:</h2>
             <div class="container">
                <div class="row">
-                  <div class="col-md-6"> 
+                  <div class="col-md-6 col-lg-3"> 
                      <label for="filterSupplier">Enter a Supplier Name:</label>
-                     <input type="text" id="filterSupplier" tabindex="10">
+                     <input type="text" class="wide" id="filterSupplier" tabindex="10">
                   </div>
-                  <div class="col-md-6">
-                     <label for="filterStatus">Select an NCR Status:</label>
-                     <select id="filterStatus" tabindex="15">
+                  <div class="col-md-6 col-lg-3">
+                     <label for="filterStatus">Select an NCR Status:</label><br>
+                     <select id="filterStatus" class="wide" tabindex="15">
                         <option value="">Any Status</option>
                         <option value="Open">Open</option>
                         <option value="Closed">Closed</option>
                         <option value="Archived">Archived</option>
                      </select>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-lg-3">
                      <label for="dateBox1">Select a Minmum Date:</label>
-                     <input type="date" id="dateBox1" tabindex="20">
+                     <input type="date" class="wide" id="dateBox1" tabindex="20">
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6 col-lg-3">
                      <label for="dateBox2">Select a Maximum Date:</label>
-                     <input type="date" id="dateBox2" tabindex="25">
+                     <input type="date" class="wide" id="dateBox2" tabindex="25">
                   </div>  
                </div>
                
@@ -79,8 +79,8 @@
             </div>   
          </section>
          <section id="dataSection">
-            <div class="container">
-               <table id="table" class="wide-table">
+            <div class="container table-responsive">
+               <table id="table" class="table wide">
                   <tr class="shaded-cells">
                       <th>NCR</th>
                       <th>Supplier</th>                
@@ -92,7 +92,7 @@
               </table>
             </div>
          </section>
-      </div>
+
     </main>
     <footer>
       <p><small>CROSSFIRE NCR</small></p>
