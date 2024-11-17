@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NCRs</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/styles/style.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,25 +50,36 @@
          <h1 class="text-center">NCRs</h1>
          <section id="filterSection">
           <h2  class="text-center">Filters:</h2>
-            <div class="center">
-               <label>Enter a Supplier Name:</label>
-               <input type="text" id="filterSupplier" tabindex="10">
-               <label>Select an NCR Status:</label>
-               <select id="filterStatus" tabindex="15">
-                  <option value="">Any Status</option>
-                  <option value="Open">Open</option>
-                  <option value="Closed">Closed</option>
-                  <option value="Archived">Archived</option>
-               </select>
-               <label>Select a Minmum Date:</label>
-               <input type="date" id="dateBox1" tabindex="20">
-               <label>Select a Maximum Date:</label>
-               <input type="date" id="dateBox2" tabindex="25">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-6"> 
+                     <label for="filterSupplier">Enter a Supplier Name:</label>
+                     <input type="text" id="filterSupplier" tabindex="10">
+                  </div>
+                  <div class="col-md-6">
+                     <label for="filterStatus">Select an NCR Status:</label>
+                     <select id="filterStatus" tabindex="15">
+                        <option value="">Any Status</option>
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Archived">Archived</option>
+                     </select>
+                  </div>
+                  <div class="col-md-6">
+                     <label for="dateBox1">Select a Minmum Date:</label>
+                     <input type="date" id="dateBox1" tabindex="20">
+                  </div>
+                  <div class="col-md-6">
+                     <label for="dateBox2">Select a Maximum Date:</label>
+                     <input type="date" id="dateBox2" tabindex="25">
+                  </div>  
+               </div>
+               
                <button id="btnFilter" tabindex="30">Filter</button>
             </div>   
          </section>
-         <section id="dataSection" class="info-section">
-            <div class="center">
+         <section id="dataSection">
+            <div class="container">
                <table id="table" class="wide-table">
                   <tr class="shaded-cells">
                       <th>NCR</th>

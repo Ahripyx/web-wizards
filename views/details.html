@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/styles/style.css" rel="stylesheet">
     <title>Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,21 +47,31 @@
    <main>
       <div class="center">
          <h1 id="h1" class="text-center"></h1>
-         <section id="actionButtons" class="center">
+         <section id="actionButtons" class="container">
             <h2 class="text-center">Actions:</h2>
-            <Button id="btnClose">Close Form</Button>
-            <Button id="btnArchive">Archive Form</Button>
-            <Button id="btnEdit">Edit Form</Button>
-            <button id="btnGenPDF">Generate PDF Report</button>
+            <div class="row">
+               <div class="col-xs-3">
+                  <Button id="btnClose">Close Form</Button>
+               </div>
+               <div class="col-xs-3">
+                  <Button id="btnArchive">Archive Form</Button>
+               </div>
+               <div class="col-xs-3">
+                  <Button id="btnEdit">Edit Form</Button>
+               </div>
+               <div class="col-xs-3">
+                  <button id="btnGenPDF">Generate PDF Report</button>
+               </div>
+            </div>
          </section>
          <h3 class="text-center">NCR Info:</h3>
-         <section id="dataTable" class="center">
+         <section id="dataTable" class="container">
             <Label>Form Info:</Label>
-            <table id="ncrTable" class="half-table"></table>
+            <table id="ncrTable" class="wide-table">
             <Label>Quality Assurance Info:</Label>
-            <table id="qaTable" class="half-table"></table>
+            <table id="qaTable" class="wide-table">
             <Label>Engineering Info:</Label>
-            <table id="engTable" class="half-table"></table>
+            <table id="engTable" class="wide-table">
          </section>
       </div>
    </main>  

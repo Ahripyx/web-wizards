@@ -366,30 +366,16 @@ form:focus, form textarea:focus{
         Details/View
 ========================*/
 
-.borderless{
-    border-width: 0px;
-    border-style: none;
-}
-
 .center{
     margin:auto;
     padding: 10px;
     width: 80%;
 }
 
-.half-table{
-    width: 50%;
-}
-
 .light-cells{
     border-style: none;
     border-width: 0px;
     background-color: #e3e7f2;
-}
-
-.inline-table{
-
-    display: inline-block;
 }
 
 .shaded-cells{
@@ -402,11 +388,6 @@ form:focus, form textarea:focus{
 
 .text-center{
     text-align: center;
-}
-
-.wide-button{
-    margin: 5px;
-    width:100%;
 }
 
 .wide-table{

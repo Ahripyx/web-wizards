@@ -8,12 +8,15 @@ const ncrTable = document.getElementById("ncrTable");
 const qaTable = document.getElementById("qaTable");
 const engTable = document.getElementById("engTable");
 
-function fillTables(data, table, labelList){
-    count = -1;
+function fillTables(tablename, data, table){
+    row = 0;
     data.forEach(element =>{
-        
+        rowname = 
+        table.innerHTML += `<tr id="${}"></tr>`;
+        tablerow = document.getElementById(`${row}`);
         for (let item in element){
             
+            // include NCR number in heading
             if (item == "NCRNumber"){
                 document.getElementById('h1').innerHTML = `NCR #${element[item]}`;
             }
@@ -21,6 +24,24 @@ function fillTables(data, table, labelList){
             if (item.substr(-2).toUpperCase() == "ID"){
                 
             }
+            
+            else{
+                if (item == "SRInspection" || item == "WorkInProgress" || item == "IsNonConforming" || item == "NotifyCustomer" || item == "DrawingUpdateRequired"){
+                    if(element[item] == 0){
+                        tablerow.innerHTML += `<td class="light-cells">No</td>`;
+                    }
+                    else if(element[item] == 1){
+                        tablerow.innerHTML += `<td class="light-cells">Yes</td>`;
+                    }
+                    else{
+                        tablerow.innerHTML += `<td class="light-cells">UH OH</td>`;
+                    }
+                }
+                else{
+                    tablerow.innerHTML +=`<td>${element[item]}</td>`
+                }
+            }
+            /*
             else{
                 if (item == "SRInspection" || item == "WorkInProgress" || item == "IsNonConforming" || item == "NotifyCustomer" || item == "DrawingUpdateRequired"){
                     if(element[item] == 0){
@@ -37,9 +58,9 @@ function fillTables(data, table, labelList){
                     table.innerHTML += `<tr><td class="shaded-cells">${labelList[count]}</td><td class="light-cells">${element[item]}</td></tr>`;
                 }
             } 
-            
-            count++
+            */   
         } 
+        row++
     });
 }; 
 
@@ -51,16 +72,41 @@ async function getData(){
     const ncrData = await ncrRes.json();
     const qaData = await qaRes.json();
     const engData = await engRes.json();
+    /*
     const ncrLabels = ["Creation Date:", "Last Modified:", "Form Status:"];
     const qaLabels = ["NCR Number", "SRInspection", "Work in Progress?", "Item Description:", "Quantity Recieved:" , "Quantity Defective:", "Is item Non-Conforming?", "Defect Description", "Quality Assurance Status:", "Last Modified by Quality Assurance:"];
     const engLabels = ["Review by CF Engineering:", "Notify Customer?", "Disposition:", "Version Number:", "Revision Date:", "Engineering Status:", "Last Modified by Engineering:"]
+    */
 
-    ncrTable.innerHTML="";
-    qaTable.innerHTML="";
-    engTable.innerHTML="";
-    fillTables(ncrData, ncrTable, ncrLabels);
-    fillTables(qaData, qaTable, qaLabels);
-    fillTables(engData, engTable, engLabels);     
+    ncrTable.innerHTML =`<tr class="shaded-cells">
+                        <th>Creation Date</th>
+                        <th>Last Modified</th>
+                        <th>Form Status</th>
+                        </tr>`;
+    qaTable.innerHTML =`<tr class="shaded-cells">
+                        <th>NCR Number</th>
+                        <th>SRInspection</th>
+                        <th>Work in Progress?</th>
+                        <th>Item Description</th>
+                        <th>Quantity Recieved</th>
+                        <th>Quantity Defective</th>
+                        <th>Is item Non-Conforming</th>
+                        <th>Defect Description</th>
+                        <th>Quality Assurance Status</th>
+                        <th>Last Modified by Quality Assurance</th>
+                        </tr>`;
+    engTable.innerHTML =`<tr class="shaded-cells">
+                        <th>Review by CF Engineering</th>
+                        <th>Notify Customer?</th>
+                        <th>Disposition</th>
+                        <th>Version Number</th>
+                        <th>Revision Date</th>
+                        <th>Engineering Status</th>
+                        <th>Last Modified by Engineering</th>
+                        </tr>`;
+    fillTables("form", ncrData, ncrTable);
+    fillTables("qa", qaData, qaTable);
+    fillTables("eng", engData, engTable);     
 };
 
 getData();
