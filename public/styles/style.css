@@ -1,18 +1,19 @@
 body {
     display: flex;
-    flex-direction: column;  /* Stack elements vertically */
+    flex-direction: column;
     font-family: 'Oswald', sans-serif;
+    background-color: #fff;
     margin: 0;
-    min-height: 100vh;  /* Ensure the body takes at least the full height of the viewport */
-
+    min-height: 100vh; 
 }
 
 /* ----- Header ----- */
 
 header {
-    background-color: #e3e7f2;
+    background-color: #d9d9d9;
     border-bottom: 1px solid #ddd;
     padding: 10px 20px;
+    width: 100%;
 }
 
 h2 {
@@ -20,7 +21,7 @@ h2 {
 }
 /* ----- Footer ----- */
 footer {
-    background-color: #e3e7f2;
+    background-color: #d9d9d9;
     text-align: center;
     padding: 20px;
     width: 100%;
@@ -294,9 +295,6 @@ section.tools {
     Form Style
 ====================*/
 
-body {
-    background-color: white;
-}
 .container header {
     background-color: white;
 }
