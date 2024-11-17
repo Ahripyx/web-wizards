@@ -412,3 +412,34 @@ form:focus, form textarea:focus{
 .wide-table{
     width: 100%;
 }   
+
+/* Laptop L */
+@media screen and (min-width: 1440px){
+
+}
+
+/* Laptop */
+@media screen and (min-width: 1020){
+
+}
+
+/* Tablet */
+@media screen and (min-width: 768){
+
+}
+
+/* Mobile L */
+@media screen and (min-width: 425){
+
+}
+
+/* Mobile M*/
+@media screen and (min-width: 375){
+
+}
+
+/* Mobile S */
+@media screen and (min-width:320){
+
+}
+
