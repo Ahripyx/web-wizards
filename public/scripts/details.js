@@ -18,7 +18,16 @@ function fillTables(tablename, data, table){
             
             // include NCR number in heading
             if (item == "NCRNumber"){
-                document.getElementById('ncrHeading').innerHTML += element[item];
+                document.getElementById('ncrHeading').innerHTML = `NCR#${element[item]}`;
+            }
+            if (item == "FormStatus" && element[item] == "Closed"){
+                document.getElementById("btnClose").disabled = true;
+                document.getElementById("btnEdit").disabled = true;
+            }
+            if (item == "FormStatus" && element[item] == "Archived"){
+                document.getElementById("btnClose").disabled = true;
+                document.getElementById("btnArchive").disabled = true;
+                document.getElementById("btnEdit").disabled = true;
             }
              
             if (item.substr(-2).toUpperCase() == "ID"){
@@ -41,24 +50,6 @@ function fillTables(tablename, data, table){
                     tablerow.innerHTML +=`<td>${element[item]}</td>`;
                 }
             }
-            /*
-            else{
-                if (item == "SRInspection" || item == "WorkInProgress" || item == "IsNonConforming" || item == "NotifyCustomer" || item == "DrawingUpdateRequired"){
-                    if(element[item] == 0){
-                        table.innerHTML += `<tr><td class="shaded-cells">${labelList[count]}</td><td class="light-cells">No</td></tr>`;
-                    }
-                    else if(element[item] == 1){
-                        table.innerHTML += `<tr><td class="shaded-cells">${labelList[count]}</td><td class="light-cells">Yes</td></tr>`;
-                    }
-                    else{
-                        table.innerHTML += `<tr><td class="shaded-cells">${labelList[count]}</td><td class="light-cells">UH OH</td></tr>`;
-                    }
-                }
-                else{
-                    table.innerHTML += `<tr><td class="shaded-cells">${labelList[count]}</td><td class="light-cells">${element[item]}</td></tr>`;
-                }
-            } 
-            */   
         } 
         row++
     });
@@ -72,11 +63,6 @@ async function getData(){
     const ncrData = await ncrRes.json();
     const qaData = await qaRes.json();
     const engData = await engRes.json();
-    /*
-    const ncrLabels = ["Creation Date:", "Last Modified:", "Form Status:"];
-    const qaLabels = ["NCR Number", "SRInspection", "Work in Progress?", "Item Description:", "Quantity Recieved:" , "Quantity Defective:", "Is item Non-Conforming?", "Defect Description", "Quality Assurance Status:", "Last Modified by Quality Assurance:"];
-    const engLabels = ["Review by CF Engineering:", "Notify Customer?", "Disposition:", "Version Number:", "Revision Date:", "Engineering Status:", "Last Modified by Engineering:"]
-    */
 
     ncrTable.innerHTML =`<tr class="shaded-cells">
                         <th>Creation Date</th>
@@ -112,16 +98,10 @@ async function getData(){
 getData();
 
 document.getElementById("btnClose").addEventListener("click", async function(){
-    // close quality first, and if quality is already closed, close engineer, if engineer is closed, set NCRFormStatus to "closed"
-    console.log("Closed!")
 
-    const engineerResponse = await fetch(`http://localhost:5500/EngineerFromNCR?ncrID=${ncrId}`);
-    const engineerData = await engineerResponse.json();
-    console.log(engineerData);
-
-    const qualityResponse = await fetch(`http://localhost:5500/QualityFromNCR?ncrID=${ncrId}`);
-    const qualityData = await qualityResponse.json();
-    console.log(qualityData);
+    const ncrResponse = await fetch(`http://localhost:5500/UpdateNCRStatus?NewStatus="Closed"&id=${ncrId}`, { method: 'PUT'});
+    const qaResponse = await fetch(`http://localhost:5500/UpdateQAStatus?NewStatus="Closed"&id=${ncrId}`, { method: 'PUT'});
+    const engResponse = await fetch(`http://localhost:5500/UpdateEngineerStatus?NewStatus="Closed"&id=${ncrId}`, { method: 'PUT'}); 
 
     getData();
 });
