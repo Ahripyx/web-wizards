@@ -31,9 +31,7 @@ export async function fillForm(selectedID = null) {
     {
       const user = JSON.parse(localStorage.getItem('user'));
 
-      if (user.RoleID === 1) toggleForms('admin');
-        else if (user.RoleID === 2) toggleForms('quality');
-        else if (user.RoleID === 3) toggleForms('engineer');
+      
 
         // Get the Product select element and add an event to make the product number visible when a product is selected
         
@@ -68,6 +66,7 @@ export async function fillForm(selectedID = null) {
         {
             
             try {
+                
                 const formusers = await fetchData(`http://localhost:5500/formusers/${selectedID}`);
                 console.log(formusers);
                 formusers.forEach(formuser => {
@@ -75,8 +74,15 @@ export async function fillForm(selectedID = null) {
                     if (formuser.Title = 'Engineer') document.getElementById('ENGName').value = formuser.FName + ' ' + formuser.LName;
                 });
 
-                fillQuality(selectedID);
-                fillEngineer(user, selectedID);
+                const QualityArray = await fetchData(`http://localhost:5500/ncrs/${selectedID}`);
+                const QualityData = QualityArray[0];
+
+                fillQuality(QualityData, selectedID);
+                fillEngineer(user, QualityData, selectedID);
+
+                if (user.RoleID === 1) toggleForms('admin');
+                else if (user.RoleID === 2) toggleForms('quality');
+                else if (user.RoleID === 3) toggleForms('engineer');
             } catch (error) {
                 console.error('Failed to fill form:', error);
             }
@@ -200,9 +206,8 @@ async function newProductModal()
     } 
    
 }
-export async function fillQuality(selectedID = null) {
-    const QualityArray = await fetchData(`http://localhost:5500/ncrs/${selectedID}`);
-    const QualityData = QualityArray[0];
+export async function fillQuality(QualityData, selectedID = null) {
+    
     await getSuppliers(QualityData.SupplierID);
     await getProducts(QualityData.ProductID);
 
@@ -221,7 +226,10 @@ export async function fillQuality(selectedID = null) {
          if (selectedID)
          {
             document.getElementById('QADate').value = QualityData.LastModified;
-            document.getElementById('QualityStatus').hidden = QualityData.QualityStatus === 'Closed';
+            const qaDisabled = QualityData.QualityStatus === 'Closed';
+            document.getElementById('QualityStatus').hidden = qaDisabled;
+            document.getElementById('btnSubmit_Quality').hidden = qaDisabled;
+            document.getElementById('fs_quality').disabled = qaDisabled;
          }
          else
          {
@@ -233,18 +241,16 @@ export async function fillQuality(selectedID = null) {
 
 
 // FETCHES ENGINEER DATA
-export async function fillEngineer(user, selectedID = null) {
-    if (document.getElementById('QualityStatus').hidden === false) return;
+export async function fillEngineer(user, QualityData, selectedID = null) {
+    if (QualityData.QualityStatus === 'Open') return;
     if (user.RoleID === 3) document.getElementById('ENGName').value = user.FName + ' ' + user.LName;
     const EngineerResponse = await fetch(`http://localhost:5500/engineer/${selectedID}`);
     if (!EngineerResponse.ok) {
         document.getElementById('EngineerNewOrEdit').value = 'Create';
         document.getElementById('ENGDate').value = formatDate(new Date());
         //throw new Error('Failed to fetch engineer data');
-    } else
-    {
-        document.getElementById('ENGDate').value = EngineerData.LastModified;
     }
+
     const UpdateTrue = document.getElementById('DrawingUpdateRequired_0');
     const UpdateFalse = document.getElementById('DrawingUpdateRequired_1');
     const RevisionNumber = document.getElementById('RevisionNumber');
@@ -257,6 +263,8 @@ export async function fillEngineer(user, selectedID = null) {
      document.getElementById('NotifyCustomer_1').checked = EngineerData.NotifyCustomer === 0;
      document.getElementById('Disposition').value = EngineerData.Disposition;
      RevisionNumber.textContent = EngineerData.RevisionNumber;
+     document.getElementById('fs_engineer').disabled = EngineerData.QualityStatus === 'Closed';
+        document.getElementById('ENGDate').value = EngineerData.LastModified;
      //RevisionDate.value = new Date().toISOString().split('T')[0];
 
 const NewRevNum = document.getElementById('NewRevNum');
@@ -337,19 +345,19 @@ function incrementRevisionNumber(revisionNumber) {
 }
 
 function toggleForms(formType) {
-    const qualityForm = document.getElementById('fs_quality');
-    const engineerForm = document.getElementById('fs_engineer');
-
-    const btnQuality = document.getElementById('btnSubmit_Quality');
-    const btnEngineer = document.getElementById('btnSubmit_Engineer');
-    //const btnPurchasing = document.getElementById('btnSubmit_Purchasing');
+    
 
     const navQuality = document.getElementById('btnNavQuality');
     const navEngineer = document.getElementById('btnNavEngineer');
     const navPurchasing = document.getElementById('btnNavPurchasing');
 
+    if (formType === 'admin') {
+
+        navQuality.hidden = false;
+        navEngineer.hidden = false;
+        navPurchasing.hidden = false;
+    }
     if (formType === 'quality') {
-        btnEngineer.style.display = 'none';
         //btnPurchasing.style.display = 'none';
 
         qualityForm.disabled = false;
@@ -361,7 +369,6 @@ function toggleForms(formType) {
         navEngineer.hidden = true;
         navPurchasing.hidden = true;
     } else if (formType === 'engineer') {
-        btnQuality.style.display = 'none';
 
         qualityForm.disabled = true;
         engineerForm.disabled = false;
