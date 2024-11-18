@@ -104,7 +104,7 @@ export async function fillForm(selectedID = null) {
 
 function formatDate(date) {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
@@ -259,6 +259,11 @@ export async function fillEngineer(user, QualityData, selectedID = null) {
 
     const NewRevNum = document.getElementById('NewRevNum');
     const NewRevDate = document.getElementById('NewRevDate');
+    if (EngineerData.EngineerStatus === 'Closed')
+    {
+        document.getElementById('btnSubmit_Engineer').hidden = true;
+        document.getElementById('fs_engineer').disabled = true;
+    }
     UpdateTrue.addEventListener("click", function() {
         if (this.checked) {
             NewRevNum.style.display = 'block';
