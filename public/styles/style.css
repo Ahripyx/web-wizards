@@ -6,6 +6,10 @@ body {
     margin: 0;
     height: 100vh; 
 }
+
+html, body{
+    overflow-x: hidden; /* TEMP FIX: Delete later once issue if fixed */
+}
 /* ----- Header ----- */
 
 header {
@@ -439,6 +443,7 @@ form input[type="email"]:focus, form input[type="password"]:focus {
     .home-nav {
         grid-template-columns: repeat(2, 1fr);    
         max-width: 80%; 
+        justify-items: center;
     } 
     .home-nav div:nth-child(3) {
         grid-column: span 2;
@@ -482,7 +487,32 @@ form input[type="email"]:focus, form input[type="password"]:focus {
 
 /* Mobile L */
 @media screen and (max-width: 425px){
+    h2{font-size: 2em;}
+    .home-nav {
+        grid-template-columns: 1fr;
+    }
 
+    .home-nav div:nth-child(3) {
+        grid-column: span 1; 
+    }
+
+    .logo img{
+        width: 200px;
+    }
+    .menu-icon img {
+        width: 30px;
+        height: 30px;
+    }
+    .header-content{
+        grid-template-columns: 3fr 1fr 1fr;
+    }
+    .recent-forms table {
+        font-size: 18px;
+    }
+    .recent-forms td, .recent-forms th {
+        padding: 6px;
+    }
+    
 }
 
 /* Mobile M*/
