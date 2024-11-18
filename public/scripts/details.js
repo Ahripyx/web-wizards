@@ -71,6 +71,7 @@ async function getData(){
                         </tr>`;
     qaTable.innerHTML =`<tr class="shaded-cells">
                         <th>NCR Number</th>
+                        <th>Sales Order Number</th>
                         <th>Supplier/Recieving Inspection?</th>
                         <th>Work in Progress?</th>
                         <th>Item Description</th>
