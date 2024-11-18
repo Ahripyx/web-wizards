@@ -6,6 +6,10 @@ body {
     margin: 0;
     height: 100vh; 
 }
+
+html, body{
+    overflow-x: hidden; /* TEMP FIX: Delete later once issue if fixed */
+}
 /* ----- Header ----- */
 
 header {
