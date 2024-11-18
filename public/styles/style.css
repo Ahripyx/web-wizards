@@ -92,12 +92,6 @@ nav.header-nav ul li {
     text-decoration: none;
 }
 
-.header-nav button{
-    font-size: 25px;
-    margin: 8px;
-    text-decoration: none;
-}
-
 /* Hover effect for nav items */
 .nav-item:hover {
     cursor: pointer;
@@ -392,33 +386,39 @@ form:focus, form textarea:focus{
     width: 100%;
 }   
 
+/*========================
+        Media Queries
+========================*/
+
+/* Mobile S */
+@media screen and (min-width:320px){
+
+}
+
+/* Mobile M*/
+@media screen and (min-width: 375px){
+
+}
+
+
+/* Mobile L */
+@media screen and (min-width: 425px){
+
+}
+
+/* Tablet */
+@media screen and (min-width: 768px){
+
+}
+
+/* Laptop */
+@media screen and (min-width: 1020px){
+
+}
+
 /* Laptop L */
 @media screen and (min-width: 1440px){
 
 }
 
-/* Laptop */
-@media screen and (min-width: 1020){
-
-}
-
-/* Tablet */
-@media screen and (min-width: 768){
-
-}
-
-/* Mobile L */
-@media screen and (min-width: 425){
-
-}
-
-/* Mobile M*/
-@media screen and (min-width: 375){
-
-}
-
-/* Mobile S */
-@media screen and (min-width:320){
-
-}
 
