@@ -11,6 +11,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
       <script src="../public/scripts/notification.js" defer></script>
       <script src="../public/scripts/validation.js"></script>
+      <script src="../public/scripts/menu-script.js" defer></script>
       <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
          <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
    </head>
@@ -23,15 +24,15 @@
                <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="A blue logo saying Crossfire with a flame in the middle"></a>
             </div>
             <div>
-               <a href="#" id="menu-icon" class="menu-icon">
-                  <img src="../public/images/menu-icon.png">
-               </a>
                <nav class="header-nav" >
-                  <ul>
-                     <li><a id="ancHome" tabindex="1">Home |</a></li>
-                     <li><a id="ancCreate" tabindex="2">Create NCR |</a></li>
-                     <li><a id="ancLogs" tabindex="3">NCR Logs |</a></li>
-                     <li><a id="ancTools" tabindex="4">Tools</a></li>
+                  <a href="#" id="menu-icon" class="menu-icon">
+                     <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
+                  </a>
+                  <ul id="menu-list">
+                     <li><a href="#" id="ancHome">Home |</a></li>
+                     <li><a href="#" id="ancCreate">Create NCR |</a></li>
+                     <li><a href="#" id="ancLogs">NCR Logs |</a></li>
+                     <li><a href="#" id="ancTools">Tools</a></li>
                   </ul>
                </nav>
             </div>

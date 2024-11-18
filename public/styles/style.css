@@ -75,7 +75,7 @@ nav.header-nav ul li {
     padding-left: 5px;
     font-size: 30px;
     cursor: pointer;
-    }
+}
 
 .header-nav {
     display: flex;
@@ -438,14 +438,39 @@ form:focus, form textarea:focus{
         grid-column: span 2;
         text-align: center; 
     } 
+    
+    /* Hiding desktop/laptop navigation */
     nav.header-nav ul{
         display: none;
-        }
-    .menu-icon{
-        display: inline;
     }
     .header-content{
         grid-template-columns: 7fr 1fr 1.5fr;
+    }
+    .menu-icon {
+        display: inline-block;
+    }
+
+    /* Mobile Menu List */
+    #menu-list {
+        display: none; 
+        flex-direction: column;
+        background-color: #f3f3f3;
+        padding: 10px;
+        position: absolute;
+        top: 60px;  
+        right: 0;
+        width: 200px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    #menu-list li {
+        padding: 12px 20px;
+        font-size: 18px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #menu-list li a {
+        color: #333;
     }
 }
 
