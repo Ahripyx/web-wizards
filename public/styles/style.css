@@ -482,12 +482,19 @@ form:focus, form textarea:focus{
 /* Mobile L */
 @media screen and (max-width: 425px){
     h2{font-size: 2em;}
-    .home-nav {
-        grid-template-columns: 1fr;
+    .home-nav{
+        max-width: 100%;
     }
-
-    .home-nav div:nth-child(3) {
-        grid-column: span 1; 
+    .home-nav div{
+        width: 125px;
+    }
+    .home-nav img {
+        height: auto;
+        width: 125px;
+        padding: 10px;
+    }
+    .home-nav button{
+        width: 125px;
     }
 
     .logo img{
@@ -511,12 +518,39 @@ form:focus, form textarea:focus{
 
 /* Mobile M*/
 @media screen and (max-width: 375px){
-
+    .home-nav div{
+        width: 100px;
+    }
+    .home-nav img {
+        width: 100px;
+        padding: 10px;
+    }
+    .home-nav button{
+        width: 100px;
+    }
 }
 
 /* Mobile S */
 @media screen and (max-width:320px){
-
+    .logo img{
+        width: 175px;
+    }
+    .home-nav div{
+        width: 75px;
+    }
+    .home-nav img {
+        width: 75px;
+        padding: 5px;
+    }
+    .home-nav button{
+        width: 75px;
+    }
+    .header-content{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .recent-forms table {
+        font-size: 15px;
+    }
 }
 
 
