@@ -310,13 +310,21 @@ section.tools {
 ====================*/
 
 /* ----- All Inputs ----- */
-form input[type="text"], form input[type="number"], form input[type="email"], form input[type="password"], form textarea, form select {
+form input[type="text"], form input[type="number"], form input[type="email"], form input[type="password"], form input[type="date"], form textarea, form select {
     padding: 0.75em 1em 0.75em 1em;
     box-shadow: inset 0 0.1em 0.1em 0 rgba(0, 0, 0, 0.05);
     border: solid 1px rgba(0, 0, 0, 0.15);
     width: 100%;
     border-radius: 10px;
     box-sizing: border-box;
+}
+
+form input[type="text"]:disabled, form input[type="number"]:disabled, 
+form input[type="email"]:disabled, form input[type="password"]:disabled, 
+form input[type="date"]:disabled, form textarea:disabled, 
+form select:disabled {
+    color: #1b1b1b;
+    background-color: #e9e9e9;
 }
 
 /* ----- Buttons ----- */

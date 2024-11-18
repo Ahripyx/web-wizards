@@ -3,24 +3,26 @@ import * as notif from './notification.js';
 // CREATE NEW PRODUCT
 export async function newProduct(supplier, productName, productNumber) {
     try {
-    const dataToInsert = {
-        ProductName: productName.value,
-        Number: parseInt(productNumber.value, 10),
-        SupplierID: parseInt(supplier.value, 10)
-    };
-    
+        const dataToInsert = {
+            ProductName: productName.value,
+            Number: parseInt(productNumber.value, 10),
+            SupplierID: parseInt(supplier.value, 10)
+        };
+
         const response = await fetch('http://localhost:5500/products/', {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(dataToInsert)
-         });
+        });
 
-         if (response.ok) {
+        if (response.ok) {
             alert("Product added successfully");
-         } else {
+        } else {
             const errorData = await response.text();
             alert(`Failed to add product: ${errorData}`);
-         }
+        }
     } catch (error) {
         console.error('Failed to add product:', error);
         alert("Failed to add product.");
@@ -36,16 +38,18 @@ export async function newSupplier(supplier) {
 
         const response = await fetch('http://localhost:5500/suppliers/', {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(dataToInsert)
-         });
+        });
 
-         if (response.ok) {
+        if (response.ok) {
             alert("Supplier added successfully");
-         } else {
+        } else {
             const errorData = await response.text();
             alert(`Failed to add supplier: ${errorData}`);
-         }
+        }
     } catch (error) {
         console.error('Failed to add supplier:', error);
         alert("Failed to add supplier.");
@@ -55,27 +59,29 @@ export async function newSupplier(supplier) {
 // CREATE NEW USER
 export async function newUser(FName, MName, LName, Email, Password, RoleID) {
     try {
-    const dataToInsert = {
-        FName: FName.value,
-        MName: MName.value,
-        LName: LName.value,
-        Email: Email.value,
-        Password: Password.value,
-        RoleID: parseInt(RoleID.value, 10)
-    };
+        const dataToInsert = {
+            FName: FName.value,
+            MName: MName.value,
+            LName: LName.value,
+            Email: Email.value,
+            Password: Password.value,
+            RoleID: parseInt(RoleID.value, 10)
+        };
 
         const response = await fetch('http://localhost:5500/users/', {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(dataToInsert)
-         });
+        });
 
-         if (response.ok) {
+        if (response.ok) {
             alert("User added successfully");
-         } else {
+        } else {
             const errorData = await response.text();
             alert(`Failed to add user: ${errorData}`);
-         }
+        }
     } catch (error) {
         console.error('Failed to add user:', error);
         alert("Failed to add user.");
@@ -93,7 +99,9 @@ export async function newFormUser(NCRForm_id, User_id) {
 
         const response = await fetch('http://localhost:5500/formusers', {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(dataToInsert)
         });
 
@@ -110,11 +118,9 @@ export async function newFormUser(NCRForm_id, User_id) {
 }
 
 // UPDATE / INSERT QUALITY
-export async function crudQuality(method, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, id = '')
-{
-    try
-    {
-        
+export async function crudQuality(method, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, id = '') {
+    try {
+
         const quality = {
             SalesOrder: parseInt(SalesOrder.value, 10),
             SRInspection: SRInspection.checked ? 1 : 0,
@@ -125,28 +131,25 @@ export async function crudQuality(method, SalesOrder, SRInspection, WorkInProgre
             IsNonConforming: IsNonConforming.checked ? 1 : 0,
             Details: Details.value,
             ProductID: parseInt(ProductID.value, 10),
-            
+
         };
 
-        if (method === 'POST')
-        {
+        if (method === 'POST') {
             const user = JSON.parse(localStorage.getItem('user'));
             quality.User_id = user.id;
         }
-    
+
         return await throwData(`http://localhost:5500/quality/${id}`, quality, method);
     } catch (error) {
         console.error('Failed to add quality:', error.message);
         alert("Failed to add quality.");
     }
-     
+
 }
 
 // UPDATE / INSERT ENGINEER
-export async function crudEngineer(method, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, id)
-{
-    try
-    {
+export async function crudEngineer(method, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, id) {
+    try {
         const engineer = {
             Review: Review.value,
             NotifyCustomer: NotifyCustomer.checked ? 1 : 0,
@@ -160,7 +163,7 @@ export async function crudEngineer(method, Review, NotifyCustomer, Disposition, 
         console.error('Failed to add engineer:', error.message);
         alert("Failed to add engineer.");
     }
-       
+
 }
 
 export async function fetchData(url) {
@@ -181,7 +184,9 @@ export async function throwData(url, data, method) {
         console.log(data);
         const response = await fetch(url, {
             method: method,
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(data)
         });
         const responseText = await response.text();
@@ -196,4 +201,3 @@ export async function throwData(url, data, method) {
         return null;
     }
 }
-
