@@ -91,19 +91,18 @@ nav.header-nav ul li {
     text-decoration: none;
 }
 
-/*testing old code for hamburger menu*/
-
-#menu-icon {
-	background: url('public\images\menu-icon.png') center;
-	display: inline-block;
-	height: 50px;
-	width: 50px;
-}
-/*testing old code for hamburger menu*/
-
 /* Hover effect for nav items */
 .nav-item:hover {
     cursor: pointer;
+}
+
+.menu-icon{
+    display: none;
+}
+
+.menu-icon img {
+    width: 40px;
+    height: 40px;
 }
 
 
@@ -223,19 +222,19 @@ nav.header-nav ul li {
     width: 80%;
   }
   
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.close {
+color: #aaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: black;
+text-decoration: none;
+cursor: pointer;
+}
 
 /*====================
     Color Scheme
@@ -439,6 +438,15 @@ form:focus, form textarea:focus{
         grid-column: span 2;
         text-align: center; 
     } 
+    nav.header-nav ul{
+        display: none;
+        }
+    .menu-icon{
+        display: inline;
+    }
+    .header-content{
+        grid-template-columns: 7fr 1fr 1.5fr;
+    }
 }
 
 /* Mobile L */
