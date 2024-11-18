@@ -382,6 +382,14 @@ form input[type="email"]:focus, form input[type="password"]:focus {
     width: 90%;
 }
 
+.listbutton{
+    margin: 5px;
+}
+
+.detailheader{
+    margin-top: 10px;
+}
+
 .light-cells{
     border-style: none;
     border-width: 0px;
