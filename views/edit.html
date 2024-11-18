@@ -159,27 +159,27 @@
             <div class="row g-3">
                <!-- NCR Number -->
                <div class="form-group col-md-6">
-                  <label for="NCRNumber" class="form-label">NCR Number: </label>
-                  <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX"   readonly>
+                  <label for="NCRNumber" class="form-label">NCR Number</label>
+                  <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX" readonly>
                </div>
                 <!-- Sales Order Number -->
                 <div class="form-group col-md-6">
-                  <label for="SaleNumber" class="form-label">Sales Order Number: </label>
-                  <input type="text" class="form-control" placeholder="" id="SaleNumber" required>
+                  <label for="SaleNumber" class="form-label">Sales Order Number <span class="no">*</span> </label>
+                  <input type="text" class="form-control" placeholder="" id="SaleNumber" aria-required="true" required>
                 </div>
             </div>
             <div class="row g-3">
                <!-- Supplier -->
                <div class="form-group col-md-6">
-                  <label for="SupplierID" class="form-label">Supplier: </label> <br/>
-                  <select class="form-select" id="SupplierID" name="SupplierID" required>
+                  <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label> <br/>
+                  <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" required>
                      <option selected>Select a supplier</option>
                   </select>
                </div>
                <!-- Product Info -->
                <div class="form-group col-md-6">
-                  <label for="ProductID" class="form-label">Product: </label> <br/>
-                  <select class="form-select" id="ProductID" name="ProductID" disabled required>
+                  <label for="ProductID" class="form-label">Product <span class="no">*</span> </label> <br/>
+                  <select class="form-select" id="ProductID" name="ProductID" aria-required="true" disabled required>
                      <option selected>No products available</option>
                   </select>
                   <!-- Product Number -->
@@ -189,47 +189,47 @@
             <div class="row g-3">
                <!-- Defect Description -->
                <div class="form-group col-md-12">
-                  <label for="Details" class="form-label">Description of Defect:</label> <br>
-                  <textarea class="form-control" id="Details" name="Details" rows="3" required></textarea>
+                  <label for="Details" class="form-label">Description of Defect <span class="no">*</span> </label> <br>
+                  <textarea class="form-control" id="Details" name="Details" rows="3" aria-required="true" required></textarea>
                </div>
             </div>
             <div class="row g-3">
                <!-- Quantity Received -->
                <div class="form-group col-md-6">
-                  <label for="QuantityReceived" class="form-label">Quantity Received:</label>
-                  <input type="number" class="form-control" id="QuantityReceived" min="1" required>
+                  <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span> </label>
+                  <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true" required>
                </div>
                <!-- Quantity Defective -->
                <div class="form-group col-md-6">
-                  <label for="QuantityDefective" class="form-label">Quantity Defective:</label>
-                  <input type="number" class="form-control" id="QuantityDefective" min="1" required>
+                  <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span> </label>
+                  <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true" required>
                </div>
             </div>
             <div class="row g-3">
                <!-- Identify Process Applicable -->
                <div class="form-group col-md-6">
-                  <label>Identify Process Applicable:</label>
+                  <label id="ProcessApplicable">Identify Process Applicable <span class="no">*</span> </label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="ProcessApplicable" id="ProcessApplicable_0" type="radio" required="required" class="form-check-input" value="WorkInProgress">
-                        <label for="ProcessApplicable_0" class="form-check-label">WIP</label>
+                        <input name="processes" id="ProcessApplicable_0" type="radio" aria-required="true" required="required" class="form-check-input" value="WorkInProgress" aria-labelledby="ProcessApplicable">
+                        <label for="ProcessApplicable_0" class="form-check-label">Work In Progress</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="ProcessApplicable" id="ProcessApplicable_1" type="radio" required="required" class="form-check-input" value="SRInspection">
+                        <input name="processes" id="ProcessApplicable_1" type="radio" aria-required="true" required="required" class="form-check-input" value="SRInspection" aria-labelledby="ProcessApplicable">
                         <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving Inspection</label>
                      </div>
                   </div>
                </div>
                <!-- Is Non-Conformance -->
                <div class="form-group col-md-6">
-                  <Label>Is Item Non-Conforming?</Label>
+                  <Label id="item-non-conforming">Is Item Non-Conforming? <span class="no">*</span> </Label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="IsNonConforming" id="IsNonConforming_0" type="radio" required="required" class="form-check-input" value="Yes">
+                        <input name="nonconforming" id="IsNonConforming_0" type="radio" aria-required="true" required="required" class="form-check-input" value="Yes" aria-labelledby="item-non-conforming">
                         <label for="IsNonConforming_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="IsNonConforming" id="IsNonConforming_1" type="radio" required="required" class="form-check-input" value="No">
+                        <input name="nonconforming" id="IsNonConforming_1" type="radio" aria-required="true" required="required" class="form-check-input" value="No" aria-labelledby="item-non-conforming">
                         <label for="IsNonConforming_1" class="form-check-label">No</label>
                      </div>
                   </div>
@@ -237,12 +237,12 @@
             </div>
             <div class="row g-3">
                <div class="form-group col-md-6">
-                  <label for="QAName">Quality Representative: </label>
+                  <label for="QAName">Quality Representative </label>
                   <input type="text" class="form-control-plaintext" id="QAName" readonly>
                </div>
                <div class="form-group col-md-6">
-                  <label for="QADate">Date: </label>
-                  <input type="date" class="form-control" id="QADate" required>
+                  <label for="QADate">Date </label>
+                  <input type="date" class="form-control" id="QADate" aria-required="true" required readonly>
                </div>
             </div>
             <!-- Submit Button -->
@@ -260,7 +260,7 @@
             <div class="row g-3">
                <!-- Review by CF Engineering -->
                <div class="form-group col-md-6">
-                  <label>Review by CF Engineering:</label>
+                  <label>Review by CF Engineering <span class="no">*</span> </label>
                   <div>
                      <div class="form-check form-check-inline">
                         <input name="Review" id="Review_0" type="radio" required="required" aria-required="true" class="form-check-input" value="Use As Is">
@@ -282,14 +282,14 @@
                </div>
                <!-- Customer Notification -->
                <div class="form-group col-md-6">
-                  <label>Notify customer of NCR:</label>
+                  <label>Notify customer of NCR <span class="no">*</span> </label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required" class="form-check-input" value="Yes">
+                        <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required" aria-required="true" req class="form-check-input" value="Yes">
                         <label for="NotifyCustomer_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="NotifyCustomer" id="NotifyCustomer_1" type="radio" required="required" class="form-check-input" value="No">
+                        <input name="NotifyCustomer" id="NotifyCustomer_1" type="radio" required="required" aria-required="true" class="form-check-input" value="No">
                         <label for="NotifyCustomer_1" class="form-check-label">No</label>
                      </div>
                   </div>
@@ -298,14 +298,14 @@
             <!-- Disposition -->
             <div class="row g-3">
                <div class="form-group col-md-12">
-                  <label for="Disposition">Disposition:</label>
-                  <textarea class="form-control" id="Disposition" name="Disposition" rows="3" required></textarea>
+                  <label for="Disposition">Disposition <span class="no">*</span> </label>
+                  <textarea class="form-control" id="Disposition" name="Disposition" rows="3" required aria-required="true"></textarea>
                </div>
             </div>
             <!-- Drawing Requires Updating -->
             <div class="row g-3">
                <div class="form-group col-md-6">
-                  <label>Does the drawing require updating:</label>
+                  <label>Does the drawing require updating </label>
                   <div>
                      <div class="form-check form-check-inline">
                         <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_0" type="radio" class="form-check-input" value="1">
@@ -321,19 +321,24 @@
             <div class="row g-3">
                <!-- Revision Information -->
                <div class="form-group col-md-4">
-                  <label for="RevisionNumber">Rev. Number:</label>
+                  <label for="RevisionNumber">Rev. Number</label>
                   <input type="text" class="form-control-plaintext" id="RevisionNumber" placeholder="N/A" readonly>
                </div>
                <div class="form-group col-md-4" id="NewRevNum" style="display: none;">
-                  <label for="NewRevisionNumber">Updated Rev. Number:</label>
+                  <label for="NewRevisionNumber">Updated Rev. Number</label>
                   <input type="text" class="form-control-plaintext" id="NewRevisionNumber" readonly>
                </div>
                <div class="form-group col-md-4" id="NewRevDate" style="display: none;">
-                  <label for="RevisionDate" id="lblRevisionDate">Revision Date:</label>
+                  <label for="RevisionDate" id="lblRevisionDate">Revision Date</label>
                   <input type="date" class="form-control" id="RevisionDate">
                </div>
-               <div class="form-group col-md-4" id="ENGName">Engineer: </div>
-               <input type="text" class="form-control-plaintext" id="ENGName" readonly>
+            </div>
+            <div class="row g-3">
+               <div class="form-group col-md-6">
+                  <label for="ENGName" class="form-group col-md-4" >Engineer</label>
+                  <input type="text" class="form-control-plaintext" id="ENGName" readonly>
+               </div>
+               
             </div>
               <!-- Submit Button -->
               <div class="row g-3">

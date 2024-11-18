@@ -51,19 +51,22 @@
             <div id="product-modal" class="modal" style="z-index: 2;">
                <div class="modal-content">
                   <span class="close" id="close">&times;</span>
-                  <h2>New Product</h2>
-                  <form onsubmit="event.preventDefault();" id="newProductForm">
-                     <div class="row">
-                        <div class="col-6">
+                  
+                  <form onsubmit="event.preventDefault();" id="newProductForm" class="px-4">
+                     <div class="row g-3">
+                        <h2>New Product</h2>
+                     </div>
+                     <div class="row g-3">
+                        <div class="form-group col-md-6">
                            <label for="newProductName">Product Name:</label>
                            <input type="text" id="newProductName" name="newProductName" placeholder="Product Name" required>
                         </div>
-                        <div class="col-6">
+                        <div class="form-group col-md-6">
                            <label for="newProductNumber">Product Number:</label>
                            <input type="number" id="newProductNumber" name="newProductNumber" placeholder="---" min="100" max="999" required>
                         </div>
-                        <div class="col-12">
-                           <button type="submit" id="btnNewProduct">Add Product</button>
+                        <div class="form-group col-md-12">
+                           <button type="submit" class="yes" id="btnNewProduct">Add Product</button>
                         </div>
                      </div>
                   </form>
@@ -84,28 +87,29 @@
             <div class="row g-3">
                <!-- NCR Number -->
                <div class="form-group col-md-6">
-                  <label for="NCRNumber" class="form-label">NCR Number: </label>
+                  <label for="NCRNumber" class="form-label">NCR Number </label>
                   <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX"   readonly>
                </div>
                <!-- Sales Order Number -->
                 <div class="form-group col-md-6">
-                  <label for="SaleNumber" class="form-label">Sales Order Number: </label>
-                  <input type="text" class="form-control" placeholder="" id="SaleNumber" required>
+                  <label for="SaleNumber" class="form-label">Sales Order Number <span class="no">*</span> </label> 
+                  
+                  <input type="text" class="form-control" placeholder="" id="SaleNumber" aria-required="true" required>
                 </div>
 
             </div>
             <div class="row g-3">
                <!-- Supplier -->
                <div class="form-group col-md-6">
-                  <label for="SupplierID" class="form-label">Supplier: </label> <br/>
-                  <select class="form-select" id="SupplierID" name="SupplierID" required>
+                  <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
+                  <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" required>
                      <option selected value="">Select a supplier</option>
                   </select>
                </div>
                <!-- Product Info -->
                <div class="form-group col-md-6">
-                  <label for="ProductID" class="form-label">Product: </label> <br/>
-                  <select class="form-select" id="ProductID" name="ProductID" disabled required>
+                  <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
+                  <select class="form-select" id="ProductID" name="ProductID" disabled aria-required="true" required>
                      <option selected value="">No products available</option>
                   </select>
                   <!-- Product Number -->
@@ -115,47 +119,47 @@
             <div class="row g-3">
                <!-- Defect Description -->
                <div class="form-group col-md-12">
-                  <label for="Details" class="form-label">Description of Defect:</label> <br>
-                  <textarea class="form-control" id="Details" name="Details" rows="3" required></textarea>
+                  <label for="Details" class="form-label">Description of Defect <span class="no">*</span> </label>
+                  <textarea class="form-control" id="Details" name="Details" rows="3" aria-required="true" required></textarea>
                </div>
             </div>
             <div class="row g-3">
                <!-- Quantity Received -->
                <div class="form-group col-md-6">
-                  <label for="QuantityReceived" class="form-label">Quantity Received:</label>
-                  <input type="number" class="form-control" id="QuantityReceived" min="1" required>
+                  <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span> </label>
+                  <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true" required>
                </div>
                <!-- Quantity Defective -->
                <div class="form-group col-md-6">
-                  <label for="QuantityDefective" class="form-label">Quantity Defective:</label>
-                  <input type="number" class="form-control" id="QuantityDefective" min="1" required>
+                  <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span> </label>
+                  <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true" required>
                </div>
             </div>
             <div class="row g-3">
                <!-- Identify Process Applicable -->
                <div class="form-group col-md-6">
-                  <label>Identify Process Applicable:</label>
+                  <label id="ProcessApplicable">Identify Process Applicable <span class="no">*</span> </label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="ProcessApplicable" id="ProcessApplicable_0" type="radio" required="required" class="form-check-input" value="WorkInProgress">
-                        <label for="ProcessApplicable_0" class="form-check-label">WIP</label>
+                        <input name="processes" id="ProcessApplicable_0" type="radio" aria-required="true" required="required" class="form-check-input" value="WorkInProgress" aria-labelledby="ProcessApplicable">
+                        <label for="ProcessApplicable_0" class="form-check-label">Work In Progress</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="ProcessApplicable" id="ProcessApplicable_1" type="radio" required="required" class="form-check-input" value="SRInspection">
+                        <input name="processes" id="ProcessApplicable_1" type="radio" aria-required="true" required="required" class="form-check-input" value="SRInspection" aria-labelledby="ProcessApplicable">
                         <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving Inspection</label>
                      </div>
                   </div>
                </div>
                <!-- Is Non-Conformance -->
                <div class="form-group col-md-6">
-                  <Label>Is Item Non-Conforming?</Label>
+                  <Label id="item-non-conforming">Is Item Non-Conforming? <span class="no">*</span> </Label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="IsNonConforming" id="IsNonConforming_0" type="radio" required="required" class="form-check-input" value="Yes">
+                        <input name="nonconforming" id="IsNonConforming_0" type="radio" aria-required="true" required="required" class="form-check-input" value="Yes" aria-labelledby="item-non-conforming">
                         <label for="IsNonConforming_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="IsNonConforming" id="IsNonConforming_1" type="radio" required="required" class="form-check-input" value="No">
+                        <input name="nonconforming" id="IsNonConforming_1" type="radio" aria-required="true" required="required" class="form-check-input" value="No" aria-labelledby="item-non-conforming">
                         <label for="IsNonConforming_1" class="form-check-label">No</label>
                      </div>
                   </div>
@@ -163,12 +167,12 @@
             </div>
             <div class="row g-3">
                <div class="form-group col-md-6">
-                  <label for="QAName">Quality Representative: </label>
-                  <input type="text" class="form-control-plaintext" id="QAName" readonly>
+                  <label for="QAName">Quality Representative </label>
+                  <input type="text" class="form-control-plaintext" id="QAName" aria-required="true" readonly>
                </div>
                <div class="form-group col-md-6">
-                  <label for="QADate">Date: </label>
-                  <input type="date" class="form-control" id="QADate" readonly>
+                  <label for="QADate">Date </label>
+                  <input type="date" class="form-control" id="QADate" aria-required="true" required readonly>
                </div>
             </div>
             <!-- Submit Button -->

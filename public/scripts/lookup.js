@@ -121,8 +121,9 @@ async function supplierSelect(supplierElement) {
                 const ProductData = await ProductResponse.json();
                 const selectOption = document.createElement('option');
 
-                selectOption.text = 'Select a product';
+                selectOption.text = 'Select a Product';
                 selectOption.selected = true;
+                selectOption.disabled = true;
                 selectOption.value = null;
                 ProductElement.appendChild(selectOption);
 
@@ -354,6 +355,13 @@ function populateSelect(id, data, text, value, selectedID = null)
 {
     const select = document.getElementById(id);
     select.innerHTML = '';
+
+    const selectOption = document.createElement('option');
+    selectOption.text = `Select a ${id.replace('ID', '')}`;
+    selectOption.value = null;
+    selectOption.disabled = true
+    selectOption.selected = true;
+    select.appendChild(selectOption);
 
     data.forEach(thing => {
         const option = document.createElement('option');
