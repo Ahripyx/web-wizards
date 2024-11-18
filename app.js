@@ -440,7 +440,7 @@ app.put('/UpdateNCRStatus', (req, res) => {
 app.put('/UpdateQAStatus', (req, res) => {
     const { newStatus, id  } = req.query;
     try {
-        const stmt = db.prepare('UPDATE Quality SET Quality.QualityStatus = ? WHERE Quality.NCRFormID = ?');
+        const stmt = db.prepare('UPDATE Quality SET QualityStatus = ? WHERE NCRFormID = ?');
         const result = stmt.run(newStatus, id);
         if (result.changes > 0) {
             res.status(200).send("Quality Assurance record updated successfully!");
@@ -458,7 +458,7 @@ app.put('/UpdateQAStatus', (req, res) => {
 app.put('/UpdateEngineerStatus', (req, res) => {
     const { newStatus, id  } = req.query;
     try {
-        const stmt = db.prepare('UPDATE Engineer SET Engineer.EngineerStatus = ? WHERE Engineer.NCRFormID = ?');
+        const stmt = db.prepare('UPDATE Engineer SET EngineerStatus = ? WHERE NCRFormID = ?');
         const result = stmt.run(newStatus, id);
         if (result.changes > 0) {
             res.status(200).send("Engineer record updated successfully!");

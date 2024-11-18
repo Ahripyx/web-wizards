@@ -99,20 +99,16 @@ getData();
 
 document.getElementById("btnClose").addEventListener("click", async function(){
 
-    const ncrResponse = await fetch(`http://localhost:5500/UpdateNCRStatus?NewStatus="Closed"&id=${ncrId}`, { method: 'PUT'});
-    const qaResponse = await fetch(`http://localhost:5500/UpdateQAStatus?NewStatus="Closed"&id=${ncrId}`, { method: 'PUT'});
-    const engResponse = await fetch(`http://localhost:5500/UpdateEngineerStatus?NewStatus="Closed"&id=${ncrId}`, { method: 'PUT'}); 
+    const ncrResponse = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'});
+    const qaResponse = await fetch(`http://localhost:5500/UpdateQAStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'});
+    const engResponse = await fetch(`http://localhost:5500/UpdateEngineerStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'}); 
 
     getData();
 });
 
 document.getElementById("btnArchive").addEventListener("click", async function(){
-
-    const arch = "Archived";
-    const response1 = await fetch(`http://localhost:5500/ncrFromID?ncrID=${ncrId}`);
-    const wow = await response1.json();
-
-    const response = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=${arch}&id=${ncrId}`, {
+    
+    const response = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=Archived&id=${ncrId}`, {
         method: 'PUT'
     });
     getData();
