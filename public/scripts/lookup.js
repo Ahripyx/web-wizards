@@ -83,6 +83,7 @@ export async function fillForm(selectedID = null) {
         }
         else
         {
+            document.getElementById('QADate').value = formatDate(new Date());
             await getSuppliers();
 
                  const user = JSON.parse(localStorage.getItem('user'));
@@ -96,6 +97,13 @@ export async function fillForm(selectedID = null) {
     } catch (error) {
         console.error('Failed to fetch NCR:', error);
     }
+}
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 // REFRESHES PRODUCT LIST WHEN SUPPLIER IS SELECTED
@@ -211,7 +219,16 @@ export async function fillQuality(selectedID = null) {
          }
          document.getElementById('Details').value = QualityData.Details;
          if (selectedID)
+         {
+            document.getElementById('QADate').value = QualityData.LastModified;
             document.getElementById('QualityStatus').hidden = QualityData.QualityStatus === 'Closed';
+         }
+         else
+         {
+            console.log(new Date());    
+            document.getElementById('QADate').value = new Date();
+         }
+            
 }
 
 
@@ -222,7 +239,11 @@ export async function fillEngineer(user, selectedID = null) {
     const EngineerResponse = await fetch(`http://localhost:5500/engineer/${selectedID}`);
     if (!EngineerResponse.ok) {
         document.getElementById('EngineerNewOrEdit').value = 'Create';
+        document.getElementById('ENGDate').value = formatDate(new Date());
         //throw new Error('Failed to fetch engineer data');
+    } else
+    {
+        document.getElementById('ENGDate').value = EngineerData.LastModified;
     }
     const UpdateTrue = document.getElementById('DrawingUpdateRequired_0');
     const UpdateFalse = document.getElementById('DrawingUpdateRequired_1');
@@ -360,7 +381,7 @@ function populateSelect(id, data, text, value, selectedID = null)
 
     const selectOption = document.createElement('option');
     selectOption.text = `Select a ${id.replace('ID', '')}`;
-    selectOption.value = null;
+    selectOption.value = '';
     selectOption.disabled = true
     selectOption.selected = true;
     select.appendChild(selectOption);
