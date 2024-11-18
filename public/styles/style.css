@@ -4,9 +4,8 @@ body {
     font-family: 'Oswald', sans-serif;
     background-color: #fff;
     margin: 0;
-    min-height: 100vh; 
+    height: 100vh; 
 }
-
 /* ----- Header ----- */
 
 header {
@@ -91,6 +90,16 @@ nav.header-nav ul li {
     padding: 6px 8px;
     text-decoration: none;
 }
+
+/*testing old code for hamburger menu*/
+
+#menu-icon {
+	background: url('public\images\menu-icon.png') center;
+	display: inline-block;
+	height: 50px;
+	width: 50px;
+}
+/*testing old code for hamburger menu*/
 
 /* Hover effect for nav items */
 .nav-item:hover {
@@ -390,34 +399,60 @@ form:focus, form textarea:focus{
         Media Queries
 ========================*/
 
-/* Mobile S */
-@media screen and (min-width:320px){
+/* Laptop L */
+@media screen and (max-width: 1440px){
+
+    .logo img{
+        width: 400px;
+    }
+    nav.header-nav ul li {
+        font-size: 27px;
+        }
+    .header-content {
+        grid-template-columns: 1fr 2fr 1fr;           
+    } 
+}
+
+/* Laptop */
+@media screen and (max-width: 1024px){
+    .home-nav{
+        max-width: 100%;
+    }
+    .header-content{
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+    nav.header-nav ul li {
+        font-size: 25px;
+        }
+    nav.header-nav ul{
+        padding-left: 0%;
+        }
+}
+
+/* Tablet */
+@media screen and (max-width: 768px){
+    .home-nav {
+        grid-template-columns: repeat(2, 1fr);    
+        max-width: 80%; 
+    } 
+    .home-nav div:nth-child(3) {
+        grid-column: span 2;
+        text-align: center; 
+    } 
+}
+
+/* Mobile L */
+@media screen and (max-width: 425px){
 
 }
 
 /* Mobile M*/
-@media screen and (min-width: 375px){
+@media screen and (max-width: 375px){
 
 }
 
-
-/* Mobile L */
-@media screen and (min-width: 425px){
-
-}
-
-/* Tablet */
-@media screen and (min-width: 768px){
-
-}
-
-/* Laptop */
-@media screen and (min-width: 1020px){
-
-}
-
-/* Laptop L */
-@media screen and (min-width: 1440px){
+/* Mobile S */
+@media screen and (max-width:320px){
 
 }
 
