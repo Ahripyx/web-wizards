@@ -256,7 +256,7 @@ app.get('/quality/:id', (req, res) => {
 app.post('/quality/', (req, res) => {
     const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, User_id } = req.body;
     try {
-        const lastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toISOString().split('T')[1].split('.')[0];
+        const lastModified = new Date().toISOString().split('T')[0];
         const creationDate = lastModified;
         const formStatus = 'Open';
 
