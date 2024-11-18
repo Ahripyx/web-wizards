@@ -110,12 +110,13 @@ export async function newFormUser(NCRForm_id, User_id) {
 }
 
 // UPDATE / INSERT QUALITY
-export async function crudQuality(method, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, id = '')
+export async function crudQuality(method, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, id = '')
 {
     try
     {
         
         const quality = {
+            SalesOrder: parseInt(SalesOrder.value, 10),
             SRInspection: SRInspection.checked ? 1 : 0,
             WorkInProgress: WorkInProgress.checked ? 1 : 0,
             ItemDescription: ItemDescription.options[ItemDescription.selectedIndex].text,

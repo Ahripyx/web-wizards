@@ -254,7 +254,7 @@ app.get('/quality/:id', (req, res) => {
 
 // Endpoint to insert data into Quality table
 app.post('/quality/', (req, res) => {
-    const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, User_id } = req.body;
+    const { SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, User_id } = req.body;
     try {
         const lastModified = new Date().toISOString().split('T')[0];
         const creationDate = lastModified;
@@ -272,8 +272,8 @@ app.post('/quality/', (req, res) => {
         const ncrNumber = `${currentYear}-${String(ncrCount).padStart(3, '0')}`;
 
         // Create the Quality data
-        const qualityStmt = db.prepare('INSERT INTO Quality (NCRFormID, NCRNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        const newQuality = qualityStmt.run(ncrFormID, ncrNumber, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
+        const qualityStmt = db.prepare('INSERT INTO Quality (NCRFormID, NCRNumber, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        const newQuality = qualityStmt.run(ncrFormID, ncrNumber, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
 
         // Create the formusers relation
         const formUsersStmt = db.prepare('INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)');
@@ -291,11 +291,11 @@ app.post('/quality/', (req, res) => {
 // Endpoint to update a specific record in the Quality table by ID
 app.put('/quality/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
-    const { SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID } = req.body;
+    const { SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID } = req.body;
     try {
         const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
-        const stmt = db.prepare('UPDATE Quality SET SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, ProductID = ?, LastModified = ? WHERE NCRFormID = ?');
-        const result = stmt.run(SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, LastModified, NCRFormID);
+        const stmt = db.prepare('UPDATE Quality SET SalesOrder = ?, SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, ProductID = ?, LastModified = ? WHERE NCRFormID = ?');
+        const result = stmt.run(SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, LastModified, NCRFormID);
         if (result.changes > 0) {
             res.status(200).send("Quality record updated successfully!");
         } else {

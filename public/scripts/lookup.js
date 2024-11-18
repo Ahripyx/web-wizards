@@ -198,6 +198,7 @@ export async function fillQuality(selectedID = null) {
     await getSuppliers(QualityData.SupplierID);
     await getProducts(QualityData.ProductID);
 
+    document.getElementById('SalesOrder').value = QualityData.SalesOrder;
     document.getElementById('ProcessApplicable_0').checked = QualityData.WorkInProgress === 1;
     document.getElementById('ProcessApplicable_1').checked = QualityData.SRInspection === 1;
          
@@ -261,6 +262,7 @@ export async function updateForm(id, formType)
 if (formType === 'quality') { 
     await crudQuality(
         "PUT",
+        document.getElementById("SalesOrder"),
         document.getElementById("ProcessApplicable_1"), 
         document.getElementById("ProcessApplicable_0"), 
         document.getElementById("ProductID"),

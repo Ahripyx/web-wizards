@@ -94,7 +94,10 @@
                 <div class="form-group col-md-6">
                   <label for="SaleNumber" class="form-label">Sales Order Number <span class="no">*</span> </label> 
                   
-                  <input type="text" class="form-control" placeholder="" id="SaleNumber" aria-required="true" required>
+                  <input type="number" class="form-control" id="SalesOrder" min="100" max="999" aria-required="true" required>
+                  <div class="invalid-feedback">
+                     Enter a valid Sales Order Number
+                   </div>
                 </div>
 
             </div>
@@ -103,8 +106,11 @@
                <div class="form-group col-md-6">
                   <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
                   <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" required>
-                     <option selected value="">Select a supplier</option>
+                     <option selected value=null disabled>Select a Supplier</option>
                   </select>
+                  <div class="invalid-feedback">
+                     Please select a Supplier
+                   </div>
                </div>
                <!-- Product Info -->
                <div class="form-group col-md-6">
@@ -112,6 +118,9 @@
                   <select class="form-select" id="ProductID" name="ProductID" disabled aria-required="true" required>
                      <option selected value="">No products available</option>
                   </select>
+                  <div class="invalid-feedback">
+                     Please select a Product
+                   </div>
                   <!-- Product Number -->
                   <span id="ProductNumber" class="form-text text-muted">Number:</span>
                </div>
@@ -121,6 +130,9 @@
                <div class="form-group col-md-12">
                   <label for="Details" class="form-label">Description of Defect <span class="no">*</span> </label>
                   <textarea class="form-control" id="Details" name="Details" rows="3" aria-required="true" required></textarea>
+                  <div class="invalid-feedback">
+                     Please enter a description of the defect
+                   </div>
                </div>
             </div>
             <div class="row g-3">
@@ -128,11 +140,17 @@
                <div class="form-group col-md-6">
                   <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span> </label>
                   <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true" required>
+                  <div class="invalid-feedback">
+                     Please enter a valid quantity
+                   </div>
                </div>
                <!-- Quantity Defective -->
                <div class="form-group col-md-6">
                   <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span> </label>
                   <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true" required>
+                  <div class="invalid-feedback">
+                     Please enter a valid quantity
+                   </div>
                </div>
             </div>
             <div class="row g-3">
@@ -226,8 +244,13 @@
                invalidFeedback.className = 'invalid-feedback';
                invalidFeedback.textContent = 'Please enter a valid value.';
                
+                  if (!control.parentNode.querySelector('.invalid-feedback')) {
+                    control.parentNode.appendChild(invalidFeedback);
+                  }
+               
+               
+               
                control.parentNode.appendChild(validFeedback);
-               control.parentNode.appendChild(invalidFeedback);
             });
 
 
@@ -242,6 +265,7 @@
         }
         const qualityData = await crudQuality(
          "POST",
+         document.getElementById("SalesOrder"),
          document.getElementById("ProcessApplicable_1"), 
          document.getElementById("ProcessApplicable_0"),
          document.getElementById("ProductID"),
