@@ -3,6 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
       <link href="../public/styles/style.css" rel="stylesheet">
       <title>Web Wizards</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,79 +107,83 @@
       <!-- User Section -->
       <section class="content-section tools" id="users">
          <div class="container tools">
-            <header>
-               <h2>User Overview</h2>
-            </header>
-            <form id="userform">
-               <div class="row">
-                  <div class="col-6">
+            <form class="px-4" id="userform">
+               <fieldset>
+                  <legend>Enter User Information</legend>
+               <div class="row g-3">
+                  <div class="form-group col-md-4">
                      <input type="text" id="FName" name="FName" placeholder="First name" aria-label="First name">
                   </div>
-                  <div class="col-6">
+                  <div class="form-group col-md-4">
                      <input type="text" id="MName" name="MName" placeholder="Middle name" aria-label="Middle name">
                   </div>
-                  <div class="col-6">
+                  <div class="form-group col-md-4">
                      <input type="text" id="LName" name="LName" placeholder="Last name" aria-label="Last name">
                   </div>
-                  <div class="col-12">
+               </div>
+               <div class="row g-3">
+                  <div class="form-group col-md-4">
                      <input type="email" id="Email" name="Email" placeholder="Email" aria-label="Email">
                   </div>
-                  <div class="col-12">
+                  <div class="form-group col-md-4">
                      <input type="password" id="Password" name="Password" placeholder="Password" aria-label="Password">
                   </div>
-                  <div class="col-6">
+                  <div class="form-group col-md-4">
                      <select id="RoleID" name="RoleID">
                         <option value="" disabled selected>Select a role</option>
                      </select>
                   </div>
-                  <div class="col-12">
-                     <button type="submit" class="submit">Add New User</button>
+                  <div class="form-group col-md-12">
+                     <button type="submit" class="yes">Add New User</button>
                   </div>
                </div>
+               </fieldset>
             </form>
          </div>
       </section>
       <!--  Product Section -->
       <section class="content-section tools" id="products">
          <div class="container tools">
-            <header>
-               <h2>Product Overview</h2>
-            </header>
-            <form id="productform">
-               <div class="row">
-                  <div class="col-12">
+            <form class="px-4" id="productform">
+               <fieldset>
+                  <legend>Enter Product Information</legend>
+               <div class="row g-3">
+                  <div class="form-group col-md-4">
                      <select id="SupplierID" name="SupplierID">
                         <option value="" disabled selected>Select a supplier</option>
                      </select>
                   </div>
-                  <div class="col-6">
+                  <div class="form-group col-md-4">
                      <input type="text" id="ProductName" name="ProductName" placeholder="Name" aria-label="Product Name">
                   </div>
-                  <div class="col-6">
+                  <div class="form-group col-md-4">
                      <input type="number" id="ProductNumber" name="Number" placeholder="Number" min="0" aria-label="Product Number">
                   </div>
-                  <div class="col-12">
-                     <button type="submit" class="submit">Add New Product</button>
+                  <div class="form-group col-md-12">
+                     <button type="submit" class="yes">Add New Product</button>
                   </div>
                </div>
+               </fieldset>
             </form>
          </div>
       </section>
       <!-- Supplier Section -->
       <section class="content-section tools" id="suppliers">
          <div class="container tools">
-            <header>
-               <h2>Supplier Overview</h2>
-            </header>
-            <form id="supplierform">
-               <div class="row">
-                  <div class="col-12">
+            <form class="px-4" id="supplierform">
+               <fieldset>
+                  <legend>Enter Supplier Information</legend>
+               <div class="row g-3">
+                  <div class="form-group col-md-4"></div>
+                  <div class="form-group col-md-4">
                      <input type="text" id="SupplierName" name="SupplierName" placeholder="Name" aria-label="Supplier Name">
                   </div>
-                  <div class="col-12">
-                     <button type="submit" class="submit">Add New Supplier</button>
+                  <div class="form-group col-md-4"></div>
+                  <div class="form-group col-md-12">
+                     <button type="submit" class="yes">Add New Supplier</button>
                   </div>
                </div>
+               </fieldset>
             </form>
          </div>
       </section>
