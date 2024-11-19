@@ -1,56 +1,99 @@
-/// Field Validations
+//function SubmitValidation() {
+  //  QuantityRecValidation();
+    //QuantityDefValidation();
+    //SupplierValidation();
+    //ProductValidation();
 
-//Random Number Generator
-//function getRandomInt(max) {
-//    return Math.floor(Math.random() * max);
-//}
+    //const quantityRec = document.getElementById("QuantityReceived");
+    //const quantityDef = document.getElementById("QuantityDefective");
+    //const supplierInput = document.getElementById("SupplierID");
 
-//Required variables
-const currentDate = new Date();
-//var randomNumber = getRandomInt(999999999)
+    //if (!quantityRec.checkValidity() || !quantityDef.checkValidity() || !supplierInput.checkValidity() || !productInput.checkValidity()) {
+    //    return false; 
+    //}
+    //return true; 
+//};
 
-//On page load events
-//document.getElementById("QADate").value = currentDate
-//document.getElementById("SalesNumber").text.value = randomNumber
+   //Quantity Received Create/Edit
+function QuantityRecValidation() {
+        const quantityRec = document.getElementById("QuantityReceived");
+        const invalidMessage = document.getElementById("received-invalid");
+    if (quantityRec.value < 1) {
+        quantityRec.setCustomValidity("Quantity Received cannot be less than 1");
+        invalidMessage.innerHTML = quantityRec.validationMessage;
+        invalidMessage.style.display = 'block';
+    } 
+    else {
+        quantityRec.setCustomValidity(""); 
+        invalidMessage.innerHTML = ""; 
+    }
+};     
 
-//Submit button event handler
-addEventListener("submit", (e) =>{
-
-    //GetElements
-    const quantityRec = parseInt(document.getElementById("QuantityReceived").value);
-    const quantityDef = parseInt(document.getElementById("QuantityDefective").value);
-    const qaDate = document.getElementById("QADate").value;
-
-     //Call Functions
-     QuantityRecValidation(quantityRec);
-     QuantityDefValidation(quantityDef, quantityRec);
-     QADateValidation(qaDate, currentDate);
-
-    //Functions
-
-    //Quantity Received
-    function QuantityRecValidation(quantityRec){
-        if (quantityRec < 0) {
-            alert("Quantity Received has to be greater than 0");
+    //Quantity Defective Create/Edit
+function QuantityDefValidation(){
+            const quantityDefNumber = document.getElementById("QuantityDefective").value;
+            const quantityRec = document.getElementById("QuantityReceived").value;
+            const quantityDef = document.getElementById("QuantityDefective")
+            const invalidMessage = document.getElementById("defective-invalid")
+        if (quantityDefNumber > quantityRec) {     
+            quantityDef.setCustomValidity("Quantity Defective cannot be greater then Quantity Recieved")
+            invalidMessage.innerHTML = quantityDef.validationMessage
+            invalidMessage.style.display = 'block';
         }
-    };
-
-        //Quantity Defective
-    function QuantityDefValidation(quantityDef, quantityRec){
-        if (quantityDef < quantityRec) {
-            alert("Quantity Defective cannot be greater than Quantity Recieved");
+        else 
+        {
+            quantityDef.setCustomValidity("");
+            invalidMessage.innerHTML = "";
         }
-    };
+   };
 
-        //Quality Date
-    function QADateValidation(qaDate, currentDate){
-        if (qaDate < currentDate) {
-            alert("Date cannot be in the past");
-        }
-    };
+   //Supplier Create/Edit
+function SupplierValidation() {
+    const supplierInput = document.getElementById("SupplierID")
+    const invalidMessage = document.getElementById("supplier-feedback")
 
+    if (supplierInput.selectedIndex === 0){
+        supplierInput.setCustomValidity("Please select a Supplier")
+        invalidMessage.innerHTML = supplierInput.validationMessage
+        invalidMessage.style.display = 'block';
+    }
+    else
+    {
+        supplierInput.setCustomValidity("")
+        invalidMessage.innerHTML = ""
+    }
+};
 
-   
-});
+    //Product Create/Edit
+function ProductValidation() {
+    const productInput = document.getElementById("ProductID")
+    const invalidMessage = document.getElementById("product-feedback")
 
+    if (productInput.selectedIndex === 0 || productInput.selectedIndex === productInput.options.length - 1){
+        productInput.setCustomValidity("Please select a Product")
+        invalidMessage.innerHTML = productInput.validationMessage
+        invalidMessage.style.display = 'block';
+    }
+    else
+    {
+        productInput.setCustomValidity("")
+        invalidMessage.innerHTML = ""
+    }
+};
 
+    //Date Filter 
+function DateFilterValidation() {
+    const minDate = document.getElementById("dateBox1").value;
+    const maxDate = document.getElementById("dateBox2").value;
+
+    let [year, month, day] = minDate.split('-')
+    
+    if(year == null || month == null || day == null) {
+        alert("Invalid Date")
+    }
+
+    if (new Date(minDate) > new Date(maxDate)) {
+        console.log("Test")
+        alert("Minimum date cannot be in the future of Maximum Date")
+    } 
+}
