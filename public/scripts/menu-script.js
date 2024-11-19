@@ -7,7 +7,7 @@ document.getElementById("menu-icon").onclick = function() {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == notificationModal) {
+  if (event.target == menuModal) {
     menuModal.style.display = "none";
   }
 }

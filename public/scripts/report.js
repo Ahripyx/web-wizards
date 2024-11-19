@@ -2,18 +2,17 @@
 //Purpose: Generate a PDF report of an NCR Form using an external source called jsPDF
 
 document.getElementById('btnGenPDF').addEventListener('click', function() {
-    console.log('Button clicked!');  // This confirms the button click is detected
+    const pdf = new jsPDF(); 
 
-    // Create a new jsPDF instance
-    const doc = new jsPDF();  // Use jsPDF directly in version 1.x
+    //Title
+    pdf.text(20, 30, "NCR Report: XXXXXX");
 
-    // Add example text to the PDF
-    doc.text(20, 30, 'Hello, this is a PDF generated with jsPDF!');
-    doc.text(20, 40, 'This is an example of how you can add text to your PDF.');
-    doc.text(20, 50, 'You can add more content here such as tables, images, etc.');
+    //Quality Assurance Data
+    pdf.text(20, 40, 'Quality Assurance');
 
-    // Save the generated PDF file with a name
-    doc.save('blank.pdf'); // This triggers the download
+    //Engineering Data
+    pdf.text(20, 50, 'Engineering Data');
 
-    console.log('PDF should be downloaded now.');
+    //Pdf Name
+    doc.save('Report-XXXXXX');
 });
