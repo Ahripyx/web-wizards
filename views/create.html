@@ -105,20 +105,20 @@
                <!-- Supplier -->
                <div class="form-group col-md-6">
                   <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
-                  <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" required>
+                  <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" onblur="SupplierValidation()" required>
                      <option selected value=null disabled>Select a Supplier</option>
                   </select>
-                  <div class="invalid-feedback">
+                  <div class="invalid-feedback" id="supplier-feedback">
                      Please select a Supplier
                    </div>
                </div>
                <!-- Product Info -->
                <div class="form-group col-md-6">
                   <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
-                  <select class="form-select" id="ProductID" name="ProductID" disabled aria-required="true" required>
+                  <select class="form-select" id="ProductID" name="ProductID" disabled aria-required="true" onblur="ProductValidation()" required>
                      <option selected value="">No products available</option>
                   </select>
-                  <div class="invalid-feedback">
+                  <div class="invalid-feedback" id="product-feedback">
                      Please select a Product
                    </div>
                   <!-- Product Number -->
@@ -139,16 +139,16 @@
                <!-- Quantity Received -->
                <div class="form-group col-md-6">
                   <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span> </label>
-                  <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true" required>
-                  <div class="invalid-feedback">
+                  <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true" onblur="QuantityRecValidation()" required>
+                  <div class="invalid-feedback" id="received-invalid">
                      Please enter a valid quantity
                    </div>
                </div>
                <!-- Quantity Defective -->
                <div class="form-group col-md-6">
                   <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span> </label>
-                  <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true" required>
-                  <div class="invalid-feedback">
+                  <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true" onblur="QuantityDefValidation()" required>
+                  <div class="invalid-feedback" id="defective-invalid">
                      Please enter a valid quantity
                    </div>
                </div>
