@@ -106,7 +106,7 @@
                <div class="form-group col-md-6">
                   <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
                   <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" onblur="SupplierValidation()" required>
-                     <option selected value=null disabled>Select a Supplier</option>
+                     <option selected value='' disabled>Select a Supplier</option>
                   </select>
                   <div class="invalid-feedback" id="supplier-feedback">
                      Please select a Supplier
@@ -116,7 +116,7 @@
                <div class="form-group col-md-6">
                   <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
                   <select class="form-select" id="ProductID" name="ProductID" disabled aria-required="true" onblur="ProductValidation()" required>
-                     <option selected value="">No products available</option>
+                     <option selected value='' disabled>No products available</option>
                   </select>
                   <div class="invalid-feedback" id="product-feedback">
                      Please select a Product
@@ -190,7 +190,7 @@
                </div>
                <div class="form-group col-md-6">
                   <label for="QADate">Date </label>
-                  <input type="date" class="form-control" id="QADate" aria-required="true" required readonly>
+                  <input type="date" class="form-control" id="QADate" readonly>
                </div>
             </div>
             <!-- Submit Button -->
@@ -278,10 +278,7 @@
       const qaform = qualityData.form;
       qaform.NCRNumber = qualityData.NCRNumber;
       qaform.type = 'Quality';
-
-      alert(qaform);
-      alert(JSON.stringify(qaform));
-            newNotification(JSON.stringify(qaform));
+      window.location.href = `details.html?id=${qaform.lastInsertRowid}`;
          });
          });
       </script>

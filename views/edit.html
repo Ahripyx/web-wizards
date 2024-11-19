@@ -44,6 +44,7 @@
             return; // Exit if  form invalid
         }
                 await lookup.updateForm(id, 'quality');
+                window.location.href = `details.html?id=${id}`;
             });
 
             form_engineer.addEventListener('submit', async (event) => {
@@ -164,16 +165,16 @@
                </div>
                 <!-- Sales Order Number -->
                 <div class="form-group col-md-6">
-                  <label for="SaleNumber" class="form-label">Sales Order Number <span class="no">*</span> </label>
+                  <label for="SalesOrder" class="form-label">Sales Order Number <span class="no">*</span> </label>
                   <input type="number" class="form-control" id="SalesOrder" min="100" max="999" aria-required="true" required>
                 </div>
             </div>
             <div class="row g-3">
                <!-- Supplier -->
                <div class="form-group col-md-6">
-                  <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label> <br/>
+                  <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
                   <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" onblur="SupplierValidation()" required>
-                     <option selected>Select a supplier</option>
+                     <option selected value='' disabled>Select a supplier</option>
                   </select>
                   <div class="invalid-feedback" id="supplier-feedback">
                      Please select a Supplier
@@ -181,9 +182,9 @@
                </div>
                <!-- Product Info -->
                <div class="form-group col-md-6">
-                  <label for="ProductID" class="form-label">Product <span class="no">*</span> </label> <br/>
+                  <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
                   <select class="form-select" id="ProductID" name="ProductID" aria-required="true" onblur="ProductValidation()" disabled required>
-                     <option selected>No products available</option>
+                     <option selected value='' disabled>No products available</option>
                   </select>
                   <div class="invalid-feedback" id="product-feedback">
                      Please select a Product
@@ -256,7 +257,7 @@
                </div>
                <div class="form-group col-md-6">
                   <label for="QADate">Date </label>
-                  <input type="date" class="form-control" id="QADate" aria-required="true" required readonly>
+                  <input type="date" class="form-control" id="QADate" readonly>
                </div>
             </div>
             <!-- Submit Button -->
@@ -299,7 +300,7 @@
                   <label>Notify customer of NCR <span class="no">*</span> </label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required" aria-required="true" req class="form-check-input" value="Yes">
+                        <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required" aria-required="true" class="form-check-input" value="Yes">
                         <label for="NotifyCustomer_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
@@ -326,7 +327,7 @@
                         <label for="DrawingUpdateRequired_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_1" type="radio" class="form-check-input" value="0">
+                        <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_1" type="radio" class="form-check-input" value="0" checked="true">
                         <label for="DrawingUpdateRequired_1" class="form-check-label">No</label>
                      </div>
                   </div>
@@ -352,7 +353,10 @@
                   <label for="ENGName" class="form-group col-md-4" >Engineer</label>
                   <input type="text" class="form-control-plaintext" id="ENGName" readonly>
                </div>
-               
+               <div class="form-group col-md-6">
+                  <label for="ENGDate">Date</label>
+                  <input type="date" class="form-control" id="ENGDate" readonly>
+               </div>
             </div>
               <!-- Submit Button -->
               <div class="row g-3">
@@ -362,6 +366,7 @@
             </div>
          </fieldset>
       </form>
+      </div>
       <footer>
          <p><small>CROSSFIRE NCR</small></p>
       </footer>
