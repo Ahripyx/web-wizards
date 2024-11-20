@@ -18,7 +18,8 @@ async function getData() {
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${new Date(element.LastModified).toLocaleDateString()}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}">View</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}">Details</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}">Edit</a></td>
         `;
     });
 }
