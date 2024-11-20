@@ -9,6 +9,7 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
+      <script src="../public/scripts/lookup.js" type="module" defer></script>
       <script src="../public/scripts/notification.js" defer></script>
       <script src="../public/scripts/validation.js"></script>
       <script src="../public/scripts/menu-script.js" defer></script>
@@ -48,41 +49,42 @@
                <div class="modal-content">
                </div>
             </div>
-            <div id="product-modal" class="modal" style="z-index: 2;">
-               <div class="modal-content">
-                  <span class="close" id="close">&times;</span>
-                  
-                  <form onsubmit="event.preventDefault();" id="newProductForm" class="px-4">
-                     <div class="row g-3">
-                        <h2>New Product</h2>
-                     </div>
-                     <div class="row g-3">
-                        <div class="form-group col-md-6">
-                           <label for="newProductName">Product Name:</label>
-                           <input type="text" id="newProductName" name="newProductName" placeholder="Product Name" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                           <label for="newProductNumber">Product Number:</label>
-                           <input type="number" id="newProductNumber" name="newProductNumber" placeholder="---" min="100" max="999" required>
-                        </div>
-                        <div class="form-group col-md-12">
-                           <button type="submit" class="yes" id="btnNewProduct">Add Product</button>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-            </div>
          </div>
       </header>
+      <!-- New Product Form -->
+      <div id="product-modal" class="modal" style="z-index: 2;">
+         <div class="modal-content">
+            <span class="close" id="close">&times;</span>
+            
+            <form onsubmit="event.preventDefault();" class="px-4">
+               <fieldset id="fs_product">
+                  <legend>New Product</legend>
+               <div class="row g-3">
+                  <div class="form-group col-md-6">
+                     <label for="NEWName">Product Name:</label>
+                     <input type="text" id="NEWName" name="newProductName" placeholder="Product Name" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label for="NEWNumber">Product Number:</label>
+                     <input type="number" id="NEWNumber" name="newProductNumber" placeholder="---" min="100" max="999" required>
+                  </div>
+                  <div class="form-group col-md-12">
+                     <button class="yes" id="NEWProduct">Add Product</button>
+                  </div>
+               </div>
+            </fieldset>
+            </form>
+         </div>
+      </div>
       <!-- Create Form -->
       <div class="container">
          <header>
             <h2>Non-Conformance Report - ISO: XXXXX</h2>
          </header>
          <form class="px-4 needs-validation" id="ncrform" onsubmit="event.preventDefault();" novalidate>
-            <fieldset>
+            <fieldset id="fs_quality">
                <legend>Quality Assurance Form</legend>
-            
+
             <!-- Fields for Quality Assurance Form -->
             <div class="row g-3">
                <!-- NCR Number -->
@@ -115,7 +117,7 @@
                <!-- Product Info -->
                <div class="form-group col-md-6">
                   <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
-                  <select class="form-select" id="ProductID" name="ProductID" disabled aria-required="true" onblur="ProductValidation()" required>
+                  <select class="form-select" id="ProductID" name="ProductID" aria-required="true" onblur="ProductValidation()" required>
                      <option selected value='' disabled>No products available</option>
                   </select>
                   <div class="invalid-feedback" id="product-feedback">
@@ -185,18 +187,18 @@
             </div>
             <div class="row g-3">
                <div class="form-group col-md-6">
-                  <label for="QAName">Quality Representative </label>
-                  <input type="text" class="form-control-plaintext" id="QAName" aria-required="true" readonly>
+                  <label for="QLTName">Quality Representative </label>
+                  <input type="text" class="form-control-plaintext" id="QLTName" aria-required="true" readonly>
                </div>
                <div class="form-group col-md-6">
-                  <label for="QADate">Date </label>
-                  <input type="date" class="form-control" id="QADate" readonly>
+                  <label for="QLTDate">Date </label>
+                  <input type="date" class="form-control" id="QLTDate" readonly>
                </div>
             </div>
             <!-- Submit Button -->
             <div class="row g-3">
                <div class="form group col-md-6">
-                  <button type="submit" class="yes">Create NCR</button>
+                  <button type="submit" id="QLTSubmit" class="yes">Create NCR</button>
                   <button type="reset" class="no">Reset NCR</button>
                </div>
             </div>
@@ -229,10 +231,9 @@
          })();
          </script>
       <script type="module">
-         import * as lookup from '../public/scripts/lookup.js';
          import { crudQuality, newFormUser, fetchData } from '../public/scripts/crud.js';
          document.addEventListener('DOMContentLoaded', () => {
-            lookup.fillForm();
+            //lookup.fillForm();
 
             const formControls = document.querySelectorAll('.form-control, .form-select');
             formControls.forEach(control => {
@@ -263,22 +264,22 @@
             form.classList.add('was-validated'); // add validation class?
             return; // Exit if  form invalid
         }
-        const qualityData = await crudQuality(
-         "POST",
-         document.getElementById("SalesOrder"),
-         document.getElementById("ProcessApplicable_1"), 
-         document.getElementById("ProcessApplicable_0"),
-         document.getElementById("ProductID"),
-         document.getElementById("QuantityReceived"),
-         document.getElementById("QuantityDefective"),
-         document.getElementById("IsNonConforming_0"),
-         document.getElementById("Details"),
-         document.getElementById("ProductID")
-      );
-      const qaform = qualityData.form;
-      qaform.NCRNumber = qualityData.NCRNumber;
-      qaform.type = 'Quality';
-      window.location.href = `details.html?id=${qaform.lastInsertRowid}`;
+      //   const qualityData = await crudQuality(
+      //    "POST",
+      //    document.getElementById("SalesOrder"),
+      //    document.getElementById("ProcessApplicable_1"), 
+      //    document.getElementById("ProcessApplicable_0"),
+      //    document.getElementById("ProductID"),
+      //    document.getElementById("QuantityReceived"),
+      //    document.getElementById("QuantityDefective"),
+      //    document.getElementById("IsNonConforming_0"),
+      //    document.getElementById("Details"),
+      //    document.getElementById("ProductID")
+      // );
+      // const qltform = qualityData.form;
+      // qltform.NCRNumber = qualityData.NCRNumber;
+      // qltform.type = 'Quality';
+      // window.location.href = `details.html?id=${qltform.lastInsertRowid}`;
          });
          });
       </script>

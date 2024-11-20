@@ -1,12 +1,12 @@
 import * as notif from './notification.js';
 
 // CREATE NEW PRODUCT
-export async function newProduct(supplier, productName, productNumber) {
+export async function newProduct(SupplierID, ProductName, Number) {
     try {
-        const dataToInsert = {
-            ProductName: productName.value,
-            Number: parseInt(productNumber.value, 10),
-            SupplierID: parseInt(supplier.value, 10)
+        const productToInsert = {
+            ProductName: ProductName.value,
+            Number: parseInt(Number.value, 10),
+            SupplierID: parseInt(SupplierID.value, 10)
         };
 
         const response = await fetch('http://localhost:5500/products/', {
@@ -14,7 +14,7 @@ export async function newProduct(supplier, productName, productNumber) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(dataToInsert)
+            body: JSON.stringify(productToInsert)
         });
 
         if (response.ok) {
@@ -118,20 +118,18 @@ export async function newFormUser(NCRForm_id, User_id) {
 }
 
 // UPDATE / INSERT QUALITY
-export async function crudQuality(method, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, id = '') {
+export async function crudQuality(method, form, id) {
     try {
-
         const quality = {
-            SalesOrder: parseInt(SalesOrder.value, 10),
-            SRInspection: SRInspection.checked ? 1 : 0,
-            WorkInProgress: WorkInProgress.checked ? 1 : 0,
-            ItemDescription: ItemDescription.options[ItemDescription.selectedIndex].text,
-            QuantityReceived: parseInt(QuantityReceived.value, 10),
-            QuantityDefective: parseInt(QuantityDefective.value, 10),
-            IsNonConforming: IsNonConforming.checked ? 1 : 0,
-            Details: Details.value,
-            ProductID: parseInt(ProductID.value, 10),
-
+            SalesOrder: parseInt(form.SalesOrder.value, 10),
+            SRInspection: form.ProcessApplicable_1.checked ? 1 : 0,
+            WorkInProgress: form.ProcessApplicable_0.checked ? 1 : 0,
+            ItemDescription: form.ProductID.options[form.ProductID.selectedIndex].text,
+            QuantityReceived: parseInt(form.QuantityReceived.value, 10),
+            QuantityDefective: parseInt(form.QuantityDefective.value, 10),
+            IsNonConforming: form.IsNonConforming_0.checked ? 1 : 0,
+            Details: form.Details.value,
+            ProductID: parseInt(form.ProductID.value, 10),
         };
 
         if (method === 'POST') {
@@ -139,29 +137,43 @@ export async function crudQuality(method, SalesOrder, SRInspection, WorkInProgre
             quality.User_id = user.id;
         }
 
-        return await throwData(`http://localhost:5500/quality/${id}`, quality, method);
+        if (!id) id = '';
+
+        let result = await throwData(`http://localhost:5500/quality/${id}`, quality, method);
+        window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
     } catch (error) {
-        console.error('Failed to add quality:', error.message);
+        console.error(`Failed to ${method} quality:`, error);
         alert("Failed to add quality.");
     }
 
 }
 
 // UPDATE / INSERT ENGINEER
-export async function crudEngineer(method, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, id) {
+export async function crudEngineer(method, form, id = '') {
     try {
+        let review =
+            form.Review_0.checked ? "Use As Is" :
+            form.Review_1.checked ? "Repair" :
+            form.Review_2.checked ? "Rework" :
+            form.Review_3.checked ? "Scrap" : undefined;
+
         const engineer = {
-            Review: Review.value,
-            NotifyCustomer: NotifyCustomer.checked ? 1 : 0,
-            Disposition: Disposition.value,
-            RevisionNumber: RevisionNumber.textContent,
-            RevisionDate: RevisionDate.value
+            Review: review,
+            NotifyCustomer: form.NotifyCustomer_0.checked ? 1 : 0,
+            Disposition: form.Disposition.value,
+            RevisionNumber: form.RevisionNumber.textContent,
+            RevisionDate: form.RevisionDate.value
         };
-        console.log(engineer);
-        await throwData(`http://localhost:5500/engineer/${id}`, engineer, method);
+
+        if (!id) id = '';
+        
+        let result = await throwData(`http://localhost:5500/engineer/${id}`, engineer, method);
+        console.log(`result: `+result);
+        if (result) {
+            window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
+        }
     } catch (error) {
-        console.error('Failed to add engineer:', error.message);
-        alert("Failed to add engineer.");
+        console.error(`Failed to ${method} engineer:`, error.message);
     }
 
 }
@@ -174,14 +186,12 @@ export async function fetchData(url) {
         }
         return await response.json();
     } catch (error) {
-        console.error(error.message);
         return null;
     }
 }
 
 export async function throwData(url, data, method) {
     try {
-        console.log(data);
         const response = await fetch(url, {
             method: method,
             headers: {
@@ -189,15 +199,17 @@ export async function throwData(url, data, method) {
             },
             body: JSON.stringify(data)
         });
-        const responseText = await response.text();
-        console.log(responseText);
         if (!response.ok) {
-            throw new Error(`Failed to ${method} data into ${url}`);
+            const errorText = await response.text();
+            throw new Error(`Failed to ${method} data into ${url}: ${errorText}`);
         }
-        return JSON.parse(responseText);
+        else {
+            return await response.json();
+        }
+        return await response.json();
     } catch (error) {
-        console.error(error.message);
-        //alert(`Encountered an unexpected error.` + error);
+        console.error(error);
+        alert(`Encountered an unexpected error.` + error.message);
         return null;
     }
 }

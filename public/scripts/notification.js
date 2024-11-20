@@ -1,3 +1,4 @@
+let notificationModal = document.getElementById('notification-modal');
 
 // Function to increment the notification count
 function newNotification(form) {
@@ -122,8 +123,6 @@ function decrement(type, adminType) {
 document.addEventListener('DOMContentLoaded', () => {
     updateNotification();
 });
-
-notificationModal = document.getElementById('notification-modal');
 
 // When the user clicks on the button, open the modal
 document.getElementById("btnNotification").onclick = function() {
