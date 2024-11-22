@@ -1,9 +1,33 @@
-let notificationModal = document.getElementById('notification-modal');
+let notificationModal;
+document.addEventListener("DOMContentLoaded", function() {
+    notificationModal = document.getElementById('notification-modal');
+
+    // When the user clicks on the button, open the modal
+document.getElementById("btnNotification").onclick = function() {
+    notificationModal.style.display = "block";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == notificationModal) {
+    notificationModal.style.display = "none";
+  }
+}
+
+notificationModal.addEventListener("click", function (event) {
+    if (event.target.matches("#close-modal")) {
+        notificationModal.style.display = "none";
+    }
+});
+
+updateNotification();
+});
 
 // Function to increment the notification count
-function newNotification(form) {
+export function newNotification(form) {
     try
     {
+        console.log(form);
         let admin_count = parseInt(localStorage.getItem('admin_count') || '0', 10);
         let quality_count = parseInt(localStorage.getItem('quality_count') || '0', 10);
         let engineer_count = parseInt(localStorage.getItem('engineer_count') || '0', 10);
@@ -12,7 +36,7 @@ function newNotification(form) {
         const parsedForm = JSON.parse(form);
         
     if (parsedForm.type == "Quality") increment('quality_count', quality_count, admin_count);
-    else if (parsedForm.type == "Engineering") increment('engineer_count', engineer_count, admin_count);
+    else if (parsedForm.type == "Engineer") increment('engineer_count', engineer_count, admin_count);
     else if (parsedForm.type == "Purchasing") increment('purchasing_count', purchasing_count, admin_count);
 
         localStorage.setItem(`form-${parsedForm.lastInsertRowid}-${parsedForm.type}`, form);
@@ -36,12 +60,11 @@ function increment(type, count, admin) {
 // Function to update the notification modal
 function updateNotification() {
     const notificationCount = document.getElementById('notification-count');
-
     const notificationModal = document.getElementById('notification-modal');
 
     notificationModal.innerHTML =`
     <div class="modal-content" id="notification-content">
-                  <span class="close" onclick="notificationModal.style.display = 'none';">&times;</span>
+                  <span class="close" id="close-modal">&times;</span>
                   <div class="notification-container">
                      <h3>New Quality Forms</h3>
                      <ul id="quality-list">
@@ -78,20 +101,20 @@ function updateNotification() {
                 {
                     // IT WORKS!!! IOT WORKS!!!!!!!!
                     const value = localStorage.getItem(localStorage.key(i));
-                    const parsedForm = JSON.parse(value);
-                    const notifText = `<li><a href="details.html?id=${parsedForm.lastInsertRowid}" onclick="deleteNotification(${parsedForm.lastInsertRowid}, '${parsedForm.type}')"> ${parsedForm.NCRNumber} </a></li>`;
-                    if (parsedForm.type == "Quality" && qualitylist)
+                    const pf = JSON.parse(value);
+                    
+                    if (pf.type == "Quality" && qualitylist)
                     {
+                        const notifText = `<li><a href="details.html?id=${pf.lastInsertRowid}" onclick="deleteNotification(${pf.lastInsertRowid}, '${pf.type}')"> ${pf.SalesOrder} ${pf.ItemDescription} - ${pf.QuantityReceived} / ${pf.QuantityDefective} </a></li>`;
                         qualitylist.innerHTML += notifText;
                     }
-                    else if (parsedForm.type == "Engineering")
+                    else if (pf.type == "Engineer" && engineerlist)
                     {
+                        const notifText = `<li><a href="details.html?id=${pf.lastInsertRowid}" onclick="deleteNotification(${pf.lastInsertRowid}, '${pf.type}')"> ${pf.type} </a></li>`;
                         engineerlist.innerHTML += notifText;
                     }
                 }
             };
-
-       
     }
 }
 
@@ -101,7 +124,7 @@ function deleteNotification(id, type) {
         localStorage.removeItem(`form-${id}-${type}`);
 
         if (type == "Quality") decrement('quality_count', 'admin_count');
-        else if (type == "Engineering") decrement('engineer_count', 'admin_count');
+        else if (type == "Engineer") decrement('engineer_count', 'admin_count');
         else if (type == "Purchasing") decrement('purchasing_count', 'admin_count');
     } catch (error)
     {
@@ -109,6 +132,7 @@ function deleteNotification(id, type) {
         alert("Failed to delete notification.");
     }
 }
+window.deleteNotification = deleteNotification;
 
 function decrement(type, adminType) {
     let count = parseInt(localStorage.getItem(type) || '0', 10);
@@ -120,18 +144,3 @@ function decrement(type, adminType) {
         localStorage.setItem(adminType, adminCount);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    updateNotification();
-});
-
-// When the user clicks on the button, open the modal
-document.getElementById("btnNotification").onclick = function() {
-    notificationModal.style.display = "block";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == notificationModal) {
-    notificationModal.style.display = "none";
-  }
-}

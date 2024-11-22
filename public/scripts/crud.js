@@ -136,14 +136,28 @@ export async function crudQuality(method, form, id) {
             const user = JSON.parse(localStorage.getItem('user'));
             quality.User_id = user.id;
         }
+        else if (method === 'PUT') {
+            quality.QualityStatus = form.QLTStatus.value;
+        }
 
         if (!id) id = '';
 
         let result = await throwData(`http://localhost:5500/quality/${id}`, quality, method);
-        window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
+        
+        if (method === 'POST')
+        {
+            result.form.type = "Quality";
+            result.form.SalesOrder = quality.SalesOrder;
+            result.form.ItemDescription = quality.ItemDescription;
+            result.form.QuantityReceived = quality.QuantityReceived;
+            result.form.QuantityDefective = quality.QuantityDefective;
+            notif.newNotification(JSON.stringify(result.form));
+        }
+
+        if (id) window.location.href = `details.html?id=${id}`;
+        else window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
     } catch (error) {
         console.error(`Failed to ${method} quality:`, error);
-        alert("Failed to add quality.");
     }
 
 }
@@ -157,21 +171,29 @@ export async function crudEngineer(method, form, id = '') {
             form.Review_2.checked ? "Rework" :
             form.Review_3.checked ? "Scrap" : undefined;
 
+            let revisionNumber = form.NewRevisionNumber.value ? form.NewRevisionNumber.value : form.RevisionNumber.value;
+
         const engineer = {
             Review: review,
             NotifyCustomer: form.NotifyCustomer_0.checked ? 1 : 0,
             Disposition: form.Disposition.value,
-            RevisionNumber: form.RevisionNumber.textContent,
-            RevisionDate: form.RevisionDate.value
+            RevisionNumber: revisionNumber,
+            RevisionDate: form.RevisionDate.value,
+            EngineerStatus: form.ENGStatus.value
         };
 
         if (!id) id = '';
         
         let result = await throwData(`http://localhost:5500/engineer/${id}`, engineer, method);
-        console.log(`result: `+result);
-        if (result) {
-            window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
-        }
+        
+        if (method === 'POST')
+            {
+                result.form.type = "Engineer";
+                notif.newNotification(JSON.stringify(result.form));
+            }
+
+        if (id) window.location.href = `details.html?id=${id}`;
+        else window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
     } catch (error) {
         console.error(`Failed to ${method} engineer:`, error.message);
     }
@@ -204,12 +226,21 @@ export async function throwData(url, data, method) {
             throw new Error(`Failed to ${method} data into ${url}: ${errorText}`);
         }
         else {
-            return await response.json();
+            const responseText = await response.text();
+            let result;
+            try {
+                result = JSON.parse(responseText);
+            } catch (error) {
+                result = responseText;
+            }
+            return await result;
         }
         return await response.json();
     } catch (error) {
-        console.error(error);
-        alert(`Encountered an unexpected error.` + error.message);
-        return null;
+       // if (error instanceof SyntaxError) return null;
+        //console.error(error);
+        //alert(`Encountered an unexpected error.` + error.message);
+        //return null;
+        throw error;
     }
 }

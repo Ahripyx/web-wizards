@@ -92,20 +92,13 @@ async function initForm()
         });
     }
 
-    console.log(QUALITY_CONTROLS);
-
     if (data.id) await loadFormData(data.id);
     else resetForm();
 }
 
 // Populate the form with data
 async function loadFormData(id) {
-
-        let engResponse = await fetch(ENDPOINTS.engineer(id));
-        if (!engResponse.ok)
-             console.log('Engineer form not found, making a new one.');
-            else
-                data.engineer = await engResponse.json();
+        
 
     try {
         const formUsers = await fetchData(ENDPOINTS.formUsers(id));
@@ -114,6 +107,17 @@ async function loadFormData(id) {
 
         populateFormUsers(formUsers);
         populateQuality();
+
+        if (data.quality.QualityStatus === 'Closed') {
+            let engResponse = await fetch(ENDPOINTS.engineer(id));
+            if (!engResponse.ok)
+                 console.log('Engineer form not found, making a new one.');
+                else
+                    data.engineer = await engResponse.json();
+        }
+        if (Object.keys(data.engineer).length === 0) // thank you mikemaccana on StackOverflow for this one
+            data.engineer = null;
+
         if (data.engineer)
             populateEngineer();
 
@@ -141,6 +145,7 @@ function populateQuality() {
     QUALITY_CONTROLS.IsNonConforming_1.checked = q.IsNonConforming === 0;
     QUALITY_CONTROLS.Details.value = q.Details;
     QUALITY_CONTROLS.QLTDate.value = q.LastModified;
+    QUALITY_CONTROLS.QLTStatus.value = q.QualityStatus === 'Open' ? 'Open' : 'Closed';
     populateSelect('SupplierID', data.supplier, 'SupplierName', 'id', q.SupplierID);
     populateSelect('ProductID', data.product.filter(p => p.SupplierID === q.SupplierID), 'ProductName', 'id', q.ProductID);
     const selectedProduct = data.product.find(p => p.id === parseInt(q.ProductID));
@@ -156,9 +161,12 @@ function populateEngineer() {
     ENGINEER_CONTROLS.NotifyCustomer_0.checked = e.NotifyCustomer === 1;
     ENGINEER_CONTROLS.NotifyCustomer_1.checked = e.NotifyCustomer === 0;
     ENGINEER_CONTROLS.Disposition.value = e.Disposition;
-    ENGINEER_CONTROLS.RevisionNumber.value = e.RevisionNumber;
-    ENGINEER_CONTROLS.RevisionDate.value = e.RevisionDate;
+    if (e.RevisionNumber)
+        ENGINEER_CONTROLS.RevisionNumber.value = e.RevisionNumber;
+    if (e.RevisionDate)
+        ENGINEER_CONTROLS.RevisionDate.value = e.RevisionDate;
     ENGINEER_CONTROLS.ENGDate.value = e.LastModified;
+    ENGINEER_CONTROLS.ENGStatus.value = e.EngineerStatus === 'Open' ? 'Open' : 'Closed';
 }
 
 function toggleForms(){
@@ -199,6 +207,8 @@ function setupEventListeners() {
     QUALITY_CONTROLS.SupplierID.addEventListener('change', handleSupplierChange);
     QUALITY_CONTROLS.QLTSubmit.addEventListener('click', () => handleSubmit(QUALITY_CONTROLS));
     
+    if (ENGINEER_CONTROLS.RevisionNumber)
+        handleRevision();
     if (ENGINEER_CONTROLS.ENGSubmit)
         ENGINEER_CONTROLS.ENGSubmit.addEventListener('click', () => handleSubmit(ENGINEER_CONTROLS));
     if (PURCHASING_CONTROLS.PURSubmit)
@@ -228,12 +238,11 @@ function populateProductsForSupplier(supplierID) {
 
 async function handleSubmit(CONTROLS) {
     const form = CONTROLS;
-    
-    const method = data.id ? 'PUT' : 'POST';
+    const qltMethod = data.id ? 'PUT' : 'POST';
     const engMethod = data.engineer ? 'PUT' : 'POST';
 
     try {
-        if (CONTROLS === QUALITY_CONTROLS) await crudQuality(method, form, data.id);
+        if (CONTROLS === QUALITY_CONTROLS) await crudQuality(qltMethod, form, data.id);
         else if (CONTROLS === ENGINEER_CONTROLS) await crudEngineer(engMethod, form, data.id);
     } catch (error) {
         console.error('Failed to submit form:', error);
@@ -248,6 +257,40 @@ async function handleNewProduct() {
         console.error('Failed to create new product:', error);
     }
 } 
+
+async function handleRevision() {
+    document.getElementById('DrawingUpdateRequired_0').addEventListener("click", function() {
+        if (this.checked) {
+            NewRevNum.style.display = 'block';
+            NewRevDate.style.display = 'block';
+            let revisionNumber = null;
+            if (data.engineer)
+                revisionNumber = incrementRevisionNumber(data.engineer.RevisionNumber);
+            else
+                revisionNumber = incrementRevisionNumber(revisionNumber);
+            NewRevisionNumber.value = revisionNumber;
+        }
+    });
+    document.getElementById('DrawingUpdateRequired_1').addEventListener("click", function() {
+        if (this.checked) {
+            NewRevNum.style.display = 'none';
+            NewRevDate.style.display = 'none';
+            NewRevisionNumber.value = '';
+        }
+    });
+}
+
+function incrementRevisionNumber(revisionNumber) {
+
+    if (revisionNumber === null) {
+        return incrementRevisionNumber(Math.floor(Math.random() * (999 - 100 + 1) + 100).toString() + '-@');
+    }
+    const parts = revisionNumber.split('-');
+    const number = parts[0];
+    let letter = parts[1].charCodeAt(0);
+    letter = String.fromCharCode(letter + 1);
+    return `${number}-${letter}`;
+}
 
 function showNewProductModal() {
     const modal = document.getElementById('product-modal');
@@ -504,20 +547,7 @@ export async function fillEngineer(user, QualityData, selectedID = null) {
         document.getElementById('btnSubmit_Engineer').hidden = true;
         document.getElementById('fs_engineer').disabled = true;
     }
-    UpdateTrue.addEventListener("click", function() {
-        if (this.checked) {
-            NewRevNum.style.display = 'block';
-            NewRevDate.style.display = 'block';
-            NewRevisionNumber.value = incrementRevisionNumber(EngineerData.RevisionNumber);
-        }
-    });
-    UpdateFalse.addEventListener("click", function() {
-        if (this.checked) {
-            NewRevNum.style.display = 'none';
-            NewRevDate.style.display = 'none';
-            NewRevisionNumber.value = '';
-        }
-    });
+    
 
 }
 
@@ -563,20 +593,7 @@ export async function insertForm(id) {
     }
 }
 
-function incrementRevisionNumber(revisionNumber) {
-    if (revisionNumber === null) {
-        return incrementRevisionNumber(Math.floor(Math.random() * (999 - 100 + 1) + 100).toString() + '-@');
-    }
-    console.log(revisionNumber);
-    const parts = revisionNumber.split('-');
-    console.log(parts);
-    const number = parts[0];
-    let letter = parts[1].charCodeAt(0);
-    console.log(letter);
-    letter = String.fromCharCode(letter + 1);
-    console.log(letter);
-    return `${number}-${letter}`;
-}
+
 
 function toggleForms(formType) {
 

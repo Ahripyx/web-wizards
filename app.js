@@ -278,7 +278,7 @@ app.post('/quality/', (req, res) => {
         // Create the formusers relation
         const formUsersStmt = db.prepare('INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)');
         formUsersStmt.run(ncrFormID, User_id);
-        res.json({ formID: ncrFormID, NCRNumber: ncrNumber, form: newQuality });
+        res.json({form: newQuality });
         //res.status(200).send("NCRForm and Quality record inserted successfully!");
 
         
@@ -291,11 +291,11 @@ app.post('/quality/', (req, res) => {
 // Endpoint to update a specific record in the Quality table by ID
 app.put('/quality/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
-    const { SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID } = req.body;
+    const { SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, ProductID } = req.body;
     try {
         const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
-        const stmt = db.prepare('UPDATE Quality SET SalesOrder = ?, SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, ProductID = ?, LastModified = ? WHERE NCRFormID = ?');
-        const result = stmt.run(SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, LastModified, NCRFormID);
+        const stmt = db.prepare('UPDATE Quality SET SalesOrder = ?, SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, ProductID = ?, QualityStatus = ?, LastModified = ? WHERE NCRFormID = ?');
+        const result = stmt.run(SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, QualityStatus, LastModified, NCRFormID);
         if (result.changes > 0) {
             res.status(200).send("Quality record updated successfully!");
         } else {
@@ -325,12 +325,13 @@ app.get('/engineer/:id', (req, res) => {
 // Endpoint to insert data into Engineer table with NCRFormID as a parameter
 app.post('/engineer/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
-    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate } = req.body;
+    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus } = req.body;
     try {
         const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
-        const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, "Open", ?)');
-        stmt.run(NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, LastModified);
-        res.status(200).send("Engineer record inserted successfully!");
+        const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        const newEngineer = stmt.run(NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified);
+        res.json({form: newEngineer });
+        //res.status(200).send("Engineer record inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
         res.status(500).send("Failed to insert engineer record.");
