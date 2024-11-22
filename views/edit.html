@@ -26,11 +26,6 @@
                  alert('No ID provided in the URL');
                  return;
              }
-             //lookup.fillForm(id);
-         
-         
-         
-             //lookup.getForm(id);
          
             const form_quality = document.getElementById('ncrform_quality');
             const form_engineer = document.getElementById('ncrform_engineer');
@@ -43,8 +38,6 @@
             form_quality.classList.add('was-validated'); // add validation class?
             return; // Exit if  form invalid
         }
-                //await lookup.updateForm(id, 'quality');
-                //window.location.href = `details.html?id=${id}`;
             });
 
             form_engineer.addEventListener('submit', async (event) => {

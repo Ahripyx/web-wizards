@@ -132,10 +132,12 @@ export async function crudQuality(method, form, id) {
             ProductID: parseInt(form.ProductID.value, 10),
         };
 
+        // If we are creating a new form
         if (method === 'POST') {
             const user = JSON.parse(localStorage.getItem('user'));
             quality.User_id = user.id;
         }
+        // If we are updating an existing form
         else if (method === 'PUT') {
             quality.QualityStatus = form.QLTStatus.value;
         }
@@ -144,15 +146,8 @@ export async function crudQuality(method, form, id) {
 
         let result = await throwData(`http://localhost:5500/quality/${id}`, quality, method);
         
-        if (method === 'POST')
-        {
-            result.form.type = "Quality";
-            result.form.SalesOrder = quality.SalesOrder;
-            result.form.ItemDescription = quality.ItemDescription;
-            result.form.QuantityReceived = quality.QuantityReceived;
-            result.form.QuantityDefective = quality.QuantityDefective;
-            notif.newNotification(JSON.stringify(result.form));
-        }
+        // Send a notification
+        handleNewNotification(result.form);
 
         if (id) window.location.href = `details.html?id=${id}`;
         else window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
@@ -182,15 +177,18 @@ export async function crudEngineer(method, form, id = '') {
             EngineerStatus: form.ENGStatus.value
         };
 
+        // If we are creating a new form
+        if (method === 'POST') {
+            const user = JSON.parse(localStorage.getItem('user'));
+            engineer.User_id = user.id;
+        }
+
         if (!id) id = '';
         
         let result = await throwData(`http://localhost:5500/engineer/${id}`, engineer, method);
         
-        if (method === 'POST')
-            {
-                result.form.type = "Engineer";
-                notif.newNotification(JSON.stringify(result.form));
-            }
+        // Send a notification
+        handleNewNotification(result.form);
 
         if (id) window.location.href = `details.html?id=${id}`;
         else window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
@@ -235,7 +233,6 @@ export async function throwData(url, data, method) {
             }
             return await result;
         }
-        return await response.json();
     } catch (error) {
        // if (error instanceof SyntaxError) return null;
         //console.error(error);
@@ -243,4 +240,9 @@ export async function throwData(url, data, method) {
         //return null;
         throw error;
     }
+}
+
+function handleNewNotification(form)
+{
+    notif.newNotification(JSON.stringify(form));
 }

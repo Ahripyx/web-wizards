@@ -264,7 +264,7 @@ app.post('/quality/', (req, res) => {
         const ncrFormStmt = db.prepare('INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES (?, ?, ?)');
 
         const info = ncrFormStmt.run(creationDate, lastModified, formStatus);
-        const ncrFormID = info.lastInsertRowid;
+        const NCRFormID = info.lastInsertRowid;
 
         const currentYear = new Date().getFullYear();
         const row = db.prepare("SELECT COUNT(*) AS count FROM Quality WHERE NCRNumber LIKE ?").get(`${currentYear}-%`);
@@ -273,12 +273,22 @@ app.post('/quality/', (req, res) => {
 
         // Create the Quality data
         const qualityStmt = db.prepare('INSERT INTO Quality (NCRFormID, NCRNumber, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        const newQuality = qualityStmt.run(ncrFormID, ncrNumber, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
-
+        const result = qualityStmt.run(NCRFormID, ncrNumber, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, formStatus, lastModified, ProductID);
+        
         // Create the formusers relation
         const formUsersStmt = db.prepare('INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)');
-        formUsersStmt.run(ncrFormID, User_id);
-        res.json({form: newQuality });
+        formUsersStmt.run(NCRFormID, User_id);
+
+        // Set up the notification properties we'd like to display
+        result.type = "Quality";
+        result.Status = "Open";
+        result.Details = Details;
+        result.ItemDescription = ItemDescription;
+        result.LastModified = lastModified;
+        result.NewOrEdit = "New";
+        result.NCRFormID = NCRFormID;
+        
+        res.json({form: result });
         //res.status(200).send("NCRForm and Quality record inserted successfully!");
 
         
@@ -293,11 +303,20 @@ app.put('/quality/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
     const { SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, ProductID } = req.body;
     try {
-        const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
+        const LastModified = new Date().toISOString().split('T')[0];
         const stmt = db.prepare('UPDATE Quality SET SalesOrder = ?, SRInspection = ?, WorkInProgress = ?, ItemDescription = ?, QuantityReceived = ?, QuantityDefective = ?, IsNonConforming = ?, Details = ?, ProductID = ?, QualityStatus = ?, LastModified = ? WHERE NCRFormID = ?');
         const result = stmt.run(SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, ProductID, QualityStatus, LastModified, NCRFormID);
         if (result.changes > 0) {
-            res.status(200).send("Quality record updated successfully!");
+            // Set up the notification properties we'd like to display
+            result.type = "Quality";
+            result.Status = QualityStatus;
+            result.Details = Details;
+            result.ItemDescription = ItemDescription;
+            result.LastModified = LastModified;
+            result.NewOrEdit = "Edit";
+            result.NCRFormID = NCRFormID;
+
+            res.json({form: result});
         } else {
             res.status(404).send("Quality record not found.");
         }
@@ -325,12 +344,25 @@ app.get('/engineer/:id', (req, res) => {
 // Endpoint to insert data into Engineer table with NCRFormID as a parameter
 app.post('/engineer/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
-    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus } = req.body;
+    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, User_id } = req.body;
     try {
-        const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
+        const LastModified = new Date().toISOString().split('T')[0];
         const stmt = db.prepare('INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-        const newEngineer = stmt.run(NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified);
-        res.json({form: newEngineer });
+        const result = stmt.run(NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified);
+
+        // Create the formusers relation
+        const formUsersStmt = db.prepare('INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)');
+        formUsersStmt.run(NCRFormID, User_id);
+
+        // Set up the notification properties we'd like to display
+        result.type = "Engineer";
+        result.Status = EngineerStatus;
+        result.Review = Review;
+        result.LastModified = LastModified;
+        result.NewOrEdit = "New";
+        result.NCRFormID = NCRFormID;
+
+        res.json({form: result });
         //res.status(200).send("Engineer record inserted successfully!");
     } catch (error) {
         console.error("Database error:", error);
@@ -343,11 +375,19 @@ app.put('/engineer/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
     const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate } = req.body;
     try {
-        const LastModified = new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0];
+        const LastModified = new Date().toISOString().split('T')[0];
         const stmt = db.prepare('UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, RevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?');
         const result = stmt.run(Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, LastModified, NCRFormID);
         if (result.changes > 0) {
-            res.status(200).send("Engineer record updated successfully!");
+            // Set up the notification properties we'd like to display
+            result.type = "Engineer";
+            result.Status = EngineerStatus;
+            result.Review = Review;
+            result.LastModified = LastModified;
+            result.NewOrEdit = "Edit";
+            result.NCRFormID = NCRFormID;
+
+            res.json({form: result});
         } else {
             res.status(404).send("Engineer record not found.");
         }
