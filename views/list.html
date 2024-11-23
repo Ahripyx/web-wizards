@@ -44,10 +44,25 @@
               </button>
            </div>
            <!-- Notification Modal -->
+            <!-- Notification Modal -->
             <div id="notification-modal" class="modal" style="z-index: 150;">
                <!-- Modal content -->
                <div class="modal-content" id="notification-content">
-                  <span class="close">&times;</span>
+                  <span class="close" id="close-modal">&times;</span>
+                  <div class="notification-container" id="qlt-list">
+                     <h3>New NCRs</h3>
+                     <ul id="new-qlt-list"></ul>
+                     <h3>Updated NCRs</h3>
+                     <ul id="updated-qlt-list"></ul>
+                  </div>
+                  <div class="notification-container" id="eng-list">
+                     <h3>Closed Quality NCRs</h3>
+                     <ul id="closed-qlt-list"></ul>
+                     <h3>New NCRs</h3>
+                     <ul id="new-eng-list"></ul>
+                     <h3>Updated NCRs</h3>
+                     <ul id="updated-eng-list"></ul>
+                 </div>
                </div>
             </div>
         </div>

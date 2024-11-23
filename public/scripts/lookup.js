@@ -181,6 +181,14 @@ function toggleForms(){
     disableForm(Title, QUALITY_FIELDSET, [QUALITY_CONTROLS.QLTSubmit, nav.quality]);
     disableForm(Title, ENGINEER_FIELDSET, [ENGINEER_CONTROLS.ENGSubmit, nav.engineer]);
     disableForm(Title, PURCHASING_FIELDSET, [PURCHASING_CONTROLS.PURSubmit, nav.purchasing]);
+
+    if (Title === 'quality')
+        nav.purchasing.hidden = true;
+    if (Title === 'engineer') 
+    {
+        nav.quality.hidden = false;
+        nav.purchasing.hidden = true;
+    }
 }
 
 function disableForm(title, fieldset, controls) {

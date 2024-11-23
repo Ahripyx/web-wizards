@@ -64,6 +64,18 @@ export const createTables = [
         EngineerStatus STRING NOT NULL,
         LastModified DATETIME NOT NULL,
         FOREIGN KEY (NCRFormID) REFERENCES NCRForm(id)
+    )`,
+    `CREATE TABLE IF NOT EXISTS Purchasing (
+        NCRFormID INTEGER PRIMARY KEY,
+        PreliminaryDecision STRING NOT NULL,
+        CARRaised BOOLEAN NOT NULL,
+        CARNumber INTEGER NOT NULL,
+        FollowUpRequired BOOLEAN NOT NULL,
+        FollowUpType STRING NOT NULL,
+        FollowUpDate DATETIME NOT NULL,
+        PurchasingStatus STRING NOT NULL,
+        LastModified DATETIME NOT NULL,
+        FOREIGN KEY (NCRFormID) REFERENCES NCRForm(id)
     )`
 ];
 
@@ -87,7 +99,9 @@ export const seedTables = [
         ('Alan', 'W', 'Wake', 'alan.wake@crossfire.ca', 'password123', 1), 
         ('Parappa', 'tha', 'Rappa', 'parappa.rappa@crossfire.ca', 'password123', 2), 
         ('Cave', 'G', 'Johnson', 'cave.johnson@crossfire.ca', 'password123', 3),
-        ('Alduin', 'Twilight', 'World Eater', 'admin@crossfire.ca', 'admin', 1)`,
+        ('Alduin', 'Twilight', 'World Eater', 'admin@crossfire.ca', 'admin', 1),
+        ('Quality', 'Q', 'Mann', 'quality@crossfire.ca', 'quality', 2),
+        ('Engineer', 'E', 'Womann', 'engineer@crossfire.ca', 'engineer', 3)`,
     `INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES 
         ('2024-10-01', '2024-10-02', 'Closed'), 
         ('2024-10-03', '2024-10-04', 'Closed'), 

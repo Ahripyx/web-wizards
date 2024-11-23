@@ -373,11 +373,11 @@ app.post('/engineer/:NCRFormID', (req, res) => {
 // Endpoint to update a specific record in the Engineer table by ID
 app.put('/engineer/:NCRFormID', (req, res) => {
     const { NCRFormID } = req.params;
-    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate } = req.body;
+    const { Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus } = req.body;
     try {
         const LastModified = new Date().toISOString().split('T')[0];
         const stmt = db.prepare('UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, RevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?');
-        const result = stmt.run(Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, LastModified, NCRFormID);
+        const result = stmt.run(Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified, NCRFormID);
         if (result.changes > 0) {
             // Set up the notification properties we'd like to display
             result.type = "Engineer";

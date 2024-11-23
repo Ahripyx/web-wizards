@@ -82,7 +82,7 @@ function updateNotification() {
     const notificationCount = document.getElementById('notification-count');
     const notificationModal = document.getElementById('notification-modal');
 
-    notificationModal.innerHTML = setupUserView(user.RoleID);
+    setupUserView(user.RoleID);
 
     const notificationContent = document.getElementById('notification-content');
 
@@ -116,8 +116,11 @@ function updateNotification() {
                 else if (pf.type == "Engineer") {
                         txt += `${ncrNumber} - ${pf.Review}. </a></li>`;
                     }
-                list.innerHTML += txt;
-
+                    if (list) {
+                        let li = document.createElement('li');
+                        li.innerHTML += txt;
+                        list.appendChild(li);
+                    }
                 }
             }
         };
@@ -188,60 +191,18 @@ function listSelect(pf) {
 }
 
 function setupUserView(role) {
-    if (role == 1) return adminView();
-    else if (role == 2) return qualityView();
-    else if (role == 3) return engineerView();
-    else if (role == 4) return purchasingView();
-}
-
-function adminView() {
-    return `
-    <div class="modal-content" id="notification-content">
-        <span class="close" id="close-modal">&times;</span>
-        <div class="notification-container">
-            <h3>New Quality NCRs</h3>
-            <ul id="new-qlt-list"></ul>
-            <h3>Updated Quality NCRs</h3>
-            <ul id="updated-qlt-list"></ul>
-        </div>
-        <div class="notification-container">
-            <h3>Closed Quality NCRs</h3>
-            <ul id="closed-qlt-list"></ul>
-            <h3>New Engineer NCRs</h3>
-            <ul id="new-eng-list"></ul>
-            <h3>Updated Engineer NCRs</h3>
-            <ul id="updated-eng-list"></ul>
-        </div>
-    </div>
-    `;
-}
-
-function qualityView() {
-    return `
-    <div class="modal-content" id="notification-content">
-        <span class="close" id="close-modal">&times;</span>
-        <div class="notification-container">
-            <h3>New NCRs</h3>
-            <ul id="new-qlt-list"></ul>
-            <h3>Updated NCRs</h3>
-            <ul id="updated-qlt-list"></ul>
-        </div>
-    </div>
-    `;
-}
-
-function engineerView() {
-    return `
-    <div class="modal-content" id="notification-content">
-        <span class="close" id="close-modal">&times;</span>
-        <div class="notification-container">
-            <h3>Closed Quality NCRs</h3>
-            <ul id="closed-qlt-list"></ul>
-            <h3>New NCRs</h3>
-            <ul id="new-eng-list"></ul>
-            <h3>Updated NCRs</h3>
-            <ul id="updated-eng-list"></ul>
-        </div>
-    </div>
-    `;
+    if (role == 1) return;
+    else if (role == 2)
+    {
+        document.getElementById('eng-list').style.display = 'none';
+    }
+    else if (role == 3)
+    {
+        document.getElementById('qlt-list').style.display = 'none';
+    }
+    else if (role == 4)
+    {
+        document.getElementById('qlt-list').style.display = 'none';
+        document.getElementById('eng-list').style.display = 'none';
+    }
 }
