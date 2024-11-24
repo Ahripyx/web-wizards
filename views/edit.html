@@ -1,457 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <title>Web Wizards</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-      <link href="../public/styles/style.css" rel="stylesheet">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
-      <script src="../public/scripts/notification.js" type="module" defer></script>
-      <script src="../public/scripts/validation.js"></script>
-      <script src="../public/scripts/menu-script.js" defer></script>
-      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-      <script type="module">
-         import * as lookup from '../public/scripts/lookup.js';
-         
-         document.addEventListener('DOMContentLoaded', async () => {
-         
-            // gets the id from URL
-             const id = new URLSearchParams(window.location.search).get('id');
-             if (!id) {
-                 alert('No ID provided in the URL');
-                 return;
-             }
-         
-            const form_quality = document.getElementById('ncrform_quality');
-            const form_engineer = document.getElementById('ncrform_engineer');
-            const form_purchasing = document.getElementById('ncrform_purchasing');
-         
-            form_quality.addEventListener('submit', async (event) => {
-               if (!form_quality.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-            form_quality.classList.add('was-validated'); // add validation class?
-            return; // Exit if  form invalid
-        }
-            });
 
-            form_engineer.addEventListener('submit', async (event) => {
-               if (!form_engineer.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-            form_engineer.classList.add('was-validated'); // add validation class?
-            return; // Exit if  form invalid
-        }
-                //await lookup.insertForm(id);
-            });
+<head>
+   <title>Web Wizards</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <link href="../public/styles/style.css" rel="stylesheet">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="../public/scripts/validation.js"></script>
+   <script src="../public/scripts/menu-script.js" defer></script>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+   <script type="module">
+      import * as lookup from '../public/scripts/forms/formHandler.js';
+
+      document.addEventListener('DOMContentLoaded', async () => {
+
+         // gets the id from URL
+         const id = new URLSearchParams(window.location.search).get('id');
+         if (!id) {
+            alert('No ID provided in the URL');
+            return;
+         }
+
+         const form_quality = document.getElementById('ncrform_quality');
+         const form_engineer = document.getElementById('ncrform_engineer');
+         const form_purchasing = document.getElementById('ncrform_purchasing');
+
+         form_quality.addEventListener('submit', async (event) => {
+            if (!form_quality.checkValidity()) {
+               event.preventDefault();
+               event.stopPropagation();
+               form_quality.classList.add('was-validated'); // add validation class?
+               return; // Exit if  form invalid
+            }
          });
-      </script>
-   </head>
-   <body>
-      <!-- Nav Bar -->
-      <header>
-         <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-         <div class="header-content">
-            <div class="logo">
-               <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="A blue logo saying Crossfire with a flame in the middle"></a>
-            </div>
-            <div>
-               <nav class="header-nav" >
-                  <a href="#" id="menu-icon" class="menu-icon">
-                     <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
-                  </a>
-                  <ul id="menu-list">
-                     <li><a href="#" id="ancHome">Home</a></li>
-                     <li><a href="#" id="ancCreate">Create NCR</a></li>
-                     <li><a href="#" id="ancLogs">NCR Log</a></li>
-                     <li><a href="#" id="ancTools">Tools</a></li>
-                  </ul>
-               </nav>
-            </div>
-            <div>
-               <button class="notification" id="btnNotification">
+
+         form_engineer.addEventListener('submit', async (event) => {
+            if (!form_engineer.checkValidity()) {
+               event.preventDefault();
+               event.stopPropagation();
+               form_engineer.classList.add('was-validated'); // add validation class?
+               return; // Exit if  form invalid
+            }
+            //await lookup.insertForm(id);
+         });
+      });
+   </script>
+</head>
+
+<body>
+   <!-- Nav Bar -->
+   <header>
+      <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
+      <div class="header-content">
+         <div class="logo">
+            <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png"
+                  alt="A blue logo saying Crossfire with a flame in the middle"></a>
+         </div>
+         <div>
+            <nav class="header-nav">
+               <a href="#" id="menu-icon" class="menu-icon">
+                  <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
+               </a>
+               <ul id="menu-list">
+                  <li><a href="#" id="ancHome">Home</a></li>
+                  <li><a href="#" id="ancCreate">Create NCR</a></li>
+                  <li><a href="#" id="ancLogs">NCR Log</a></li>
+                  <li><a href="#" id="ancTools">Tools</a></li>
+               </ul>
+            </nav>
+         </div>
+         <div>
+            <button class="notification" id="btnNotification">
                <span class="fa-solid fa-bell"></span>
                <span class="badge" id="notification-count">0</span>
-               </button>
-            </div>
-            <!-- Notification Modal -->
-            <div id="notification-modal" class="modal" style="z-index: 150;">
-               <!-- Modal content -->
-               <div class="modal-content" id="notification-content">
-                  <span class="close" id="close-modal">&times;</span>
-                  <div class="notification-container" id="qlt-list">
-                     <h3>New NCRs</h3>
-                     <ul id="new-qlt-list"></ul>
-                     <h3>Updated NCRs</h3>
-                     <ul id="updated-qlt-list"></ul>
-                  </div>
-                  <div class="notification-container" id="eng-list">
-                     <h3>Closed Quality NCRs</h3>
-                     <ul id="closed-qlt-list"></ul>
-                     <h3>New NCRs</h3>
-                     <ul id="new-eng-list"></ul>
-                     <h3>Updated NCRs</h3>
-                     <ul id="updated-eng-list"></ul>
-                 </div>
+            </button>
+         </div>
+         <!-- Notification Modal -->
+         <div id="notification-modal" class="modal" style="z-index: 150;">
+            <!-- Modal content -->
+            <div class="modal-content" id="notification-content">
+               <span class="close" id="close-modal">&times;</span>
+               <div class="notification-container" id="qlt-list">
+                  <h3>New NCRs</h3>
+                  <ul id="new-qlt-list"></ul>
+                  <h3>Updated NCRs</h3>
+                  <ul id="updated-qlt-list"></ul>
+               </div>
+               <div class="notification-container" id="eng-list">
+                  <h3>Closed Quality NCRs</h3>
+                  <ul id="closed-qlt-list"></ul>
+                  <h3>New NCRs</h3>
+                  <ul id="new-eng-list"></ul>
+                  <h3>Updated NCRs</h3>
+                  <ul id="updated-eng-list"></ul>
                </div>
             </div>
          </div>
-      </header>
+      </div>
+   </header>
 
 
-      <!-- Navigation -->
-      <div class="container-tools">
-         <nav id="nav">
-            <div class="top">
-               <ul>
-                  <li>
-                     <a href="#" id="btnNavQuality" onclick="toggleForm('ncrform_quality')">
+   <!-- Navigation -->
+   <div class="container-tools">
+      <nav id="nav">
+         <div class="top">
+            <ul>
+               <li>
+                  <a href="#" id="btnNavQuality" onclick="toggleForm('ncrform_quality')">
                      <i class="fa-solid fa-magnifying-glass"></i>
                      Quality
-                     </a>
-                  </li>
-               </ul>
-               <ul>
-                  <li>
-                     <a href="#" id="btnNavEngineer" onclick="toggleForm('ncrform_engineer')">
+                  </a>
+               </li>
+            </ul>
+            <ul>
+               <li>
+                  <a href="#" id="btnNavEngineer" onclick="toggleForm('ncrform_engineer')">
                      <i class="fa-solid fa-helmet-safety"></i>
                      Engineer
-                     </a>
-                  </li>
-               </ul>
-               <ul>
-                  <li>
-                     <a href="#" id=btnNavPurchasing onclick="toggleForm('ncrform_purchasing')">
+                  </a>
+               </li>
+            </ul>
+            <ul>
+               <li>
+                  <a href="#" id=btnNavPurchasing onclick="toggleForm('ncrform_purchasing')">
                      <i class="fa-solid fa-cart-shopping"></i>
                      Purchasing
-                     </a>
-                  </li>
-               </ul>
-            </div>
-         </nav>
-         
-         
-            <!-- New Product Form -->
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+
+
+      <!-- New Product Form -->
       <div id="product-modal" class="modal" style="z-index: 2;">
          <div class="modal-content">
             <span class="close" id="close">&times;</span>
-            
+
             <form onsubmit="event.preventDefault();" class="px-4">
                <fieldset id="fs_product">
                   <legend>New Product</legend>
-               <div class="row g-3">
-                  <div class="form-group col-md-6">
-                     <label for="NEWName">Product Name:</label>
-                     <input type="text" id="NEWName" name="newProductName" placeholder="Product Name" required>
+                  <div class="row g-3">
+                     <div class="form-group col-md-6">
+                        <label for="NEWName">Product Name:</label>
+                        <input type="text" id="NEWName" name="newProductName" placeholder="Product Name" required>
+                     </div>
+                     <div class="form-group col-md-6">
+                        <label for="NEWNumber">Product Number:</label>
+                        <input type="number" id="NEWNumber" name="newProductNumber" placeholder="---" min="100"
+                           max="999" required>
+                     </div>
+                     <div class="form-group col-md-12">
+                        <button class="yes" id="NEWProduct">Add Product</button>
+                     </div>
                   </div>
-                  <div class="form-group col-md-6">
-                     <label for="NEWNumber">Product Number:</label>
-                     <input type="number" id="NEWNumber" name="newProductNumber" placeholder="---" min="100" max="999" required>
-                  </div>
-                  <div class="form-group col-md-12">
-                     <button class="yes" id="NEWProduct">Add Product</button>
-                  </div>
-               </div>
-            </fieldset>
+               </fieldset>
             </form>
          </div>
       </div>
-            <!-- Create Form -->
-            <div class="container edit">
-            <header>
-               <h2>Non-Conformance Report - ISO: XXXXX</h2>
-            </header>
-            <form class="px-4 needs-validation" id="ncrform_quality" onsubmit="event.preventDefault();" style="display: none;" novalidate>
-               <fieldset id="fs_quality">
-                  <legend>Quality Assurance Form</legend>
-                  <!-- Fields for Quality Assurance Form -->
-                  <div class="row g-3">
-                     <!-- NCR Number -->
-                     <div class="form-group col-md-6">
-                        <label for="NCRNumber" class="form-label">NCR Number</label>
-                        <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX" readonly>
-                     </div>
-                     <!-- Sales Order Number -->
-                     <div class="form-group col-md-6">
-                        <label for="SalesOrder" class="form-label">Sales Order Number <span class="no">*</span> </label>
-                        <input type="number" class="form-control" id="SalesOrder" min="100" max="999" aria-required="true" required>
+      <!-- Create Form -->
+      <div class="container edit">
+         <header>
+            <h2>Non-Conformance Report - ISO: XXXXX</h2>
+         </header>
+         <form class="px-4 needs-validation" id="ncrform_quality" onsubmit="event.preventDefault();"
+            style="display: none;" novalidate>
+            <fieldset id="fs_quality">
+               <legend>Quality Assurance Form</legend>
+               <!-- Fields for Quality Assurance Form -->
+               <div class="row g-3">
+                  <!-- NCR Number -->
+                  <div class="form-group col-md-6">
+                     <label for="NCRNumber" class="form-label">NCR Number</label>
+                     <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX" readonly>
+                  </div>
+                  <!-- Sales Order Number -->
+                  <div class="form-group col-md-6">
+                     <label for="SalesOrder" class="form-label">Sales Order Number <span class="no">*</span> </label>
+                     <input type="number" class="form-control" id="SalesOrder" min="100" max="999" aria-required="true"
+                        required>
+                  </div>
+               </div>
+               <div class="row g-3">
+                  <!-- Supplier -->
+                  <div class="form-group col-md-6">
+                     <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
+                     <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true"
+                        onblur="SupplierValidation()" required>
+                        <option selected value=''>Select a supplier</option>
+                     </select>
+                     <div class="invalid-feedback" id="supplier-feedback">
+                        Please select a Supplier
                      </div>
                   </div>
-                  <div class="row g-3">
-                     <!-- Supplier -->
-                     <div class="form-group col-md-6">
-                        <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
-                        <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true" onblur="SupplierValidation()" required>
-                           <option selected value='' >Select a supplier</option>
-                        </select>
-                        <div class="invalid-feedback" id="supplier-feedback">
-                           Please select a Supplier
-                        </div>
+                  <!-- Product Info -->
+                  <div class="form-group col-md-6">
+                     <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
+                     <select class="form-select" id="ProductID" name="ProductID" aria-required="true"
+                        onblur="ProductValidation()" required>
+                        <option selected value=''>No products available</option>
+                     </select>
+                     <div class="invalid-feedback" id="product-feedback">
+                        Please select a Product
                      </div>
-                     <!-- Product Info -->
-                     <div class="form-group col-md-6">
-                        <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
-                        <select class="form-select" id="ProductID" name="ProductID" aria-required="true" onblur="ProductValidation()" required>
-                           <option selected value='' >No products available</option>
-                        </select>
-                        <div class="invalid-feedback" id="product-feedback">
-                           Please select a Product
-                        </div>
-   
-                        <!-- Product Number -->
-                        <span id="ProductNumber" class="form-text text-muted">Number:</span>
-                     </div>
-                  </div>
-                  <div class="row g-3">
-                     <!-- Defect Description -->
-                     <div class="form-group col-md-12">
-                        <label for="Details" class="form-label">Description of Defect <span class="no">*</span> </label> <br>
-                        <textarea class="form-control" id="Details" name="Details" rows="3" aria-required="true" required></textarea>
-                     </div>
-                  </div>
-                  <div class="row g-3">
-                     <!-- Quantity Received -->
-                     <div class="form-group col-md-6">
-                        <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span> </label>
-                        <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true" onblur="QuantityRecValidation()"  required>
-                        <div class="invalid-feedback" id="received-invalid">
-                           Please enter a valid quantity
-                        </div>
-                     </div>
-                     <!-- Quantity Defective -->
-                     <div class="form-group col-md-6">
-                        <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span> </label>
-                        <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true" onblur="QuantityDefValidation()" required>
-                        <div class="invalid-feedback" id="defective-invalid">
-                           Please enter a valid quantity
-                        </div>
-   
-                     </div>
-                  </div>
-                  <div class="row g-3">
-                     <!-- Identify Process Applicable -->
-                     <div class="form-group col-md-6">
-                        <label id="ProcessApplicable">Identify Process Applicable <span class="no">*</span> </label>
-                        <div>
-                           <div class="form-check form-check-inline">
-                              <input name="processes" id="ProcessApplicable_0" type="radio" aria-required="true" required="required" class="form-check-input" value="WorkInProgress" aria-labelledby="ProcessApplicable">
-                              <label for="ProcessApplicable_0" class="form-check-label">Work In Progress</label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <input name="processes" id="ProcessApplicable_1" type="radio" aria-required="true" required="required" class="form-check-input" value="SRInspection" aria-labelledby="ProcessApplicable">
-                              <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving Inspection</label>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- Is Non-Conformance -->
-                     <div class="form-group col-md-6">
-                        <Label id="item-non-conforming">Is Item Non-Conforming? <span class="no">*</span> </Label>
-                        <div>
-                           <div class="form-check form-check-inline">
-                              <input name="nonconforming" id="IsNonConforming_0" type="radio" aria-required="true" required="required" class="form-check-input" value="Yes" aria-labelledby="item-non-conforming">
-                              <label for="IsNonConforming_0" class="form-check-label">Yes</label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <input name="nonconforming" id="IsNonConforming_1" type="radio" aria-required="true" required="required" class="form-check-input" value="No" aria-labelledby="item-non-conforming">
-                              <label for="IsNonConforming_1" class="form-check-label">No</label>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row g-3">
-                     <div class="form-group col-md-6">
-                        <label for="QLTName">Quality Representative </label>
-                        <input type="text" class="form-control-plaintext" id="QLTName" readonly>
-                     </div>
-                     <div class="form-group col-md-6">
-                        <label for="QLTDate">Date </label>
-                        <input type="date" class="form-control" id="QLTDate" readonly>
-                     </div>
-                  </div>
-                  <!-- Submit Button -->
-                  <div class="row g-3">
-                     <div class="form group col-md-6">
-                        <button type="submit" class="yes" id="QLTSubmit">Save NCR</button>
-                     </div>
-                     <div class="form group col-md-6">
-                        <label for="QLTStatus">Status </label>
-                        <select class="form-select" id="QLTStatus" name="QLTStatus" aria-required="true" required>
-                           <option value="Open">Open</option>
-                           <option value="Closed">Closed</option>
-                        </select>
-                     </div>
-                  </div>
-               </fieldset>
-            </form>
-            <form class="px-4 needs-validation" id="ncrform_engineer" onsubmit="event.preventDefault();" style="display: none;" novalidate>
-               <fieldset id="fs_engineer">
-                  <legend>Engineer Form</legend>
-                  <!-- Fields for Engineer Form -->
-                  <div class="row g-3">
-                     <!-- Review by CF Engineering -->
-                     <div class="form-group col-md-6">
-                        <label>Review by CF Engineering <span class="no">*</span> </label>
-                        <div>
-                           <div class="form-check form-check-inline">
-                              <input name="Review" id="Review_0" type="radio" required="required" aria-required="true" class="form-check-input" value="Use As Is">
-                              <label for="Review_0" class="form-check-label">Use As Is</label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <input name="Review" id="Review_1" type="radio" required="required" aria-required="true" class="form-check-input" value="Repair">
-                              <label for="Review_1" class="form-check-label">Repair</label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <input name="Review" id="Review_2" type="radio" required="required" aria-required="true" class="form-check-input" value="Rework">
-                              <label for="Review_2" class="form-check-label">Rework</label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <input name="Review" id="Review_3" type="radio" required="required" aria-required="true" class="form-check-input" value="Scrap">
-                              <label for="Review_3" class="form-check-label">Scrap</label>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- Customer Notification -->
-                     <div class="form-group col-md-6">
-                        <label>Notify customer of NCR <span class="no">*</span> </label>
-                        <div>
-                           <div class="form-check form-check-inline">
-                              <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required" aria-required="true" class="form-check-input" value="Yes">
-                              <label for="NotifyCustomer_0" class="form-check-label">Yes</label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <input name="NotifyCustomer" id="NotifyCustomer_1" type="radio" required="required" aria-required="true" class="form-check-input" value="No">
-                              <label for="NotifyCustomer_1" class="form-check-label">No</label>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <!-- Disposition -->
-                  <div class="row g-3">
-                     <div class="form-group col-md-12">
-                        <label for="Disposition">Disposition <span class="no">*</span> </label>
-                        <textarea class="form-control" id="Disposition" name="Disposition" rows="3" required aria-required="true"></textarea>
-                     </div>
-                  </div>
-                  <!-- Drawing Requires Updating -->
-                  <div class="row g-3">
-                     <div class="form-group col-md-6">
-                        <label>Does the drawing require updating </label>
-                        <div>
-                           <div class="form-check form-check-inline">
-                              <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_0" type="radio" class="form-check-input" value="1">
-                              <label for="DrawingUpdateRequired_0" class="form-check-label">Yes</label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_1" type="radio" class="form-check-input" value="0" checked="true">
-                              <label for="DrawingUpdateRequired_1" class="form-check-label">No</label>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row g-3">
-                     <!-- Revision Information -->
-                     <div class="form-group col-md-4">
-                        <label for="RevisionNumber">Rev. Number</label>
-                        <input type="text" class="form-control-plaintext" id="RevisionNumber" placeholder="N/A" readonly>
-                     </div>
-                     <div class="form-group col-md-4" id="NewRevNum" style="display: none;">
-                        <label for="NewRevisionNumber">Updated Rev. Number</label>
-                        <input type="text" class="form-control-plaintext" id="NewRevisionNumber" readonly>
-                     </div>
-                     <div class="form-group col-md-4" id="NewRevDate" style="display: none;">
-                        <label for="RevisionDate" id="lblRevisionDate">Revision Date</label>
-                        <input type="date" class="form-control" id="RevisionDate">
-                     </div>
-                  </div>
-                  <div class="row g-3">
-                     <div class="form-group col-md-6">
-                        <label for="ENGName" class="form-group col-md-4" >Engineer</label>
-                        <input type="text" class="form-control-plaintext" id="ENGName" readonly>
-                     </div>
-                     <div class="form-group col-md-6">
-                        <label for="ENGDate">Date</label>
-                        <input type="date" class="form-control" id="ENGDate" readonly>
-                     </div>
-                  </div>
-                  <!-- Submit Button -->
-                  <div class="row g-3">
-                     <div class="form group col-md-6">
-                        <button type="submit" class="yes" id="ENGSubmit">Save NCR</button>
-                     </div>
-                     <div class="form group col-md-6">
-                        <label for="ENGStatus">Status </label>
-                        <select class="form-select" id="ENGStatus" name="ENGStatus" aria-required="true" required>
-                           <option value="Open">Open</option>
-                           <option value="Closed">Closed</option>
-                        </select>
-                     </div>
-                  </div>
-               </fieldset>
-            </form>
-            </div>
-            </div>
 
-      <footer>
-         <p><small>CROSSFIRE NCR</small></p>
-      </footer>
-      <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-      <script>
-       
-         </script>
-      <script>
-           // Example starter JavaScript for disabling form submissions if there are invalid fields
-           (function() {
-           'use strict';
-           window.addEventListener('load', function() {
-             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-             var forms = document.getElementsByClassName('needs-validation');
-             // Loop over them and prevent submission
-             var validation = Array.prototype.filter.call(forms, function(form) {
-               form.addEventListener('submit', function(event) {
-                 if (form.checkValidity() === false) {
-                   event.preventDefault();
-                   event.stopPropagation();
-                 }
-                 form.classList.add('was-validated');
-               }, false);
-             });
-           }, false);
-         })();
+                     <!-- Product Number -->
+                     <span id="ProductNumber" class="form-text text-muted">Number:</span>
+                  </div>
+               </div>
+               <div class="row g-3">
+                  <!-- Defect Description -->
+                  <div class="form-group col-md-12">
+                     <label for="Details" class="form-label">Description of Defect <span class="no">*</span> </label>
+                     <br>
+                     <textarea class="form-control" id="Details" name="Details" rows="3" aria-required="true"
+                        required></textarea>
+                  </div>
+               </div>
+               <div class="row g-3">
+                  <!-- Quantity Received -->
+                  <div class="form-group col-md-6">
+                     <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span>
+                     </label>
+                     <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true"
+                        onblur="QuantityRecValidation()" required>
+                     <div class="invalid-feedback" id="received-invalid">
+                        Please enter a valid quantity
+                     </div>
+                  </div>
+                  <!-- Quantity Defective -->
+                  <div class="form-group col-md-6">
+                     <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span>
+                     </label>
+                     <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true"
+                        onblur="QuantityDefValidation()" required>
+                     <div class="invalid-feedback" id="defective-invalid">
+                        Please enter a valid quantity
+                     </div>
 
-         function toggleForm(formId) {
-                      var forms = document.querySelectorAll('form');
-                      forms.forEach(function(form) {
-                          if (form.id === formId) {
-                           form.style.display = form.style.display === 'none' ? 'block' : 'none';
-                          } else {
-                           form.style.display = 'none';
-                          }
-                      });
+                  </div>
+               </div>
+               <div class="row g-3">
+                  <!-- Identify Process Applicable -->
+                  <div class="form-group col-md-6">
+                     <label id="ProcessApplicable">Identify Process Applicable <span class="no">*</span> </label>
+                     <div>
+                        <div class="form-check form-check-inline">
+                           <input name="processes" id="ProcessApplicable_0" type="radio" aria-required="true"
+                              required="required" class="form-check-input" value="WorkInProgress"
+                              aria-labelledby="ProcessApplicable">
+                           <label for="ProcessApplicable_0" class="form-check-label">Work In Progress</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="processes" id="ProcessApplicable_1" type="radio" aria-required="true"
+                              required="required" class="form-check-input" value="SRInspection"
+                              aria-labelledby="ProcessApplicable">
+                           <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving
+                              Inspection</label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Is Non-Conformance -->
+                  <div class="form-group col-md-6">
+                     <Label id="item-non-conforming">Is Item Non-Conforming? <span class="no">*</span> </Label>
+                     <div>
+                        <div class="form-check form-check-inline">
+                           <input name="nonconforming" id="IsNonConforming_0" type="radio" aria-required="true"
+                              required="required" class="form-check-input" value="Yes"
+                              aria-labelledby="item-non-conforming">
+                           <label for="IsNonConforming_0" class="form-check-label">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="nonconforming" id="IsNonConforming_1" type="radio" aria-required="true"
+                              required="required" class="form-check-input" value="No"
+                              aria-labelledby="item-non-conforming">
+                           <label for="IsNonConforming_1" class="form-check-label">No</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3">
+                  <div class="form-group col-md-6">
+                     <label for="QLTName">Quality Representative </label>
+                     <input type="text" class="form-control-plaintext" id="QLTName" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label for="QLTDate">Date </label>
+                     <input type="date" class="form-control" id="QLTDate" readonly>
+                  </div>
+               </div>
+               <!-- Submit Button -->
+               <div class="row g-3">
+                  <div class="form group col-md-6">
+                     <button type="submit" class="yes" id="QLTSubmit">Save NCR</button>
+                  </div>
+                  <div class="form group col-md-6">
+                     <label for="QLTStatus">Status </label>
+                     <select class="form-select" id="QLTStatus" name="QLTStatus" aria-required="true" required>
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                     </select>
+                  </div>
+               </div>
+            </fieldset>
+         </form>
+         <form class="px-4 needs-validation" id="ncrform_engineer" onsubmit="event.preventDefault();"
+            style="display: none;" novalidate>
+            <fieldset id="fs_engineer">
+               <legend>Engineer Form</legend>
+               <!-- Fields for Engineer Form -->
+               <div class="row g-3">
+                  <!-- Review by CF Engineering -->
+                  <div class="form-group col-md-6">
+                     <label>Review by CF Engineering <span class="no">*</span> </label>
+                     <div>
+                        <div class="form-check form-check-inline">
+                           <input name="Review" id="Review_0" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Use As Is">
+                           <label for="Review_0" class="form-check-label">Use As Is</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="Review" id="Review_1" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Repair">
+                           <label for="Review_1" class="form-check-label">Repair</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="Review" id="Review_2" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Rework">
+                           <label for="Review_2" class="form-check-label">Rework</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="Review" id="Review_3" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Scrap">
+                           <label for="Review_3" class="form-check-label">Scrap</label>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Customer Notification -->
+                  <div class="form-group col-md-6">
+                     <label>Notify customer of NCR <span class="no">*</span> </label>
+                     <div>
+                        <div class="form-check form-check-inline">
+                           <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required"
+                              aria-required="true" class="form-check-input" value="Yes">
+                           <label for="NotifyCustomer_0" class="form-check-label">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="NotifyCustomer" id="NotifyCustomer_1" type="radio" required="required"
+                              aria-required="true" class="form-check-input" value="No">
+                           <label for="NotifyCustomer_1" class="form-check-label">No</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Disposition -->
+               <div class="row g-3">
+                  <div class="form-group col-md-12">
+                     <label for="Disposition">Disposition <span class="no">*</span> </label>
+                     <textarea class="form-control" id="Disposition" name="Disposition" rows="3" required
+                        aria-required="true"></textarea>
+                  </div>
+               </div>
+               <!-- Drawing Requires Updating -->
+               <div class="row g-3">
+                  <div class="form-group col-md-6">
+                     <label>Does the drawing require updating </label>
+                     <div>
+                        <div class="form-check form-check-inline">
+                           <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_0" type="radio"
+                              class="form-check-input" value="1">
+                           <label for="DrawingUpdateRequired_0" class="form-check-label">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_1" type="radio"
+                              class="form-check-input" value="0" checked="true">
+                           <label for="DrawingUpdateRequired_1" class="form-check-label">No</label>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row g-3">
+                  <!-- Revision Information -->
+                  <div class="form-group col-md-4">
+                     <label for="RevisionNumber">Rev. Number</label>
+                     <input type="text" class="form-control-plaintext" id="RevisionNumber" placeholder="N/A" readonly>
+                  </div>
+                  <div class="form-group col-md-4" id="NewRevNum" style="display: none;">
+                     <label for="NewRevisionNumber">Updated Rev. Number</label>
+                     <input type="text" class="form-control-plaintext" id="NewRevisionNumber" readonly>
+                  </div>
+                  <div class="form-group col-md-4" id="NewRevDate" style="display: none;">
+                     <label for="RevisionDate" id="lblRevisionDate">Revision Date</label>
+                     <input type="date" class="form-control" id="RevisionDate">
+                  </div>
+               </div>
+               <div class="row g-3">
+                  <div class="form-group col-md-6">
+                     <label for="ENGName" class="form-group col-md-4">Engineer</label>
+                     <input type="text" class="form-control-plaintext" id="ENGName" readonly>
+                  </div>
+                  <div class="form-group col-md-6">
+                     <label for="ENGDate">Date</label>
+                     <input type="date" class="form-control" id="ENGDate" readonly>
+                  </div>
+               </div>
+               <!-- Submit Button -->
+               <div class="row g-3">
+                  <div class="form group col-md-6">
+                     <button type="submit" class="yes" id="ENGSubmit">Save NCR</button>
+                  </div>
+                  <div class="form group col-md-6">
+                     <label for="ENGStatus">Status </label>
+                     <select class="form-select" id="ENGStatus" name="ENGStatus" aria-required="true" required>
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                     </select>
+                  </div>
+               </div>
+            </fieldset>
+         </form>
+      </div>
+   </div>
+
+   <footer>
+      <p><small>CROSSFIRE NCR</small></p>
+   </footer>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+   <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function () {
+         'use strict';
+         window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+               form.addEventListener('submit', function (event) {
+                  if (form.checkValidity() === false) {
+                     event.preventDefault();
+                     event.stopPropagation();
                   }
-         
-      </script>
-      <script>
-           document.addEventListener('DOMContentLoaded', () => {
-            const formControls = document.querySelectorAll('.form-control, .form-select');
-            formControls.forEach(control => {
-               const validFeedback = document.createElement('div');
-               validFeedback.className = 'valid-feedback';
-               validFeedback.textContent = 'Looks good!';
-               
-               const invalidFeedback = document.createElement('div');
-               invalidFeedback.className = 'invalid-feedback';
-               invalidFeedback.textContent = 'Please enter a valid value.';
-               
-               control.parentNode.appendChild(validFeedback);
-               control.parentNode.appendChild(invalidFeedback);
+                  form.classList.add('was-validated');
+               }, false);
             });
+         }, false);
+      })();
+
+      function toggleForm(formId) {
+         var forms = document.querySelectorAll('form');
+         forms.forEach(function (form) {
+            if (form.id === formId) {
+               form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            } else {
+               form.style.display = 'none';
+            }
          });
-      </script>
-      <script src="../public/scripts/navigate.js"></script>
-   </body>
+      }
+
+   </script>
+   <script>
+      document.addEventListener('DOMContentLoaded', () => {
+         const formControls = document.querySelectorAll('.form-control, .form-select');
+         formControls.forEach(control => {
+            const validFeedback = document.createElement('div');
+            validFeedback.className = 'valid-feedback';
+            validFeedback.textContent = 'Looks good!';
+
+            const invalidFeedback = document.createElement('div');
+            invalidFeedback.className = 'invalid-feedback';
+            invalidFeedback.textContent = 'Please enter a valid value.';
+
+            control.parentNode.appendChild(validFeedback);
+            control.parentNode.appendChild(invalidFeedback);
+         });
+      });
+   </script>
+   <script src="../public/scripts/navigate.js"></script>
+</body>
+
 </html>
