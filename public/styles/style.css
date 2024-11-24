@@ -422,7 +422,55 @@ form input[type="date"]:focus {
     margin-top: 10px;
 }
 
-.light-cells {
+.grid-container-document{
+    display: grid;
+    grid-template-columns: 100px auto;
+    grid-template-rows: auto, auto, auto;
+}
+
+.grid-container-quality{
+    display: grid;
+    grid-template-areas:
+    'process supplier NCRnum'
+    'item item productNum'
+    'defect defect saleOrder'
+    'empty empty qRecieved'
+    'empty empty qDefective'
+    'nonConform nonConform nameDate' ;
+}
+
+.qualtity-item1{ grid-area: process; }
+.qualtity-item2{ grid-area: supplier; }
+.qualtity-item3{ grid-area: NCRnum; }
+.qualtity-item4{ grid-area: item; }
+.qualtity-item5{ grid-area: productNum; }
+.qualtity-item6{ grid-area: defect; }
+.qualtity-item7{ grid-area: saleOrder; }
+.qualtity-item8{ grid-area: empty; }
+.qualtity-item9{ grid-area: qRecieved; }
+.qualtity-item10{ grid-area: qDefective; }
+.qualtity-item11{ grid-area: nonConform; }
+.qualtity-item12{ grid-area: nameDate; }
+
+.grid-item-qty{
+    background-color: blue;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.grid-item-eng{
+    grid-column: 1;
+    grid-row: 2;
+    background-color: green;
+}
+
+.grid-item-pur{
+    grid-column: 1;
+    grid-row: 3;
+    background-color: red;
+}
+
+.light-cells{
     border-style: none;
     border-width: 0px;
     background-color: #e3e7f2;

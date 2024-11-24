@@ -8,6 +8,7 @@ const ncrTable = document.getElementById("ncrTable");
 const qaTable = document.getElementById("qaTable");
 const engTable = document.getElementById("engTable");
 
+/*
 function fillTables(tablename, data, table){
     row = 0;
     data.forEach(element =>{
@@ -118,3 +119,4 @@ document.getElementById("btnArchive").addEventListener("click", async function()
 document.getElementById("btnEdit").addEventListener("click", function(){
     window.location.href = `edit.html?id=${ncrId}`;
 });
+*/
