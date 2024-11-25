@@ -494,6 +494,26 @@ form input[type="date"]:focus {
     background-color: pink;
 }
 
+.grid-purchasing{
+    grid-template-areas:
+    'decision decision decision'
+    'CAR CAR carNum'
+    'followUp followUpType followUpDate'
+    'reinspect newNCR newNCR'
+    'purName purName purDate';
+}
+
+.pur-item1{ grid-area: decision; }
+.pur-item2{ grid-area: CAR; }
+.pur-item3{ grid-area: carNum; }
+.pur-item4{ grid-area: followUp; }
+.pur-item5{ grid-area: followUpDate; }
+.pur-item6{ grid-area: reinspect; }
+.pur-item7{ grid-area: newNCR; }
+.pur-item8{ grid-area: purName; }
+.pur-item9{ grid-area: purDate; }
+.pur-item10{ grid-area: followUpType; }
+
 .light-cells{
     border-style: none;
     border-width: 0px;
