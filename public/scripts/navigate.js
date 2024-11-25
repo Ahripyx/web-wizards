@@ -33,6 +33,10 @@ if (ancTools){
 // ====== Navigation For Home Page Buttons ====== 
 const btnCreateNCR = document.getElementById("btnCreateNCR");
 if (btnCreateNCR) {
+    const user = localStorage.getItem('user');
+    if (user.RoleID != 1 || user.RoleID != 4) {
+        ancCreate.style.display = "none";
+    }
     btnCreateNCR.addEventListener('click', function() {
         window.location.href = 'create.html';
     });
