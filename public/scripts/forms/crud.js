@@ -1,4 +1,4 @@
-import * as notif from './notification.js';
+import * as notif from '../notification.js';
 
 // CREATE NEW PRODUCT
 export async function newProduct(SupplierID, ProductName, Number) {

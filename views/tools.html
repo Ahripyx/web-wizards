@@ -1,124 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-      <link href="../public/styles/style.css" rel="stylesheet">
-      <title>Web Wizards</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-      <script src="../public/scripts/tools.js"></script>
-      <script src="../public/scripts/notification.js" type="module" defer></script>
-      <script src="../public/scripts/menu-script.js" defer></script>
-      <script type="module">
-         import * as crud from '../public/scripts/crud.js';
-         document.addEventListener('DOMContentLoaded', async () => {
-            await fetchData();
-            const productform =document.getElementById('productform');
-            productform.addEventListener('submit', async (event) => {
-               event.preventDefault();
-               await crud.newProduct(document.getElementById('SupplierID'), document.getElementById('ProductName'), document.getElementById('ProductNumber'));
-            });
-         
-            const userform = document.getElementById('userform');
-            userform.addEventListener('submit', async (event) => {
-               event.preventDefault();
-               await crud.newUser(document.getElementById('FName'), document.getElementById('MName'), document.getElementById('LName'), document.getElementById('Email'), document.getElementById('Password'), document.getElementById('RoleID'));
-            });
-         
-            const supplierform = document.getElementById('supplierform');
-            supplierform.addEventListener('submit', async (event) => {
-               event.preventDefault();
-               await crud.newSupplier(document.getElementById('SupplierName'));
-            });
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <link href="../public/styles/style.css" rel="stylesheet">
+   <title>Web Wizards</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
+   <script src="../public/scripts/tools.js"></script>
+   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="../public/scripts/menu-script.js" defer></script>
+   <script type="module">
+      import * as crud from '../public/scripts/forms/crud.js';
+      document.addEventListener('DOMContentLoaded', async () => {
+         await fetchData();
+         const productform = document.getElementById('productform');
+         productform.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            await crud.newProduct(document.getElementById('SupplierID'), document.getElementById('ProductName'), document.getElementById('ProductNumber'));
          });
-      </script>
-      <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
+
+         const userform = document.getElementById('userform');
+         userform.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            await crud.newUser(document.getElementById('FName'), document.getElementById('MName'), document.getElementById('LName'), document.getElementById('Email'), document.getElementById('Password'), document.getElementById('RoleID'));
+         });
+
+         const supplierform = document.getElementById('supplierform');
+         supplierform.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            await crud.newSupplier(document.getElementById('SupplierName'));
+         });
+      });
+   </script>
+   <!--  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" >
          <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
-   </head>
-   <body>
-      <!-- Nav Bar -->
-      <header>
-         <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-         <div class="header-content">
-            <!-- Size up the logo -->
-            <div class="logo">
-               <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="A blue logo saying Crossfire with a flame in the middle"></a>
-            </div>
-            <div>
-               <nav class="header-nav" >
-                  <a href="#" id="menu-icon" class="menu-icon">
-                     <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
-                  </a>
-                  <ul id="menu-list">
-                     <li><a href="#" id="ancHome">Home</a></li>
-                     <li><a href="#" id="ancCreate">Create NCR</a></li>
-                     <li><a href="#" id="ancLogs">NCR Log</a></li>
-                     <li><a href="#" id="ancTools">Tools</a></li>
-                  </ul>
-               </nav>
-            </div>
-            <div>
-               <button class="notification" id="btnNotification">
+</head>
+
+<body>
+   <!-- Nav Bar -->
+   <header>
+      <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
+      <div class="header-content">
+         <!-- Size up the logo -->
+         <div class="logo">
+            <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png"
+                  alt="A blue logo saying Crossfire with a flame in the middle"></a>
+         </div>
+         <div>
+            <nav class="header-nav">
+               <a href="#" id="menu-icon" class="menu-icon">
+                  <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
+               </a>
+               <ul id="menu-list">
+                  <li><a href="#" id="ancHome">Home</a></li>
+                  <li><a href="#" id="ancCreate">Create NCR</a></li>
+                  <li><a href="#" id="ancLogs">NCR Log</a></li>
+                  <li><a href="#" id="ancTools">Tools</a></li>
+               </ul>
+            </nav>
+         </div>
+         <div>
+            <button class="notification" id="btnNotification">
                <span class="fa-solid fa-bell"></span>
                <span class="badge" id="notification-count">0</span>
-               </button>
-            </div>
-            <!-- Notification Modal -->
-            <div id="notification-modal" class="modal" style="z-index: 150;">
-               <!-- Modal content -->
-               <div class="modal-content" id="notification-content">
-                  <span class="close">&times;</span>
+            </button>
+         </div>
+         <!-- Notification Modal -->
+         <div id="notification-modal" class="modal" style="z-index: 150;">
+            <!-- Modal content -->
+            <div class="modal-content" id="notification-content">
+               <span class="close" id="close-modal">&times;</span>
+               <div class="notification-container" id="qlt-list">
+                  <h3>New NCRs</h3>
+                  <ul id="new-qlt-list"></ul>
+                  <h3>Updated NCRs</h3>
+                  <ul id="updated-qlt-list"></ul>
+               </div>
+               <div class="notification-container" id="eng-list">
+                  <h3>Closed Quality NCRs</h3>
+                  <ul id="closed-qlt-list"></ul>
+                  <h3>New NCRs</h3>
+                  <ul id="new-eng-list"></ul>
+                  <h3>Updated NCRs</h3>
+                  <ul id="updated-eng-list"></ul>
                </div>
             </div>
          </div>
-      </header>
-      
-      <!--Tools Container-->
-      <div class="container-tools">
-         <nav id="nav">
-            <div class="top">
-               <ul>
-                  <li>
-                     <a href="#" onclick="toggleSection('users')">
+      </div>
+   </header>
+
+   <!--Tools Container-->
+   <div class="container-tools">
+      <nav id="nav">
+         <div class="top">
+            <ul>
+               <li>
+                  <a href="#" onclick="toggleSection('users')">
                      <i class="fa-solid fa-user"></i>
                      Users
-                     </a>
-                  </li>
-               </ul>
-               <ul>
-                  <li>
-                     <a href="#" onclick="toggleSection('products')">
+                  </a>
+               </li>
+            </ul>
+            <ul>
+               <li>
+                  <a href="#" onclick="toggleSection('products')">
                      <i class="fa-solid fa-box"></i>
                      Products
-                     </a>
-                  </li>
-               </ul>
-               <ul>
-                  <li>
-                     <a href="#" onclick="toggleSection('suppliers')">
+                  </a>
+               </li>
+            </ul>
+            <ul>
+               <li>
+                  <a href="#" onclick="toggleSection('suppliers')">
                      <i class="fa-solid fa-truck"></i>
                      Suppliers
-                     </a>
-                  </li>
-               </ul>
-            </div>
-         </nav>
-         <!-- User Section -->
-         <div>
-            <section class="content-section tools" id="users">
-               <div class="container tools">
-                  <form class="px-4" id="userform">
-                     <fieldset>
-                        <legend>Enter User Information</legend>
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <!-- User Section -->
+      <div>
+         <section class="content-section tools" id="users">
+            <div class="container tools">
+               <form class="px-4" id="userform">
+                  <fieldset>
+                     <legend>Enter User Information</legend>
                      <div class="row g-3">
                         <div class="form-group col-md-4">
                            <input type="text" id="FName" name="FName" placeholder="First name" aria-label="First name">
                         </div>
                         <div class="form-group col-md-4">
-                           <input type="text" id="MName" name="MName" placeholder="Middle name" aria-label="Middle name">
+                           <input type="text" id="MName" name="MName" placeholder="Middle name"
+                              aria-label="Middle name">
                         </div>
                         <div class="form-group col-md-4">
                            <input type="text" id="LName" name="LName" placeholder="Last name" aria-label="Last name">
@@ -129,7 +147,8 @@
                            <input type="email" id="Email" name="Email" placeholder="Email" aria-label="Email">
                         </div>
                         <div class="form-group col-md-4">
-                           <input type="password" id="Password" name="Password" placeholder="Password" aria-label="Password">
+                           <input type="password" id="Password" name="Password" placeholder="Password"
+                              aria-label="Password">
                         </div>
                         <div class="form-group col-md-4">
                            <select id="RoleID" name="RoleID">
@@ -140,16 +159,16 @@
                            <button type="submit" class="yes">Add New User</button>
                         </div>
                      </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </section>
-            <!--  Product Section -->
-            <section class="content-section tools" id="products">
-               <div class="container tools">
-                  <form class="px-4" id="productform">
-                     <fieldset>
-                        <legend>Enter Product Information</legend>
+                  </fieldset>
+               </form>
+            </div>
+         </section>
+         <!--  Product Section -->
+         <section class="content-section tools" id="products">
+            <div class="container tools">
+               <form class="px-4" id="productform">
+                  <fieldset>
+                     <legend>Enter Product Information</legend>
                      <div class="row g-3">
                         <div class="form-group col-md-4">
                            <select id="SupplierID" name="SupplierID">
@@ -157,57 +176,61 @@
                            </select>
                         </div>
                         <div class="form-group col-md-4">
-                           <input type="text" id="ProductName" name="ProductName" placeholder="Name" aria-label="Product Name">
+                           <input type="text" id="ProductName" name="ProductName" placeholder="Name"
+                              aria-label="Product Name">
                         </div>
                         <div class="form-group col-md-4">
-                           <input type="number" id="ProductNumber" name="Number" placeholder="Number" min="0" aria-label="Product Number">
+                           <input type="number" id="ProductNumber" name="Number" placeholder="Number" min="0"
+                              aria-label="Product Number">
                         </div>
                         <div class="form-group col-md-12">
                            <button type="submit" class="yes">Add New Product</button>
                         </div>
                      </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </section>
-            <!-- Supplier Section -->
-            <section class="content-section tools" id="suppliers">
-               <div class="container tools">
-                  <form class="px-4" id="supplierform">
-                     <fieldset>
-                        <legend>Enter Supplier Information</legend>
+                  </fieldset>
+               </form>
+            </div>
+         </section>
+         <!-- Supplier Section -->
+         <section class="content-section tools" id="suppliers">
+            <div class="container tools">
+               <form class="px-4" id="supplierform">
+                  <fieldset>
+                     <legend>Enter Supplier Information</legend>
                      <div class="row g-3">
                         <div class="form-group col-md-4"></div>
                         <div class="form-group col-md-4">
-                           <input type="text" id="SupplierName" name="SupplierName" placeholder="Name" aria-label="Supplier Name">
+                           <input type="text" id="SupplierName" name="SupplierName" placeholder="Name"
+                              aria-label="Supplier Name">
                         </div>
                         <div class="form-group col-md-4"></div>
                         <div class="form-group col-md-12">
                            <button type="submit" class="yes">Add New Supplier</button>
                         </div>
                      </div>
-                     </fieldset>
-                  </form>
-               </div>
-            </section>
-         </div>
+                  </fieldset>
+               </form>
+            </div>
+         </section>
       </div>
+   </div>
 
-      <footer>
-         <p><small>CROSSFIRE NCR</small></p>
-      </footer>
-      <script>
-         function toggleSection(sectionId) {
-             var sections = document.querySelectorAll('.content-section');
-             sections.forEach(function(section) {
-                 if (section.id === sectionId) {
-                     section.style.display = section.style.display === 'none' ? 'block' : 'none';
-                 } else {
-                     section.style.display = 'none';
-                 }
-             });
-         }
-      </script>
-      <script src="../public/scripts/navigate.js"></script>
-   </body>
+   <footer>
+      <p><small>CROSSFIRE NCR</small></p>
+   </footer>
+   <script>
+      function toggleSection(sectionId) {
+         var sections = document.querySelectorAll('.content-section');
+         sections.forEach(function (section) {
+            if (section.id === sectionId) {
+               section.style.display = section.style.display === 'none' ? 'block' : 'none';
+            } else {
+               section.style.display = 'none';
+            }
+         });
+      }
+   </script>
+   <script src="../public/scripts/navigate.js"></script>
+</body>
+
 </html>
