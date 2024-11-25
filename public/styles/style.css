@@ -424,24 +424,47 @@ form input[type="date"]:focus {
 
 .grid-container{
     display: grid;
-    gap: 10px;
     font-size: 1.2em;
 }
 
-.grid-document{
-    grid-template-columns: 150px auto;
-    grid-template-rows: auto, auto, auto;
+.grid-report{
+    grid-template-columns: 150px auto auto auto;
+    grid-template-areas:
+    'quality supplier supplier NCRnum'
+    'quality process process productNum'
+    'quality item item saleOrder'
+    'quality defect defect qRecieved'
+    'quality defect defect qDefective'
+    'quality nonConform nonConform nonConform'
+    'quality qualName qualName qualDate' 
+    'engineering review review review'
+    'engineering notify notify notify'
+    'engineering dispo dispo dispo'
+    'engineering updateDraw updateDraw updateDraw'
+    'engineering ogRev ogRev newRev'
+    'engineering engName engName engDate'
+    'purchasing decision decision decision'
+    'purchasing CAR CAR carNum'
+    'purchasing followUp followUpType followUpDate'
+    'purchasing reinspect newNCR newNCR'
+    'purchasing purName purName purDate';
 }
 
-.grid-quality{
-    grid-template-areas:
-    'supplier supplier NCRnum'
-    'process process productNum'
-    'item item saleOrder'
-    'defect defect qRecieved'
-    'defect defect qDefective'
-    'nonConform nonConform nonConform'
-    'qualName qualName qualDate' ;
+.grid-item{
+    padding: 10px
+}
+
+.grid-item-qty{
+    background-color: lightblue;
+    grid-area: quality;
+}
+.grid-item-eng{
+    background-color: lightgreen;
+    grid-area: engineering;
+}
+.grid-item-pur{
+    background-color: pink;
+    grid-area: purchasing;
 }
 
 .quality-item1{ grid-area: process; }
@@ -457,16 +480,6 @@ form input[type="date"]:focus {
 .quality-item12{ grid-area: qualName; }
 .quality-item13{ grid-area: qualDate; }
 
-.grid-engineering{
-    grid-template-areas: 
-    'review review review'
-    'notify notify notify'
-    'dispo dispo dispo'
-    'updateDraw updateDraw updateDraw'
-    'ogRev ogRev newRev'
-    'engName engName engDate';
-}
-
 .eng-item1{ grid-area: review; }
 .eng-item2{ grid-area: notify; }
 .eng-item3{ grid-area: dispo; }
@@ -475,33 +488,6 @@ form input[type="date"]:focus {
 .eng-item6{ grid-area: newRev; }
 .eng-item7{ grid-area: engName; }
 .eng-item8{ grid-area: engDate; }
-
-.grid-item-qty{
-    background-color: lightblue;
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.grid-item-eng{
-    grid-column: 1;
-    grid-row: 2;
-    background-color: lightgreen;
-}
-
-.grid-item-pur{
-    grid-column: 1;
-    grid-row: 3;
-    background-color: pink;
-}
-
-.grid-purchasing{
-    grid-template-areas:
-    'decision decision decision'
-    'CAR CAR carNum'
-    'followUp followUpType followUpDate'
-    'reinspect newNCR newNCR'
-    'purName purName purDate';
-}
 
 .pur-item1{ grid-area: decision; }
 .pur-item2{ grid-area: CAR; }
