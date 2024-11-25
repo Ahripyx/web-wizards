@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href="../public/styles/style.css" rel="stylesheet">
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-      <title>Dashboard</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-      <script src="../public/scripts/notification.js" type="module" defer></script>
-      <script src="../public/scripts/menu-script.js" defer></script>
-   </head>
-   <body>
-      <!-- Nav Bar -->
-      <header>
-         <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-         <div class="header-content">
-            <div class="logo">
-               <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png" alt="A blue logo saying Crossfire with a flame in the middle"></a>
-            </div>
-            <div>
-               <nav class="header-nav" >
-                  <a href="#" id="menu-icon" class="menu-icon">
-                     <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
-                  </a>
-                  <ul id="menu-list">
-                     <li><a href="#" id="ancHome">Home</a></li>
-                     <li><a href="#" id="ancCreate">Create NCR</a></li>
-                     <li><a href="#" id="ancLogs">NCR Log</a></li>
-                     <li><a href="#" id="ancTools">Tools</a></li>
-                  </ul>
-               </nav>
-            </div>
-            <div>
-               <button class="notification" id="btnNotification">
-                  <span class="fa-solid fa-bell"></span>
-                 <span class="badge" id="notification-count">0</span>
-               </button>
-            </div>
-            <!-- Notification Modal -->
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="../public/styles/style.css" rel="stylesheet">
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <title>Dashboard</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
+   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="../public/scripts/menu-script.js" defer></script>
+</head>
+
+<body>
+   <!-- Nav Bar -->
+   <header>
+      <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
+      <div class="header-content">
+         <div class="logo">
+            <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png"
+                  alt="A blue logo saying Crossfire with a flame in the middle"></a>
+         </div>
+         <div>
+            <nav class="header-nav">
+               <a href="#" id="menu-icon" class="menu-icon">
+                  <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
+               </a>
+               <ul id="menu-list">
+                  <li><a href="#" id="ancHome">Home</a></li>
+                  <li><a href="#" id="ancCreate">Create NCR</a></li>
+                  <li><a href="#" id="ancLogs">NCR Log</a></li>
+                  <li><a href="#" id="ancTools">Tools</a></li>
+               </ul>
+            </nav>
+         </div>
+         <div>
+            <button class="notification" id="btnNotification">
+               <span class="fa-solid fa-bell"></span>
+               <span class="badge" id="notification-count">0</span>
+            </button>
+         </div>
+         <!-- Notification Modal -->
          <div id="notification-modal" class="modal" style="z-index: 150;">
             <!-- Modal content -->
             <div class="modal-content" id="notification-content">
@@ -60,48 +63,49 @@
                </div>
             </div>
          </div>
-         </div>
-      </header>
+      </div>
+   </header>
 
-      <!-- Main Content -->
-      <main>
-         <!-- Three main nav layout here -->
-         <div class="home-nav">
-            <div>
-                <img src="../public/images/add.png" alt="Black icon for Create NCR page">
-                <!--<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>-->
-                <button id="btnCreateNCR">Create NCR</button>
-            </div>
-            <div>
-               <img src="../public/images/edit.png" alt="Black icon for NCRs Log page">
-               <!--<a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a> -->
-               <button id="btnViewNCR">NCR Logs</button>
-            </div>
-            <div>
-               <img src="../public/images/search.png" alt="Black icon for NCR reports page">
-               <!--<a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Freepik - Flaticon</a>-->
-               <button id="btnViewRep">View Reports</button>
-            </div>
+   <!-- Main Content -->
+   <main>
+      <!-- Three main nav layout here -->
+      <div class="home-nav">
+         <div>
+            <img src="../public/images/add.png" alt="Black icon for Create NCR page">
+            <!--<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>-->
+            <button id="btnCreateNCR">Create NCR</button>
          </div>
-         <!-- Template for the recently updated NCR Forms -->
-         <section class="recent-forms">
-            <h2>Recent NCR Forms</h2>
-            <table id="table">
-                  <tr>
-                     <th>NCR Number</th>
-                     <th>Item Name</th>     
-                     <th>Status</th>           
-                     <th>Date</th>
-                  </tr>
-            </table>
-         </section>
-      </main>
+         <div>
+            <img src="../public/images/edit.png" alt="Black icon for NCRs Log page">
+            <!--<a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a> -->
+            <button id="btnViewNCR">NCR Logs</button>
+         </div>
+         <div>
+            <img src="../public/images/search.png" alt="Black icon for NCR reports page">
+            <!--<a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Freepik - Flaticon</a>-->
+            <button id="btnViewRep">View Reports</button>
+         </div>
+      </div>
+      <!-- Template for the recently updated NCR Forms -->
+      <section class="recent-forms">
+         <h2>Recent NCR Forms</h2>
+         <table id="table">
+            <tr>
+               <th>NCR Number</th>
+               <th>Item Name</th>
+               <th>Status</th>
+               <th>Date</th>
+            </tr>
+         </table>
+      </section>
+   </main>
 
-      <footer>
-         <p><small>CROSSFIRE NCR</small></p>
-      </footer>
-      
-      <script src="../public/scripts/recentList.js"></script>
-      <script src="../public/scripts/navigate.js"></script>
-   </body>
+   <footer>
+      <p><small>CROSSFIRE NCR</small></p>
+   </footer>
+
+   <script src="../public/scripts/recentList.js"></script>
+   <script src="../public/scripts/navigate.js"></script>
+</body>
+
 </html>
