@@ -1,14 +1,46 @@
 // Written by: Hazel Miln
 // Purpose: Gets and displays all NCR info in a readable format
 
+// get the id of the NCR we are showing info of
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const ncrId = parseInt(urlParams.get('id'));
+
+// set all statuses to closed
+document.getElementById("btnClose").addEventListener("click", async function(){
+
+    const ncrResponse = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'});
+    const qaResponse = await fetch(`http://localhost:5500/UpdateQAStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'});
+    const engResponse = await fetch(`http://localhost:5500/UpdateEngineerStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'}); 
+
+    //getData();
+});
+
+// set the NCRform status to "archived"
+document.getElementById("btnArchive").addEventListener("click", async function(){
+    
+    const response = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=Archived&id=${ncrId}`, {
+        method: 'PUT'
+    });
+    //getData();
+});
+
+// navigate to the edit page while passing the id of the NCR to be edited
+document.getElementById("btnEdit").addEventListener("click", function(){
+    window.location.href = `edit.html?id=${ncrId}`;
+});
+
+// function to get NCR data
+async function getData() {
+
+};
+
+/*
 const ncrTable = document.getElementById("ncrTable");
 const qaTable = document.getElementById("qaTable");
 const engTable = document.getElementById("engTable");
 
-/*
+
 function fillTables(tablename, data, table){
     row = 0;
     data.forEach(element =>{
@@ -98,25 +130,6 @@ async function getData(){
 };
 
 getData();
-
-document.getElementById("btnClose").addEventListener("click", async function(){
-
-    const ncrResponse = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'});
-    const qaResponse = await fetch(`http://localhost:5500/UpdateQAStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'});
-    const engResponse = await fetch(`http://localhost:5500/UpdateEngineerStatus?newStatus=Closed&id=${ncrId}`, { method: 'PUT'}); 
-
-    getData();
-});
-
-document.getElementById("btnArchive").addEventListener("click", async function(){
-    
-    const response = await fetch(`http://localhost:5500/UpdateNCRStatus?newStatus=Archived&id=${ncrId}`, {
-        method: 'PUT'
-    });
-    getData();
-});
-
-document.getElementById("btnEdit").addEventListener("click", function(){
-    window.location.href = `edit.html?id=${ncrId}`;
-});
 */
+
+
