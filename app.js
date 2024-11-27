@@ -223,10 +223,24 @@ app.get("/EngineerFromNCR", (req, res) => {
     }
 });
 
+// Endpoint to get Purchasing data by NCRFormID
+app.get("/PurchasingFromNCR", (req, res) => {
+    const { ncrID } = req.query;
+    try {
+        const rows = db
+            .prepare("SELECT * FROM Purchasing WHERE NCRFormID = ?")
+            .all(ncrID);
+        res.json(rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch purchasing data.");
+    }
+});
+
+
 // Endpoint to get the 5 most recent NCR forms
 app.get("/recent-ncrs", (req, res) => {
     try {
-        // Query to get the 5 most recent NCR forms ordered by LastModified
         const rows = db
             .prepare(
                 `
@@ -240,8 +254,6 @@ app.get("/recent-ncrs", (req, res) => {
         `
             )
             .all();
-
-        // Send the result as JSON
         res.json(rows);
     } catch (error) {
         console.error("Database error:", error);
