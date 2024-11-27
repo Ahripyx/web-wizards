@@ -14,10 +14,7 @@ body {
 /* ----- Header ----- */
 
 header {
-    background-color: #d9d9d9;
-    border-bottom: 1px solid #ddd;
-    padding: 10px 20px;
-    width: 100%;
+    border: none;
 }
 
 h2 {
@@ -177,27 +174,26 @@ nav.header-nav ul li {
 }
 
 /*====================
+    Header Style
+====================*/
+
+/*====================
     Notification
 ====================*/
 
 .notification {
-    background-color: #555;
-    color: white;
     text-decoration: none;
     padding: 15px 26px;
     position: relative;
     display: inline-block;
-    border-radius: 40%;
-}
-
-.notification:hover {
-    background: rgb(145, 122, 122);
+    border: none;
+    background-color: transparent;
 }
 
 .notification .badge {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 20px;
+    right: 10px;
     padding: 5px 10px;
     border-radius: 50%;
     background: red;
@@ -255,19 +251,19 @@ label.error {
    Tool Nav Style
 ====================*/
 
-#nav ul {
+#nav.tools ul {
     list-style: none;
     border-bottom: white 1px solid;
 }
 
-#nav ul li a {
+#nav.tools ul li a {
     display: block;
     padding: 0.5em 1.5em 0.5em 1.5em;
     color: white;
     text-decoration: none;
 }
 
-#nav {
+#nav.tools {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
