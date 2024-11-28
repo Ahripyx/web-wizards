@@ -30,6 +30,22 @@ router.put("/users/", (req, res) => {
     }
 });
 
+// Endpoint to get a user by their user id
+router.get("/users/:id", (req, res) => {
+    const { id } = req.params;
+    try {
+        const row = db.prepare("SELECT * FROM User WHERE id = ?").get(id);
+        if (row) {
+            res.json(row);
+        } else {
+            res.status(404).send("User not found.");
+        }
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to fetch user.");
+    }
+});
+
 // Endpoint to get all users who worked on a specific NCRForm
 router.get("/formusers/:id", (req, res) => {
     const { id } = req.params;
@@ -60,6 +76,16 @@ router.get("/formusers/:id", (req, res) => {
 router.post("/formusers", (req, res) => {
     const { NCRForm_id, User_id } = req.body;
     try {
+        // Check if the user already exists for the given form
+        const existingRecord = db.prepare(
+            "SELECT * FROM FormUsers WHERE NCRForm_id = ? AND User_id = ?"
+        ).get(NCRForm_id, User_id);
+
+        if (existingRecord) {
+            return res.status(400).send("User already associated with this form.");
+        }
+
+        // Insert new record if it doesn't exist
         const stmt = db.prepare(
             "INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)"
         );

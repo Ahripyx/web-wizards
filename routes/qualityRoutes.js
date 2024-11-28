@@ -103,6 +103,7 @@ router.post("/quality/", (req, res) => {
         result.LastModified = lastModified;
         result.NewOrEdit = "New";
         result.NCRFormID = NCRFormID;
+        result.UserID = User_id;
 
         res.json({ form: result });
         //res.status(200).send("NCRForm and Quality record inserted successfully!");
@@ -126,6 +127,7 @@ router.put("/quality/:NCRFormID", (req, res) => {
         Details,
         QualityStatus,
         ProductID,
+        User_id,
     } = req.body;
     try {
         const LastModified = new Date().toISOString().split("T")[0];
@@ -147,6 +149,12 @@ router.put("/quality/:NCRFormID", (req, res) => {
             NCRFormID
         );
         if (result.changes > 0) {
+            // Create the formusers relation
+            const formUsersStmt = db.prepare(
+                "INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)"
+            );
+            formUsersStmt.run(NCRFormID, User_id);
+
             // Set up the notification properties we'd like to display
             result.type = "Quality";
             result.Status = QualityStatus;
@@ -155,6 +163,7 @@ router.put("/quality/:NCRFormID", (req, res) => {
             result.LastModified = LastModified;
             result.NewOrEdit = "Edit";
             result.NCRFormID = NCRFormID;
+            result.UserID = User_id;
 
             res.json({ form: result });
         } else {

@@ -132,10 +132,12 @@ export async function crudQuality(method, form, id) {
             ProductID: parseInt(form.ProductID.value, 10),
         };
 
+        const user = JSON.parse(localStorage.getItem('user'));
+            quality.User_id = user.id;
+
         // If we are creating a new form
         if (method === 'POST') {
-            const user = JSON.parse(localStorage.getItem('user'));
-            quality.User_id = user.id;
+            
         }
         // If we are updating an existing form
         else if (method === 'PUT') {
@@ -145,7 +147,7 @@ export async function crudQuality(method, form, id) {
         if (!id) id = '';
 
         let result = await throwData(`http://localhost:5500/quality/${id}`, quality, method);
-        
+    
         // Send a notification
         handleNewNotification(result.form);
 
@@ -177,10 +179,12 @@ export async function crudEngineer(method, form, id = '') {
             EngineerStatus: form.ENGStatus.value
         };
 
+        const user = JSON.parse(localStorage.getItem('user'));
+            engineer.User_id = user.id;
+
         // If we are creating a new form
         if (method === 'POST') {
-            const user = JSON.parse(localStorage.getItem('user'));
-            engineer.User_id = user.id;
+            
         }
 
         if (!id) id = '';

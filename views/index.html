@@ -4,87 +4,71 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   
+
    <title>Dashboard</title>
+   <!-- Scripts -->
+   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-   <script src="../public/scripts/notification.js" type="module" defer></script>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href="../public/styles/style.css" rel="stylesheet">
+   
+   <link href="../public/styles/style.css" rel="stylesheet">
 </head>
 
 <body>
    <!-- Nav Bar -->
    <header>
       <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-      <nav class="navbar navbar-default">
-         <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
-               <div class="container-fluid">
-                  <div class="navbar-header" style="height: 60px;">
-                     <a href="index.html" class="navbar-brand"><img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                           alt="A blue logo saying Crossfire with a flame in the middle" width="200" height="60"
-                           class="d-inline-block align-top"></a>
+      <div class="container">
+         <nav class="navbar navbar-dark bg-dark">
+            <a href="index.html" class="navbar-brand">
+               <img src="../public/images/Crossfire_Logo_no_bkgd.png"
+                  alt="A blue logo saying Crossfire with a flame in the middle">
+            </a>
+            <h1 class="navbar-text">Dashboard</h1>
+            <ul class="nav navbar-nav navbar-right">
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle fa-solid fa-bell" href="#" id="notifDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                  <div class="dropdown-menu notif-container" id="notification-content" aria-labelledby="notifDropdown">
+                     <!-- Notification Content fills in here from notification.js-->
+                      <div id="qlt-list" style="display: none;"></div>
+                     <div id="eng-list" style="display: none;"></div>
+                     <div id="pur-list" style="display: none;"></div>
                   </div>
-                  <span class="navbar-text" style="line-height: 80px;"><i class="fa-solid fa-ellipsis-vertical"
-                        style="font-size: 1.5em;"></i></span>
-                  <h1 class="navbar-text" style="line-height: 80px;">Dashboard</h1>
-                  <ul class="nav navbar-nav navbar-right">
-                     <li><a href="#"><button class="notification" id="btnNotification"><i class="fa-solid fa-bell"
-                                 style="font-size: 2em; line-height: 80px;"></i>
-                              <span class="badge" id="notification-count">0</span>
-                           </button></a></li>
+               </li>
 
-                     <span class="navbar-text" style="line-height: 80px;"><i class="fa-solid fa-ellipsis-vertical"
-                           style="font-size: 1.5em;"></i></span>
-                     <span class="navbar-text" style="line-height: 80px; font-size: 2em;"><i
-                           class="fa-solid fa-user"></i>Username</span>
-                     <li><a href="#"><i class="fa-solid fa-right-from-bracket"
-                              style="font-size: 2em; line-height: 80px;"></i></a></li>
-                     <span class="navbar-text" style="line-height: 80px;"><i class="fa-solid fa-ellipsis-vertical"
-                           style="font-size: 1.5em;"></i></span>
-                     <li><a href="#"><i class="fa-solid fa-circle-info"
-                              style="font-size: 2em; line-height: 80px;"></i></a></li>
-                  </ul>
-                  <div class="navbar-collapse"></div>
-                  <ul class="nav navbar-nav">
-                     <li class="active"><a href="index.html">Dashboard</a></li>
-                     <li><a href="create.html">Create NCR</a></li>
-                     <li><a href="list.html">NCR Logs</a></li>
-                     <li><a href="tools.html">Tools</a></li>
-                  </ul>
-               </div>
-            </div>
-            <div class="col-lg-1"></div>
-            <!-- Notification Modal -->
-         <div id="notification-modal" class="modal" style="z-index: 150;">
-            <!-- Modal content -->
-            <div class="modal-content" id="notification-content">
-               <span class="close" id="close-modal">&times;</span>
-               <div class="notification-container" id="qlt-list">
-                  <h3>New NCRs</h3>
-                  <ul id="new-qlt-list"></ul>
-                  <h3>Updated NCRs</h3>
-                  <ul id="updated-qlt-list"></ul>
-               </div>
-               <div class="notification-container" id="eng-list">
-                  <h3>Closed Quality NCRs</h3>
-                  <ul id="closed-qlt-list"></ul>
-                  <h3>New NCRs</h3>
-                  <ul id="new-eng-list"></ul>
-                  <h3>Updated NCRs</h3>
-                  <ul id="updated-eng-list"></ul>
-               </div>
-            </div>
-         </div>
-         </div>
-      </nav>
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                     <i class="fa-solid fa-user"></i> <span id="username"></span>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                  </div>
+               </li>
+               <li class="nav-item">
+                  <a href="#">
+                     <i class="fa-solid fa-circle-info"></i>
+                  </a>
+               </li>
+            </ul>
+            <div class="navbar-collapse"></div>
+            <ul class="nav navbar-nav">
+               <li class="active"><a href="index.html">Dashboard</a></li>
+               <li id="li-create" style="display: none;"><a href="create.html">Create NCR</a></li>
+               <li><a href="list.html">NCR Logs</a></li>
+               <li id="li-tools" style="display: none;"><a href="tools.html">Tools</a></li>
+            </ul>
+         </nav>
+      </div>
    </header>
-
    <!-- Main Content -->
    <main>
       <!-- Three main nav layout here -->

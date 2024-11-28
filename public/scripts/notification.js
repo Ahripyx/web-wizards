@@ -1,26 +1,11 @@
-let notificationModal;
-document.addEventListener("DOMContentLoaded", function() {
-    notificationModal = document.getElementById('notification-modal');
+let users;
+document.addEventListener("DOMContentLoaded", async function() {
 
-    // When the user clicks on the button, open the modal
-    document.getElementById("btnNotification").onclick = function() {
-        notificationModal.style.display = "block";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == notificationModal) {
-            notificationModal.style.display = "none";
-        }
-    }
-
-    notificationModal.addEventListener("click", function(event) {
-        if (event.target.matches("#close-modal")) {
-            notificationModal.style.display = "none";
-        }
-    });
-
+    const response = await fetch('http://localhost:5500/users');
+    users = await response.json();
     updateNotification();
+
+    
 });
 
 // Function to increment the notification count
@@ -78,9 +63,10 @@ function increment(type, count, admin) {
 // Function to update the notification modal
 function updateNotification() {
     const user = JSON.parse(localStorage.getItem('user'));
+    const username = document.getElementById('username');
+    if (username) username.textContent = `${user.FName} ${user.MName ? user.MName.charAt(0) + '. ' : ''}${user.LName}`;
 
     const notificationCount = document.getElementById('notification-count');
-    const notificationModal = document.getElementById('notification-modal');
 
     setupUserView(user.RoleID);
 
@@ -107,20 +93,48 @@ function updateNotification() {
                 const currentYear = new Date().getFullYear();
                 const ncrNumber = `${currentYear}-${String(pf.NCRFormID).padStart(3, '0')}`;
 
-                console.log(pf.NCRFormID);
-                let txt = `<li><a href="details.html?id=${pf.NCRFormID}" onclick="deleteNotification(${pf.NCRFormID}, '${pf.type}')"> `;
+                let div = document.createElement('div');
+                div.className = 'list-group';
+
+                let a = document.createElement('a');
+                a.href = `details.html?id=${pf.NCRFormID}`;
+                a.className = 'list-group-item list-group-item-action flex-column align-items-start';
+                //a.onclick = function() { deleteNotification(pf.NCRFormID, pf.type); };
+
+                let divInner = document.createElement('div');
+                divInner.className = 'd-flex w-100 justify-content-between';
+
+                let h5 = document.createElement('h5');
+                h5.className = 'mb-1';
+                let status;
+                if (pf.NewOrEdit == "New" || pf.Status == "Closed")
+                    status = "released";
+                else
+                    status = "updated";
                 
-                if (pf.type == "Quality") {
-                        txt += `${ncrNumber} - ${pf.Details} for ${pf.ItemDescription}. </a></li>`;
-                    }
-                else if (pf.type == "Engineer") {
-                        txt += `${ncrNumber} - ${pf.Review}. </a></li>`;
-                    }
-                    if (list) {
-                        let li = document.createElement('li');
-                        li.innerHTML += txt;
-                        list.appendChild(li);
-                    }
+                h5.textContent = `${pf.type} form ${status}`;
+
+                let small = document.createElement('small');
+                const user = users.find(u => u.id === pf.UserID);
+                if (user) {
+                    small.textContent = `by ${user.FName} ${user.MName ? user.MName.charAt(0) + '. ' : ''}${user.LName}`;
+                }
+
+                let p = document.createElement('p');
+                p.className = 'mb-1';
+                p.textContent = `NCR#: ${ncrNumber} - ${pf.Details || pf.Review} for ${pf.ItemDescription || ''}`;
+
+                let smallDate = document.createElement('small');
+                smallDate.textContent = pf.LastModified;
+
+                divInner.appendChild(h5);
+                divInner.appendChild(small);
+                a.appendChild(divInner);
+                a.appendChild(p);
+                a.appendChild(smallDate);
+                div.appendChild(a);
+
+                list.appendChild(div);
                 }
             }
         };
@@ -152,27 +166,21 @@ function decrement(type, adminType) {
 }
 
 function listSelect(pf) {
-    let newQlt, updatedQlt, closedQlt, newEng, updatedEng;
-        if (document.getElementById('new-qlt-list')) {
-            newQlt = document.getElementById('new-qlt-list');
-            updatedQlt = document.getElementById('updated-qlt-list');
+    let qlt, eng;
+        if (document.getElementById('qlt-list')) {
+            qlt = document.getElementById('qlt-list');
         }
-        if (document.getElementById('new-eng-list')) {
-            closedQlt = document.getElementById('closed-qlt-list');
-            newEng = document.getElementById('new-eng-list');
-            updatedEng = document.getElementById('updated-eng-list');
+        if (document.getElementById('eng-list')) {
+            eng = document.getElementById('eng-list');
         }
 
-    if (pf.type == "Quality" && newQlt) 
+    if (pf.type == "Quality") 
     {
             if (pf.Status == "Closed")
-                return closedQlt;
+                return eng;
             else if (pf.Status == "Open")
             {
-                if (pf.NewOrEdit == "New")
-                    return newQlt;
-                else if (pf.NewOrEdit == "Edit")
-                    return updatedQlt;
+                return qlt;
             }
         }
     else if (pf.type == "Engineer" && newEng)
@@ -181,28 +189,29 @@ function listSelect(pf) {
             //    return closedQlt;
             if (pf.Status == "Open")
             {
-                if (pf.NewOrEdit == "New")
-                    return newEng;
-                else if (pf.NewOrEdit == "Edit")
-                    return updatedEng;
+                return eng;
             }
         }
         else return null;
 }
 
 function setupUserView(role) {
-    if (role == 1) return;
-    else if (role == 2)
+    if (role == 2 || role == 1)
     {
-        document.getElementById('eng-list').style.display = 'none';
+        document.getElementById('li-create').style.display = 'block';
+        document.getElementById('qlt-list').style.display = 'block';
     }
-    else if (role == 3)
+    if (role == 3 || role == 1)
     {
-        document.getElementById('qlt-list').style.display = 'none';
+        document.getElementById('eng-list').style.display = 'block';
     }
-    else if (role == 4)
+    if (role == 4 || role == 1)
     {
-        document.getElementById('qlt-list').style.display = 'none';
-        document.getElementById('eng-list').style.display = 'none';
+        document.getElementById('qlt-list').style.display = 'block';
+        document.getElementById('eng-list').style.display = 'block';
+    }
+    if (role == 1)
+    {
+        document.getElementById('li-tools').style.display = 'block';
     }
 }

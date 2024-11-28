@@ -1,4 +1,9 @@
+let user;
 document.addEventListener('DOMContentLoaded', async () => {
+    user = localStorage.getItem('user');
+    if (user != null) {
+        localStorage.removeItem('user');
+    }
     document.getElementById('login').addEventListener('submit', async () => {
         event.preventDefault();
         const email = document.getElementById('email').value;
@@ -12,12 +17,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function login(email, password) {
     try
     {    
-        let user = localStorage.getItem('user');
-
-        if (user != null) {
-            localStorage.removeItem('user');
-        }
-
         const response = await fetch('http://localhost:5500/users');
         const data = await response.json();
 

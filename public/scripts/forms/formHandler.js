@@ -228,6 +228,10 @@ function formatDate(date) {
 }
 
 function setupEventListeners() {
+    const qltForm = document.getElementById("ncrform_quality");
+    const engForm = document.getElementById("ncrform_engineer");
+    const purForm = document.getElementById("ncrform_purchasing");
+
     document
         .getElementById("NEWProduct")
         .addEventListener("click", handleNewProduct);
@@ -237,19 +241,52 @@ function setupEventListeners() {
         "change",
         handleSupplierChange
     );
-    QUALITY_CONTROLS.QLTSubmit.addEventListener("click", () =>
-        handleSubmit(QUALITY_CONTROLS)
-    );
 
-    if (ENGINEER_CONTROLS.RevisionNumber) handleRevision();
-    if (ENGINEER_CONTROLS.ENGSubmit)
-        ENGINEER_CONTROLS.ENGSubmit.addEventListener("click", () =>
-            handleSubmit(ENGINEER_CONTROLS)
-        );
-    if (PURCHASING_CONTROLS.PURSubmit)
-        PURCHASING_CONTROLS.PURSubmit.addEventListener("click", () =>
-            handleSubmit(PURCHASING_CONTROLS)
-        );
+    qltForm.addEventListener("submit", async (event) => {
+        if (!qltForm.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            qltForm.classList.add('was-validated'); // add validation class?
+            return; // Exit if  form invalid
+         }
+        if (qltForm.checkValidity()) {
+            handleSubmit(QUALITY_CONTROLS);
+        } 
+    });
+
+    if (engForm)
+    {
+        if (ENGINEER_CONTROLS.RevisionNumber) handleRevision();
+    engForm.addEventListener("submit", async (event) => {
+        if (!engForm.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            engForm.classList.add('was-validated'); // add validation class?
+            return; // Exit if  form invalid
+         }
+        if (engForm.checkValidity()) {
+            handleSubmit(ENGINEER_CONTROLS);
+        } 
+    });
+    }
+
+    if (purForm)
+    {
+        purForm.addEventListener("submit", async (event) => {
+            if (!purForm.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                purForm.classList.add('was-validated'); // add validation class?
+                return; // Exit if  form invalid
+             }
+            if (purForm.checkValidity()) {
+                handleSubmit(PURCHASING_CONTROLS);
+            } 
+        });
+    }
+    
+
+    
 }
 
 async function handleProductChange(event) {

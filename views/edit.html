@@ -2,20 +2,29 @@
 <html lang="en">
 
 <head>
-   <title>Web Wizards</title>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-   <link href="../public/styles/style.css" rel="stylesheet">
+   <title>Web Wizards</title>
+
+   <!-- Scripts -->
+   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+   <script src="../public/scripts/validation.js"></script>
+   
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+   <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+
+   <!-- Fonts -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap" rel="stylesheet">
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-   <script src="../public/scripts/notification.js" type="module" defer></script>
-   <script src="../public/scripts/validation.js"></script>
-   <script src="../public/scripts/menu-script.js" defer></script>
-   <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+   <!-- Custom CSS -->
+   <link href="../public/styles/style.css" rel="stylesheet">
+
    <script type="module">
       import * as lookup from '../public/scripts/forms/formHandler.js';
 
@@ -27,29 +36,6 @@
             alert('No ID provided in the URL');
             return;
          }
-
-         const form_quality = document.getElementById('ncrform_quality');
-         const form_engineer = document.getElementById('ncrform_engineer');
-         const form_purchasing = document.getElementById('ncrform_purchasing');
-
-         form_quality.addEventListener('submit', async (event) => {
-            if (!form_quality.checkValidity()) {
-               event.preventDefault();
-               event.stopPropagation();
-               form_quality.classList.add('was-validated'); // add validation class?
-               return; // Exit if  form invalid
-            }
-         });
-
-         form_engineer.addEventListener('submit', async (event) => {
-            if (!form_engineer.checkValidity()) {
-               event.preventDefault();
-               event.stopPropagation();
-               form_engineer.classList.add('was-validated'); // add validation class?
-               return; // Exit if  form invalid
-            }
-            //await lookup.insertForm(id);
-         });
       });
    </script>
 </head>
@@ -58,51 +44,48 @@
    <!-- Nav Bar -->
    <header>
       <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-      <div class="header-content">
-         <div class="logo">
-            <a href="index.html"><img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                  alt="A blue logo saying Crossfire with a flame in the middle"></a>
-         </div>
-         <div>
-            <nav class="header-nav">
-               <a href="#" id="menu-icon" class="menu-icon">
-                  <img src="../public/images/menu-icon.png" alt="Menu icon with 3 black lines going horizontally ">
-               </a>
-               <ul id="menu-list">
-                  <li><a href="#" id="ancHome">Home</a></li>
-                  <li><a href="#" id="ancCreate">Create NCR</a></li>
-                  <li><a href="#" id="ancLogs">NCR Log</a></li>
-                  <li><a href="#" id="ancTools">Tools</a></li>
-               </ul>
-            </nav>
-         </div>
-         <div>
-            <button class="notification" id="btnNotification">
-               <span class="fa-solid fa-bell"></span>
-               <span class="badge" id="notification-count">0</span>
-            </button>
-         </div>
-         <!-- Notification Modal -->
-         <div id="notification-modal" class="modal" style="z-index: 150;">
-            <!-- Modal content -->
-            <div class="modal-content" id="notification-content">
-               <span class="close" id="close-modal">&times;</span>
-               <div class="notification-container" id="qlt-list">
-                  <h3>New NCRs</h3>
-                  <ul id="new-qlt-list"></ul>
-                  <h3>Updated NCRs</h3>
-                  <ul id="updated-qlt-list"></ul>
-               </div>
-               <div class="notification-container" id="eng-list">
-                  <h3>Closed Quality NCRs</h3>
-                  <ul id="closed-qlt-list"></ul>
-                  <h3>New NCRs</h3>
-                  <ul id="new-eng-list"></ul>
-                  <h3>Updated NCRs</h3>
-                  <ul id="updated-eng-list"></ul>
-               </div>
-            </div>
-         </div>
+      <div class="container">
+         <nav class="navbar navbar-dark bg-dark">
+            <a href="index.html" class="navbar-brand">
+               <img src="../public/images/Crossfire_Logo_no_bkgd.png"
+                  alt="A blue logo saying Crossfire with a flame in the middle">
+            </a>
+            <h1 class="navbar-text">Dashboard</h1>
+            <ul class="nav navbar-nav navbar-right">
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle fa-solid fa-bell" href="#" id="notifDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                  <div class="dropdown-menu notif-container" id="notification-content" aria-labelledby="notifDropdown">
+                     <!-- Notification Content fills in here from notification.js-->
+                      <div id="qlt-list" style="display: none;"></div>
+                     <div id="eng-list" style="display: none;"></div>
+                     <div id="pur-list" style="display: none;"></div>
+                  </div>
+               </li>
+
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                     <i class="fa-solid fa-user"></i> <span id="username"></span>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                  </div>
+               </li>
+               <li class="nav-item">
+                  <a href="#">
+                     <i class="fa-solid fa-circle-info"></i>
+                  </a>
+               </li>
+            </ul>
+            <div class="navbar-collapse"></div>
+            <ul class="nav navbar-nav">
+               <li class="active"><a href="index.html">Dashboard</a></li>
+               <li id="li-create" style="display: none;"><a href="create.html">Create NCR</a></li>
+               <li><a href="list.html">NCR Logs</a></li>
+               <li id="li-tools" style="display: none;"><a href="tools.html">Tools</a></li>
+            </ul>
+         </nav>
       </div>
    </header>
 
@@ -572,23 +555,6 @@
          });
       }
 
-   </script>
-   <script>
-      document.addEventListener('DOMContentLoaded', () => {
-         const formControls = document.querySelectorAll('.form-control, .form-select');
-         formControls.forEach(control => {
-            const validFeedback = document.createElement('div');
-            validFeedback.className = 'valid-feedback';
-            validFeedback.textContent = 'Looks good!';
-
-            const invalidFeedback = document.createElement('div');
-            invalidFeedback.className = 'invalid-feedback';
-            invalidFeedback.textContent = 'Please enter a valid value.';
-
-            control.parentNode.appendChild(validFeedback);
-            control.parentNode.appendChild(invalidFeedback);
-         });
-      });
    </script>
    <script src="../public/scripts/navigate.js"></script>
 </body>

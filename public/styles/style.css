@@ -57,12 +57,6 @@ td {
     align-items: center;
 }
 
-/* Logo styling */
-.logo img {
-    height: auto;
-    width: 500px;
-}
-
 /* User info styling */
 .user-info p {
     color: #333;
@@ -177,17 +171,50 @@ nav.header-nav ul li {
     Header Style
 ====================*/
 
+.navbar a {
+    font-size: 2em;
+}
+
+.navbar-brand {
+    margin-top: 15px;
+    width: 200px;
+    padding: 0px;
+  }
+
+.navbar-brand img{
+    width: 100%;
+    object-fit: contain;
+}
+
+/*.navbar-nav li.active{
+    background-color: #282a35;
+}
+
 /*====================
     Notification
 ====================*/
 
-.notification {
-    text-decoration: none;
-    padding: 15px 26px;
-    position: relative;
-    display: inline-block;
-    border: none;
-    background-color: transparent;
+.notif-container {
+    padding: 15px;
+    width: 320px;
+    font-size: large;
+}
+
+.notif-container li {
+    height: 65px;
+    width: 100%;
+}
+
+.notif-container a {
+    font-size: large;
+}
+
+.navbar-right .dropdown-menu.notif-container{
+    right: -120px;
+}
+
+.list-group-item button {
+    float: right;
 }
 
 .notification .badge {
