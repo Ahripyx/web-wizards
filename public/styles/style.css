@@ -186,6 +186,10 @@ nav.header-nav ul li {
     object-fit: contain;
 }
 
+li.active {
+    background-color: lightgray;
+}
+
 /*.navbar-nav li.active{
     background-color: #282a35;
 }
@@ -216,17 +220,6 @@ nav.header-nav ul li {
 .list-group-item button {
     float: right;
 }
-
-.notification .badge {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    padding: 5px 10px;
-    border-radius: 50%;
-    background: red;
-    color: white;
-}
-
 /*====================
     Modals
 ====================*/
