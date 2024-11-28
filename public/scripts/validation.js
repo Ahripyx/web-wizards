@@ -81,19 +81,42 @@ function ProductValidation() {
     }
 };
 
-    //Date Filter 
-function DateFilterValidation() {
-    const minDate = document.getElementById("dateBox1").value;
-    const maxDate = document.getElementById("dateBox2").value;
-
-    let [year, month, day] = minDate.split('-')
+    //List Date Filter 
+    function DateFilterValidation() {
+        const minDate = document.getElementById("dateBox1").value;
+        const maxDate = document.getElementById("dateBox2").value;
     
-    if(year == null || month == null || day == null) {
-        alert("Invalid Date")
-    }
+        let [minYear, minMonth, minDay] = minDate.split('-');
+        let [maxYear, maxMonth, maxDay] = maxDate.split('-');
+    
+        if (!minDate && !maxDate) {
+            // Shows all records
+            date1 = '0001-01-01';
+            date2 = '9999-12-12';
+        } else if (minDate && !maxDate) {
+            // Shows all records starting from minimum date
+            date1 = minDate;
+            date2 = '9999-12-12';
+        } else if (!minDate && maxDate) {
+            // Shows all records up until maximum date
+            date1 = '0001-01-01';
+            date2 = maxDate;
+        } else if (!minYear || !minMonth || !minDay || !maxYear || !maxMonth || !maxDay) {
+            // If any part of the date is missing, show no records
+            date1 = '9999-12-12';
+            date2 = '9999-12-12';
+            alert("Invalid Date - Please fill in the full date");
+        } else if (new Date(minDate) > new Date(maxDate)) {
+            // If minDate is greater than maxDate, show no records
+            date1 = '9999-12-12';
+            date2 = '9999-12-12';
+            alert("Minimum date cannot be in the future of Maximum Date");
+        } else {
+            // Valid dates
+            date1 = minDate;
+            date2 = maxDate;
+        }
+    };
+    
+ 
 
-    if (new Date(minDate) > new Date(maxDate)) {
-        console.log("Test")
-        alert("Minimum date cannot be in the future of Maximum Date")
-    } 
-}

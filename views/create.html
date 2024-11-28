@@ -98,7 +98,7 @@
    <!-- Create Form -->
    <div class="container">
       <header>
-         <h2>Non-Conformance Report - ISO: XXXXX</h2>
+         <h2>Non-Conformance Report - ISO: OPS-00011</h2>
       </header>
       <form class="px-4 needs-validation" id="ncrform" onsubmit="event.preventDefault();" novalidate>
          <fieldset id="fs_quality">
@@ -127,7 +127,7 @@
                <div class="form-group col-md-6">
                   <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
                   <select class="form-select" id="SupplierID" name="SupplierID" aria-required="true"
-                     onblur="SupplierValidation()" required>
+                     oninput="SupplierValidation()" required>
                      <option selected value='' disabled>Select a Supplier</option>
                   </select>
                   <div class="invalid-feedback" id="supplier-feedback">
@@ -138,7 +138,7 @@
                <div class="form-group col-md-6">
                   <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
                   <select class="form-select" id="ProductID" name="ProductID" aria-required="true"
-                     onblur="ProductValidation()" required>
+                     oninput="ProductValidation()" required>
                      <option selected value='' disabled>No products available</option>
                   </select>
                   <div class="invalid-feedback" id="product-feedback">
@@ -164,7 +164,7 @@
                <div class="form-group col-md-6">
                   <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span> </label>
                   <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true"
-                     onblur="QuantityRecValidation()" required>
+                     oninput="QuantityRecValidation()" required>
                   <div class="invalid-feedback" id="received-invalid">
                      Please enter a valid quantity
                   </div>
@@ -174,7 +174,7 @@
                   <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span>
                   </label>
                   <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true"
-                     onblur="QuantityDefValidation()" required>
+                     oninput="QuantityDefValidation()" required>
                   <div class="invalid-feedback" id="defective-invalid">
                      Please enter a valid quantity
                   </div>

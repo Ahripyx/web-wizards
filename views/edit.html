@@ -168,7 +168,7 @@
       <!-- Create Form -->
       <div class="container edit">
          <header>
-            <h2>Non-Conformance Report - ISO: XXXXX</h2>
+            <h2>Non-Conformance Report - ISO: OPS-00011</h2>
          </header>
          <form class="px-4 needs-validation" id="ncrform_quality" onsubmit="event.preventDefault();"
             style="display: none;" novalidate>
@@ -428,6 +428,114 @@
          </form>
       </div>
    </div>
+   <form class="px-4 needs-validation" id="ncrform_purchasing" onsubmit="event.preventDefault();"
+   style="display: none;" novalidate>
+   <fieldset id="fs_purchasing">
+      <legend>Purchasing Form</legend>
+      <!-- Fields for Purchasing Form -->
+      <div class="row g-3">
+         <!-- Purchasings Preliminary Decision -->
+         <div class="form-group col-md-6">
+            <label>Preliminary Decision <span class="no">*</span> </label>
+            <div>
+               <div class="form-check form-check-inline">
+                  <input name="Decision" id="Decision_0" type="radio" required="required" aria-required="true"
+                     class="form-check-input" value="Return To Supplier">
+                  <label for="Decision_0" class="form-check-label">Return To Supplier</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input name="Decision" id="Decision_1" type="radio" required="required" aria-required="true"
+                     class="form-check-input" value="Rework In House">
+                  <label for="Decision_1" class="form-check-label">Rework In House</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input name="Decision" id="Decision_2" type="radio" required="required" aria-required="true"
+                     class="form-check-input" value="Scrap">
+                  <label for="Decision_2" class="form-check-label">Scrap</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input name="Decision" id="Decision_3" type="radio" required="required" aria-required="true"
+                     class="form-check-input" value="Defer for HBC Engineering Review">
+                  <label for="Decision_3" class="form-check-label">Defer for HBC Engineering Review</label>
+               </div>
+            </div>
+         </div>
+         <!-- CAR Raised? -->
+         <div class="form-group col-md-6">
+            <label>Was a CAR Raised? <span class="no">*</span> </label>
+            <div>
+               <div class="form-check form-check-inline">
+                  <input name="CarRaised" id="CarRaised_0" type="radio" required="required"
+                     aria-required="true" class="form-check-input" value="Yes">
+                  <label for="CarRaised_0" class="form-check-label">Yes</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input name="CarRaised" id="CarRaised_1" type="radio" required="required"
+                     aria-required="true" class="form-check-input" value="No">
+                  <label for="CarRaised_1" class="form-check-label">No</label>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Follow-up Required? -->
+      <div class="form-group col-md-6">
+         <label>Follow-Up Required? <span class="no">*</span> </label>
+         <div>
+            <div class="form-check form-check-inline">
+               <input name="Follow-up" id="Follow-up_0" type="radio" required="required"
+                  aria-required="true" class="form-check-input" value="Yes">
+               <label for="Follow-up_0" class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input name="Follow-up" id="Follow-up_1" type="radio" required="required"
+                  aria-required="true" class="form-check-input" value="No">
+               <label for="Follow-up_1" class="form-check-label">No</label>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- CAR Number-->
+   <div class="form-group col-md-4" id="CARNumber"> <!-- style="display: none;"-->
+      <label for="CARNumber">Car Number</label>
+      <input type="text" class="form-control-plaintext" id="CARNumber">
+   </div>
+   <!-- Follow up Type & Date -->
+   <div class="form-group col-md-4" id="Follow-Up-Type"> <!-- style="display: none;"-->
+      <label for="Follow-Up-Type">Follow-Up Type</label>
+      <input type="text" class="form-control-plaintext" id="Follow-Up-Type">
+   </div>
+   <div class="form-group col-md-4" id="Follow-Up-Date" > <!-- style="display: none;"-->
+      <label for="Follow-Up-Date" id="lblFollow-Up-Date">Follow-Up Expected Date</label>
+      <input type="date" class="form-control" id="Follow-Up-Date">
+   </div>      
+   <!-- Purchasing Name & Date -->
+      <div class="row g-3">
+         <div class="form-group col-md-6">
+            <label for="PURName" class="form-group col-md-4">Operations Manager</label>
+            <input type="text" class="form-control-plaintext" id="PURName" readonly>
+         </div>
+         <div class="form-group col-md-6">
+            <label for="PURDate">Date</label>
+            <input type="date" class="form-control" id="PURDate" readonly>
+         </div>
+      </div>
+      <!-- Submit Button -->
+      <div class="row g-3">
+         <div class="form group col-md-6">
+            <button type="submit" class="yes" id="PURSubmit">Save NCR</button>
+         </div>
+         <div class="form group col-md-6">
+            <label for="PURStatus">Status </label>
+            <select class="form-select" id="PURStatus" name="PURStatus" aria-required="true" required>
+               <option value="Open">Open</option>
+               <option value="Closed">Closed</option>
+            </select>
+         </div>
+      </div>
+   </fieldset>
+</form>
+</div>
+</div>
 
    <footer>
       <p><small>CROSSFIRE NCR</small></p>
