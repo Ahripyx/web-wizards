@@ -31,24 +31,6 @@ footer {
     bottom: 0;
 }
 
-/*----- Table -----*/ /* ALL OF THIS TABLE STUFF CAN BE TURNED INTO CLASSES IF NEED BE */
-.TableBorders {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-/*----- Table Headings -----*/
-th {
-    text-align: left;
-}
-
-/*----- Table Headings and Definitions -----*/
-
-th,
-td {
-    padding: 5px;
-}
-
 /* Flexbox layout for header */
 .header-content {
     display: grid;
@@ -113,14 +95,6 @@ nav.header-nav ul li {
     margin: 0 auto;
 }
 
-/*
-.recent-forms {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-*/
 .recent-forms h2 {
     text-align: center;
     margin-top: 8px;
@@ -131,10 +105,6 @@ nav.header-nav ul li {
     font-size: 1.5em;
     width: 100%;
     border-collapse: collapse;
-}
-
-.recent-forms td {
-    padding: 8px;
 }
 
 .home-nav {
@@ -161,10 +131,6 @@ nav.header-nav ul li {
     height: auto;
     width: 150px;
     padding: 20px;
-}
-
-.home-nav button {
-    width: 200px;
 }
 
 /*====================
@@ -470,21 +436,11 @@ form input[type="date"]:focus {
     padding-top: 16px;
 }
 
-.grid-item{
-    padding: 10px
-}
+.grid-item{ padding: 10px }
 
-.blue-grid{
-    background-color: lightblue;
-}
-
-.green-grid{
-    background-color: lightgreen;
-}
-
-.pink-grid{
-    background-color: pink;
-}
+.blue-grid{ background-color: lightblue; }
+.green-grid{ background-color: lightgreen; }
+.pink-grid{ background-color: pink; }
 
 .grid-tab{
     border-top-left-radius: 1em;
@@ -492,30 +448,20 @@ form input[type="date"]:focus {
     text-align: center;
 }
 
-.grid-top-right{
-    border-top-right-radius: 1em;
-}
+.grid-top-right{ border-top-right-radius: 1em; }
 
 .grid-bottom-right{
     border-bottom-right-radius: 1em;
     margin-bottom: 20px;
 }
-
 .grid-bottom-left{
     border-bottom-left-radius: 1em;
     margin-bottom: 20px;
 }
 
-.grid-item-qty{ 
-    grid-area: quality;
-}
-
-.grid-item-eng{
-    grid-area: engineering;
-}
-.grid-item-pur{
-    grid-area: purchasing;
-}
+.grid-item-qty{ grid-area: quality; }
+.grid-item-eng{ grid-area: engineering; }
+.grid-item-pur{ grid-area: purchasing; }
 
 .grid-item input[type="text"]{
     border: none;
@@ -579,9 +525,9 @@ form input[type="date"]:focus {
     width: 100%;
 }
 
-/*
-    Info 
-*/
+/*=============
+    Info Page
+=============*/
 .QandA{
     font-size: 1.5em;
     width: 50%;
