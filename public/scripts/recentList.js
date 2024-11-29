@@ -6,10 +6,19 @@ async function getData() {
     const data = await response.json();
     const table = document.getElementById("table");
 
+    // Increment row
+    var row = 0;
+
     // Loop through each NCR record and populate the table
     data.forEach(element => {
         // Create a new row for each NCR record
-        table.innerHTML += `<tr id="ncr-${element.id}"></tr>`;
+        if (row % 2 == 1){
+            table.innerHTML += `<tr id="ncr-${element.id}" class="light-cells"></tr>`
+        }
+        else{
+            table.innerHTML += `<tr id="ncr-${element.id}"></tr>`
+        }
+        //table.innerHTML += `<tr id="ncr-${element.id}"></tr>`;
         const tablerow = document.getElementById(`ncr-${element.id}`);
 
         // Populate the row with NCR details
@@ -21,6 +30,7 @@ async function getData() {
             <td class="table-borders"><a href="details.html?id=${element.id}">Details</a></td>
             <td class="table-borders"><a href="details.html?id=${element.id}">Edit</a></td>
         `;
+        row++;
     });
 }
 

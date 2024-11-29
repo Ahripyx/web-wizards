@@ -74,32 +74,42 @@
       <!-- Three main nav layout here -->
       <div class="home-nav">
          <div>
-            <img src="../public/images/add.png" alt="Black icon for Create NCR page">
-            <!--<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>-->
-            <button id="btnCreateNCR">Create NCR</button>
+            <a href="create.html">
+               <img src="../public/images/add.png" alt="Black icon for Create NCR page">
+               <!--<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>-->
+               <label>CREATE NCR</label>
+            </a>
          </div>
          <div>
-            <img src="../public/images/edit.png" alt="Black icon for NCRs Log page">
-            <!--<a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a> -->
-            <button id="btnViewNCR">NCR Logs</button>
+            <a href="list.html">
+               <img src="../public/images/edit.png" alt="Black icon for NCRs Log page">
+               <!--<a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a> -->
+               <label>NCRS</label>
+            </a>
          </div>
          <div>
-            <img src="../public/images/search.png" alt="Black icon for NCR reports page">
-            <!--<a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Freepik - Flaticon</a>-->
-            <button id="btnViewRep">View Reports</button>
+            <a href="reports.html">
+               <img src="../public/images/search.png" alt="Black icon for NCR reports page">
+               <!--<a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Freepik - Flaticon</a>-->
+               <label>VIEW REPORTS</label>
+            </a>
          </div>
       </div>
       <!-- Template for the recently updated NCR Forms -->
       <section class="recent-forms">
          <h2>Recent NCR Forms</h2>
-         <table id="table">
-            <tr>
-               <th>NCR Number</th>
-               <th>Item Name</th>
-               <th>Status</th>
-               <th>Date</th>
-            </tr>
-         </table>
+         <div class="table-responsive">
+            <table id="table" class="table">
+               <tr class="shaded-cells">
+                  <th>NCR Number</th>
+                  <th>Item Name</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th></th>
+                  <th></th>
+               </tr>
+            </table>
+         </div>
       </section>
    </main>
 
