@@ -444,43 +444,83 @@ form input[type="date"]:focus {
 }
 
 .grid-report{
-    grid-template-columns: 150px auto auto auto;
+    grid-template-columns: auto auto auto;
     grid-template-areas:
-    'quality supplier supplier NCRnum'
-    'quality process process productNum'
-    'quality item item saleOrder'
-    'quality defect defect qRecieved'
-    'quality defect defect qDefective'
-    'quality nonConform nonConform nonConform'
-    'quality qualName qualName qualDate' 
-    'engineering review review review'
-    'engineering notify notify notify'
-    'engineering dispo dispo dispo'
-    'engineering updateDraw updateDraw updateDraw'
-    'engineering ogRev ogRev newRev'
-    'engineering engName engName engDate'
-    'purchasing decision decision decision'
-    'purchasing CAR CAR carNum'
-    'purchasing followUp followUpType followUpDate'
-    'purchasing reinspect newNCR newNCR'
-    'purchasing purName purName purDate';
+    'quality empty empty'
+    'supplier supplier NCRnum'
+    'process process productNum'
+    'item item saleOrder'
+    'defect defect qRecieved'
+    'defect defect qDefective'
+    'nonConform nonConform nonConform'
+    'qualName qualName qualDate' 
+    'engineering empty2 empty2'
+    'review review review'
+    'notify notify notify'
+    'dispo dispo dispo'
+    'updateDraw updateDraw updateDraw'
+    'ogRev ogRev newRev'
+    'engName engName engDate'
+    'purchasing empty3 empty3'
+    'decision decision decision'
+    'CAR CAR carNum'
+    'followUp followUpType followUpDate'
+    'reinspect newNCR newNCR'
+    'purName purName purDate';
+    padding-top: 16px;
 }
 
 .grid-item{
     padding: 10px
 }
 
-.grid-item-qty{
+.blue-grid{
     background-color: lightblue;
+}
+
+.green-grid{
+    background-color: lightgreen;
+}
+
+.pink-grid{
+    background-color: pink;
+}
+
+.grid-tab{
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    text-align: center;
+}
+
+.grid-top-right{
+    border-top-right-radius: 1em;
+}
+
+.grid-bottom-right{
+    border-bottom-right-radius: 1em;
+    margin-bottom: 20px;
+}
+
+.grid-bottom-left{
+    border-bottom-left-radius: 1em;
+    margin-bottom: 20px;
+}
+
+.grid-item-qty{ 
     grid-area: quality;
 }
+
 .grid-item-eng{
-    background-color: lightgreen;
     grid-area: engineering;
 }
 .grid-item-pur{
-    background-color: pink;
     grid-area: purchasing;
+}
+
+.grid-item input[type="text"]{
+    border: none;
+    background-color: hsla(0, 0%, 0%, 0);
+    color: black;
 }
 
 .quality-item1{ grid-area: process; }

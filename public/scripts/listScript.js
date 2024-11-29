@@ -15,7 +15,6 @@ async function filltables(data, table){
     var row = 0;
 
     data.forEach(element => {
-        console.log(element.id);
         if (row % 2 == 1){
             table.innerHTML += `<tr id="${element.id}" class="light-cells"></tr>`
         }
@@ -54,7 +53,6 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
 
     const ddl = document.getElementById("filterStatus");
     const status = ddl.options[ddl.selectedIndex].value;
-    console.log(status)
 
     var date1 = document.getElementById("dateBox1").value;
     var date2 = document.getElementById("dateBox2").value;
