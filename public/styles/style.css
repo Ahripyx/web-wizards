@@ -539,6 +539,19 @@ form input[type="date"]:focus {
     width: 100%;
 }
 
+/*
+    Info 
+*/
+.QandA{
+    font-size: 1.5em;
+    width: 50%;
+}
+
+.QandA h2{
+    text-align: center;
+    padding-bottom: 12px;
+}
+
 /*========================
         Media Queries
 ========================*/
