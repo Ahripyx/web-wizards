@@ -67,35 +67,38 @@
        </nav>
     </div>
  </header>
-
+   <div>
+      <button id="pdfDownload">Download</button>
+      <button id="pdfPrint">Print</button>
+   </div>
     <div class="pdf-preview" id="pdf-preview-container" >
         <canvas id="pdf-preview-canvas" width="600"></canvas>
     </div>
 
     <script>
-        // Retrieve the PDF data URI from the URL
+        //Retrieve the PDF data URI from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const pdfDataUri = decodeURIComponent(urlParams.get('pdf'));
 
-        // Ensure we have valid PDF data
+        //Ensure we have valid PDF data
         if (pdfDataUri) {
             const canvas = document.getElementById('pdf-preview-canvas');
             const context = canvas.getContext('2d');
 
-            // Load the PDF using pdf.js
+            //Load the PDF using pdf.js
             const loadingTask = pdfjsLib.getDocument(pdfDataUri);
 
             loadingTask.promise.then(function(pdfDoc) {
-                // Render the first page of the PDF
+                //Render the first page of the PDF
                 pdfDoc.getPage(1).then(function(page) {
-                    const scale = 1.5; // Scale factor for rendering
+                    const scale = 1.5; //Scale factor for rendering
                     const viewport = page.getViewport({ scale: scale });
 
-                    // Set canvas size based on PDF page size
+                    //Set canvas size based on PDF page size
                     canvas.width = viewport.width;
                     canvas.height = viewport.height;
 
-                    // Render the page onto the canvas
+                    //Render the page onto the canvas
                     const renderContext = {
                         canvasContext: context,
                         viewport: viewport
@@ -108,7 +111,39 @@
         } else {
             console.error('No PDF data found!');
         }
-        
+
+        //Download button logic
+        document.getElementById('pdfDownload').addEventListener('click', function() {
+            //Create an anchor element and trigger the download
+            const link = document.createElement('a');
+            link.href = pdfDataUri;
+            link.download = 'NCR_Report.pdf'; //Issue: Change this so it uses file name with NCR number later
+            link.click();
+        });
+
+        //Print button logic
+        document.getElementById('pdfPrint').addEventListener('click', function() {
+            //Convert the data URI into a Blob
+            const byteCharacters = atob(pdfDataUri.split(',')[1]);
+            const byteArray = new Uint8Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteArray[i] = byteCharacters.charCodeAt(i);
+            }
+
+            //Create a Blob from the byte array
+            const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
+
+            //Create an object URL for the Blob
+            const pdfBlobUrl = URL.createObjectURL(pdfBlob);
+
+            //Open the Blob URL in a new tab
+            const printWindow = window.open(pdfBlobUrl, '_blank');
+            
+            //Wait for the window to load and then trigger the print dialog
+            printWindow.onload = function() {
+                printWindow.print();
+            };
+        }); 
     </script>
     <footer>
         <p><small>CROSSFIRE NCR</small></p>
