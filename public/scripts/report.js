@@ -126,6 +126,8 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
         pdf.text(60, 250, `Purchasing data has not been filled out yet`);
     }
 
-    // Save the PDF
-    pdf.save(`Report-${qa.NCRNumber}.pdf`);
+    const pdfDataUri = pdf.output('datauristring');
+
+    //Redirect to the preview page and pass the PDF data via URL
+    window.location.href = `preview.html?pdf=${encodeURIComponent(pdfDataUri)}`;
 });
