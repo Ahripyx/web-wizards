@@ -134,8 +134,6 @@ function populateQuality() {
     QUALITY_CONTROLS.IsNonConforming_1.checked = q.IsNonConforming === 0;
     QUALITY_CONTROLS.Details.value = q.Details;
     QUALITY_CONTROLS.QLTDate.value = q.LastModified;
-    QUALITY_CONTROLS.QLTStatus.value =
-        q.QualityStatus === "Open" ? "Open" : "Closed";
     populateSelect(
         "SupplierID",
         data.supplier,
@@ -171,8 +169,6 @@ function populateEngineer() {
         ENGINEER_CONTROLS.RevisionNumber.value = e.RevisionNumber;
     if (e.RevisionDate) ENGINEER_CONTROLS.RevisionDate.value = e.RevisionDate;
     ENGINEER_CONTROLS.ENGDate.value = e.LastModified;
-    ENGINEER_CONTROLS.ENGStatus.value =
-        e.EngineerStatus === "Open" ? "Open" : "Closed";
 }
 
 function toggleForms() {
@@ -242,7 +238,12 @@ function setupEventListeners() {
         handleSupplierChange
     );
 
+    // Submit event listener for quality form
+
     qltForm.addEventListener("submit", async (event) => {
+        const submitButton = event.submitter;
+        const buttonID = submitButton ? submitButton.id : null;
+        console.log(`Button clicked: ${buttonID}`);
         if (!qltForm.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
@@ -250,14 +251,20 @@ function setupEventListeners() {
             return; // Exit if  form invalid
          }
         if (qltForm.checkValidity()) {
-            handleSubmit(QUALITY_CONTROLS);
-        } 
+            if (buttonID.includes("Open")) 
+                handleSubmit(QUALITY_CONTROLS, 'Open');
+            else if (buttonID.includes("Close")) 
+                handleSubmit(QUALITY_CONTROLS, 'Closed');
+        }
     });
 
+    // If engineer form exists, add event listener
     if (engForm)
     {
         if (ENGINEER_CONTROLS.RevisionNumber) handleRevision();
     engForm.addEventListener("submit", async (event) => {
+        const submitButton = event.submitter;
+        const buttonID = submitButton ? submitButton.id : null;
         if (!engForm.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
@@ -265,14 +272,20 @@ function setupEventListeners() {
             return; // Exit if  form invalid
          }
         if (engForm.checkValidity()) {
-            handleSubmit(ENGINEER_CONTROLS);
+            if (buttonID.includes("Open")) 
+                handleSubmit(ENGINEER_CONTROLS, 'Open');
+            else if (buttonID.includes("Close")) 
+                handleSubmit(ENGINEER_CONTROLS, 'Closed');
         } 
     });
     }
 
+    // If purchasing form exists, add event listener
     if (purForm)
     {
         purForm.addEventListener("submit", async (event) => {
+            const submitButton = event.submitter;
+        const buttonID = submitButton ? submitButton.id : null;
             if (!purForm.checkValidity()) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -280,13 +293,13 @@ function setupEventListeners() {
                 return; // Exit if  form invalid
              }
             if (purForm.checkValidity()) {
-                handleSubmit(PURCHASING_CONTROLS);
+                if (buttonID.includes("Open")) 
+                    handleSubmit(PURCHASING_CONTROLS, 'Open');
+                else if (buttonID.includes("Close")) 
+                    handleSubmit(PURCHASING_CONTROLS, 'Closed');
             } 
         });
     }
-    
-
-    
 }
 
 async function handleProductChange(event) {
@@ -314,16 +327,19 @@ function populateProductsForSupplier(supplierID) {
     populateSelect("ProductID", products, "ProductName", "id");
 }
 
-async function handleSubmit(CONTROLS) {
+async function handleSubmit(CONTROLS, status) {
     const form = CONTROLS;
     const qltMethod = data.id ? "PUT" : "POST";
     const engMethod = data.engineer ? "PUT" : "POST";
+    const purMethod = data.purchasing ? "PUT" : "POST";
 
     try {
         if (CONTROLS === QUALITY_CONTROLS)
-            await crudQuality(qltMethod, form, data.id);
+            await crudQuality(qltMethod, form, status, data.id);
         else if (CONTROLS === ENGINEER_CONTROLS)
-            await crudEngineer(engMethod, form, data.id);
+            await crudEngineer(engMethod, form, status, data.id);
+        else if (CONTROLS === PURCHASING_CONTROLS)
+            await crudPurchase(purMethod, form, status, data.id);
     } catch (error) {
         console.error("Failed to submit form:", error);
     }
@@ -385,10 +401,10 @@ function incrementRevisionNumber(revisionNumber) {
 }
 
 function showNewProductModal() {
-    const modal = document.getElementById("product-modal");
-    modal.style.display = "block";
-    document.getElementById("close").onclick = () =>
-        (modal.style.display = "none");
+    const options = {
+        backdrop: ""
+    };
+    $('#newProductModal').modal(options)
 }
 
 function populateControls(fs, controls)
@@ -406,4 +422,3 @@ function populateControls(fs, controls)
 initForm().then(() => {
     setupEventListeners();
 });
-

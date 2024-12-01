@@ -17,9 +17,7 @@ export async function newProduct(SupplierID, ProductName, Number) {
             body: JSON.stringify(productToInsert)
         });
 
-        if (response.ok) {
-            alert("Product added successfully");
-        } else {
+        if (!response.ok) {
             const errorData = await response.text();
             alert(`Failed to add product: ${errorData}`);
         }
@@ -118,7 +116,7 @@ export async function newFormUser(NCRForm_id, User_id) {
 }
 
 // UPDATE / INSERT QUALITY
-export async function crudQuality(method, form, id) {
+export async function crudQuality(method, form, status, id) {
     try {
         const quality = {
             SalesOrder: parseInt(form.SalesOrder.value, 10),
@@ -129,20 +127,12 @@ export async function crudQuality(method, form, id) {
             QuantityDefective: parseInt(form.QuantityDefective.value, 10),
             IsNonConforming: form.IsNonConforming_0.checked ? 1 : 0,
             Details: form.Details.value,
+            QualityStatus: status,
             ProductID: parseInt(form.ProductID.value, 10),
         };
 
         const user = JSON.parse(localStorage.getItem('user'));
             quality.User_id = user.id;
-
-        // If we are creating a new form
-        if (method === 'POST') {
-            
-        }
-        // If we are updating an existing form
-        else if (method === 'PUT') {
-            quality.QualityStatus = form.QLTStatus.value;
-        }
 
         if (!id) id = '';
 
@@ -160,7 +150,7 @@ export async function crudQuality(method, form, id) {
 }
 
 // UPDATE / INSERT ENGINEER
-export async function crudEngineer(method, form, id = '') {
+export async function crudEngineer(method, form, status, id = '') {
     try {
         let review =
             form.Review_0.checked ? "Use As Is" :
@@ -176,7 +166,7 @@ export async function crudEngineer(method, form, id = '') {
             Disposition: form.Disposition.value,
             RevisionNumber: revisionNumber,
             RevisionDate: form.RevisionDate.value,
-            EngineerStatus: form.ENGStatus.value
+            EngineerStatus: status
         };
 
         const user = JSON.parse(localStorage.getItem('user'));

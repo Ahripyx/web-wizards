@@ -313,9 +313,15 @@ form select {
     box-shadow: inset 0 0.1em 0.1em 0 rgba(0, 0, 0, 0.05);
     border: solid 1px rgba(0, 0, 0, 0.15);
     width: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
     box-sizing: border-box;
+    font-weight: normal;
 }
+
+form input[type="radio"] + label {
+    font-weight: normal;
+}
+
 
 form input[type="text"]:disabled,
 form input[type="number"]:disabled,
@@ -335,8 +341,9 @@ button {
     min-width: 44px;
 }
 
+
 button.yes,
-button.no {
+button.no, button.info {
     padding: 10px 20px;
     color: white;
     border: none;
@@ -364,6 +371,14 @@ button.no {
 
 button.no:hover {
     background-color: #af0606;
+}
+
+button.info {
+    background-color: #17A2B8;
+}
+
+button.info:hover {
+    background-color: #2EA1B2;
 }
 
 span.no {
