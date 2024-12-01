@@ -147,7 +147,7 @@ export async function crudQuality(method, form, id) {
         if (!id) id = '';
 
         let result = await throwData(`http://localhost:5500/quality/${id}`, quality, method);
-    
+        result.form.Read = false;
         // Send a notification
         handleNewNotification(result.form);
 
@@ -190,7 +190,7 @@ export async function crudEngineer(method, form, id = '') {
         if (!id) id = '';
         
         let result = await throwData(`http://localhost:5500/engineer/${id}`, engineer, method);
-        
+        result.form.Read = false;
         // Send a notification
         handleNewNotification(result.form);
 

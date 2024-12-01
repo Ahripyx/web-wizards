@@ -1,4 +1,14 @@
 let users;
+
+let qlt = null, eng = null;
+
+if (document.getElementById('qlt-list')) {
+    qlt = document.getElementById('qlt-list');
+}
+if (document.getElementById('eng-list')) {
+    eng = document.getElementById('eng-list');
+}
+
 document.addEventListener("DOMContentLoaded", async function() {
 
     const response = await fetch('http://localhost:5500/users');
@@ -11,38 +21,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 // Function to increment the notification count
 export function newNotification(form) {
     try {
-        console.log(form);
-        let admin_count = parseInt(localStorage.getItem('admin_count') || '0', 10);
-        let quality_count = parseInt(localStorage.getItem('quality_count') || '0', 10);
-        let engineer_count = parseInt(localStorage.getItem('engineer_count') || '0', 10);
-        let purchasing_count = parseInt(localStorage.getItem('purchasing_count') || '0', 10);
-
         const pf = JSON.parse(form);
-    
-            let duplicate = false;
-                if (localStorage.getItem(`form-${pf.NCRFormID}-${pf.type}`)) 
-                    duplicate = true;
-
-            if (pf.Status == "Open" && !duplicate)
-            {
-                if (pf.type == "Quality")
-                    increment('quality_count', quality_count, admin_count);
-                else if (pf.type == "Engineer")
-                    increment('engineer_count', engineer_count, admin_count);
-            }
-            else if (pf.Status == "Closed" && duplicate)
-            {
-                if (pf.type == "Quality")
-                {
-                    decrement('quality_count', 'admin_count');
-                    increment('engineer_count', engineer_count, admin_count);
-                }
-                else if (pf.type == "Engineer")
-                {
-                    decrement('engineer_count', 'admin_count');
-                    //increment('quality_count', quality_count, admin_count);
-                }
-            }
 
         localStorage.setItem(`form-${pf.NCRFormID}-${pf.type}`, form);
         updateNotification();
@@ -53,35 +32,21 @@ export function newNotification(form) {
 
 }
 
-function increment(type, count, admin) {
-    count += 1;
-    admin += 1;
-    localStorage.setItem(type, count);
-    localStorage.setItem('admin_count', admin);
-}
-
 // Function to update the notification modal
 function updateNotification() {
     const user = JSON.parse(localStorage.getItem('user'));
     const username = document.getElementById('username');
     if (username) username.textContent = `${user.FName} ${user.MName ? user.MName.charAt(0) + '. ' : ''}${user.LName}`;
 
-    const notificationCount = document.getElementById('notification-count');
-
     setupUserView(user.RoleID);
 
     const notificationContent = document.getElementById('notification-content');
 
-    // Set the notif count to the current count
-    if (notificationCount) {
-        if (user.RoleID == 1) notificationCount.textContent = parseInt(localStorage.getItem('admin_count') || '0', 10);
-        else if (user.RoleID == 2) notificationCount.textContent = parseInt(localStorage.getItem('quality_count') || '0', 10);
-        else if (user.RoleID == 3) notificationCount.textContent = parseInt(localStorage.getItem('engineer_count') || '0', 10);
-        else if (user.RoleID == 4) notificationCount.textContent = parseInt(localStorage.getItem('purchasing_count') || '0', 10);
-    }
-
     // Set the notif modal to display the forms
-    if (notificationContent) {        
+    if (notificationContent) {
+        qlt.innerHTML = '';
+        eng.innerHTML = '';
+        let unreadCount = 0;
         for (var i = 0; i < localStorage.length; i++) {
             if (localStorage.key(i).startsWith('form-')) {
                 // IT WORKS!!! IOT WORKS!!!!!!!!
@@ -89,6 +54,7 @@ function updateNotification() {
                 const pf = JSON.parse(value);
 
                 const list = listSelect(pf);
+                list.innerHTML = '';
 
                 const currentYear = new Date().getFullYear();
                 const ncrNumber = `${currentYear}-${String(pf.NCRFormID).padStart(3, '0')}`;
@@ -99,7 +65,14 @@ function updateNotification() {
                 let a = document.createElement('a');
                 a.href = `details.html?id=${pf.NCRFormID}`;
                 a.className = 'list-group-item list-group-item-action flex-column align-items-start';
-                //a.onclick = function() { deleteNotification(pf.NCRFormID, pf.type); };
+                a.onclick = function() { notificationRead(pf); };
+
+                if (pf.Read == false)
+                {
+                    a.className += ` active`;
+                    unreadCount++;
+                }
+                    
 
                 let divInner = document.createElement('div');
                 divInner.className = 'd-flex w-100 justify-content-between';
@@ -127,6 +100,12 @@ function updateNotification() {
                 let smallDate = document.createElement('small');
                 smallDate.textContent = pf.LastModified;
 
+                let btnDelete = document.createElement('button');
+                btnDelete.className = 'btn btn-danger';
+                btnDelete.textContent = "X";
+                btnDelete.onclick = function() { deleteNotification(pf.NCRFormID, pf.type); }
+
+                div.appendChild(btnDelete);
                 divInner.appendChild(h5);
                 divInner.appendChild(small);
                 a.appendChild(divInner);
@@ -137,6 +116,8 @@ function updateNotification() {
                 list.appendChild(div);
                 }
             }
+            if (unreadCount > 0)
+                document.getElementById('unread-count').textContent = unreadCount;
         };
     }
 
@@ -144,36 +125,25 @@ function updateNotification() {
 function deleteNotification(id, type) {
     try {
         localStorage.removeItem(`form-${id}-${type}`);
-
-        if (type == "Quality") decrement('quality_count', 'admin_count');
-        else if (type == "Engineer") decrement('engineer_count', 'admin_count');
-        else if (type == "Purchasing") decrement('purchasing_count', 'admin_count');
+        updateNotification();
     } catch (error) {
         console.error('Failed to delete notification:', error);
-        alert("Failed to delete notification.");
     }
 }
+
 window.deleteNotification = deleteNotification;
 
-function decrement(type, adminType) {
-    let count = parseInt(localStorage.getItem(type) || '0', 10);
-    let adminCount = parseInt(localStorage.getItem(adminType) || '0', 10);
-
-    count -= 1;
-    localStorage.setItem(type, count);
-    adminCount -= 1;
-    localStorage.setItem(adminType, adminCount);
+function notificationRead(pf) {
+    try {
+        pf.Read = true;
+        localStorage.setItem(`form-${pf.NCRFormID}-${pf.type}`, JSON.stringify(pf));
+    } catch (error) {
+        console.error('Failed to mark notification as read:', error);
+    }
 }
+window.notificationRead = notificationRead;
 
 function listSelect(pf) {
-    let qlt, eng;
-        if (document.getElementById('qlt-list')) {
-            qlt = document.getElementById('qlt-list');
-        }
-        if (document.getElementById('eng-list')) {
-            eng = document.getElementById('eng-list');
-        }
-
     if (pf.type == "Quality") 
     {
             if (pf.Status == "Closed")
