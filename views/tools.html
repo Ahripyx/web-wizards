@@ -129,28 +129,28 @@
                      <legend>Enter User Information</legend>
                      <div class="row g-3">
                         <div class="form-group col-md-6">
-                           <input type="text" id="FName" name="FName" placeholder="First name" aria-label="First name">
+                              <input type="text" class="form-control" id="FName" name="FName" placeholder="First name" aria-label="First name">
                         </div>
                         <div class="form-group col-md-6">
-                           <input type="email" id="Email" name="Email" placeholder="Email" aria-label="Email">
+                           <input type="email" class="form-control" id="Email" name="Email" placeholder="Email" aria-label="Email">
                         </div>
                      </div>
                      <div class="row g-3">
                         <div class="form-group col-md-6">
-                           <input type="text" id="MName" name="MName" placeholder="Middle name"
+                           <input type="text" class="form-control" id="MName" name="MName" placeholder="Middle name"
                               aria-label="Middle name">
                         </div>
                         <div class="form-group col-md-6">
-                           <input type="password" id="Password" name="Password" placeholder="Password"
+                           <input type="password" class="form-control" id="Password" name="Password" placeholder="Password"
                               aria-label="Password">
                         </div>
                      </div>
                      <div class="row g-3">
                         <div class="form-group col-md-6">
-                           <input type="text" id="LName" name="LName" placeholder="Last name" aria-label="Last name">
+                           <input type="text"  class="form-control" id="LName" name="LName" placeholder="Last name" aria-label="Last name">
                         </div>
                         <div class="form-group col-md-6">
-                           <select id="RoleID" name="RoleID">
+                           <select id="RoleID" class="form-control" name="RoleID">
                               <option value="" disabled selected>Select a role</option>
                            </select>
                         </div>
@@ -162,9 +162,6 @@
                            <button type="submit" class="yes">Add New User</button>
                         </div>
                      </div>
-                        
-                        
-                     
                   </fieldset>
                </form>
             </div>
@@ -226,7 +223,7 @@
          <p class="text-body-secondary">© 2024 Crossfire, Inc</p>
       </footer>
    </div>
-   
+
    <script>
       function toggleSection(sectionId) {
          var sections = document.querySelectorAll('.content-section');
