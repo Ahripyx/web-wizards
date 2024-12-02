@@ -316,6 +316,7 @@ form select {
     border-radius: 5px;
     box-sizing: border-box;
     font-weight: normal;
+    min-height: 44px;
 }
 
 form input[type="radio"] + label {
@@ -374,11 +375,9 @@ button.no:hover {
 }
 
 button.info {
-    background-color: #17A2B8;
-}
-
-button.info:hover {
-    background-color: #2EA1B2;
+    background-color: white;
+    color: black;
+    border: 3px solid #17A2B8;
 }
 
 span.no {
