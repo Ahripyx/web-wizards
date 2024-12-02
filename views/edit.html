@@ -468,9 +468,25 @@
                   <label for="Follow-up_0" class="form-check-label">Yes</label>
                </div>
                <div class="form-check form-check-inline">
+<<<<<<< Updated upstream
                   <input name="Follow-up" id="Follow-up_1" type="radio" required="required" aria-required="true"
                      class="form-check-input" value="No">
                   <label for="Follow-up_1" class="form-check-label">No</label>
+=======
+                  <input name="Decision" id="Decision_1" type="radio" required="required" aria-required="true"
+                     class="form-check-input" value="Rework In House">
+                  <label for="Decision_1" class="form-check-label">Rework In House</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input name="Decision" id="Decision_2" type="radio" required="required" aria-required="true"
+                     class="form-check-input" value="Scrap">
+                  <label for="Decision_2" class="form-check-label">Scrap</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input name="Decision" id="Decision_3" type="radio" required="required" aria-required="true"
+                     class="form-check-input" value="Defer for HBC Engineering Review">
+                  <label for="Decision_3" class="form-check-label">Defer For HBC Engineering Review</label>
+>>>>>>> Stashed changes
                </div>
             </div>
          </div>
@@ -500,6 +516,7 @@
                <input type="date" class="form-control" id="PURDate" readonly>
             </div>
          </div>
+<<<<<<< Updated upstream
          <!-- Submit Button -->
          <div class="row g-3">
             <div class="form group col-md-6">
@@ -513,6 +530,67 @@
    </form>
    </div>
    </div>
+=======
+      </div>
+      <!-- Follow-up Required? -->
+      <div class="form-group col-md-6">
+         <label>Follow-Up Required? <span class="no">*</span> </label>
+         <div>
+            <div class="form-check form-check-inline">
+               <input name="FollowUp" id="FollowUp_0" type="radio" required="required"
+                  aria-required="true" class="form-check-input" value="Yes">
+               <label for="Followup_0" class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input name="FollowUp" id="FollowUp_1" type="radio" required="required"
+                  aria-required="true" class="form-check-input" value="No">
+               <label for="Followup_1" class="form-check-label">No</label>
+            </div>
+         </div>
+      </div>
+      </div>
+      <!-- CAR Number-->
+      <div class="form-group col-md-4" id="CARNumber"style="display: none;"> 
+         <input type="text" class="form-control-plaintext" id="CARNumber">
+         </div>
+         <!-- Follow up Type & Date -->
+         <div class="form-group col-md-4" id="FollowUpType"style="display: none;"> 
+            <label for="FollowUpType">Follow-Up Type</label>
+            <input type="text" class="form-control-plaintext" id="Follow-Up-Type">
+         </div>
+         <div class="form-group col-md-4" id="FollowUpDate" style="display: none;"> 
+            <label for="FollowUpDate" id="lblFollowUpDate">Follow-Up Expected Date</label>
+            <input type="date" class="form-control" id="Follow-Up-Date">
+         </div>      
+         <!-- Purchasing Name & Date -->
+         <div class="row g-3">
+         <div class="form-group col-md-6">
+            <label for="PURName" class="form-group col-md-4">Operations Manager</label>
+            <input type="text" class="form-control-plaintext" id="PURName" readonly>
+         </div>
+         <div class="form-group col-md-6">
+            <label for="PURDate">Date</label>
+            <input type="date" class="form-control" id="PURDate" readonly>
+         </div>
+      </div>
+      <!-- Submit Button -->
+      <div class="row g-3">
+         <div class="form group col-md-6">
+            <button type="submit" class="yes" id="PURSubmit">Save NCR</button>
+         </div>
+         <div class="form group col-md-6">
+            <label for="PURStatus">Status </label>
+            <select class="form-select" id="PURStatus" name="PURStatus" aria-required="true" required>
+               <option value="Open">Open</option>
+               <option value="Closed">Closed</option>
+            </select>
+         </div>
+      </div>
+   </fieldset>
+</form>
+</div>
+</div>
+>>>>>>> Stashed changes
 
    <div class="container">
       <footer>

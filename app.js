@@ -11,6 +11,7 @@ import userRoutes from "./routes/userRoutes.js";
 import supplierRoutes from "./routes/supplierRoutes.js";
 import qualityRoutes from "./routes/qualityRoutes.js";
 import engineerRoutes from "./routes/engineerRoutes.js";
+import purchasingRoutes from "./routes/purchasingRoutes.js";
 
 const db = new Database("./db/test_data.db");
 const app = express();
@@ -39,6 +40,7 @@ app.use("/", userRoutes);
 app.use("/", supplierRoutes);
 app.use("/", qualityRoutes);
 app.use("/", engineerRoutes);
+app.use("/", purchasingRoutes)
 
 // Endpoint to get the single most recent NCRFormID
 app.get("/recent-ncr", (req, res) => {
