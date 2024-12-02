@@ -73,7 +73,7 @@
    <main>
       <!-- Three main nav layout here -->
       <div class="home-nav">
-         <div>
+         <div id="div-create" style="display: none;">
             <a href="create.html">
                <img src="../public/images/add.png" alt="Black icon for Create NCR page">
                <!--<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>-->
@@ -120,6 +120,13 @@
     </div>
 
    <script src="../public/scripts/recentList.js"></script>
+   <script>
+      // Get the role from the session storage
+      let user = JSON.parse(localStorage.getItem("user"));
+      if (user.RoleID == 1 || user.RoleID == 2)
+         document.getElementById("div-create").style.display = "block";
+      
+   </script>
 </body>
 
 </html>

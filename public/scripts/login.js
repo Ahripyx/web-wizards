@@ -30,13 +30,11 @@ async function login(email, password) {
                 }
             }
         });
-
-        document.getElementById('error').textContent = "Invalid email or password.";
     }
     catch (error)
     {
-        console.error('Failed to find user:', error);
-        alert("Failed to find user.");
+        document.getElementById('error').textContent = "Invalid email or password.";
+        console.error('Failed to find login:', error);
     }
    
 }
