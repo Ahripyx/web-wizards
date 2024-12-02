@@ -21,14 +21,16 @@ h2 {
     font-size: 2.5em;
 }
 /* ----- Footer ----- */
+
 footer {
-    background-color: #d9d9d9;
-    text-align: center;
-    padding: 20px;
-    width: 100%;
-    margin-top: auto;
-    position: relative;
-    bottom: 0;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-top: 1px solid #c4c3c6;
+    display: flex !important;
 }
 
 /* Flexbox layout for header */
@@ -348,9 +350,10 @@ button.no, button.info {
     padding: 10px 20px;
     color: white;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    font-size: 16px;
+    border-radius: .3rem;
+    padding: .5rem 1rem;
+    font-size: 1.25em;
 }
 
 button:focus {

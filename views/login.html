@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link href="../public/styles/style.css" rel="stylesheet">
     <title>Web Wizards</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,49 +15,67 @@
 </head>
 
 <body>
-    <header>
-        <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-        <div class="header-content">
-            <div class="logo">
-                <a href="#"><img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                        alt="A blue logo saying Crossfire with a flame in the middle"></a>
+    <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
+    <main>
+        <div class="bg-light py-3 py-md-5">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
+                        <div class="bg-white p-4 p-md-5 rounded shadow-sm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-center mb-5">
+                                        <a href="#">
+                                            <img src="../public/images/Crossfire_Logo_no_bkgd.png"
+                                                alt="A blue logo saying Crossfire with a flame in the middle"
+                                                width="175" height="57">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="#" id="login">
+                                <div class="row gy-3 gy-md-4 overflow-hidden">
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">Email <span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fa-solid fa-envelope"></i>
+                                            </span>
+                                            <input type="email" class="form-control" name="email" id="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="password" class="form-label">Password <span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fa-solid fa-key"></i>
+                                            </span>
+                                            <input type="password" class="form-control" name="password" id="password"
+                                                value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="d-grid">
+                                            <button class="btn yes btn-lg" style="width: 100%;" type="submit">Log
+                                                In</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </header>
 
-    <div class="container">
-        <form id="login" class="px-4" action="">
-            <h2>CrossfireNCR</h2>
-            <p>Enter your login credentials</p>
-            <div class="form-group row">
-                <label for="email" class="col-sm-2 col-form-label-lg">Email:</label>
-                <div class="col-auto">
-                    <input type="email" class="form-control-lg" id="email" name="email"
-                        placeholder="youremail@crossfire.ca" aria-required="true" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="password" class="col-sm-2 col-form-label-lg">Password:</label>
-                <div class="col-auto">
-                    <input type="password" class="form-control-lg" id="password" name="password" aria-required="true"
-                        required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <label id="error"></label>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-sm-12">
-                    <button type="submit" class="yes">Login</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <footer>
-        <p><small>CROSSFIRE NCR</small></p>
-    </footer>
+        <div class="container">
+            <footer>
+                <p class="text-body-secondary">© 2024 Crossfire, Inc</p>
+            </footer>
+        </div>
+    </main>
 </body>
 
 </html>
