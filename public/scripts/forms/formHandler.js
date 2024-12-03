@@ -1,4 +1,4 @@
-import { newProduct, crudQuality, crudEngineer, fetchData } from "./crud.js";
+import { newProduct, crudQuality, crudEngineer, crudPurchasing, fetchData } from "./crud.js";
 
 const ENDPOINTS = {
     roles: "http://localhost:5500/roles/",
@@ -7,11 +7,12 @@ const ENDPOINTS = {
     formUsers: (id) => `http://localhost:5500/formusers/${id}`,
     ncrs: (id) => `http://localhost:5500/ncrs/${id}`,
     engineer: (id) => `http://localhost:5500/engineer/${id}`,
+    purchasing: (id) => `http://localhost:5500/purchasing/${id}`, 
 };
 
 let QUALITY_FIELDSET = document.getElementById("fs_quality");
 let ENGINEER_FIELDSET = document.getElementById("fs_engineer");
-let PURCHASING_FIELDSET = undefined;
+let PURCHASING_FIELDSET = document.getElementById("fs_purchasing");
 
 let QUALITY_CONTROLS = {};
 let ENGINEER_CONTROLS = {};
@@ -77,6 +78,7 @@ async function initForm() {
 
     populateControls(QUALITY_FIELDSET, QUALITY_CONTROLS);
     populateControls(ENGINEER_FIELDSET, ENGINEER_CONTROLS);
+    populateControls(PURCHASING_FIELDSET, PURCHASING_CONTROLS);
 
     if (data.id) await loadFormData(data.id);
     else resetForm();
@@ -107,6 +109,22 @@ async function loadFormData(id) {
         {
             populateEngineer();
         }
+
+        if (data.engineer.EngineerStatus === "Closed") {
+            console.log(ENDPOINTS.purchasing(id));
+            let purResponse = await fetch(ENDPOINTS.purchasing(id));
+            if (!purResponse.ok)
+                console.log("Purchasing form not found, making a new one.");
+            else data.purchasing = await purResponse.json();
+        } 
+        if (Object.keys(data.purchasing).length === 0) // thank you mikemaccana on StackOverflow for this one
+        {
+            data.purchasing = null;
+        }
+        if (data.purchasing) 
+        {
+            populatePurchasing();
+        }
             
         toggleForms();
     } catch (error) {
@@ -120,6 +138,8 @@ function populateFormUsers(users) {
             QUALITY_CONTROLS.QLTName.value = `${user.FName} ${user.LName}`;
         if (user.Title === "Engineer")
             ENGINEER_CONTROLS.ENGName.value = `${user.FName} ${user.LName}`;
+        if (user.Title === "Purchasing")
+            PURCHASING_CONTROLS.PURName.value = `${user.FName} ${user.LName}`;
     });
 }
 
@@ -169,6 +189,22 @@ function populateEngineer() {
         ENGINEER_CONTROLS.RevisionNumber.value = e.RevisionNumber;
     if (e.RevisionDate) ENGINEER_CONTROLS.RevisionDate.value = e.RevisionDate;
     ENGINEER_CONTROLS.ENGDate.value = e.LastModified;
+}
+
+function populatePurchasing() {
+    let e = data.purchasing;
+    PURCHASING_CONTROLS.Decision_0.checked = e.Decision === "Return To Supplier";
+    PURCHASING_CONTROLS.Decision_1.checked = e.Decision === "Rework In House";
+    PURCHASING_CONTROLS.Decision_2.checked = e.Decision === "Scrap";
+    PURCHASING_CONTROLS.Decision_3.checked = e.Decision === "Defer For HBC Engineering Review";
+    PURCHASING_CONTROLS.CarRaised_0.checked = e.CarRaised === 1;
+    PURCHASING_CONTROLS.CarRaised_1.checked = e.CarRaised === 0;
+    PURCHASING_CONTROLS.FollowUp_0.checked = e.FollowUp === 1;
+    PURCHASING_CONTROLS.FollowUp_1.checked = e.FollowUp === 0;
+    PURCHASING_CONTROLS.FollowUpDate.value - e.FollowUpDate.value;
+    PURCHASING_CONTROLS.PURDate.value = e.LastModified;
+    PURCHASING_CONTROLS.PURStatus.value =
+        e.PurchasingStatus === "Open" ? "Open" : "Closed";
 }
 
 function toggleForms() {
@@ -283,6 +319,9 @@ function setupEventListeners() {
     // If purchasing form exists, add event listener
     if (purForm)
     {
+        if (PURCHASING_CONTROLS.CarRaised) handleCAR();
+        if (PURCHASING_CONTROLS.FollowUp) handleFollowUp();
+
         purForm.addEventListener("submit", async (event) => {
             const submitButton = event.submitter;
         const buttonID = submitButton ? submitButton.id : null;
@@ -416,6 +455,42 @@ function populateControls(fs, controls)
             }
         });
     }
+}
+
+async function handleFollowUp() {
+    document
+        .getElementById("FollowUp_0")
+        .addEventListener("click", function () {
+            if (this.checked) {
+                FollowUpType.style.display = "block";
+                FollowUpDate.style.display = "block";
+            }
+        });
+    document
+        .getElementById("FollowUp_1")
+        .addEventListener("click", function () {
+            if (this.checked) {
+                FollowUpType.style.display = "none";
+                FollowUpDate.style.display = "none";
+            }
+        });
+}
+
+async function handleCAR() {
+    document
+        .getElementById("CarRaised_0")
+        .addEventListener("click", function () {
+            if (this.checked) {
+                CARNumber.style.display = "block";
+            }
+        });
+    document
+        .getElementById("CarRaised_1")
+        .addEventListener("click", function () {
+            if (this.checked) {
+                CARNumber.style.display = "none";
+            }
+        });
 }
 
 //initForm();

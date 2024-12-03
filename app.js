@@ -11,6 +11,7 @@ import userRoutes from "./routes/userRoutes.js";
 import supplierRoutes from "./routes/supplierRoutes.js";
 import qualityRoutes from "./routes/qualityRoutes.js";
 import engineerRoutes from "./routes/engineerRoutes.js";
+import purchasingRoutes from "./routes/purchasingRoutes.js";
 
 const db = new Database("./db/test_data.db");
 const app = express();
@@ -39,6 +40,7 @@ app.use("/", userRoutes);
 app.use("/", supplierRoutes);
 app.use("/", qualityRoutes);
 app.use("/", engineerRoutes);
+app.use("/", purchasingRoutes)
 
 // Endpoint to get the single most recent NCRFormID
 app.get("/recent-ncr", (req, res) => {
@@ -180,6 +182,25 @@ app.put("/UpdateEngineerStatus", (req, res) => {
         res.status(500).send("Failed to update NCR form record.");
     }
 });
+
+app.put("/UpdatePurchasingStatus", (req, res) => {
+    const { newStatus, id } = req.query;
+    try {
+        const stmt = db.prepare(
+            "UPDATE Purchasing SET PurchasingStatus = ? WHERE NCRFormID = ?"
+        );
+        const result = stmt.run(newStatus, id);
+        if (result.changes > 0) {
+            res.status(200).send("Purchasing record updated successfully!");
+        } else {
+            res.status(404).send("Purchasing record not found.");
+        }
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).send("Failed to update NCR form record.");
+    }
+});
+
 
 // Endpoint to get NCR by id
 app.get("/ncrFromID", (req, res) => {
