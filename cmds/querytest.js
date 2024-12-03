@@ -101,6 +101,29 @@ export const seedRoles = [
         ('Purchasing')`,
 ];
 
+const productData = [
+    "Ball Bearing", "Steel Pipe", "Hydraulic Pump", "Industrial Fan", "Electric Motor", 
+    "Air Compressor", "Welding Machine", "Safety Gloves", "Conveyor Belt", "Pressure Gauge", 
+    "Industrial Hose", "Circuit Breaker", "LED Work Light", "Lubricant Oil", "Gear Reducer", 
+    "Pneumatic Cylinder", "Torque Wrench", "Safety Helmet", "Power Supply Unit", "Filter Cartridge", 
+    "Welding Rod", "Sprocket Gear", "Industrial Valve", "Hand Tool Set", "Bearing Grease", 
+    "Hydraulic Oil", "Protective Goggles", "V-Belt", "Control Panel", "Lifting Chain", 
+    "Electric Drill", "Industrial Fasteners", "Pipe Fittings", "Steel Cable", "Work Boots", 
+    "Cooling Fan", "Cutting Disc", "Battery Charger", "Industrial Adhesive", "Ball Valve", 
+    "Wrench Set", "Gas Cylinder", "Rubber Gasket", "Air Filter", "Hose Clamps", 
+    "Safety Mask", "Roller Chain", "Industrial Hammer", "Tool Box", "Grinder Disc", 
+    "Angle Grinder", "Sealing Tape", "Pipe Wrench", "Hydraulic Jack", "Industrial Tape", 
+    "Heat Gun", "Pallet Jack", "Electric Saw", "Pressure Washer", "Cutting Oil", 
+    "Industrial Pulley", "Socket Set", "Machine Oil", "Safety Vest", "Handheld Radio", 
+    "Grinding Wheel", "Plastic Container", "Welding Helmet", "Impact Drill", "Rubber Mat", 
+    "PPE Kit", "Air Blower", "Locking Pliers", "Industrial Fan Belt", "Sandpaper Roll", 
+    "Extension Cord", "Oil Filter", "Hydraulic Hose", "Tool Belt", "Lifting Strap", 
+    "Hand Saw", "Safety Harness", "Cleaning Brush", "Industrial Cleaner", "Storage Bin", 
+    "Metal File", "Work Light", "Grease Gun", "Tool Cart", "Chain Hoist", 
+    "Hearing Protection", "Rubber Gloves", "Dust Mask", "Work Apron", "Utility Knife", 
+    "Pallet Rack", "Wire Stripper", "Grease Fitting", "Metal Clamp", "Tool Organizer"
+];
+
 //const Roles = ['Admin', 'Inspector', 'Engineer', 'Purchasing'];
 
 const NCRForms = [];
@@ -153,6 +176,7 @@ const seedUsers = () => {
 const seedSuppliers = () => {
     const Suppliers = [];
     const Products = [];
+    let thisProductData = faker.helpers.shuffle(productData);
 
     let count = 0;
     for (let i = 0; i < 30; i++) {
@@ -167,6 +191,7 @@ const seedSuppliers = () => {
 
         for (let j = 0; j < 3; j++) {
             count++;
+            let name = thisProductData.shift();
             let uniqueNumber;
             do {
                 uniqueNumber = faker.number.int({ min: 100, max: 999 });
@@ -175,7 +200,7 @@ const seedSuppliers = () => {
             );
             Products.push({
                 id: count,
-                ProductName: faker.commerce.productName(),
+                ProductName: name,
                 Number: uniqueNumber,
                 SupplierID: i + 1,
             });
