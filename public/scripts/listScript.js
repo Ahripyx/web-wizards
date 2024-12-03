@@ -10,6 +10,7 @@ async function filltables(data, table){
         <th>Date</th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>`;
     var tabindex = 50;
     var row = 0;
@@ -39,7 +40,7 @@ async function filltables(data, table){
     document.querySelectorAll('.download-btn').forEach(button => {
         button.addEventListener('click', async function () {
             const ncrId = this.getAttribute('data-id');
-            // Generate and redirect to PDF preview page for the clicked NCR ID
+            // Generate and redirect to PDF preview page for the clicked NCR
             const pdfDataUri = await generatePDF(ncrId);
             window.location.href = `preview.html?pdf=${encodeURIComponent(pdfDataUri)}`;
         });
