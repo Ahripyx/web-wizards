@@ -93,9 +93,62 @@ export const dropTables = [
     "DROP TABLE IF EXISTS NCRForm",
 ];
 
+export const seedRoles = [
+    `INSERT INTO Role (Title) VALUES 
+        ('Admin'),
+        ('Inspector'),
+        ('Engineer'),
+        ('Purchasing')`
+    ];
+
+//const Roles = ['Admin', 'Inspector', 'Engineer', 'Purchasing'];
+
 const NCRForms = [];
 const QualityForms = [];
 const EngineeringForms = [];
+const PurchasingForms = [];
+
+const Users = [];
+const FormUsers = [];
+
+const seedUsers = () => {
+    Users.push({
+        id: 1,
+        FName: "Alan",
+        MName: "W",
+        LName: "Wake",
+        Email: "admin@crossfire.ca",
+        Password: "admin",
+        RoleID: 1
+    });
+    Users.push({
+        id: 2,
+        FName: "Reginald",
+        MName: "",
+        LName: "Windsor",
+        Email: "quality@crossfire.ca",
+        Password: "quality",
+        RoleID: 2
+    });
+    Users.push({
+        id: 3,
+        FName: "Dell",
+        MName: "",
+        LName: "Conagher",
+        Email: "engineer@crossfire.ca",
+        Password: "engineer",
+        RoleID: 3
+    });
+    Users.push({
+        id: 4,
+        FName: "Eorlund",
+        MName: "",
+        LName: "Gray-Mane",
+        Email: "purchasing@crossfire.ca",
+        Password: "purchasing",
+        RoleID: 4
+    });
+};
 
 const seedSuppliers = () => {
     const Suppliers = [];
@@ -103,17 +156,25 @@ const seedSuppliers = () => {
 
     let count = 0;
     for (let i = 0; i < 30; i++) {
+        let name;
+        do {
+            name = faker.company.name();
+        } while (name.includes(`'`) == true);
         Suppliers.push({
             id: i + 1,
-            SupplierName: faker.company.name(),
+            SupplierName: name,
         });
 
         for (let j = 0; j < 3; j++) {
             count++;
+            let uniqueNumber;
+            do {
+                uniqueNumber = faker.number.int({ min: 100, max: 999 });
+            } while (Products.some(product => product.Number === uniqueNumber));
             Products.push({
                 id: count,
                 ProductName: faker.commerce.productName(),
-                Number: faker.number.int({ min: 100, max: 999 }),
+                Number: uniqueNumber,
                 SupplierID: i + 1,
             });
         }
@@ -145,6 +206,11 @@ const seedQualityForms = (id, status) => {
         QualityStatus: status,
         LastModified: faker.date.recent().toISOString().split("T")[0],
         ProductID: product.id,
+    });
+
+    FormUsers.push({
+        NCRForm_id: id,
+        User_id: 2,
     });
 
     return QualityForms[QualityForms.length - 1];
@@ -187,6 +253,11 @@ const seedEngineerForms = (id) => {
         LastModified: faker.date.recent().toISOString().split("T")[0],
     });
 
+    FormUsers.push({
+        NCRForm_id: id,
+        User_id: 3,
+    });
+
     return EngineeringForms[EngineeringForms.length - 1];
 };
 
@@ -204,7 +275,7 @@ const seedPurchasingForms = (id) => {
     let carNumber = carRaised ? faker.number.int({ min: 1000, max: 9999 }) : null;
     let followUpRequired = faker.datatype.boolean();
     let followUpType = followUpRequired
-        ? faker.helpers.arrayElement(["Email", "Phone", "Meeting"])
+        ? faker.helpers.arrayElement(["Corrective Action", "Preventitive Action"])
         : null;
     let followUpDate = followUpRequired
         ? faker.date.future().toISOString().split("T")[0]
@@ -220,6 +291,11 @@ const seedPurchasingForms = (id) => {
         FollowUpDate: followUpDate,
         PurchasingStatus: status,
         LastModified: faker.date.recent().toISOString().split("T")[0],
+    });
+
+    FormUsers.push({
+        NCRForm_id: id,
+        User_id: 4,
     });
 
     return PurchasingForms[PurchasingForms.length - 1];
@@ -241,17 +317,31 @@ const seedNCRForms = () => {
             FormStatus: "Open",
         });
 
+        let qlt, eng, pur;
         // Create our Quality Form
-        let qlt = seedQualityForms(id, status);
+        qlt = seedQualityForms(id, status);
 
         if (qlt.QualityStatus === "Closed") {
-            let eng = seedEngineerForms(id);
+            eng = seedEngineerForms(id);
         }
-        if (eng.EngineerStatus === "Closed") {
-            let pur = seedPurchasingForms(id);
+        if (eng && eng.EngineerStatus === "Closed") {
+            pur = seedPurchasingForms(id);
         }
+        if (eng && pur && eng.EngineerStatus === "Closed" && pur.PurchasingStatus === "Closed") {
+            NCRForms[i].FormStatus = "Closed";
+        }
+        
     }
     return NCRForms;
+};
+
+seedUsers();
+
+const insertUsers = (users) => {
+    const statement = users.map((user) => {
+        return `INSERT INTO User (FName, MName, LName, Email, Password, RoleID) VALUES ('${user.FName}', '${user.MName}', '${user.LName}', '${user.Email}', '${user.Password}', ${user.RoleID});`;
+    });
+    return statement;
 };
 
 const insertSuppliers = (suppliers) => {
@@ -269,20 +359,68 @@ const insertProducts = (products) => {
 };
 
 const insertNCRForms = (forms) => {
+    console.log(forms);
     const statement = forms.map((ncr) => {
         return `INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES ('${ncr.CreationDate}', '${ncr.LastModified}', '${ncr.FormStatus}');`;
     });
     return statement;
 };
 
+const insertFormUsers = (formUsers) => {
+    const statement = formUsers.map((formUser) => {
+        return `INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (${formUser.NCRForm_id}, ${formUser.User_id});`;
+    });
+    return statement;
+};
+
+const insertQualityForms = (forms) => {
+    const statement = forms.map((form) => {
+        return `INSERT INTO Quality (NCRFormID, NCRNumber, SalesOrder, SRInspection, WorkInProgress, ItemDescription, QuantityReceived, QuantityDefective, IsNonConforming, Details, QualityStatus, LastModified, ProductID) VALUES (${form.NCRFormID}, '${form.NCRNumber}', ${form.SalesOrder}, ${form.SRInspection}, ${form.WorkInProgress}, '${form.ItemDescription}', ${form.QuantityReceived}, ${form.QuantityDefective}, ${form.IsNonConforming}, '${form.Details}', '${form.QualityStatus}', '${form.LastModified}', ${form.ProductID});`;
+    });
+    return statement;
+};
+
+const insertEngineerForms = (forms) => {
+    const statement = forms.map((form) => {
+        return `INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (${form.NCRFormID}, '${form.Review}', ${form.NotifyCustomer}, '${form.Disposition}', '${form.RevisionNumber}', '${form.RevisionDate}', '${form.EngineerStatus}', '${form.LastModified}');`;
+    });
+    return statement;
+};
+
+const insertPurchasingForms = (forms) => {
+    const statement = forms.map((form) => {
+        return `INSERT INTO Purchasing (NCRFormID, PreliminaryDecision, CARRaised, CARNumber, FollowUpRequired, FollowUpType, FollowUpDate, PurchasingStatus, LastModified) VALUES (${form.NCRFormID}, '${form.PreliminaryDecision}', ${form.CARRaised}, ${form.CARNumber}, ${form.FollowUpRequired}, '${form.FollowUpType}', '${form.FollowUpDate}', '${form.PurchasingStatus}', '${form.LastModified}');`;
+    });
+    return statement;
+};
+
 const { Suppliers, Products } = seedSuppliers();
+
+const User_INSERT = insertUsers(Users);
+
+seedNCRForms();
+
+const NCRForms_INSERT = insertNCRForms(NCRForms);
+const FormUsers_INSERT = insertFormUsers(FormUsers);
 
 const Suppliers_INSERT = insertSuppliers(Suppliers);
 const Products_INSERT = insertProducts(Products);
 
-seedNCRForms();
-const NCRForms_INSERT = insertNCRForms(NCRForms);
+const QualityForms_INSERT = insertQualityForms(QualityForms);
+const EngineerForms_INSERT = insertEngineerForms(EngineeringForms);
+const PurchasingForms_INSERT = insertPurchasingForms(PurchasingForms);
 
-/*NCRForms_INSERT.forEach(statement => {
-    console.log(statement);
-});*/
+
+
+export const seedData = {
+    User_INSERT,
+    NCRForms_INSERT,
+    FormUsers_INSERT,
+    Suppliers_INSERT,
+    Products_INSERT,
+    QualityForms_INSERT,
+    EngineerForms_INSERT,
+    PurchasingForms_INSERT,
+};
+
+

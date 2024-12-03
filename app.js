@@ -2,7 +2,7 @@ import Database from "better-sqlite3";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { createTables, seedTables, dropTables } from "./cmds/queries.js";
+import { createTables, seedRoles, seedData, dropTables } from "./cmds/querytest.js";
 
 // Our routes
 import ncrRoutes from "./routes/ncrRoutes.js";
@@ -31,7 +31,25 @@ dropTables.forEach((query) => db.exec(query));
 createTables.forEach((query) => db.exec(query));
 
 // Fill tables with seed data
-seedTables.forEach((query) => db.exec(query));
+seedRoles.forEach((query) => db.exec(query));
+
+
+
+try {
+    seedData.User_INSERT.forEach((query) => db.exec(query));
+    seedData.NCRForms_INSERT.forEach((query) => db.exec(query));
+    seedData.FormUsers_INSERT.forEach((query) => db.exec(query));
+    seedData.Suppliers_INSERT.forEach((query) => db.exec(query));
+    seedData.Products_INSERT.forEach((query) => db.exec(query));
+    seedData.QualityForms_INSERT.forEach((query) => db.exec(query));
+    seedData.EngineerForms_INSERT.forEach((query) => db.exec(query));
+    seedData.PurchasingForms_INSERT.forEach((query) => db.exec(query));
+} catch (error) {
+    console.error("Database error:", error);
+}
+    
+
+
 
 // Our routes
 app.use("/", ncrRoutes);
