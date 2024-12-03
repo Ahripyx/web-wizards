@@ -200,10 +200,11 @@ async function generatePDF(ncrId) {
         pdf.text(100, 230, `CAR Raised: ${pur.CARRaised ? 'Yes' : 'No'}`);
         pdf.text(20, 240, `CAR Number: ${pur.CARNumber}`);
         pdf.text(100, 240, `Follow Up Required: ${pur.FollowUpRequired ? 'Yes' : 'No'}`);
-        pdf.text(20, 250, `Follow Up Type: ${pur.FollowUpType}`);
-        pdf.text(100, 250, `Follow Up Date: ${pur.FollowUpDate}`);
-        pdf.text(20, 260, `Purchasing Status: ${pur.PurchasingStatus}`);
-        pdf.text(100, 260, `Last Modified by Purchasing: ${pur.LastModified}`);
+        //pdf.text(20, 250, `Follow Up Type: ${pur.FollowUpType}`);
+        //pdf.text(100, 250, `Follow Up Date: ${pur.FollowUpDate}`);
+        //pdf.text(20, 260, `Purchasing Status: ${pur.PurchasingStatus}`);
+        //pdf.text(100, 260, `Last Modified by Purchasing: ${pur.LastModified}`);
+        //ISSUE: Unknown error is happening when even one of these values are being displayed
     } else {
         pdf.setFontSize(12);
         pdf.setFont('helvetica', 'normal');
