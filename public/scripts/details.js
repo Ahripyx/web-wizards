@@ -48,22 +48,31 @@ async function getData() {
     //const ncrData = ncrJson[0];
     const qaData = qaJson[0];
     const engData = engJson[0];
-    const userData= userJson[0];
     const purData = purJson[0];
 
-    //console.log(ncrData);
-    console.log(qaData);
-    console.log(engData);
-    console.log(userData);
-    console.log(purData);
-
-    console.log(qaData.NCRNumber);
     document.getElementById("ncrHeading").innerHTML +=qaData.NCRNumber;
+
+    // user data
+    userJson.forEach(item => {
+        if (item.Title == "Inspector"){
+            document.getElementById("txtQualityName").value = `${item.FName} ${item.LName}`;
+        }
+        else if (item.Title == "Engineer"){
+            document.getElementById("txtEngName").value = `${item.FName} ${item.LName}`;
+        }
+        else if (item.Title == "Purchasing"){
+            document.getElementById("txtPurchasingName").value = `${item.FName} ${item.LName}`; 
+        }
+        else{
+            console.log("Why bro?")
+        }
+    });
+
+    console.log
 
     // quality assurance data
     document.getElementById("txtSupplierName").value = qaData.SupplierName;
     document.getElementById("txtNCRNumber").value = qaData.NCRNumber;
-    // need an if statement here
     if (qaData.WorkInProgress == 1){
         document.getElementById("txtProcessApplicable").value = "Work in Progress";
     }
@@ -82,42 +91,43 @@ async function getData() {
     else{
         document.getElementById("txtNonConforming").value = "No";
     }
-    // need user data
-    // document.getElementById("txtQualityName").value = qaData.;
+    
     document.getElementById("txtQualityDate").value = qaData.LastModified;
 
     // engineering data
-    document.getElementById("txtReview").value = engData.Review;
-    if (engData.NotifyCustomer == 1) {
-        document.getElementById("txtNotification").value = "Yes";
+    try{
+        document.getElementById("txtReview").value = engData.Review;
+        if (engData.NotifyCustomer == 1) {
+            document.getElementById("txtNotification").value = "Yes";
+        }
+        else{
+            document.getElementById("txtNotification").value = "No";
+        }
+        document.getElementById("txtDisposition").value = engData.Disposition;
+        // field may be missing...
+        // document.getElementById("txtDrawingUpdate").value = engData.;
+        document.getElementById("txtOgVersionNumber").value = engData.RevisionNumber;
+        // field may be missing
+        // document.getElementById("txtNewVersionNumber").value = engData.;
+        document.getElementById("txtEngDate").value = engData.LastModified;
     }
-    else{
-        document.getElementById("txtNotification").value = "No";
-    }
-    document.getElementById("txtDisposition").value = engData.Disposition;
-    // field may be missing...
-    // document.getElementById("txtDrawingUpdate").value = engData.;
-    document.getElementById("txtOgVersionNumber").value = engData.RevisionNumber;
-    // field may be missing
-    // document.getElementById("txtNewVersionNumber").value = engData.;
-    // user data required 
-    //document.getElementById("txtEngName").value = engData.;
-    document.getElementById("txtEngDate").value = engData.LastModified;
+    catch{}
+    
 
     // purchasing data
-    document.getElementById("txtPrelimDecision").value = purData.PreliminaryDecision;
-    document.getElementById("txtCARRaised").value = purData.CARRaised;
-    document.getElementById("txtCARNumber").value = purData.CARNumber;
-    document.getElementById("txtFollowUpTequired").value = purData.FollowUpRequired;
-    document.getElementById("txtFollowUpType").value = purData.FollowUpType;
-    document.getElementById("txtFollowUpDate").value = purData.FollowUpDate;
-    // missing fields???
-    //document.getElementById("txtAcceptable").value = purData.;
-    //document.getElementById("txtNewNCR").value = purData.;
-
-    // need user data
-    //document.getElementById("txtPurchasingName").value = purData.;
-    document.getElementById("txtPurchasingDate").value = purData.LastModified;
+    try{
+        document.getElementById("txtPrelimDecision").value = purData.PreliminaryDecision;
+        document.getElementById("txtCARRaised").value = purData.CARRaised;
+        document.getElementById("txtCARNumber").value = purData.CARNumber;
+        document.getElementById("txtFollowUpTequired").value = purData.FollowUpRequired;
+        document.getElementById("txtFollowUpType").value = purData.FollowUpType;
+        document.getElementById("txtFollowUpDate").value = purData.FollowUpDate;
+        // missing fields???
+        //document.getElementById("txtAcceptable").value = purData.;
+        //document.getElementById("txtNewNCR").value = purData.;
+        document.getElementById("txtPurchasingDate").value = purData.LastModified;
+    }
+    catch{}   
 };
 
 getData();
