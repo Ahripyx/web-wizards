@@ -20,53 +20,52 @@
         <link href="../public/styles/style.css" rel="stylesheet">
      </head>
 <body>
-       <!-- Nav Bar -->
+   <!-- Nav Bar -->
    <header>
-    <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-    <div class="container">
-       <nav class="navbar navbar-dark bg-dark">
-          <a href="index.html" class="navbar-brand">
-             <img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                alt="A blue logo saying Crossfire with a flame in the middle">
-          </a>
-          <h1 class="navbar-text">Info</h1>
-          <ul class="nav navbar-nav navbar-right">
-             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fa-solid fa-bell" href="#" id="notifDropdown" role="button"
+      <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
+      <div class="container">
+         <nav class="navbar navbar-dark bg-dark">
+            <a href="index.html" class="navbar-brand">
+               <img src="../public/images/Crossfire_Logo_no_bkgd.png"
+                  alt="A blue logo saying Crossfire with a flame in the middle" tabindex="1">
+            </a>
+            <h1 class="navbar-text">Details</h1>
+            <ul class="nav navbar-nav navbar-right">
+               <li class="nav-item dropdown" tabindex="2">
+                  <a class="nav-link dropdown-toggle fa-solid fa-bell" href="#" id="notifDropdown" role="button"
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="unread-count" class="badge badge-info"></span></a>
-                <div class="dropdown-menu notif-container" id="notification-content" aria-strongledby="notifDropdown">
-                   <!-- Notification Content fills in here from notification.js-->
-                    <div id="qlt-list" style="display: none;"></div>
-                   <div id="eng-list" style="display: none;"></div>
-                   <div id="pur-list" style="display: none;"></div>
-                </div>
-             </li>
-
-             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                   <i class="fa-solid fa-user"></i> <span id="username"></span>
-                </a>
-                <div class="dropdown-menu" aria-strongledby="navbarDropdown">
-                   <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-                </div>
-             </li>
-             <li class="nav-item">
-                <a href="info.html">
-                   <i class="fa-solid fa-circle-info"></i>
-                </a>
-             </li>
-          </ul>
-          <div class="navbar-collapse"></div>
-          <ul class="nav navbar-nav">
-             <li><a href="index.html">Dashboard</a></li>
-             <li id="li-create" style="display: none;"><a href="create.html">Create NCR</a></li>
-             <li class="active"><a href="list.html">NCR Logs</a></li>
-             <li id="li-tools" style="display: none;"><a href="tools.html">Tools</a></li>
-          </ul>
-       </nav>
-    </div>
- </header>
+                  <div class="dropdown-menu notif-container" id="notification-content" aria-labelledby="notifDropdown">
+                     <!-- Notification Content fills in here from notification.js-->
+                      <div id="qlt-list" style="display: none;"></div>
+                     <div id="eng-list" style="display: none;"></div>
+                     <div id="pur-list" style="display: none;"></div>
+                  </div>
+               </li>
+               <li class="nav-item dropdown" tabindex="3">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false">
+                     <i class="fa-solid fa-user"></i> <span id="username"></span>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                  </div>
+               </li>
+               <li class="nav-item" tabindex="4">
+                  <a href="info.html">
+                     <i class="fa-solid fa-circle-info"></i>
+                  </a>
+               </li>
+            </ul>
+            <div class="navbar-collapse"></div>
+            <ul class="nav navbar-nav">
+               <li ><a href="index.html" tabindex="5">Dashboard</a></li>
+               <li id="li-create" style="display: none;" tabindex="6"><a href="create.html">Create NCR</a></li>
+               <li class="active"><a href="list.html" tabindex="7">NCR Logs</a></li>
+               <li id="li-tools" style="display: none;" tabindex="8"><a href="tools.html">Tools</a></li>
+            </ul>
+         </nav>
+      </div>
+   </header>
  <div class="center QandA">
    <section>
       <h2>Frequently Asked Questions</h2>
