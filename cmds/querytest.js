@@ -370,7 +370,6 @@ const insertProducts = (products) => {
 };
 
 const insertNCRForms = (forms) => {
-    console.log(forms);
     const statement = forms.map((ncr) => {
         return `INSERT INTO NCRForm (CreationDate, LastModified, FormStatus) VALUES ('${ncr.CreationDate}', '${ncr.LastModified}', '${ncr.FormStatus}');`;
     });
