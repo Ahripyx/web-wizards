@@ -68,8 +68,6 @@ async function getData() {
         }
     });
 
-    console.log
-
     // quality assurance data
     document.getElementById("txtSupplierName").value = qaData.SupplierName;
     document.getElementById("txtNCRNumber").value = qaData.NCRNumber;
