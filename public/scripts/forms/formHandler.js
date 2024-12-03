@@ -103,7 +103,10 @@ async function loadFormData(id) {
         if (data.quality.QualityStatus === "Closed") {
             let engResponse = await fetch(ENDPOINTS.engineer(id));
             if (!engResponse.ok)
+            {
                 console.log("Engineer form not found, making a new one.");
+                ENGINEER_CONTROLS.ENGName.value = `${data.user.FName} ${data.user.LName}`;
+            }
             else data.engineer = await engResponse.json();
         }
         if (Object.keys(data.engineer).length === 0) {
@@ -114,22 +117,27 @@ async function loadFormData(id) {
         if (data.engineer) {
             populateEngineer();
             console.log(data.engineer);
+
+            if (data.engineer.EngineerStatus === "Closed") {
+                let purResponse = await fetch(ENDPOINTS.purchasing(id));
+                if (!purResponse.ok)
+                {
+                    console.log("Purchasing form not found, making a new one.");
+                    PURCHASING_CONTROLS.PURName.value = `${data.user.FName} ${data.user.LName}`;
+                }
+                else data.purchasing = await purResponse.json();
+            }
+            if (Object.keys(data.purchasing).length === 0) {
+                // thank you mikemaccana on StackOverflow for this one
+                data.purchasing = null;
+            }
+            if (data.purchasing) {
+                populatePurchasing();
+                console.log(data.purchasing);
+            }
         }
 
-        if (data.engineer.EngineerStatus === "Closed") {
-            let purResponse = await fetch(ENDPOINTS.purchasing(id));
-            if (!purResponse.ok)
-                console.log("Purchasing form not found, making a new one.");
-            else data.purchasing = await purResponse.json();
-        }
-        if (Object.keys(data.purchasing).length === 0) {
-            // thank you mikemaccana on StackOverflow for this one
-            data.purchasing = null;
-        }
-        if (data.purchasing) {
-            populatePurchasing();
-            console.log(data.purchasing);
-        }
+        
 
         toggleForms();
     } catch (error) {
@@ -139,7 +147,7 @@ async function loadFormData(id) {
 
 function populateFormUsers(users) {
     users.forEach((user) => {
-        if (user.Title === "Quality")
+        if (user.Title === "Inspector")
             QUALITY_CONTROLS.QLTName.value = `${user.FName} ${user.LName}`;
         if (user.Title === "Engineer")
             ENGINEER_CONTROLS.ENGName.value = `${user.FName} ${user.LName}`;
@@ -230,30 +238,49 @@ function toggleForms() {
                 : undefined;
 
     disableForm(Title, QUALITY_FIELDSET, [
-        QUALITY_CONTROLS.QLTSubmit,
+        QUALITY_CONTROLS.QLTClose, QUALITY_CONTROLS.QLTOpen,
         nav.quality,
     ]);
     disableForm(Title, ENGINEER_FIELDSET, [
-        ENGINEER_CONTROLS.ENGSubmit,
+        ENGINEER_CONTROLS.ENGClose, ENGINEER_CONTROLS.ENGOpen,
         nav.engineer,
     ]);
     disableForm(Title, PURCHASING_FIELDSET, [
-        PURCHASING_CONTROLS.PURSubmit,
+        PURCHASING_CONTROLS.PURClose, PURCHASING_CONTROLS.PUROpen,
         nav.purchasing,
     ]);
+    
+    nav.quality.style.display = "block";
 
-    if (Title === "quality") nav.purchasing.hidden = true;
+    if (Title === "quality")
+    {
+        document.getElementById("ncrform_quality").style.display = "block";
+    }
+    
     if (Title === "engineer") {
-        nav.quality.hidden = false;
-        nav.purchasing.hidden = true;
+        nav.engineer.style.display = "block";
+        document.getElementById("ncrform_engineer").style.display = "block";
+    }
+    if (Title === "purchasing")
+    {
+        nav.engineer.style.display = "block";
+        nav.purchasing.style.display = "block";
+        document.getElementById("ncrform_purchasing").style.display = "block";
     }
 }
 
 function disableForm(title, fieldset, controls) {
-    if (!fieldset || title === "admin") return;
-    const name = fieldset.id.split("_")[1].toLowerCase();
-    fieldset.disabled = title !== name;
-    controls.forEach((control) => (control.hidden = title !== name));
+    try
+    {
+        if (!fieldset || title === "admin") return;
+        const name = fieldset.id.split("_")[1].toLowerCase();
+        fieldset.disabled = title !== name;
+        controls.forEach((control) => (control.hidden = title !== name));
+    } catch (error)
+    {
+        console.log("error: " + error);
+    }
+    
 }
 
 function resetForm() {
