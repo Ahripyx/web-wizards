@@ -98,8 +98,8 @@ export const seedRoles = [
         ('Admin'),
         ('Inspector'),
         ('Engineer'),
-        ('Purchasing')`
-    ];
+        ('Purchasing')`,
+];
 
 //const Roles = ['Admin', 'Inspector', 'Engineer', 'Purchasing'];
 
@@ -119,7 +119,7 @@ const seedUsers = () => {
         LName: "Wake",
         Email: "admin@crossfire.ca",
         Password: "admin",
-        RoleID: 1
+        RoleID: 1,
     });
     Users.push({
         id: 2,
@@ -128,7 +128,7 @@ const seedUsers = () => {
         LName: "Windsor",
         Email: "quality@crossfire.ca",
         Password: "quality",
-        RoleID: 2
+        RoleID: 2,
     });
     Users.push({
         id: 3,
@@ -137,7 +137,7 @@ const seedUsers = () => {
         LName: "Conagher",
         Email: "engineer@crossfire.ca",
         Password: "engineer",
-        RoleID: 3
+        RoleID: 3,
     });
     Users.push({
         id: 4,
@@ -146,7 +146,7 @@ const seedUsers = () => {
         LName: "Gray-Mane",
         Email: "purchasing@crossfire.ca",
         Password: "purchasing",
-        RoleID: 4
+        RoleID: 4,
     });
 };
 
@@ -170,7 +170,9 @@ const seedSuppliers = () => {
             let uniqueNumber;
             do {
                 uniqueNumber = faker.number.int({ min: 100, max: 999 });
-            } while (Products.some(product => product.Number === uniqueNumber));
+            } while (
+                Products.some((product) => product.Number === uniqueNumber)
+            );
             Products.push({
                 id: count,
                 ProductName: faker.commerce.productName(),
@@ -269,13 +271,18 @@ const seedPurchasingForms = (id) => {
         "Return To Supplier",
         "Rework In House",
         "Scrap",
-        "Defer for HBC Engineering Review"
+        "Defer for HBC Engineering Review",
     ]);
     let carRaised = faker.datatype.boolean();
-    let carNumber = carRaised ? faker.number.int({ min: 1000, max: 9999 }) : null;
+    let carNumber = carRaised
+        ? faker.number.int({ min: 1000, max: 9999 })
+        : null;
     let followUpRequired = faker.datatype.boolean();
     let followUpType = followUpRequired
-        ? faker.helpers.arrayElement(["Corrective Action", "Preventitive Action"])
+        ? faker.helpers.arrayElement([
+              "Corrective Action",
+              "Preventitive Action",
+          ])
         : null;
     let followUpDate = followUpRequired
         ? faker.date.future().toISOString().split("T")[0]
@@ -327,10 +334,14 @@ const seedNCRForms = () => {
         if (eng && eng.EngineerStatus === "Closed") {
             pur = seedPurchasingForms(id);
         }
-        if (eng && pur && eng.EngineerStatus === "Closed" && pur.PurchasingStatus === "Closed") {
+        if (
+            eng &&
+            pur &&
+            eng.EngineerStatus === "Closed" &&
+            pur.PurchasingStatus === "Closed"
+        ) {
             NCRForms[i].FormStatus = "Closed";
         }
-        
     }
     return NCRForms;
 };
@@ -410,8 +421,6 @@ const QualityForms_INSERT = insertQualityForms(QualityForms);
 const EngineerForms_INSERT = insertEngineerForms(EngineeringForms);
 const PurchasingForms_INSERT = insertPurchasingForms(PurchasingForms);
 
-
-
 export const seedData = {
     User_INSERT,
     NCRForms_INSERT,
@@ -422,5 +431,3 @@ export const seedData = {
     EngineerForms_INSERT,
     PurchasingForms_INSERT,
 };
-
-

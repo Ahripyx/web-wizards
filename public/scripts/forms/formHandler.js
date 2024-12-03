@@ -1,4 +1,10 @@
-import { newProduct, crudQuality, crudEngineer, crudPurchasing, fetchData } from "./crud.js";
+import {
+    newProduct,
+    crudQuality,
+    crudEngineer,
+    crudPurchasing,
+    fetchData,
+} from "./crud.js";
 
 const ENDPOINTS = {
     roles: "http://localhost:5500/roles/",
@@ -7,7 +13,7 @@ const ENDPOINTS = {
     formUsers: (id) => `http://localhost:5500/formusers/${id}`,
     ncrs: (id) => `http://localhost:5500/ncrs/${id}`,
     engineer: (id) => `http://localhost:5500/engineer/${id}`,
-    purchasing: (id) => `http://localhost:5500/purchasing/${id}`, 
+    purchasing: (id) => `http://localhost:5500/purchasing/${id}`,
 };
 
 let QUALITY_FIELDSET = document.getElementById("fs_quality");
@@ -100,15 +106,14 @@ async function loadFormData(id) {
                 console.log("Engineer form not found, making a new one.");
             else data.engineer = await engResponse.json();
         }
-        if (Object.keys(data.engineer).length === 0) // thank you mikemaccana on StackOverflow for this one
-        {
+        if (Object.keys(data.engineer).length === 0) {
+            // thank you mikemaccana on StackOverflow for this one
             data.engineer = null;
         }
 
-        if (data.engineer) 
-        {
+        if (data.engineer) {
             populateEngineer();
-            console.log(data.engineer)
+            console.log(data.engineer);
         }
 
         if (data.engineer.EngineerStatus === "Closed") {
@@ -116,17 +121,16 @@ async function loadFormData(id) {
             if (!purResponse.ok)
                 console.log("Purchasing form not found, making a new one.");
             else data.purchasing = await purResponse.json();
-        } 
-        if (Object.keys(data.purchasing).length === 0) // thank you mikemaccana on StackOverflow for this one
-        {
+        }
+        if (Object.keys(data.purchasing).length === 0) {
+            // thank you mikemaccana on StackOverflow for this one
             data.purchasing = null;
         }
-        if (data.purchasing) 
-        {
+        if (data.purchasing) {
             populatePurchasing();
-            console.log(data.purchasing)
+            console.log(data.purchasing);
         }
-            
+
         toggleForms();
     } catch (error) {
         console.error("Failed to load form data:", error);
@@ -194,10 +198,13 @@ function populateEngineer() {
 
 function populatePurchasing() {
     let e = data.purchasing;
-    PURCHASING_CONTROLS.Decision_0.checked = e.PreliminaryDecision === "Return To Supplier";
-    PURCHASING_CONTROLS.Decision_1.checked = e.PreliminaryDecision === "Rework In House";
+    PURCHASING_CONTROLS.Decision_0.checked =
+        e.PreliminaryDecision === "Return To Supplier";
+    PURCHASING_CONTROLS.Decision_1.checked =
+        e.PreliminaryDecision === "Rework In House";
     PURCHASING_CONTROLS.Decision_2.checked = e.PreliminaryDecision === "Scrap";
-    PURCHASING_CONTROLS.Decision_3.checked = e.PreliminaryDecision === "Defer For HBC Engineering Review";
+    PURCHASING_CONTROLS.Decision_3.checked =
+        e.PreliminaryDecision === "Defer For HBC Engineering Review";
     PURCHASING_CONTROLS.CarRaised_0.checked = e.CARRaised === 1;
     PURCHASING_CONTROLS.CarRaised_1.checked = e.CARRaised === 0;
     PURCHASING_CONTROLS.CARNumber.value = e.CARNumber;
@@ -269,11 +276,10 @@ function setupEventListeners() {
         .getElementById("NEWProduct")
         .addEventListener("click", handleNewProduct);
 
+    $("#SupplierID").on("select2:select", function (e) {
+        populateProductsForSupplier(parseInt(e.params.data.id));
+    });
     QUALITY_CONTROLS.ProductID.addEventListener("change", handleProductChange);
-    QUALITY_CONTROLS.SupplierID.addEventListener(
-        "change",
-        handleSupplierChange
-    );
 
     // Submit event listener for quality form
 
@@ -284,60 +290,58 @@ function setupEventListeners() {
         if (!qltForm.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
-            qltForm.classList.add('was-validated'); // add validation class?
+            qltForm.classList.add("was-validated"); // add validation class?
             return; // Exit if  form invalid
-         }
+        }
         if (qltForm.checkValidity()) {
-            if (buttonID.includes("Open")) 
-                handleSubmit(QUALITY_CONTROLS, 'Open');
-            else if (buttonID.includes("Close")) 
-                handleSubmit(QUALITY_CONTROLS, 'Closed');
+            if (buttonID.includes("Open"))
+                handleSubmit(QUALITY_CONTROLS, "Open");
+            else if (buttonID.includes("Close"))
+                handleSubmit(QUALITY_CONTROLS, "Closed");
         }
     });
 
     // If engineer form exists, add event listener
-    if (engForm)
-    {
+    if (engForm) {
         if (ENGINEER_CONTROLS.RevisionNumber) handleRevision();
-    engForm.addEventListener("submit", async (event) => {
-        const submitButton = event.submitter;
-        const buttonID = submitButton ? submitButton.id : null;
-        if (!engForm.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-            engForm.classList.add('was-validated'); // add validation class?
-            return; // Exit if  form invalid
-         }
-        if (engForm.checkValidity()) {
-            if (buttonID.includes("Open")) 
-                handleSubmit(ENGINEER_CONTROLS, 'Open');
-            else if (buttonID.includes("Close")) 
-                handleSubmit(ENGINEER_CONTROLS, 'Closed');
-        } 
-    });
+        engForm.addEventListener("submit", async (event) => {
+            const submitButton = event.submitter;
+            const buttonID = submitButton ? submitButton.id : null;
+            if (!engForm.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                engForm.classList.add("was-validated"); // add validation class?
+                return; // Exit if  form invalid
+            }
+            if (engForm.checkValidity()) {
+                if (buttonID.includes("Open"))
+                    handleSubmit(ENGINEER_CONTROLS, "Open");
+                else if (buttonID.includes("Close"))
+                    handleSubmit(ENGINEER_CONTROLS, "Closed");
+            }
+        });
     }
 
     // If purchasing form exists, add event listener
-    if (purForm)
-    {
+    if (purForm) {
         if (PURCHASING_CONTROLS.CarRaised) handleCAR();
         if (PURCHASING_CONTROLS.FollowUp) handleFollowUp();
 
         purForm.addEventListener("submit", async (event) => {
             const submitButton = event.submitter;
-        const buttonID = submitButton ? submitButton.id : null;
+            const buttonID = submitButton ? submitButton.id : null;
             if (!purForm.checkValidity()) {
                 event.preventDefault();
                 event.stopPropagation();
-                purForm.classList.add('was-validated'); // add validation class?
+                purForm.classList.add("was-validated"); // add validation class?
                 return; // Exit if  form invalid
-             }
+            }
             if (purForm.checkValidity()) {
-                if (buttonID.includes("Open")) 
-                    handleSubmit(PURCHASING_CONTROLS, 'Open');
-                else if (buttonID.includes("Close")) 
-                    handleSubmit(PURCHASING_CONTROLS, 'Closed');
-            } 
+                if (buttonID.includes("Open"))
+                    handleSubmit(PURCHASING_CONTROLS, "Open");
+                else if (buttonID.includes("Close"))
+                    handleSubmit(PURCHASING_CONTROLS, "Closed");
+            }
         });
     }
 }
@@ -355,11 +359,6 @@ async function handleProductChange(event) {
     document.getElementById("ProductNumber").textContent = `Number: ${
         selectedProduct?.Number || "N/A"
     }`;
-}
-
-async function handleSupplierChange(event) {
-    const supplierID = parseInt(event.target.value);
-    populateProductsForSupplier(supplierID);
 }
 
 function populateProductsForSupplier(supplierID) {
@@ -442,13 +441,12 @@ function incrementRevisionNumber(revisionNumber) {
 
 function showNewProductModal() {
     const options = {
-        backdrop: ""
+        backdrop: "",
     };
-    $('#newProductModal').modal(options)
+    $("#newProductModal").modal(options);
 }
 
-function populateControls(fs, controls)
-{
+function populateControls(fs, controls) {
     if (fs) {
         Array.from(fs.elements).forEach((element) => {
             if (element && element.id) {
