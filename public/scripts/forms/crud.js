@@ -192,6 +192,48 @@ export async function crudEngineer(method, form, status, id = '') {
 
 }
 
+// UPDATE / INSERT PURCHASING
+export async function crudPurchasing(method, form, status, id = '') {
+    try {
+        let review =
+    
+            form.Decision_0.checked ? "Return To Supplier" :
+            form.Decision_1.checked ? "Rework In House" :
+            form.Decision_2.checked ? "Scrap" :
+            form.Decision_3.checked ? "Defer For HBC Engineering Review" : undefined;
+
+        const purchasing = {
+            Decision: review,
+            CarRaised: form.CarRaised_0.checked ? 1 : 0,
+            FollowUp: form.FollowUp_0.checked ? 1 : 0,
+            CARNumber: form.CARNumber.value,
+            FollowUpType: form.FollowUpType.value,
+            FollowUpDate: form.FollowUpDate.value,
+            PurchasingStatus: status
+        };
+
+        const user = JSON.parse(localStorage.getItem('user'));
+            purchasing.User_id = user.id;
+
+        // If we are creating a new form
+        if (method === 'POST') {
+            
+        }
+
+        if (!id) id = '';
+        
+        let result = await throwData(`http://localhost:5500/purchasing/${id}`, purchasing, method);
+        
+        // Send a notification
+        handleNewNotification(result.form);
+
+        if (id) window.location.href = `details.html?id=${id}`;
+        else window.location.href = `details.html?id=${result.form.lastInsertRowid}`;
+    } catch (error) {
+        console.error(`Failed to ${method} purchasing:`, error.message);
+    }
+}
+
 export async function fetchData(url) {
     try {
         const response = await fetch(url);
