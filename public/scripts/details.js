@@ -64,7 +64,15 @@ async function getData() {
             document.getElementById("txtPurchasingName").value = `${item.FName} ${item.LName}`; 
         }
         else{
-            console.log("Why bro?")
+            if (document.getElementById("txtQualityName").value == ""){
+                document.getElementById("txtQualityName").value = `${item.FName} ${item.LName} (Administrator)`;
+            }
+            else if (document.getElementById("txtEngName").value == ""){
+                document.getElementById("txtEngName").value = `${item.FName} ${item.LName} (Administrator)`;
+            }
+            else{
+                document.getElementById("txtPurchasingName").value = `${item.FName} ${item.LName} (Administrator)`;
+            }
         }
     });
 
