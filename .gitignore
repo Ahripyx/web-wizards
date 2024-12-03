@@ -2,3 +2,16 @@
 *.node
 db/test_data.db
 *.db
+node_modules/rc/cli.js
+node_modules/semver/bin/semver.js
+node_modules/semver/bin/semver.js
+node_modules/rc/cli.js
+node_modules/prebuild-install/bin.js
+node_modules/better-sqlite3/build/Release/better_sqlite3.node
+node_modules/.bin/semver.ps1
+node_modules/.bin/semver
+node_modules/.bin/rc.ps1
+node_modules/.bin/rc
+node_modules/.bin/prebuild-install.ps1
+node_modules/.bin/mime.ps1
+node_modules/.bin/mime

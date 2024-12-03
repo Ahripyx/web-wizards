@@ -108,10 +108,10 @@ async function loadFormData(id) {
         if (data.engineer) 
         {
             populateEngineer();
+            console.log(data.engineer)
         }
 
         if (data.engineer.EngineerStatus === "Closed") {
-            console.log(ENDPOINTS.purchasing(id));
             let purResponse = await fetch(ENDPOINTS.purchasing(id));
             if (!purResponse.ok)
                 console.log("Purchasing form not found, making a new one.");
@@ -124,6 +124,7 @@ async function loadFormData(id) {
         if (data.purchasing) 
         {
             populatePurchasing();
+            console.log(data.purchasing)
         }
             
         toggleForms();
@@ -193,18 +194,18 @@ function populateEngineer() {
 
 function populatePurchasing() {
     let e = data.purchasing;
-    PURCHASING_CONTROLS.Decision_0.checked = e.Decision === "Return To Supplier";
-    PURCHASING_CONTROLS.Decision_1.checked = e.Decision === "Rework In House";
-    PURCHASING_CONTROLS.Decision_2.checked = e.Decision === "Scrap";
-    PURCHASING_CONTROLS.Decision_3.checked = e.Decision === "Defer For HBC Engineering Review";
-    PURCHASING_CONTROLS.CarRaised_0.checked = e.CarRaised === 1;
-    PURCHASING_CONTROLS.CarRaised_1.checked = e.CarRaised === 0;
-    PURCHASING_CONTROLS.FollowUp_0.checked = e.FollowUp === 1;
-    PURCHASING_CONTROLS.FollowUp_1.checked = e.FollowUp === 0;
-    PURCHASING_CONTROLS.FollowUpDate.value - e.FollowUpDate.value;
+    PURCHASING_CONTROLS.Decision_0.checked = e.PreliminaryDecision === "Return To Supplier";
+    PURCHASING_CONTROLS.Decision_1.checked = e.PreliminaryDecision === "Rework In House";
+    PURCHASING_CONTROLS.Decision_2.checked = e.PreliminaryDecision === "Scrap";
+    PURCHASING_CONTROLS.Decision_3.checked = e.PreliminaryDecision === "Defer For HBC Engineering Review";
+    PURCHASING_CONTROLS.CarRaised_0.checked = e.CARRaised === 1;
+    PURCHASING_CONTROLS.CarRaised_1.checked = e.CARRaised === 0;
+    PURCHASING_CONTROLS.CARNumber.value = e.CARNumber;
+    PURCHASING_CONTROLS.FollowUp_0.checked = e.FollowUpRequired === 1;
+    PURCHASING_CONTROLS.FollowUp_1.checked = e.FollowUpRequired === 0;
+    PURCHASING_CONTROLS.FollowUpType.value = e.FollowUpType;
+    PURCHASING_CONTROLS.FollowUpDate.value = e.FollowUpDate;
     PURCHASING_CONTROLS.PURDate.value = e.LastModified;
-    PURCHASING_CONTROLS.PURStatus.value =
-        e.PurchasingStatus === "Open" ? "Open" : "Closed";
 }
 
 function toggleForms() {
