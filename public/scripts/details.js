@@ -104,6 +104,7 @@ async function getData() {
         document.getElementById("txtDisposition").value = engData.Disposition;
         // field may be missing...
         // document.getElementById("txtDrawingUpdate").value = engData.;
+        console.log(engData.RevisionNumber)
         document.getElementById("txtOgVersionNumber").value = engData.RevisionNumber;
         // field may be missing
         // document.getElementById("txtNewVersionNumber").value = engData.;
@@ -115,9 +116,19 @@ async function getData() {
     // purchasing data
     try{
         document.getElementById("txtPrelimDecision").value = purData.PreliminaryDecision;
-        document.getElementById("txtCARRaised").value = purData.CARRaised;
+        if (engData.CARRaised == 1) {
+            document.getElementById("txtCARRaised").value = "Yes";
+        }
+        else{
+            document.getElementById("txtCARRaised").value = "No";
+        }
         document.getElementById("txtCARNumber").value = purData.CARNumber;
-        document.getElementById("txtFollowUpTequired").value = purData.FollowUpRequired;
+        if (purData.FollowUpRequired == 1) {
+            document.getElementById("txtFollowUpTequired").value = "Yes";
+        }
+        else{
+            document.getElementById("txtFollowUpTequired").value = "No";
+        }
         document.getElementById("txtFollowUpType").value = purData.FollowUpType;
         document.getElementById("txtFollowUpDate").value = purData.FollowUpDate;
         // missing fields???
