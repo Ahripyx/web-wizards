@@ -35,18 +35,18 @@
                   alt="A blue logo saying Crossfire with a flame in the middle" tabindex="1">
             </a>
             <ul class="nav navbar-nav navbar-right">
-               <li class="nav-item">
-                  <a href="info.html" tabindex="2" data-toggle="tooltip" role="button"
-                  data-placement="bottom" data-trigger="hover focus" title="Information" >
+               <li class="nav-item" tabindex="2" data-toggle="tooltip" role="button" data-placement="bottom"
+                  data-trigger="hover focus" title="Information">
+                  <a href="info.html">
                      <i class="fa-solid fa-circle-info"></i>
                   </a>
                </li>
-               <li class="nav-item dropdown" style="width: 74px;">
-                  <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" tabindex="3" data-toggle="tooltip"
-                     data-placement="bottom" data-trigger="hover focus" title="Notifications" data-toggle="dropdown" aria-haspopup="true"
-                     aria-expanded="false">
-                     <i class="fa-solid fa-bell"></i>
-                     <span class="badge" id="notif-count"></span>
+               <li class="nav-item dropdown" style="width: 74px;" data-toggle="tooltip" title="Notifications"
+                  tabindex="3" data-trigger="hover focus" data-placement="bottom">
+                  <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-placement="bottom"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;">
+                     <i class="fa-solid fa-bell"><span class="badge" id="unread-count"></span></i>
+
                   </a>
                   <div class="dropdown-menu notif-container" id="notification-content" aria-labelledby="notifDropdown">
                      <!-- Notification Content fills in here from notification.js-->
