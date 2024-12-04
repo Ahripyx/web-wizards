@@ -35,14 +35,16 @@
                   alt="A blue logo saying Crossfire with a flame in the middle" tabindex="1">
             </a>
             <ul class="nav navbar-nav navbar-right">
-               <li class="nav-item" tabindex="2">
-                  <a href="info.html">
+               <li class="nav-item">
+                  <a href="info.html" tabindex="2" data-toggle="tooltip" role="button"
+                  data-placement="bottom" data-trigger="hover focus" title="Information" >
                      <i class="fa-solid fa-circle-info"></i>
                   </a>
                </li>
-               <li class="nav-item dropdown" style="width: 74px;" tabindex="3">
-                  <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <li class="nav-item dropdown" style="width: 74px;">
+                  <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" tabindex="3" data-toggle="tooltip"
+                     data-placement="bottom" data-trigger="hover focus" title="Notifications" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">
                      <i class="fa-solid fa-bell"></i>
                      <span class="badge" id="notif-count"></span>
                   </a>
@@ -80,7 +82,6 @@
          </div>
          </div>
       </nav>
-
    </header>
    <!-- Main Content -->
    <main>
@@ -139,6 +140,9 @@
       if (user.RoleID == 1 || user.RoleID == 2)
          document.getElementById("div-create").style.display = "block";
 
+      $(function () {
+         $('[data-toggle="tooltip"]').tooltip()
+      })
    </script>
 </body>
 
