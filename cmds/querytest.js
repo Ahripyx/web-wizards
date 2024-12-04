@@ -367,10 +367,10 @@ const seedNCRForms = () => {
         // Create our Quality Form
         qlt = seedQualityForms(id, status, thisDefect.shift());
 
-        if (qlt.QualityStatus === "Closed") {
+        if (qlt.QualityStatus === "Closed" && faker.datatype.boolean()) {
             eng = seedEngineerForms(id);
         }
-        if (eng && eng.EngineerStatus === "Closed") {
+        if (eng && eng.EngineerStatus === "Closed" && faker.datatype.boolean()) {
             pur = seedPurchasingForms(id);
         }
         if (
