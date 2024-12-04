@@ -55,4 +55,57 @@ document.addEventListener('DOMContentLoaded', function(){
             console.log('test')
         });
     }
+    if (window.location.pathname.endsWith('edit.html')){
+        //============= edit.html =============
+        //Quality Assurance
+        function populateEdit(salesOrder, supplier, product, description, recievedQuantity, defectiveQuantity){
+            document.getElementById("SalesOrder").value = salesOrder
+
+            document.getElementById("Details").value = description
+            document.getElementById("QuantityReceived").value = recievedQuantity
+            document.getElementById("QuantityDefective").value = defectiveQuantity
+
+            const processApplicableRadio = document.querySelector('input[name="ProcessApplicable"][value="0"]');
+            if (processApplicableRadio) {
+                processApplicableRadio.checked = true;
+            }
+
+            const isNonConformingRadio = document.querySelector('input[name="IsNonConforming"][value="1"]');
+            if (isNonConformingRadio) {
+                isNonConformingRadio.checked = true;
+            }
+
+            const supplierDropdown = $("#SupplierID");
+            if (supplierDropdown.length > 0) {
+                supplierDropdown.val(supplier).trigger('change');
+            }
+
+            const productDropdown = $("#ProductID");
+            if (productDropdown.length > 0) {
+                productDropdown.val(product).trigger('change');
+            }
+        }
+        document.getElementById('btnSeedQA').addEventListener('click', function(){
+            populateEdit(300, 15, 1, 'A very nice description', 20, 10)
+            console.log('test')
+        });
+
+        //Engineering
+        function populateEditEng(disposition){
+            document.getElementById("Disposition").value = disposition
+        }
+        document.getElementById('btnSeedEng').addEventListener('click', function(){
+            populateEditEng("Very nice disposition descripition.");
+        });
+
+        //Purchasing
+        function populateEditPur(){
+            document.getElementById("CarRaised_1").checked = true
+        }
+
+        document.getElementById('btnSeedPur').addEventListener('click', function(){
+            populateEditPur()
+        })
+        
+    }
 });
