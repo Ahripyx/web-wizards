@@ -68,7 +68,6 @@
    </header>
    <div>
       <button id="pdfDownload">Download</button>
-      <button id="pdfPrint">Print</button>
    </div>
     <div class="pdf-preview" id="pdf-preview-container" >
         <canvas id="pdf-preview-canvas" width="600"></canvas>
@@ -119,32 +118,6 @@
             link.download = 'NCR_Report.pdf'; //Issue: Change this so it uses file name with NCR number later
             link.click();
         });
-
-        //Print button logic
-        document.getElementById('pdfPrint').addEventListener('click', function() {
-            //Convert the data URI into a Blob
-            const byteCharacters = atob(pdfDataUri.split(',')[1]);
-            const byteArray = new Uint8Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteArray[i] = byteCharacters.charCodeAt(i);
-            }
-
-            //Create a Blob from the byte array
-            const pdfBlob = new Blob([byteArray], { type: 'application/pdf' });
-
-            //Create an object URL for the Blob
-            const pdfBlobUrl = URL.createObjectURL(pdfBlob);
-
-            //Open the Blob URL in a new tab
-            const printWindow = window.open(pdfBlobUrl, '_blank');
-            
-            //Wait for the window to load and then trigger the print dialog
-            printWindow.onload = function() {
-                printWindow.print();
-            };
-        }); 
-        //ISSUE: Print function will only work on certain browsers and needs to
-        //be compatible for all browsers
         
     </script>
     <div class="container">

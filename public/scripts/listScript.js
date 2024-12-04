@@ -1,8 +1,10 @@
 // Written by: Hazel Miln
 // Purpose: 
+
+
 const { jsPDF } = window.jspdf;
 async function filltables(data, table){
-    table.innerHTML = `
+    table.innerHTML = ` 
     <tr class="shaded-cells">
         <th>NCR</th>
         <th>Supplier</th>                
@@ -12,17 +14,25 @@ async function filltables(data, table){
         <th></th>
         <th></th>
     </tr>`;
+    
     var tabindex = 50;
     var row = 0;
 
     data.forEach(element => {
         if (row % 2 == 1){
-            table.innerHTML += `<tr id="${element.id}" class="light-cells"></tr>`
+            table.innerHTML += `<tr id="${element.id}" class="light-cells"></tr>`;
         }
         else{
-            table.innerHTML += `<tr id="${element.id}"></tr>`
+            table.innerHTML += `<tr id="${element.id}"></tr>`;
         }
+
         var tablerow = document.getElementById(element.id);
+
+        //Only shows a button download element if form status is closed
+        const downloadButtonHTML = (element.FormStatus === "Closed")
+            ? `<button class="download-btn info" data-id="${element.id}" tabindex=${tabindex+15}>Download</button>`
+            : '';
+
         tablerow.innerHTML =
             `
             <td class="table-borders">${element.NCRNumber}</td>
@@ -31,21 +41,21 @@ async function filltables(data, table){
             <td class="table-borders">${element.CreationDate}</td>
             <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex+5}>Details</a></td>
             <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex=${tabindex+10}>Edit</a></td>
-            <td class="table-borders"><button class="download-btn info" data-id="${element.id}" tabindex=${tabindex+15}>Download</button></td>
-            `
-        tabindex+=20;
+            <td class="table-borders">${downloadButtonHTML}</td>
+            `;
+        
+        tabindex += 20;
         row++;
     });
 
     document.querySelectorAll('.download-btn').forEach(button => {
         button.addEventListener('click', async function () {
             const ncrId = this.getAttribute('data-id');
-            // Generate and redirect to PDF preview page for the clicked NCR
-            const pdfDataUri = await generatePDF(ncrId);
-            //window.location.href = `preview.html?pdf=${encodeURIComponent(pdfDataUri)}`;
+            // Call generatePDF function when the button is clicked
+            await generatePDF(ncrId);
         });
     });
-};      
+};    
 
 async function getData(){
 
@@ -85,6 +95,8 @@ document.getElementById("btnFilter").addEventListener("click", async function(){
 
 document.getElementById("")
 
+
+//PDF Generation
 async function generatePDF(ncrId) {
     const pdf = new jsPDF(); 
 

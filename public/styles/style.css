@@ -582,6 +582,10 @@ canvas{
     border: 4px solid black;
 }
 
+.login-logo img{
+    width: 75%;
+    height: auto;
+}
 /*========================
         Media Queries
 ========================*/
