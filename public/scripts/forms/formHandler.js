@@ -267,6 +267,11 @@ function toggleForms() {
         nav.purchasing.style.display = "block";
         document.getElementById("ncrform_purchasing").style.display = "block";
     }
+    if (Title === "admin")
+    {
+        nav.engineer.style.display = "block";
+        nav.purchasing.style.display = "block";
+    }
 }
 
 function disableForm(title, fieldset, controls) {

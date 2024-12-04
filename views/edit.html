@@ -20,7 +20,9 @@
    <!-- Fonts -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+   <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet">
 
    <!-- Custom CSS -->
    <link href="../public/styles/style.css" rel="stylesheet">
@@ -54,10 +56,11 @@
             <ul class="nav navbar-nav navbar-right">
                <li class="nav-item dropdown" tabindex="2">
                   <a class="nav-link dropdown-toggle fa-solid fa-bell" href="#" id="notifDropdown" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="unread-count" class="badge badge-info"></span></a>
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="unread-count"
+                        class="badge badge-info"></span></a>
                   <div class="dropdown-menu notif-container" id="notification-content" aria-labelledby="notifDropdown">
                      <!-- Notification Content fills in here from notification.js-->
-                      <div id="qlt-list" style="display: none;"></div>
+                     <div id="qlt-list" style="display: none;"></div>
                      <div id="eng-list" style="display: none;"></div>
                      <div id="pur-list" style="display: none;"></div>
                   </div>
@@ -68,7 +71,8 @@
                      <i class="fa-solid fa-user"></i> <span id="username"></span>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                        Logout</a>
                   </div>
                </li>
                <li class="nav-item" tabindex="4">
@@ -79,7 +83,7 @@
             </ul>
             <div class="navbar-collapse"></div>
             <ul class="nav navbar-nav">
-               <li ><a href="index.html" tabindex="5">Dashboard</a></li>
+               <li><a href="index.html" tabindex="5">Dashboard</a></li>
                <li id="li-create" style="display: none;" tabindex="6"><a href="create.html">Create NCR</a></li>
                <li class="active"><a href="list.html" tabindex="7">NCR Logs</a></li>
                <li id="li-tools" style="display: none;" tabindex="8"><a href="tools.html">Tools</a></li>
@@ -90,34 +94,34 @@
 
    <!-- New Product Modal -->
    <div class="modal fade" id="newProductModal" data-backdrop="" tabindex="-1" role="dialog"
-   aria-labelledby="newProductModalLabel" aria-hidden="true" style="z-index: 100;">
-   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="newProductModalLabel">Create new product</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <div class="form-group">
-               <label for="NEWName" class="col-form-label">Product Name:</label>
-               <input type="text" id="NEWName" name="newProductName" class="form-control"
-                  placeholder="Product Name" required>
+      aria-labelledby="newProductModalLabel" aria-hidden="true" style="z-index: 100;">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="newProductModalLabel">Create new product</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
             </div>
-            <div class="form-group">
-               <label for="NEWNumber" class="col-form-label">Product Number:</label>
-               <input type="number" id="NEWNumber" name="newProductNumber" class="form-control" placeholder="---"
-                  min="100" max="999" required>
+            <div class="modal-body">
+               <div class="form-group">
+                  <label for="NEWName" class="col-form-label">Product Name:</label>
+                  <input type="text" id="NEWName" name="newProductName" class="form-control" placeholder="Product Name"
+                     required>
+               </div>
+               <div class="form-group">
+                  <label for="NEWNumber" class="col-form-label">Product Number:</label>
+                  <input type="number" id="NEWNumber" name="newProductNumber" class="form-control" placeholder="---"
+                     min="100" max="999" required>
+               </div>
             </div>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="NEWProduct">Create product</button>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary" id="NEWProduct">Create product</button>
+            </div>
          </div>
       </div>
    </div>
-</div>
 
 
    <!-- Navigation -->
@@ -177,9 +181,9 @@
                <div class="row g-3">
                   <!-- Supplier -->
                   <div class="form-group col-md-6">
-                    <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
-                     <select class="js-example-basic-single form-select" id="SupplierID" name="SupplierID" aria-required="true"
-                        oninput="SupplierValidation()" required>
+                     <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
+                     <select class="js-example-basic-single form-select" id="SupplierID" name="SupplierID"
+                        aria-required="true" oninput="SupplierValidation()" required>
                         <option selected value='' disabled>Select a Supplier</option>
                      </select>
                      <div class="invalid-feedback" id="supplier-feedback">
@@ -406,115 +410,116 @@
                </div>
             </fieldset>
          </form>
-         <form class="px-4 needs-validation" id="ncrform_purchasing" onsubmit="event.preventDefault();" style="display: none;"
-         novalidate>
-         <fieldset id="fs_purchasing">
-            <legend>Purchasing Form</legend>
-            <!-- Fields for Purchasing Form -->
-            <div class="row g-3">
-               <!-- Purchasings Preliminary Decision -->
-               <div class="form-group col-md-6">
-                  <label>Preliminary Decision <span class="no">*</span> </label>
-                  <div>
-                     <div class="form-check form-check-inline">
-                        <input name="Decision" id="Decision_0" type="radio" required="required" aria-required="true"
-                           class="form-check-input" value="Return To Supplier">
-                        <label for="Decision_0" class="form-check-label">Return To Supplier</label>
+         <form class="px-4 needs-validation" id="ncrform_purchasing" onsubmit="event.preventDefault();"
+            style="display: none;" novalidate>
+            <fieldset id="fs_purchasing">
+               <legend>Purchasing Form</legend>
+               <!-- Fields for Purchasing Form -->
+               <div class="row g-3">
+                  <!-- Purchasings Preliminary Decision -->
+                  <div class="form-group col-md-6">
+                     <label>Preliminary Decision <span class="no">*</span> </label>
+                     <div>
+                        <div class="form-check form-check-inline">
+                           <input name="Decision" id="Decision_0" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Return To Supplier">
+                           <label for="Decision_0" class="form-check-label">Return To Supplier</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="Decision" id="Decision_1" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Rework In House">
+                           <label for="Decision_1" class="form-check-label">Rework In House</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="Decision" id="Decision_2" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Scrap">
+                           <label for="Decision_2" class="form-check-label">Scrap</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="Decision" id="Decision_3" type="radio" required="required" aria-required="true"
+                              class="form-check-input" value="Defer for HBC Engineering Review">
+                           <label for="Decision_3" class="form-check-label">Defer for HBC Engineering Review</label>
+                        </div>
                      </div>
-                     <div class="form-check form-check-inline">
-                        <input name="Decision" id="Decision_1" type="radio" required="required" aria-required="true"
-                           class="form-check-input" value="Rework In House">
-                        <label for="Decision_1" class="form-check-label">Rework In House</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                        <input name="Decision" id="Decision_2" type="radio" required="required" aria-required="true"
-                           class="form-check-input" value="Scrap">
-                        <label for="Decision_2" class="form-check-label">Scrap</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                        <input name="Decision" id="Decision_3" type="radio" required="required" aria-required="true"
-                           class="form-check-input" value="Defer for HBC Engineering Review">
-                        <label for="Decision_3" class="form-check-label">Defer for HBC Engineering Review</label>
+                  </div>
+                  <!-- CAR Raised? -->
+                  <div class="form-group col-md-6">
+                     <label>Was a CAR Raised? <span class="no">*</span> </label>
+                     <div>
+                        <div class="form-check form-check-inline">
+                           <input name="CarRaised" id="CarRaised_0" type="radio" required="required"
+                              aria-required="true" class="form-check-input" value="Yes">
+                           <label for="CarRaised_0" class="form-check-label">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                           <input name="CarRaised" id="CarRaised_1" type="radio" required="required"
+                              aria-required="true" class="form-check-input" value="No">
+                           <label for="CarRaised_1" class="form-check-label">No</label>
+                        </div>
                      </div>
                   </div>
                </div>
-               <!-- CAR Raised? -->
+               <!-- Follow-up Required? -->
                <div class="form-group col-md-6">
-                  <label>Was a CAR Raised? <span class="no">*</span> </label>
+                  <label>Follow-Up Required? <span class="no">*</span> </label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="CarRaised" id="CarRaised_0" type="radio" required="required" aria-required="true"
+                        <input name="FollowUp" id="FollowUp_0" type="radio" required="required" aria-required="true"
                            class="form-check-input" value="Yes">
-                        <label for="CarRaised_0" class="form-check-label">Yes</label>
+                        <label for="FollowUp_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="CarRaised" id="CarRaised_1" type="radio" required="required" aria-required="true"
+                        <input name="FollowUp" id="FollowUp_1" type="radio" required="required" aria-required="true"
                            class="form-check-input" value="No">
-                        <label for="CarRaised_1" class="form-check-label">No</label>
+                        <label for="FollowUp_1" class="form-check-label">No</label>
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- Follow-up Required? -->
-            <div class="form-group col-md-6">
-               <label>Follow-Up Required? <span class="no">*</span> </label>
-               <div>
-                  <div class="form-check form-check-inline">
-                     <input name="FollowUp" id="FollowUp_0" type="radio" required="required" aria-required="true"
-                        class="form-check-input" value="Yes">
-                     <label for="FollowUp_0" class="form-check-label">Yes</label>
+               <!-- CAR Number-->
+               <div class="form-group col-md-4" id="CARNumber" style="display: none;">
+                  <label for="CARNumber">Car Number</label>
+                  <input type="text" class="form-control-plaintext" id="CARNumber">
+               </div>
+               <!-- Follow up Type & Date -->
+               <div class="form-group col-md-4" id="Follow-Up-Type" style="display: none;">
+                  <label for="FollowUpType">Follow-Up Type</label>
+                  <input type="text" class="form-control-plaintext" id="FollowUpType">
+               </div>
+               <div class="form-group col-md-4" id="FollowUpDate" style="display: none;">
+                  <label for="FollowUpDate" id="lblFollowUpDate">Follow-Up Expected Date</label>
+                  <input type="date" class="form-control" id="FollowUpDate">
+               </div>
+               <!-- Purchasing Name & Date -->
+               <div class="row g-3">
+                  <div class="form-group col-md-6">
+                     <label for="PURName" class="form-group col-md-4">Operations Manager</label>
+                     <input type="text" class="form-control-plaintext" id="PURName" readonly>
                   </div>
-                  <div class="form-check form-check-inline">
-                     <input name="FollowUp" id="FollowUp_1" type="radio" required="required" aria-required="true"
-                        class="form-check-input" value="No">
-                     <label for="FollowUp_1" class="form-check-label">No</label>
+                  <div class="form-group col-md-6">
+                     <label for="PURDate">Date</label>
+                     <input type="date" class="form-control" id="PURDate" readonly>
                   </div>
                </div>
-            </div>
-            <!-- CAR Number-->
-            <div class="form-group col-md-4" id="CARNumber" style="display: none;"> 
-               <label for="CARNumber">Car Number</label>
-               <input type="text" class="form-control-plaintext" id="CARNumber">
-            </div>
-            <!-- Follow up Type & Date -->
-            <div class="form-group col-md-4" id="Follow-Up-Type" style="display: none;"> 
-               <label for="FollowUpType">Follow-Up Type</label>
-               <input type="text" class="form-control-plaintext" id="FollowUpType">
-            </div>
-            <div class="form-group col-md-4" id="FollowUpDate" style="display: none;"> 
-               <label for="FollowUpDate" id="lblFollowUpDate">Follow-Up Expected Date</label>
-               <input type="date" class="form-control" id="FollowUpDate">
-            </div>
-            <!-- Purchasing Name & Date -->
-            <div class="row g-3">
-               <div class="form-group col-md-6">
-                  <label for="PURName" class="form-group col-md-4">Operations Manager</label>
-                  <input type="text" class="form-control-plaintext" id="PURName" readonly>
+               <!-- Submit Button -->
+               <div class="row g-3">
+                  <div class="col-md-3" style="display: flex; justify-content:space-around;">
+                     <button type="submit" class="yes" id="PURClose">Submit NCR</button>
+                     <button type="submit" class="info" id="PUROpen">Save NCR</button>
+                  </div>
+                  <div>
+                     <button type="button" id="btnSeedPUR">Seed Data</button>
+                  </div>
                </div>
-               <div class="form-group col-md-6">
-                  <label for="PURDate">Date</label>
-                  <input type="date" class="form-control" id="PURDate" readonly>
-               </div>
-            </div>
-            <!-- Submit Button -->
-            <div class="row g-3">
-               <div class="col-md-3" style="display: flex; justify-content:space-around;">
-                  <button type="submit" class="yes" id="PURClose">Submit NCR</button>
-                  <button type="submit" class="info" id="PUROpen">Save NCR</button>
-               </div>
-            </div>
-         </fieldset>
-      </form>
+            </fieldset>
+         </form>
       </div>
-   </div>
-   </div>
    </div>
 
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    <script>
-       $(document).ready(function() {
-           $('.js-example-basic-single').select2();
-       });
+      $(document).ready(function () {
+         $('.js-example-basic-single').select2();
+      });
    </script>
 
    <div class="container">
