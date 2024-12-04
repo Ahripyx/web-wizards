@@ -51,6 +51,17 @@ footer {
 /*====================
     Navigation Styles
 ====================*/
+.alt-style {
+    background-color: #e3e7f2 !important;
+}
+header {
+    background-color: white !important;
+    
+}
+
+nav {
+    margin-bottom: 0px !important;
+}
 
 nav.header-nav ul li {
     display: inline;
@@ -58,12 +69,6 @@ nav.header-nav ul li {
     padding-left: 5px;
     font-size: 30px;
     cursor: pointer;
-}
-
-.header-nav {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 20px;
 }
 
 .nav-item {
@@ -150,12 +155,17 @@ nav.header-nav ul li {
   }
 
 .navbar-brand img{
+    padding-left: 0.75em;
     width: 100%;
     object-fit: contain;
 }
 
 li.active {
-    background-color: lightgray;
+    background-color: #d4defa;
+}
+
+.nav>li>a:hover {
+    background-color: #d4defa !important;
 }
 
 /*.navbar-nav li.active{
