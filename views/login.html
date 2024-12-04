@@ -28,7 +28,7 @@
                                         <a href="#" class="login-logo">
                                             <img src="../public/images/Crossfire_Logo_no_bkgd.png"
                                                 alt="A blue logo saying Crossfire with a flame in the middle"
-                                                >
+                                                tabindex="1">
                                         </a>
                                     </div>
                                 </div>
@@ -42,7 +42,7 @@
                                             <span class="input-group-text">
                                                 <i class="fa-solid fa-envelope"></i>
                                             </span>
-                                            <input type="email" class="form-control" name="email" id="email" required>
+                                            <input type="email" class="form-control" name="email" id="email" tabindex="2" required >
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -53,13 +53,28 @@
                                                 <i class="fa-solid fa-key"></i>
                                             </span>
                                             <input type="password" class="form-control" name="password" id="password"
-                                                value="" required>
+                                                value="" tabindex="3" required>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button class="btn yes btn-lg" style="width: 100%;" type="submit">Log
+                                            <button class="btn yes btn-lg" style="width: 100%;" type="submit" >Log
                                                 In</button>
+                                        </div>
+                                    </div>
+                                    <!--Temporary buttons for showcasing-->
+                                    <div class="populate-login">
+                                        <div>
+                                            <button type="button" id="btnQA">QA</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnEng">Eng</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnPur">Pur</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" id="btnAdmin">Admin</button>
                                         </div>
                                     </div>
                                 </div>
@@ -76,6 +91,7 @@
             </footer>
         </div>
     </main>
+    <script src="/public/scripts/autofill.js"></script>
 </body>
 
 </html>

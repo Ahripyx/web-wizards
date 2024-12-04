@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
+        console.log("THIS WORKED AAAAAAH!")
+
         login(email, password);
     });
 });

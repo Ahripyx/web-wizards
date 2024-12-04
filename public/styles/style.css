@@ -571,10 +571,22 @@ canvas{
     display: block;
     border: 4px solid black;
 }
-
+/*========================
+        Login
+========================*/
 .login-logo img{
     width: 75%;
     height: auto;
+}
+
+/* Temporary Button Styling */
+.populate-login{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+}
+.populate-login button{
+    width: 100px;
 }
 /*========================
         Media Queries
