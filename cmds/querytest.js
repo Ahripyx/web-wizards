@@ -124,6 +124,18 @@ const productData = [
     "Pallet Rack", "Wire Stripper", "Grease Fitting", "Metal Clamp", "Tool Organizer"
 ];
 
+const defectData = [
+    "Burrs", "Porosity", "Cracks", "Surface Roughness", "Misalignment",
+    "Deformation", "Corrosion", "Inclusions", "Dimensional Inaccuracies",
+    "Welding Defects", "Wear and Tear", "Alignment Issues", "Incomplete Fusion",
+    "Contamination", "Flash", "Sink Marks", "Voids", "Delamination",
+    "Blistering", "Overheating", "Cracked", "Chipped", "Scratched", "Dented",
+    "Bent", "Warped", "Discolored", "Stained", "Rusted", "Corroded",
+    "Pitted", "Oxidized", "Worn", "Torn", "Frayed", "Punctured", "Leaking",
+    "Loose", "Missing", "Broken", "Faulty", "Defective", "Damaged",
+    "Malfunctioning", "Non-Functional"
+];
+
 //const Roles = ['Admin', 'Inspector', 'Engineer', 'Purchasing'];
 
 const NCRForms = [];
@@ -210,7 +222,7 @@ const seedSuppliers = () => {
     return { Suppliers, Products };
 };
 
-const seedQualityForms = (id, status) => {
+const seedQualityForms = (id, status, defect) => {
     // Generate our received and defective quantities
     let bigNum = faker.number.int({ min: 100, max: 2500 });
     let smallNum = faker.number.int({ min: 1, max: bigNum });
@@ -219,6 +231,7 @@ const seedQualityForms = (id, status) => {
     let productID = faker.number.int({ min: 1, max: 90 });
     let product = Products.find((product) => product.id === productID);
 
+    // Get our defect
     QualityForms.push({
         NCRFormID: id,
         NCRNumber: `${new Date().getFullYear()}-${String(id).padStart(3, "0")}`,
@@ -229,7 +242,7 @@ const seedQualityForms = (id, status) => {
         QuantityReceived: bigNum,
         QuantityDefective: smallNum,
         IsNonConforming: faker.datatype.boolean(),
-        Details: faker.lorem.sentence(),
+        Details: defect,
         QualityStatus: status,
         LastModified: faker.date.recent().toISOString().split("T")[0],
         ProductID: product.id,
@@ -334,6 +347,7 @@ const seedPurchasingForms = (id) => {
 };
 
 const seedNCRForms = () => {
+    let thisDefect = faker.helpers.shuffle(defectData);
     for (let i = 0; i < 100; i++) {
         let id = i + 1;
 
@@ -351,12 +365,12 @@ const seedNCRForms = () => {
 
         let qlt, eng, pur;
         // Create our Quality Form
-        qlt = seedQualityForms(id, status);
+        qlt = seedQualityForms(id, status, thisDefect.shift());
 
-        if (qlt.QualityStatus === "Closed") {
+        if (qlt.QualityStatus === "Closed" && faker.datatype.boolean()) {
             eng = seedEngineerForms(id);
         }
-        if (eng && eng.EngineerStatus === "Closed") {
+        if (eng && eng.EngineerStatus === "Closed" && faker.datatype.boolean()) {
             pur = seedPurchasingForms(id);
         }
         if (
