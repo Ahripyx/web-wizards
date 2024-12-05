@@ -88,10 +88,7 @@
          </div>
       </section>
          <section class="container">
-            <div class="grid-container grid-report">
-               
-               
-               
+            <div id="qltSection" class="grid-container grid-qlt">
                <!--Quality Labels and Inputs-->
                <div class="grid-item-qty grid-item blue-grid grid-tab">
                   <label>Quality Representative</label>
@@ -144,7 +141,9 @@
                   <label>Date:</label>
                   <input id="txtQualityDate" type="text" disabled>
                </div>
-               <!--Engineer Labels and Inputs-->
+            </div>
+            <!--Engineer Labels and Inputs-->
+            <div id="engSection" class="grid-container grid-eng">
                <div class="grid-item-eng grid-item green-grid grid-tab">
                   <label>Engineering</label>
                </div>
@@ -160,15 +159,15 @@
                   <label>Disposition:</label>
                   <input id="txtDisposition" type="text" disabled>
                </div>
-               <div class="eng-item4 grid-item green-grid">
-                  <label>Does Drawing Require Updating?</label>
+               <div id="drawingUpdate" class="eng-item4 grid-item green-grid">
+                  <label id="test">Does Drawing Require Updating?</label>
                   <input id="txtDrawingUpdate" type="text" disabled>
                </div>
-               <div class="eng-item5 grid-item green-grid">
+               <div id="OGVersionNumber" class="eng-item5 grid-item green-grid">
                   <label>Original Version Number:</label>
                   <input id="txtOgVersionNumber" type="text" disabled>
                </div>
-               <div class="eng-item6 grid-item green-grid">
+               <div id="NewVersionNumber" class="eng-item6 grid-item green-grid">
                   <label>Updated Version Number:</label>
                   <input id="txtNewVersionNumber" type="text" disabled>
                </div>
@@ -180,7 +179,9 @@
                   <label>Date:</label>
                   <input id="txtEngDate" type="text" disabled>
                </div>
-               <!--Purchasing Labels and Inputs-->
+            </div>
+            <!--Purchasing Labels and Inputs-->
+            <div id="purSection" class="grid-container grid-pur">
                <div class="grid-item-pur grid-item pink-grid grid-tab">
                   <label>Purchasing</label>
                </div>
@@ -193,7 +194,7 @@
                   <input id="txtCARRaised" type="text" disabled>
                </div>
                <div class="pur-item3 grid-item pink-grid">
-                  <label>New CAR Number (if applicable):</label>
+                  <label id="lblCARNumber">New CAR Number (if applicable):</label>
                   <input id="txtCARNumber" type="text" disabled>
                </div>
                <div class="pur-item4 grid-item pink-grid">
@@ -201,11 +202,11 @@
                   <input id="txtFollowUpTequired" type="text" disabled>
                </div>
                <div class="pur-item10 grid-item pink-grid">
-                  <label>Follow-up Type (if applicable):</label>
+                  <label id="lblfollowUpType">Follow-up Type (if applicable):</label>
                   <input id="txtFollowUpType" type="text" disabled>
                </div>
                <div class="pur-item5 grid-item pink-grid">
-                  <label>Follow-up Date (if applicable):</label>
+                  <label id="lblfollowUpDate">Follow-up Date (if applicable):</label>
                   <input id="txtFollowUpDate" type="text" disabled>
                </div>
                <div class="pur-item8 grid-item pink-grid grid-bottom-left">
@@ -217,6 +218,7 @@
                   <input id="txtPurchasingDate" type="text" disabled>
                </div>
             </div>
+               
          </section>
    </main>
    

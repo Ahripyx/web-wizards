@@ -457,8 +457,8 @@ form input[type="date"]:focus {
     grid-template-columns: auto, auto;
 }
 
-.grid-report{
-    grid-template-columns: auto auto auto;
+.grid-qlt{
+    grid-template-columns: 300px auto auto;
     grid-template-areas:
     'quality empty empty'
     'supplier supplier NCRnum'
@@ -468,6 +468,14 @@ form input[type="date"]:focus {
     'defect defect qDefective'
     'nonConform nonConform nonConform'
     'qualName qualName qualDate' 
+    ;
+    
+    padding-top: 16px;
+}
+
+.grid-eng{
+    grid-template-columns: 300px auto auto;
+    grid-template-areas: 
     'engineering empty2 empty2'
     'review review review'
     'notify notify notify'
@@ -475,12 +483,18 @@ form input[type="date"]:focus {
     'updateDraw updateDraw updateDraw'
     'ogRev ogRev newRev'
     'engName engName engDate'
+    ;
+}
+
+.grid-pur{
+    grid-template-columns: 300px auto auto;
+    grid-template-areas:
     'purchasing empty3 empty3'
     'decision decision decision'
     'CAR CAR carNum'
     'followUp followUpType followUpDate'
     'purName purName purDate';
-    padding-top: 16px;
+    ;
 }
 
 .grid-item{ padding: 10px }

@@ -110,41 +110,55 @@ async function getData() {
             document.getElementById("txtNotification").value = "No";
         }
         document.getElementById("txtDisposition").value = engData.Disposition;
-        // field may be missing...
-        // document.getElementById("txtDrawingUpdate").value = engData.;
-        console.log(engData.RevisionNumber)
-        document.getElementById("txtOgVersionNumber").value = engData.RevisionNumber;
-        // field may be missing
-        // document.getElementById("txtNewVersionNumber").value = engData.;
+        
+        // document.getElementById("txtDrawingUpdate").value = engData.;            DRAWING UPDATE FIELD IS MISSING
+        // logic to display fields related to Drawing Updates
+        console.log(document.getElementById("txtDrawingUpdate").value)
+        if (document.getElementById("txtDrawingUpdate").value == ""){
+            document.getElementById("txtDrawingUpdate").value = "No";
+            document.getElementById("OGVersionNumber").hidden = true;
+            document.getElementById("NewVersionNumber").hidden = true;
+        }
+        else{
+            document.getElementById("txtOgVersionNumber").value = engData.RevisionNumber;
+            // document.getElementById("txtNewVersionNumber").value = engData.;         NEW VERSION NUMBER FIELD MISSING
+        }
+        
         document.getElementById("txtEngDate").value = engData.LastModified;
     }
-    catch{}
+    catch{
+        document.getElementById("engSection").style.display = 'none';
+    }
     
 
     // purchasing data
     try{
         document.getElementById("txtPrelimDecision").value = purData.PreliminaryDecision;
+        // logic to display fields related to CAR number
         if (engData.CARRaised == 1) {
             document.getElementById("txtCARRaised").value = "Yes";
+            document.getElementById("txtCARNumber").value = purData.CARNumber;
         }
         else{
             document.getElementById("txtCARRaised").value = "No";
+            document.getElementById("lblCARNumber").hidden = true;
         }
-        document.getElementById("txtCARNumber").value = purData.CARNumber;
+        // logic to show fields related to Follow Up
         if (purData.FollowUpRequired == 1) {
             document.getElementById("txtFollowUpTequired").value = "Yes";
+            document.getElementById("txtFollowUpType").value = purData.FollowUpType;
+            document.getElementById("txtFollowUpDate").value = purData.FollowUpDate;
         }
         else{
             document.getElementById("txtFollowUpTequired").value = "No";
+            document.getElementById("lblfollowUpDate").hidden=true;
+            document.getElementById("lblfollowUpType").hidden=true;
         }
-        document.getElementById("txtFollowUpType").value = purData.FollowUpType;
-        document.getElementById("txtFollowUpDate").value = purData.FollowUpDate;
-        // missing fields???
-        //document.getElementById("txtAcceptable").value = purData.;
-        //document.getElementById("txtNewNCR").value = purData.;
         document.getElementById("txtPurchasingDate").value = purData.LastModified;
     }
-    catch{}   
+    catch{
+        document.getElementById("purSection").style.display = 'none';
+    }   
 };
 
 getData();
