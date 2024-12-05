@@ -122,10 +122,10 @@ nav.header-nav ul li {
 
 .home-nav a { 
     align-items: center;    
-    border: 10px;
+    border: 5px;
     border-style: solid;
     border-color: black;
-    border-radius: 25%;
+    border-radius: 20%;
     display: flex;
     flex-direction: column;
     font-size: 1.5em;
@@ -444,9 +444,17 @@ form input[type="date"]:focus {
     margin-top: 10px;
 }
 
+#filterSection input, select{
+    height:30px
+}
+
 .grid-container{
     display: grid;
     font-size: 1.2em;
+}
+
+.grid-filter{
+    grid-template-columns: auto, auto;
 }
 
 .grid-report{
@@ -471,7 +479,6 @@ form input[type="date"]:focus {
     'decision decision decision'
     'CAR CAR carNum'
     'followUp followUpType followUpDate'
-    'reinspect newNCR newNCR'
     'purName purName purDate';
     padding-top: 16px;
 }
