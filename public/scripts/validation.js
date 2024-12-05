@@ -16,9 +16,10 @@
 
    //Quantity Received Create/Edit
 function QuantityRecValidation() {
+        const quantityRecValue = parseInt(document.getElementById("QuantityReceived").value);
         const quantityRec = document.getElementById("QuantityReceived");
         const invalidMessage = document.getElementById("received-invalid");
-    if (quantityRec.value < 1) {
+    if (quantityRecValue < 1) {
         quantityRec.setCustomValidity("Quantity Received cannot be less than 1");
         invalidMessage.innerHTML = quantityRec.validationMessage;
         invalidMessage.style.display = 'block';
@@ -31,8 +32,8 @@ function QuantityRecValidation() {
 
     //Quantity Defective Create/Edit
 function QuantityDefValidation(){
-            const quantityDefNumber = document.getElementById("QuantityDefective").value;
-            const quantityRec = document.getElementById("QuantityReceived").value;
+            const quantityDefNumber = parseInt(document.getElementById("QuantityDefective").value);
+            const quantityRec = parseInt(document.getElementById("QuantityReceived").value);
             const quantityDef = document.getElementById("QuantityDefective")
             const invalidMessage = document.getElementById("defective-invalid")
         if (quantityDefNumber > quantityRec) {     

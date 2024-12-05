@@ -4,6 +4,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@faker-js/faker": "^9.2.0",
     "@floating-ui/dom": "^1.6.12",
     "better-sqlite3": "^11.5.0",
