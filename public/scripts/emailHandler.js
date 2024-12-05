@@ -14,7 +14,7 @@ function emailToEngineer() {
     const serviceID = "service_Circe"
     const templateID = "template_QLTtoENG"
    
-    emailjs.send(serviceID, templateID, params)
+    //emailjs.send(serviceID, templateID, params)
 }
 
 function emailToPurchasing() {
@@ -40,6 +40,5 @@ function emailToPurchasing() {
     const serviceID = "service_Circe"
     const templateID = "template_ENGtoPUR"
     
-    emailjs.send(serviceID, templateID, params)
-    console.log(params)
+    //emailjs.send(serviceID, templateID, params)
 }

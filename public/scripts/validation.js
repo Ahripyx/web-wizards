@@ -1,19 +1,3 @@
-//function SubmitValidation() {
-  //  QuantityRecValidation();
-    //QuantityDefValidation();
-    //SupplierValidation();
-    //ProductValidation();
-
-    //const quantityRec = document.getElementById("QuantityReceived");
-    //const quantityDef = document.getElementById("QuantityDefective");
-    //const supplierInput = document.getElementById("SupplierID");
-
-    //if (!quantityRec.checkValidity() || !quantityDef.checkValidity() || !supplierInput.checkValidity() || !productInput.checkValidity()) {
-    //    return false; 
-    //}
-    //return true; 
-//};
-
    //Quantity Received Create/Edit
 function QuantityRecValidation() {
         const quantityRecValue = parseInt(document.getElementById("QuantityReceived").value);
