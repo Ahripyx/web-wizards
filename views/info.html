@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-     
-        <title>Dashboard</title>
-        <!-- Scripts -->
-        <script src="../public/scripts/notification.js" type="module" defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-        
-        <link href="../public/styles/style.css" rel="stylesheet">
-     </head>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <title>Dashboard</title>
+   <!-- Scripts -->
+   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet">
+
+   <link href="../public/styles/style.css" rel="stylesheet">
+</head>
+
 <body>
    <!-- Nav Bar -->
    <header>
@@ -33,10 +37,11 @@
             <ul class="nav navbar-nav navbar-right">
                <li class="nav-item dropdown" tabindex="2">
                   <a class="nav-link dropdown-toggle fa-solid fa-bell" href="#" id="notifDropdown" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="unread-count" class="badge badge-info"></span></a>
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="unread-count"
+                        class="badge badge-info"></span></a>
                   <div class="dropdown-menu notif-container" id="notification-content" aria-labelledby="notifDropdown">
                      <!-- Notification Content fills in here from notification.js-->
-                      <div id="qlt-list" style="display: none;"></div>
+                     <div id="qlt-list" style="display: none;"></div>
                      <div id="eng-list" style="display: none;"></div>
                      <div id="pur-list" style="display: none;"></div>
                   </div>
@@ -47,7 +52,8 @@
                      <i class="fa-solid fa-user"></i> <span id="username"></span>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                        Logout</a>
                   </div>
                </li>
                <li class="nav-item" tabindex="4">
@@ -58,7 +64,7 @@
             </ul>
             <div class="navbar-collapse"></div>
             <ul class="nav navbar-nav">
-               <li ><a href="index.html" tabindex="5">Dashboard</a></li>
+               <li><a href="index.html" tabindex="5">Dashboard</a></li>
                <li id="li-create" style="display: none;" tabindex="6"><a href="create.html">Create NCR</a></li>
                <li class="active"><a href="list.html" tabindex="7">NCR Logs</a></li>
                <li id="li-tools" style="display: none;" tabindex="8"><a href="tools.html">Tools</a></li>
@@ -66,68 +72,171 @@
          </nav>
       </div>
    </header>
- <div class="center QandA">
-   <section>
-      <h2>Frequently Asked Questions</h2>
-      <strong> What is a Non-Conformance Report (NCR)?</strong>
-      <p>Answer: A Non-Conformance Report (NCR) is a document that identifies and details any discrepancies or deviations from expected standards or specifications in a project, 
-         process, or product. It is used to report, track, and manage non-conformities to ensure they are addressed and resolved effectively.</p>
-   </section>
-   <section>
-      <strong> Why are NCRs important in quality management?</strong>
-      <p>Answer: NCRs are crucial in quality management because they help identify and document deviations from standards, allowing for corrective actions to be taken. This ensures that the final product or process meets the required quality standards, reduces the risk of defects, and improves overall efficiency and customer satisfaction.</p>
-   </section>
-   <section>
-      <strong> What information should be included in an NCR?</strong>
-      <p>Answer: An NCR should typically include the following information:</p>
-      <ul>
-         <li>Identification number</li>
-         <li>Date of the report</li>
-         <li>Description of the non-conformance</li>
-         <li>Location or process where the non-conformance was observed</li>
-         <li>Root cause analysis</li>
-         <li>Corrective actions taken or planned</li>
-         <li>Responsible personnel</li>
-         <li>Signatures of involved parties</li>
-      </ul>     
-   </section>
-   <section>
-      <strong> How is a non-conformance identified?</strong>
-      <p>Answer: A non-conformance can be identified through various methods, including regular inspections, audits, customer feedback, employee observations, and quality control tests. Any deviation from the specified standards or requirements is flagged as a non-conformance.</p>
-   </section>
-   <section>
-      <strong> What are the typical steps in the NCR process?</strong>
-      <p>Answer: The NCR process generally involves the following steps:</p>
-      <ol>
-         <li>Identification and documentation of the non-conformance</li>
-         <li>Investigation and root cause analysis</li>
-         <li>Determination of corrective actions</li>
-         <li>Implementation of corrective actions</li>
-         <li>Verification and closure of the NCR</li>
-         <li>Monitoring and review for effectiveness</li>
-      </ol>
-   </section>
-   <section>
-      <strong> What is the role of corrective actions in NCRs?</strong>
-      <p>Answer: Corrective actions are measures taken to eliminate the root cause of a non-conformance and prevent its recurrence. They are essential for addressing the issue at its source and ensuring that the same problem does not happen again, thereby improving overall quality and compliance.</p>
-   </section>
-   <section>
-      <strong> How does an NCR differ from a CAR (Corrective Action Report)?</strong>
-      <p>Answer: An NCR focuses on identifying and reporting non-conformances, while a CAR (Corrective Action Report) specifically addresses the corrective actions taken to resolve the non-conformance. The CAR details the steps taken to fix the issue and prevent it from happening again.</p>
-   </section>
-   <section>
-      <strong> What is a disposition in the context of an NCR?</strong>
-      <p>Answer: In the context of an NCR, a disposition refers to the decision regarding the handling of the non-conforming product or process. Common dispositions include rework, scrap, use-as-is, or return to vendor. The chosen disposition depends on the nature and severity of the non-conformance.</p>
-   </section>
-   <section>
-      <strong> How can NCRs help in continuous improvement?</strong>
-      <p>Answer: NCRs play a vital role in continuous improvement by providing a systematic way to document and analyze non-conformances. By addressing root causes and implementing corrective actions, organizations can reduce defects, enhance quality, and improve processes over time. This iterative approach helps in achieving higher standards and efficiency.</p>
-   </section>
-   <section>
-      <strong> What is the significance of tracking NCRs?</strong>
-      <p>Answer: Tracking NCRs is significant because it allows organizations to monitor trends, identify recurring issues, and evaluate the effectiveness of corrective actions. This data-driven approach helps in making informed decisions, allocating resources effectively, and ensuring continuous quality improvement.</p>
-   </section>
- </div>
- 
+
+   <main>
+
+      <div class="container">
+
+
+         <h2>Frequently Asked Questions</h2>
+         <div id="accordion">
+            <div class="card">
+               <div class="card-header" id="headingOne">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
+                        <b>What is a Non-Conformance Report (NCR)?</b>
+                     </button>
+                  </h3>
+               </div>
+
+               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                     A Non-Conformance Report (NCR) is a document that identifies and details any discrepancies or
+                     deviations from expected standards or specifications in a project,
+                     process, or product. It is used to report, track, and manage non-conformities to ensure they are
+                     addressed
+                     and resolved effectively.
+                  </div>
+               </div>
+            </div>
+            <div class="card">
+               <div class="card-header" id="headingTwo">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="false" aria-controls="collapseTwo">
+                        <b>How is a non-conformance identified?</b>
+                     </button>
+                  </h3>
+               </div>
+               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                     A non-conformance can be identified through various methods, including regular inspections, audits,
+                     customer feedback, employee observations, and quality control tests. Any deviation from the
+                     specified
+                     standards or requirements is flagged as a non-conformance.
+                  </div>
+               </div>
+            </div>
+            <div class="card">
+               <div class="card-header" id="headingThree">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="false" aria-controls="collapseThree">
+                        <b>What are the typical steps in the NCR process?</b>
+                     </button>
+                  </h3>
+               </div>
+               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+                     The NCR process generally involves the following steps:
+                     <ol>
+                        <li>Identification and documentation of the non-conformance</li>
+                        <li>Investigation and root cause analysis</li>
+                        <li>Determination of corrective actions</li>
+                        <li>Implementation of corrective actions</li>
+                        <li>Verification and closure of the NCR</li>
+                        <li>Monitoring and review for effectiveness</li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+            <div class="card">
+               <div class="card-header" id="headingFour">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"
+                        aria-expanded="false" aria-controls="collapseFour">
+                        <b>What is the role of corrective actions in NCRs?</b>
+                     </button>
+                  </h3>
+               </div>
+               <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                  <div class="card-body">
+                     Corrective actions are measures taken to eliminate the root cause of a non-conformance and prevent
+                     its recurrence. They are essential for addressing the issue at its source and ensuring that the
+                     same
+                     problem
+                     does not happen again, thereby improving overall quality and compliance.
+                  </div>
+               </div>
+            </div>
+
+            <div class="card">
+               <div class="card-header" id="headingFive">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive"
+                        aria-expanded="false" aria-controls="collapseFive">
+                        <b>How does an NCR differ from a CAR (Corrective Action Report)?</b>
+                     </button>
+                  </h3>
+               </div>
+               <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                  <div class="card-body">
+                     An NCR focuses on identifying and reporting non-conformances, while a CAR (Corrective Action
+                     Report)
+                     specifically addresses the corrective actions taken to resolve the non-conformance. The CAR details
+                     the steps taken to fix the issue and prevent it from happening again.
+                  </div>
+               </div>
+            </div>
+            <div class="card">
+               <div class="card-header" id="headingSix">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix"
+                        aria-expanded="false" aria-controls="collapseSix">
+                        <b>What is a disposition in the context of an NCR?</b>
+                     </button>
+                  </h3>
+               </div>
+               <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                  <div class="card-body">
+                     In the context of an NCR, a disposition refers to the decision regarding the handling of the
+                     non-conforming product or process. Common dispositions include rework, scrap, use-as-is, or return
+                     to
+                     vendor. The chosen disposition depends on the nature and severity of the non-conformance.
+                  </div>
+               </div>
+            </div>
+            <div class="card">
+               <div class="card-header" id="headingSeven">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven"
+                        aria-expanded="false" aria-controls="collapseSeven">
+                        <b>How can NCRs help in continuous improvement?</b>
+                     </button>
+                  </h3>
+               </div>
+               <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                  <div class="card-body">
+                     NCRs play a vital role in continuous improvement by providing a systematic way to document and
+                     analyze
+                     non-conformances. By addressing root causes and implementing corrective actions, organizations can
+                     reduce defects, enhance quality, and improve processes over time. This iterative approach helps in
+                     achieving higher standards and efficiency.
+                  </div>
+               </div>
+            </div>
+            <div class="card">
+               <div class="card-header" id="headingEight">
+                  <h3 class="mb-0">
+                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight"
+                        aria-expanded="false" aria-controls="collapseEight">
+                        <b>What is the significance of tracking NCRs?</b>
+                     </button>
+                  </h3>
+               </div>
+               <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
+                  <div class="card-body">
+                     Tracking NCRs is significant because it allows organizations to monitor trends, identify recurring
+                     issues, and evaluate the effectiveness of corrective actions. This data-driven approach helps in
+                     making informed decisions, allocating resources effectively, and ensuring continuous quality
+                     improvement.
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </main>
 </body>
+
 </html>
