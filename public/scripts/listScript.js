@@ -39,8 +39,8 @@ async function filltables(data, table){
             <td class="table-borders">${element.SupplierName}</td>
             <td class="table-borders">${element.FormStatus}</td>
             <td class="table-borders">${element.CreationDate}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex+5}>Details</a></td>
-            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex=${tabindex+10}>Edit</a></td>
+            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex+5}><button class="info">Details</button></a></td>
+            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex=${tabindex+10}><button class="info">Edit</button></a></td>
             <td class="table-borders">${downloadButtonHTML}</td>
             `;
         
