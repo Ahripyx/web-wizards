@@ -36,7 +36,7 @@
             </a>
             <ul class="nav navbar-nav navbar-right">
                <li class="nav-item" tabindex="2" data-toggle="tooltip" role="button" data-placement="bottom"
-                  data-trigger="hover focus" title="Information">
+                  data-trigger="hover focus" title="Information" aria-label="Information">
                   <a href="info.html">
                      <i class="fa-solid fa-circle-info"></i>
                   </a>
@@ -55,7 +55,7 @@
                      <div id="pur-list" style="display: none;"></div>
                   </div>
                </li>
-               <li class="nav-item dropdown" tabindex="4">
+               <li class="nav-item dropdown" tabindex="4" aria-label="username">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                      aria-haspopup="true" aria-expanded="false">
                      <i class="fa-solid fa-user"></i> <span id="username"></span>
@@ -72,7 +72,7 @@
                <ul class="nav navbar-nav">
                   <li class="active" tabindex="5"><a href="index.html">Dashboard</a></li>
                   <li id="li-create" style="display: none;" tabindex="6"><a href="create.html">Create NCR</a></li>
-                  <li><a href="list.html" tabindex="7">NCR Logs</a></li>
+                  <li tabindex="7"><a href="list.html">NCR Logs</a></li>
                   <li id="li-tools" style="display: none;" tabindex="8"><a href="tools.html">Tools</a></li>
                </ul>
             </div>
@@ -88,20 +88,20 @@
       <!-- Three main nav layout here -->
       <div class="home-nav">
          <div id="div-create" style="display: none;" tabindex="9">
-            <a href="create.html">
+            <a href="create.html" aria-label="Main navigation for create NCR page">
                <img src="../public/images/add.png" alt="Black icon for Create NCR page">
                <!--<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>-->
                <label>CREATE NCR</label>
             </a>
          </div>
          <div tabindex="10">
-            <a href="list.html">
+            <a href="list.html" aria-label="Main navigation for NCRs page">
                <img src="../public/images/edit.png" alt="Black icon for NCRs Log page">
                <!--<a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a> -->
                <label>NCRS</label>
             </a>
          </div>
-         <div tabindex="11">
+         <div tabindex="11" aria-label="Main navigation for NCR Reports page">
             <a href="reports.html">
                <img src="../public/images/search.png" alt="Black icon for NCR reports page">
                <!--<a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Freepik - Flaticon</a>-->
@@ -110,12 +110,12 @@
          </div>
       </div>
       <!-- Template for the recently updated NCR Forms -->
-      <section class="recent-forms">
+      <section class="recent-forms" tabindex="12" aria-label="List of recent NCR forms">
          <h2>Recent NCR Forms</h2>
          <div class="table-responsive">
             <table id="table" class="table">
                <tr class="shaded-cells">
-                  <th>NCR Number</th>
+                  <th tabindex="13">NCR Number</th>
                   <th>Item Name</th>
                   <th>Status</th>
                   <th>Date</th>
