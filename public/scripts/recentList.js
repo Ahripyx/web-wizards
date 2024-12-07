@@ -6,6 +6,7 @@ async function getData() {
     const data = await response.json();
     const table = document.getElementById("table");
 
+    tabIndex = 18;
     // Increment row
     var row = 0;
 
@@ -23,12 +24,12 @@ async function getData() {
 
         // Populate the row with NCR details
         tablerow.innerHTML = `
-            <td class="table-borders">${element.NCRNumber}</td>
-            <td class="table-borders">${element.SupplierName}</td>
-            <td class="table-borders">${element.FormStatus}</td>
-            <td class="table-borders">${new Date(element.LastModified).toLocaleDateString()}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}"><button class="info">Details</button></a></td>
-            <td class="table-borders"><a href="details.html?id=${element.id}"><button class="info">Edit</button></a></td>
+            <td class="table-borders" tabindex="${tabIndex++}">${element.NCRNumber}</td>            
+            <td class="table-borders" tabindex="${tabIndex++}">${element.SupplierName}</td>
+            <td class="table-borders" tabindex="${tabIndex++}">${element.FormStatus}</td>
+            <td class="table-borders" tabindex="${tabIndex++}">${new Date(element.LastModified).toLocaleDateString()}</td>
+            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabIndex++}">Details</button></a></td>
+            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabIndex++}">Edit</button></a></td>
         `;
         row++;
     });

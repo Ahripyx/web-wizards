@@ -24,48 +24,61 @@
    <!-- Nav Bar -->
    <header>
       <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
-      <div class="container">
-         <nav class="navbar navbar-dark bg-dark">
-            <a href="index.html" class="navbar-brand">
+
+      <nav class="navbar navbar-dark bg-dark">
+         <div class="container">
+            <a href="index.html" class="navbar-brand" tabindex="1">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                  alt="A blue logo saying Crossfire with a flame in the middle" tabindex="1">
+                  alt="A blue logo saying Crossfire with a flame in the middle" tabindex="-1">
             </a>
-            <h1 class="navbar-text">NCR Logs</h1>
             <ul class="nav navbar-nav navbar-right">
-               <li class="nav-item dropdown" tabindex="2">
-                  <a class="nav-link dropdown-toggle fa-solid fa-bell" href="#" id="notifDropdown" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="unread-count" class="badge badge-info"></span></a>
+               <li class="nav-item" tabindex="-1" data-toggle="tooltip" role="button" data-placement="bottom"
+                  data-trigger="hover focus" title="Information">
+                  <a href="info.html" tabindex="2" aria-label="Information">
+                     <i class="fa-solid fa-circle-info"></i>
+                  </a>
+               </li>
+               <li class="nav-item dropdown" style="width: 74px;" data-toggle="tooltip" title="Notifications"
+                  tabindex="-1" data-trigger="hover focus" data-placement="bottom">
+                  <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-placement="bottom"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;" tabindex="3" aria-label="notification">
+                     <i class="fa-solid fa-bell"><span class="badge" id="unread-count"></span></i>
+
+                  </a>
                   <div class="dropdown-menu notif-container" id="notification-content" aria-labelledby="notifDropdown">
                      <!-- Notification Content fills in here from notification.js-->
-                      <div id="qlt-list" style="display: none;"></div>
+                     <div id="qlt-list" style="display: none;"></div>
                      <div id="eng-list" style="display: none;"></div>
                      <div id="pur-list" style="display: none;"></div>
                   </div>
                </li>
-               <li class="nav-item dropdown" tabindex="3">
+               <li class="nav-item dropdown" tabindex="-1">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false">
+                     aria-haspopup="true" aria-expanded="false" tabindex="4" aria-label="username">
                      <i class="fa-solid fa-user"></i> <span id="username"></span>
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                  <div class="dropdown-menu" style="padding: 10px;" aria-labelledby="navbarDropdown">
+                     <a class="dropdown-item" href="login.html" tabindex="5"><i class="fa-solid fa-right-from-bracket"></i>
+                        Logout</a>
                   </div>
                </li>
-               <li class="nav-item" tabindex="4">
-                  <a href="info.html">
-                     <i class="fa-solid fa-circle-info"></i>
-                  </a>
-               </li>
             </ul>
-            <div class="navbar-collapse"></div>
-            <ul class="nav navbar-nav">
-               <li ><a href="index.html" tabindex="5">Dashboard</a></li>
-               <li id="li-create" style="display: none;" tabindex="6"><a href="create.html">Create NCR</a></li>
-               <li class="active"><a href="list.html" tabindex="7">NCR Logs</a></li>
-               <li id="li-tools" style="display: none;" tabindex="8"><a href="tools.html">Tools</a></li>
-            </ul>
-         </nav>
-      </div>
+         </div>
+         <div class="alt-style">
+            <div class="container">
+               <ul class="nav navbar-nav" role="navigation">
+                  <li class="active" tabindex="-1"><a href="index.html" tabindex="6">Dashboard</a></li>
+                  <li id="li-create" style="display: none;" tabindex="-1"><a href="create.html" tabindex="7">Create NCR</a></li>
+                  <li tabindex="-1"><a href="list.html" tabindex="8">NCR Logs</a></li>
+                  <li id="li-tools" style="display: none;" tabindex="-1"><a href="tools.html" tabindex="9">Tools</a></li>
+               </ul>
+            </div>
+         </div>
+         <div class="container">
+            <h1>Dashboard</h1>
+         </div>
+         </div>
+      </nav>
    </header>
    <main>
       <section id="filterSection" class="">

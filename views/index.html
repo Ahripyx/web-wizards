@@ -30,21 +30,21 @@
 
       <nav class="navbar navbar-dark bg-dark">
          <div class="container">
-            <a href="index.html" class="navbar-brand">
+            <a href="index.html" class="navbar-brand" tabindex="1">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                  alt="A blue logo saying Crossfire with a flame in the middle" tabindex="1">
+                  alt="A blue logo saying Crossfire with a flame in the middle" tabindex="-1">
             </a>
             <ul class="nav navbar-nav navbar-right">
-               <li class="nav-item" tabindex="2" data-toggle="tooltip" role="button" data-placement="bottom"
-                  data-trigger="hover focus" title="Information" aria-label="Information">
-                  <a href="info.html">
+               <li class="nav-item" tabindex="-1" data-toggle="tooltip" role="button" data-placement="bottom"
+                  data-trigger="hover focus" title="Information">
+                  <a href="info.html" tabindex="2" aria-label="Information">
                      <i class="fa-solid fa-circle-info"></i>
                   </a>
                </li>
                <li class="nav-item dropdown" style="width: 74px;" data-toggle="tooltip" title="Notifications"
-                  tabindex="3" data-trigger="hover focus" data-placement="bottom">
+                  tabindex="-1" data-trigger="hover focus" data-placement="bottom">
                   <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-placement="bottom"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;">
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: relative;" tabindex="3" aria-label="notification">
                      <i class="fa-solid fa-bell"><span class="badge" id="unread-count"></span></i>
 
                   </a>
@@ -55,13 +55,13 @@
                      <div id="pur-list" style="display: none;"></div>
                   </div>
                </li>
-               <li class="nav-item dropdown" tabindex="4" aria-label="username">
+               <li class="nav-item dropdown" tabindex="-1">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false">
+                     aria-haspopup="true" aria-expanded="false" tabindex="4" aria-label="username">
                      <i class="fa-solid fa-user"></i> <span id="username"></span>
                   </a>
                   <div class="dropdown-menu" style="padding: 10px;" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                     <a class="dropdown-item" href="login.html" tabindex="5"><i class="fa-solid fa-right-from-bracket"></i>
                         Logout</a>
                   </div>
                </li>
@@ -69,11 +69,11 @@
          </div>
          <div class="alt-style">
             <div class="container">
-               <ul class="nav navbar-nav">
-                  <li class="active" tabindex="5"><a href="index.html">Dashboard</a></li>
-                  <li id="li-create" style="display: none;" tabindex="6"><a href="create.html">Create NCR</a></li>
-                  <li tabindex="7"><a href="list.html">NCR Logs</a></li>
-                  <li id="li-tools" style="display: none;" tabindex="8"><a href="tools.html">Tools</a></li>
+               <ul class="nav navbar-nav" role="navigation">
+                  <li class="active" tabindex="-1"><a href="index.html" tabindex="6">Dashboard</a></li>
+                  <li id="li-create" style="display: none;" tabindex="-1"><a href="create.html" tabindex="7">Create NCR</a></li>
+                  <li tabindex="-1"><a href="list.html" tabindex="8">NCR Logs</a></li>
+                  <li id="li-tools" style="display: none;" tabindex="-1"><a href="tools.html" tabindex="9">Tools</a></li>
                </ul>
             </div>
          </div>
@@ -87,22 +87,22 @@
    <main>
       <!-- Three main nav layout here -->
       <div class="home-nav">
-         <div id="div-create" style="display: none;" tabindex="9">
-            <a href="create.html" aria-label="Main navigation for create NCR page">
+         <div id="div-create" style="display: none;" tabindex="-1">
+            <a href="create.html" tabindex="10" aria-label="Main navigation for create NCR page">
                <img src="../public/images/add.png" alt="Black icon for Create NCR page">
                <!--<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>-->
                <label>CREATE NCR</label>
             </a>
          </div>
-         <div tabindex="10">
-            <a href="list.html" aria-label="Main navigation for NCRs page">
+         <div tabindex="-1">
+            <a href="list.html" tabindex="11" aria-label="Main navigation for NCRs page">
                <img src="../public/images/edit.png" alt="Black icon for NCRs Log page">
                <!--<a href="https://www.flaticon.com/free-icons/edit" title="edit icons">Edit icons created by Pixel perfect - Flaticon</a> -->
                <label>NCRS</label>
             </a>
          </div>
-         <div tabindex="11" aria-label="Main navigation for NCR Reports page">
-            <a href="reports.html">
+         <div tabindex="-1">
+            <a href="reports.html" tabindex="12" aria-label="Main navigation for NCR Reports page">
                <img src="../public/images/search.png" alt="Black icon for NCR reports page">
                <!--<a href="https://www.flaticon.com/free-icons/list" title="list icons">List icons created by Freepik - Flaticon</a>-->
                <label>VIEW REPORTS</label>
@@ -110,15 +110,15 @@
          </div>
       </div>
       <!-- Template for the recently updated NCR Forms -->
-      <section class="recent-forms" tabindex="12" aria-label="List of recent NCR forms">
+      <section class="recent-forms" tabindex="13" aria-label="List of recent NCR forms">
          <h2>Recent NCR Forms</h2>
          <div class="table-responsive">
             <table id="table" class="table">
                <tr class="shaded-cells">
-                  <th tabindex="13">NCR Number</th>
-                  <th>Item Name</th>
-                  <th>Status</th>
-                  <th>Date</th>
+                  <th tabindex="14">NCR Number</th>
+                  <th tabindex="15">Item Name</th>
+                  <th tabindex="16">Status</th>
+                  <th tabindex="17">Date</th>
                   <th></th>
                   <th></th>
                </tr>
