@@ -15,7 +15,7 @@ async function filltables(data, table){
         <th></th>
     </tr>`;
     
-    var tabindex = 50;
+    var tabindex = 25;
     var row = 0;
 
     data.forEach(element => {
@@ -35,12 +35,12 @@ async function filltables(data, table){
 
         tablerow.innerHTML =
             `
-            <td class="table-borders">${element.NCRNumber}</td>
-            <td class="table-borders">${element.SupplierName}</td>
-            <td class="table-borders">${element.FormStatus}</td>
-            <td class="table-borders">${element.CreationDate}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex=${tabindex+5}><button class="info">Details</button></a></td>
-            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex=${tabindex+10}><button class="info">Edit</button></a></td>
+            <td class="table-borders" tabindex="${tabindex++}">${element.NCRNumber}</td>
+            <td class="table-borders" tabindex="${tabindex++}">${element.SupplierName}</td>
+            <td class="table-borders" tabindex="${tabindex++}">${element.FormStatus}</td>
+            <td class="table-borders" tabindex="${tabindex++}">${element.CreationDate}</td>
+            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabindex++}">Details</button></a></td>
+            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabindex++}">Edit</button></a></td>
             <td class="table-borders">${downloadButtonHTML}</td>
             `;
         
