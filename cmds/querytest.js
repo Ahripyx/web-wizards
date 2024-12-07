@@ -61,6 +61,7 @@ export const createTables = [
         Review STRING NOT NULL,
         NotifyCustomer BOOLEAN NOT NULL,
         Disposition STRING NOT NULL,
+        UpdateDrawing BOOLEAN NOT NULL,
         RevisionNumber STRING,
         RevisionDate DATETIME,
         EngineerStatus STRING NOT NULL,
@@ -260,6 +261,7 @@ const seedEngineerForms = (id) => {
     let status = "Open";
     if (faker.datatype.boolean()) status = "Closed";
 
+    let drawing = null;
     let number = null;
     let date = null;
     let review = faker.helpers.arrayElement([
@@ -271,6 +273,7 @@ const seedEngineerForms = (id) => {
     let disposition = "";
 
     if (faker.datatype.boolean()) {
+        drawing = true;
         number = `${faker.number.int({
             min: 100,
             max: 999,
@@ -287,6 +290,7 @@ const seedEngineerForms = (id) => {
         Review: review,
         NotifyCustomer: faker.datatype.boolean(),
         Disposition: disposition,
+        UpdateDrawing: drawing,
         RevisionNumber: number,
         RevisionDate: date,
         EngineerStatus: status,

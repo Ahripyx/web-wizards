@@ -44,6 +44,7 @@ router.post("/quality/", (req, res) => {
         QuantityDefective,
         IsNonConforming,
         Details,
+        QualityStatus,
         ProductID,
         User_id,
     } = req.body;
@@ -84,6 +85,7 @@ router.post("/quality/", (req, res) => {
             QuantityDefective,
             IsNonConforming,
             Details,
+            QualityStatus,
             formStatus,
             lastModified,
             ProductID

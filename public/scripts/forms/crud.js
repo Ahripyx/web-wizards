@@ -158,12 +158,13 @@ export async function crudEngineer(method, form, status, id = '') {
             form.Review_2.checked ? "Rework" :
             form.Review_3.checked ? "Scrap" : undefined;
 
-            let revisionNumber = form.NewRevisionNumber.value ? form.NewRevisionNumber.value : form.RevisionNumber.value;
+        let revisionNumber = form.NewRevisionNumber.value ? form.NewRevisionNumber.value : form.RevisionNumber.value;
 
         const engineer = {
             Review: review,
             NotifyCustomer: form.NotifyCustomer_0.checked ? 1 : 0,
             Disposition: form.Disposition.value,
+            UpdateDrawing: form.UpdateDrawing_0.checked ? 1 : 0,
             RevisionNumber: revisionNumber,
             RevisionDate: form.RevisionDate.value,
             EngineerStatus: status

@@ -111,6 +111,7 @@ router.put("/purchasing/:NCRFormID", (req, res) => {
             formUsersStmt.run(NCRFormID, User_id);
 
             // Set up the notification properties we'd like to display
+            result.type = "Purchasing";
             result.Status = PurchasingStatus;
             result.Decision = Decision;
             result.LastModified = LastModified;

@@ -95,7 +95,13 @@ function updateNotification() {
 
                 let p = document.createElement('p');
                 p.className = 'mb-1';
-                p.textContent = `NCR#: ${ncrNumber} - ${pf.Details || pf.Review} for ${pf.ItemDescription || ''}`;
+                if (pf.type === "Quality") {
+                    p.textContent = `NCR#: ${ncrNumber} - ${pf.Details} for ${pf.ItemDescription}`;
+                } else if (pf.type === "Engineer") {
+                    p.textContent = `NCR#: ${ncrNumber} - ${pf.Review}`;
+                } else if (pf.type === "Purchasing") {
+                    p.textContent = `NCR#: ${ncrNumber} - ${pf.Decision}`;
+                }
 
                 let smallDate = document.createElement('small');
                 smallDate.textContent = pf.LastModified;

@@ -25,11 +25,6 @@ document.getElementById("btnArchive").addEventListener("click", async function()
     //getData();
 });
 
-// navigate to the edit page while passing the id of the NCR to be edited
-document.getElementById("btnEdit").addEventListener("click", function(){
-    window.location.href = `edit.html?id=${ncrId}`;
-});
-
 // function to get NCR data
 async function getData() {
 
@@ -162,3 +157,37 @@ async function getData() {
 };
 
 getData();
+
+// navigate to the edit page while passing the id of the NCR to be edited
+document.getElementById("btnEdit").addEventListener("click", function(){
+    window.location.href = `edit.html?id=${ncrId}`;
+});
+
+// hide the edit button if the user's title status is closed
+async function checkStatus() {
+    const userResponse = await fetch(`http://localhost:5500/formusers/${ncrId}`);
+    const userJson = await userResponse.json();
+    const qaResponse = await fetch(`http://localhost:5500/quality/${ncrId}`);
+    const qaJson = await qaResponse.json();
+    const engResponse = await fetch(`http://localhost:5500/EngineerFromNCR?ncrID=${ncrId}`);
+    const engJson = await engResponse.json();
+    const engData = engJson[0];
+    const purResponse = await fetch(`http://localhost:5500/PurchasingFromNCR?ncrID=${ncrId}`);
+    const purJson = await purResponse.json();
+    const purData = purJson[0];
+
+ //   console.log(qaData);
+    userJson.forEach(item => {
+        if (item.Title == "Inspector" && qaJson.QualityStatus == "Closed") {
+            document.getElementById("btnEdit").style.display = 'none';
+        }
+        if (item.Title == "Engineer" && engData.EngineerStatus == "Closed") {
+            document.getElementById("btnEdit").style.display = 'none';
+        }
+        if (item.Title == "Purchasing" && purData.PurchasingStatus == "Closed") {
+            document.getElementById("btnEdit").style.display = 'none';
+        }
+    });
+}
+
+checkStatus();

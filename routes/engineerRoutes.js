@@ -28,6 +28,7 @@ router.post("/engineer/:NCRFormID", (req, res) => {
         Review,
         NotifyCustomer,
         Disposition,
+        UpdateDrawing,
         RevisionNumber,
         RevisionDate,
         EngineerStatus,
@@ -36,13 +37,14 @@ router.post("/engineer/:NCRFormID", (req, res) => {
     try {
         const LastModified = new Date().toISOString().split("T")[0];
         const stmt = db.prepare(
-            "INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO Engineer (NCRFormID, Review, NotifyCustomer, Disposition, UpdateDrawing, RevisionNumber, RevisionDate, EngineerStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         const result = stmt.run(
             NCRFormID,
             Review,
             NotifyCustomer,
             Disposition,
+            UpdateDrawing,
             RevisionNumber,
             RevisionDate,
             EngineerStatus,
@@ -79,6 +81,7 @@ router.put("/engineer/:NCRFormID", (req, res) => {
         Review,
         NotifyCustomer,
         Disposition,
+        UpdateDrawing,
         RevisionNumber,
         RevisionDate,
         EngineerStatus,
@@ -87,12 +90,13 @@ router.put("/engineer/:NCRFormID", (req, res) => {
     try {
         const LastModified = new Date().toISOString().split("T")[0];
         const stmt = db.prepare(
-            "UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, RevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?"
+            "UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, UpdateDrawing = ?, RevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?"
         );
         const result = stmt.run(
             Review,
             NotifyCustomer,
             Disposition,
+            UpdateDrawing,
             RevisionNumber,
             RevisionDate,
             EngineerStatus,
