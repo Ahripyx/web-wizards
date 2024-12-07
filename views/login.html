@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="text-center mb-5">
-                                        <a href="#" class="login-logo">
+                                        <a href="#" class="login-logo" tabindex="-1">
                                             <img src="../public/images/Crossfire_Logo_no_bkgd.png"
                                                 alt="A blue logo saying Crossfire with a flame in the middle"
                                                 tabindex="1">
@@ -42,7 +42,7 @@
                                             <span class="input-group-text">
                                                 <i class="fa-solid fa-envelope"></i>
                                             </span>
-                                            <input type="email" class="form-control" name="email" id="email" tabindex="2" required >
+                                            <input type="email" class="form-control" name="email" id="email" tabindex="2" aria-label="Email input" required >
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -53,28 +53,28 @@
                                                 <i class="fa-solid fa-key"></i>
                                             </span>
                                             <input type="password" class="form-control" name="password" id="password"
-                                                value="" tabindex="3" required>
+                                                value="" tabindex="3" aria-label="Password input" required>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button class="btn yes btn-lg" style="width: 100%;" type="submit" >Log
+                                            <button class="btn yes btn-lg" style="width: 100%;" type="submit" tabindex="4">Log
                                                 In</button>
                                         </div>
                                     </div>
                                     <!--Temporary buttons for showcasing-->
                                     <div class="populate-login">
                                         <div>
-                                            <button type="button" id="btnQA">QA</button>
+                                            <button type="button" id="btnQA" tabindex="5" aria-label="Quality Assurance seed data">QA</button>
                                         </div>
                                         <div>
-                                            <button type="button" id="btnEng">Eng</button>
+                                            <button type="button" id="btnEng" tabindex="6" aria-label="Engineering seed data">Eng</button>
                                         </div>
                                         <div>
-                                            <button type="button" id="btnPur">Pur</button>
+                                            <button type="button" id="btnPur" tabindex="7" aria-label="Purchasing seed data">Pur</button>
                                         </div>
                                         <div>
-                                            <button type="button" id="btnAdmin">Admin</button>
+                                            <button type="button" id="btnAdmin" tabindex="8" aria-label="Admin seed data">Admin</button>
                                         </div>
                                     </div>
                                 </div>
