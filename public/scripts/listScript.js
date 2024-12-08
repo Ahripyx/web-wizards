@@ -2,6 +2,10 @@
 // Purpose: 
 
 
+const user = JSON.parse(localStorage.getItem("user"));
+    
+
+
 const { jsPDF } = window.jspdf;
 async function filltables(data, table){
     table.innerHTML = ` 
@@ -32,7 +36,6 @@ async function filltables(data, table){
         const downloadButtonHTML = (element.FormStatus === "Closed")
             ? `<button class="download-btn info" data-id="${element.id}" tabindex=${tabindex+15}>Download</button>`
             : '';
-
         tablerow.innerHTML =
             `
             <td class="table-borders" tabindex="${tabindex++}">${element.NCRNumber}</td>
@@ -40,7 +43,7 @@ async function filltables(data, table){
             <td class="table-borders" tabindex="${tabindex++}">${element.FormStatus}</td>
             <td class="table-borders" tabindex="${tabindex++}">${element.CreationDate}</td>
             <td class="table-borders"><a href="details.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabindex++}">Details</button></a></td>
-            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabindex++}">Edit</button></a></td>
+            <td class="table-borders">${checkEdit(element.id, tabindex)}</td>
             <td class="table-borders">${downloadButtonHTML}</td>
             `;
         
@@ -226,4 +229,44 @@ async function generatePDF(ncrId) {
     
     pdf.save(`NCR-${qa.NCRNumber}`)
     //return pdf.output('datauristring');
+}
+
+function checkEdit(ncrId, tabindex) {
+    let edit = ``;
+    tabindex++;
+
+    // https://www.w3schools.com/xml/xml_http.asp
+    const qaRequest = new XMLHttpRequest();
+    qaRequest.open('GET', `http://localhost:5500/quality/${ncrId}`, false);
+    qaRequest.send();
+    const qaJson = JSON.parse(qaRequest.responseText);
+
+    const engRequest = new XMLHttpRequest();
+    engRequest.open('GET', `http://localhost:5500/engineer/${ncrId}`, false);
+    engRequest.send();
+    const engJson = engRequest.status === 200 ? JSON.parse(engRequest.responseText) : null;
+
+    const purRequest = new XMLHttpRequest();
+    purRequest.open('GET', `http://localhost:5500/purchasing/${ncrId}`, false);
+    purRequest.send();
+    const purJson = purRequest.status === 200 ? JSON.parse(purRequest.responseText) : null;
+
+
+    if (qaJson)
+    {
+        if ((user.RoleID == 2 || user.RoleID == 1) && qaJson.QualityStatus == "Open")
+            edit = `<a href="edit.html?id=${ncrId}" tabindex="-1"><button class="info" tabindex="${tabindex}">Edit</button></a>`;
+    }
+    if (engJson)
+    {
+        if ((user.RoleID == 3 || user.RoleID == 1) && engJson.EngineerStatus == "Open")
+            edit = `<a href="edit.html?id=${ncrId}" tabindex="-1"><button class="info" tabindex="${tabindex}">Edit</button></a>`;
+    }
+    if (purJson)
+    {
+        if ((user.RoleID == 4 || user.RoleID == 1) && purJson.PurchasingStatus == "Open")
+            edit = `<a href="edit.html?id=${ncrId}" tabindex="-1"><button class="info" tabindex="${tabindex}">Edit</button></a>`;
+    }
+
+    return edit;
 }

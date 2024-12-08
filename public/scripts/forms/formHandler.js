@@ -116,7 +116,6 @@ async function loadFormData(id) {
 
         if (data.engineer) {
             populateEngineer();
-            console.log(data.engineer);
 
             if (data.engineer.EngineerStatus === "Closed") {
                 let purResponse = await fetch(ENDPOINTS.purchasing(id));
@@ -198,6 +197,8 @@ function populateEngineer() {
     ENGINEER_CONTROLS.NotifyCustomer_0.checked = e.NotifyCustomer === 1;
     ENGINEER_CONTROLS.NotifyCustomer_1.checked = e.NotifyCustomer === 0;
     ENGINEER_CONTROLS.Disposition.value = e.Disposition;
+    if (e.UpdateDrawing)
+        ENGINEER_CONTROLS.UpdateDrawing_0.checked = e.UpdateDrawing === 1;
     if (e.RevisionNumber)
         ENGINEER_CONTROLS.RevisionNumber.value = e.RevisionNumber;
     if (e.RevisionDate) ENGINEER_CONTROLS.RevisionDate.value = e.RevisionDate;

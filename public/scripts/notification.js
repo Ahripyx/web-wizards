@@ -159,7 +159,7 @@ function listSelect(pf) {
                 return qlt;
             }
         }
-    else if (pf.type == "Engineer" && newEng)
+    else if (pf.type == "Engineer")
     {
             //if (pf.Status == "Closed")
             //    return closedQlt;
