@@ -373,7 +373,6 @@ const seedNCRForms = () => {
 
         if (qlt.QualityStatus === "Closed" && faker.datatype.boolean()) {
             eng = seedEngineerForms(id);
-            console.log(eng);
         }
         if (eng && eng.EngineerStatus === "Closed" && faker.datatype.boolean()) {
             pur = seedPurchasingForms(id);
