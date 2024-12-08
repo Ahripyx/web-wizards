@@ -86,7 +86,6 @@ router.post("/quality/", (req, res) => {
             IsNonConforming,
             Details,
             QualityStatus,
-            formStatus,
             lastModified,
             ProductID
         );

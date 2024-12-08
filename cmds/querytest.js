@@ -61,7 +61,7 @@ export const createTables = [
         Review STRING NOT NULL,
         NotifyCustomer BOOLEAN NOT NULL,
         Disposition STRING NOT NULL,
-        UpdateDrawing BOOLEAN NOT NULL,
+        UpdateDrawing BOOLEAN,
         RevisionNumber STRING,
         RevisionDate DATETIME,
         EngineerStatus STRING NOT NULL,
@@ -261,7 +261,7 @@ const seedEngineerForms = (id) => {
     let status = "Open";
     if (faker.datatype.boolean()) status = "Closed";
 
-    let drawing = null;
+    let drawing = false;
     let number = null;
     let date = null;
     let review = faker.helpers.arrayElement([

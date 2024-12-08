@@ -30,20 +30,21 @@ async function getData() {
 
     //const ncrResponse = await fetch(`http://localhost:5500/ncrFromID?ncrID=${ncrId}`);
     const qaResponse = await fetch(`http://localhost:5500/ncrs/${ncrId}`);
-    const engResponse = await fetch(`http://localhost:5500/EngineerFromNCR?ncrID=${ncrId}`);
+    const engResponse = await fetch(`http://localhost:5500/engineer/${ncrId}`);
     const userResponse = await fetch(`http://localhost:5500/formusers/${ncrId}`);
-    const purchasingResponse = await fetch(`http://localhost:5500/PurchasingFromNCR?ncrID=${ncrId}`)
+    const purchasingResponse = await fetch(`http://localhost:5500/purchasing/${ncrId}`)
 
     //const ncrJson = await ncrResponse.json();
     const qaJson = await qaResponse.json();
-    const engJson = await engResponse.json();
+    let engData, purData;
+    if (engResponse.ok)
+        engData = await engResponse.json();
+    if (purchasingResponse.ok)
+        purData = await purchasingResponse.json();
     const userJson = await userResponse.json();
-    const purJson = await purchasingResponse.json();
 
     //const ncrData = ncrJson[0];
     const qaData = qaJson[0];
-    const engData = engJson[0];
-    const purData = purJson[0];
 
     document.getElementById("ncrHeading").innerHTML +=qaData.NCRNumber;
 
@@ -97,6 +98,8 @@ async function getData() {
 
     // engineering data
     try{
+        if (!engResponse.ok)
+            throw new Error();
         document.getElementById("txtReview").value = engData.Review;
         if (engData.NotifyCustomer == 1) {
             document.getElementById("txtNotification").value = "Yes";
@@ -128,6 +131,8 @@ async function getData() {
 
     // purchasing data
     try{
+        if (!purchasingResponse.ok)
+            throw new Error();
         document.getElementById("txtPrelimDecision").value = purData.PreliminaryDecision;
         // logic to display fields related to CAR number
         if (engData.CARRaised == 1) {
@@ -165,29 +170,29 @@ document.getElementById("btnEdit").addEventListener("click", function(){
 
 // hide the edit button if the user's title status is closed
 async function checkStatus() {
-    const userResponse = await fetch(`http://localhost:5500/formusers/${ncrId}`);
-    const userJson = await userResponse.json();
+    const user = JSON.parse(localStorage.getItem('user'));
     const qaResponse = await fetch(`http://localhost:5500/quality/${ncrId}`);
     const qaJson = await qaResponse.json();
-    const engResponse = await fetch(`http://localhost:5500/EngineerFromNCR?ncrID=${ncrId}`);
-    const engJson = await engResponse.json();
-    const engData = engJson[0];
-    const purResponse = await fetch(`http://localhost:5500/PurchasingFromNCR?ncrID=${ncrId}`);
-    const purJson = await purResponse.json();
-    const purData = purJson[0];
+    const engResponse = await fetch(`http://localhost:5500/engineer/${ncrId}`);
+    const purResponse = await fetch(`http://localhost:5500/purchasing/${ncrId}`);
+    let engJson, purJson;
+    if (engResponse.ok)
+        engJson = await engResponse.json();
+    if (purResponse.ok)
+        purJson = await purResponse.json();
 
  //   console.log(qaData);
-    userJson.forEach(item => {
-        if (item.Title == "Inspector" && qaJson.QualityStatus == "Closed") {
+
+        if (user.Title == "Inspector" && qaJson.QualityStatus == "Closed") {
             document.getElementById("btnEdit").style.display = 'none';
         }
-        if (item.Title == "Engineer" && engData.EngineerStatus == "Closed") {
+        if (user.Title == "Engineer" && engJson.EngineerStatus == "Closed") {
             document.getElementById("btnEdit").style.display = 'none';
         }
-        if (item.Title == "Purchasing" && purData.PurchasingStatus == "Closed") {
+        if (user.Title == "Purchasing" && purJson.PurchasingStatus == "Closed") {
             document.getElementById("btnEdit").style.display = 'none';
         }
-    });
+
 }
 
 checkStatus();
