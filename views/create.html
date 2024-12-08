@@ -6,18 +6,18 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <title>Web Wizards</title>
-
+   
    <!-- Scripts -->
    <script src="../public/scripts/forms/formHandler.js" type="module" defer></script>
    <script src="../public/scripts/notification.js" type="module" defer></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <script src="../public/scripts/validation.js"></script>
 
-   <!-- Bootstrap CSS -->
+   
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-   <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+   
    
    <link href="../public/styles/style.css" rel="stylesheet">
 
@@ -26,6 +26,10 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
+   
+      
+  
+
 </head>
 
 <body>
@@ -33,7 +37,7 @@
    <header>
       <script src="https://kit.fontawesome.com/20313c72b7.js" crossorigin="anonymous"></script>
 
-      <nav class="navbar navbar-dark bg-dark">
+      <nav class="navbar">
          <div class="container">
             <a href="index.html" class="navbar-brand" tabindex="1">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png"
@@ -83,7 +87,7 @@
             </div>
          </div>
          <div class="container">
-            <h1>Dashboard</h1>
+            <h1>Create</h1>
          </div>
          </div>
       </nav>
@@ -123,7 +127,7 @@
    <!-- Create Form -->
    <div class="container">
       <header>
-         <h2>Non-Conformance Report - ISO: OPS-00011</h2>
+         <h2>Non-Conformance Report - ISO: OPS-00011</h2>   
       </header>
       <form class="px-4 needs-validation" id="ncrform_quality" onsubmit="event.preventDefault();" novalidate>
          <fieldset id="fs_quality">
@@ -265,6 +269,7 @@
                </div>
             </div>
          </fieldset>
+         
       </form>
 
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -283,7 +288,8 @@
 
    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
    <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script> -->
-   <script>
+    <!-- Bootstrap CSS -->
+      <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
       (function () {
          'use strict';

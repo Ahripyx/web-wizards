@@ -49,6 +49,21 @@ function SupplierValidation() {
     }
 };
 
+// Defect Description
+function DefectDescriptionValidation() {
+    const defectDescription = document.getElementById("DefectDescription");
+    const invalidMessage = document.getElementById("description-invalid");
+
+    if (defectDescription.value.trim() === "") {
+        defectDescription.setCustomValidity("Defect Description cannot be empty");
+        invalidMessage.innerHTML = defectDescription.validationMessage;
+        invalidMessage.style.display = 'block';
+    } else {
+        defectDescription.setCustomValidity("");
+        invalidMessage.innerHTML = "";
+    }
+};
+
     //Product Create/Edit
 function ProductValidation() {
     const productInput = document.getElementById("ProductID")
