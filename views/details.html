@@ -99,6 +99,26 @@
                <button id="btnGenPDF"  class="wide info" tabindex="13">Generate PDF Report</button>
             </div>
          </div>
+         <!-- Custom modal with Yes/No buttons -->
+         <div id="confirmationModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true" data-backdrop="false">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Download PDF</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                        </button>
+                  </div>
+                  <div class="modal-body">
+                        <p>Would you like to download a PDF report of this form?</p>
+                  </div>
+                  <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnYes">Yes</button>
+                        <button type="button" class="btn btn-secondary" id="btnNo" data-dismiss="modal">No</button>
+                  </div>
+               </div>
+            </div>
+         </div>
       </section>
          <section class="container">
             <div id="qltSection" class="grid-container grid-qlt" tabindex="14" aria-label="Quality Representative section">

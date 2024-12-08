@@ -5,25 +5,56 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const ncrId = parseInt(urlParams.get("id"));
+// details.js
+function generatePDF() {
+    // PDF generation code goes here
+    const doc = new jsPDF();
+    doc.text("This is the generated PDF report.", 10, 10);
+    doc.save("ncr-report.pdf");
+}
 
 // set all statuses to closed
 document
     .getElementById("btnClose")
     .addEventListener("click", async function () {
-        const ncrResponse = await fetch(
-            `http://localhost:5500/UpdateNCRStatus?newStatus=Closed&id=${ncrId}`,
-            { method: "PUT" }
-        );
-        const qaResponse = await fetch(
-            `http://localhost:5500/UpdateQAStatus?newStatus=Closed&id=${ncrId}`,
-            { method: "PUT" }
-        );
-        const engResponse = await fetch(
-            `http://localhost:5500/UpdateEngineerStatus?newStatus=Closed&id=${ncrId}`,
-            { method: "PUT" }
-        );
+        $('#confirmationModal').modal('show');
 
-        getData();
+        let modalClosed = false;
+
+        async function performPutRequests() {
+            const ncrResponse = await fetch(
+                `http://localhost:5500/UpdateNCRStatus?newStatus=Closed&id=${ncrId}`,
+                { method: "PUT" }
+            );
+            const qaResponse = await fetch(
+                `http://localhost:5500/UpdateQAStatus?newStatus=Closed&id=${ncrId}`,
+                { method: "PUT" }
+            );
+            const engResponse = await fetch(
+                `http://localhost:5500/UpdateEngineerStatus?newStatus=Closed&id=${ncrId}`,
+                { method: "PUT" }
+            );
+    
+            // Fetch the updated data after PUT requests
+            getData();
+        }
+
+        //Handle the modal options
+        document.getElementById("btnYes").addEventListener("click", function () {
+            if (!modalClosed) {
+                performPutRequests();  // Perform the PUT requests
+                modalClosed = true; // Mark modal interaction as completed
+                $('#confirmationModal').modal('hide'); // Close the modal
+                generatePDF();
+            }
+        });
+    
+        document.getElementById("btnNo").addEventListener("click", function () {
+            if (!modalClosed) {
+                performPutRequests(); 
+                modalClosed = true; 
+            }
+        });
     });
 
 // set the NCRform status to "archived"
