@@ -118,5 +118,114 @@ function ProductValidation() {
         }
     };
     
- 
+
+//Purchasing
+function DecisionValidation() {
+    const decisionInputs = document.getElementsByName("Decision");
+    const invalidMessage = document.getElementById("decision-feedback");
+    let isValid = false;
+
+    decisionInputs.forEach(input => {
+        if (input.checked) {
+            isValid = true;
+        }
+    });
+
+    if (!isValid) {
+        decisionInputs[0].setCustomValidity("Please select a Decision");
+        invalidMessage.innerHTML = decisionInputs[0].validationMessage;
+        invalidMessage.style.display = 'block';
+    } else {
+        decisionInputs[0].setCustomValidity(""); 
+        invalidMessage.innerHTML = "";
+    }
+};
+
+function CARRaisedValidation() {
+    const carRaisedInputs = document.getElementsByName("CarRaised");
+    const invalidMessage = document.getElementById("car-raised-feedback");
+    let isValid = false;
+
+    carRaisedInputs.forEach(input => {
+        if (input.checked) {
+            isValid = true;
+        }
+    });
+
+    if (!isValid) {
+        carRaisedInputs[0].setCustomValidity("Please indicate if a CAR was raised");
+        invalidMessage.innerHTML = carRaisedInputs[0].validationMessage;
+        invalidMessage.style.display = 'block';
+    } else {
+        carRaisedInputs[0].setCustomValidity(""); 
+        invalidMessage.innerHTML = "";
+    }
+};
+
+function FollowUpRequiredValidation() {
+    const followUpInputs = document.getElementsByName("FollowUp");
+    const invalidMessage = document.getElementById("followup-feedback");
+    let isValid = false;
+
+    followUpInputs.forEach(input => {
+        if (input.checked) {
+            isValid = true;
+        }
+    });
+
+    if (!isValid) {
+        followUpInputs[0].setCustomValidity("Please indicate if follow-up is required");
+        invalidMessage.innerHTML = followUpInputs[0].validationMessage;
+        invalidMessage.style.display = 'block';
+    } else {
+        followUpInputs[0].setCustomValidity("");
+        invalidMessage.innerHTML = "";
+    }
+};
+
+function CARNumberValidation() {
+    const followUpRequiredYes = document.getElementById("FollowUp_0").checked;
+    const carNumberField = document.getElementById("CARNumber");
+    const invalidMessage = document.getElementById("car-number-feedback");
+
+    if (followUpRequiredYes && !carNumberField.value.trim()) {
+        carNumberField.setCustomValidity("Please provide a CAR Number");
+        invalidMessage.innerHTML = carNumberField.validationMessage;
+        invalidMessage.style.display = 'block';
+    } else {
+        carNumberField.setCustomValidity("");
+        invalidMessage.innerHTML = "";
+    }
+};
+
+function FollowUpTypeValidation() {
+    const followUpRequiredYes = document.getElementById("FollowUp_0").checked;
+    const followUpTypeField = document.getElementById("FollowUpType");
+    const invalidMessage = document.getElementById("followup-type-feedback");
+
+    if (followUpRequiredYes && !followUpTypeField.value.trim()) {
+        followUpTypeField.setCustomValidity("Please provide a Follow-Up Type");
+        invalidMessage.innerHTML = followUpTypeField.validationMessage;
+        invalidMessage.style.display = 'block';
+    } else {
+        followUpTypeField.setCustomValidity("");
+        invalidMessage.innerHTML = "";
+    }
+};
+
+function FollowUpDateValidation() {
+    const followUpRequiredYes = document.getElementById("FollowUp_0").checked;
+    const followUpDateField = document.getElementById("FollowUpDate");
+    const invalidMessage = document.getElementById("followup-date-feedback");
+
+    if (followUpRequiredYes && !followUpDateField.value) {
+        followUpDateField.setCustomValidity("Please provide a Follow-Up Date");
+        invalidMessage.innerHTML = followUpDateField.validationMessage;
+        invalidMessage.style.display = 'block';
+    } else {
+        followUpDateField.setCustomValidity("");
+        invalidMessage.innerHTML = "";
+    }
+};
+
 

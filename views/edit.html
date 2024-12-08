@@ -465,6 +465,7 @@
                            <label for="Decision_3" class="form-check-label">Defer for HBC Engineering Review</label>
                         </div>
                      </div>
+                     <div class="invalid-feedback" id="decision-feedback"></div>
                   </div>
                   <!-- CAR Raised? -->
                   <div class="form-group col-md-6">
@@ -482,6 +483,7 @@
                         </div>
                      </div>
                   </div>
+                  <div class="invalid-feedback" id="car-raised-feedback"></div>
                </div>
                <!-- Follow-up Required? -->
                <div class="form-group col-md-6">
@@ -497,22 +499,27 @@
                            class="form-check-input" value="No">
                         <label for="FollowUp_1" class="form-check-label">No</label>
                      </div>
+                     <div class="invalid-feedback" id="followup-feedback"></div>
                   </div>
                </div>
                <!-- CAR Number-->
                <div class="form-group col-md-4" id="CARNumber" style="display: none;">
                   <label for="CARNumber">Car Number</label>
                   <input type="text" class="form-control-plaintext" id="CARNumber">
+                  <div class="invalid feedback" id="car-number-feedback"></div>
                </div>
                <!-- Follow up Type & Date -->
                <div class="form-group col-md-4" id="Follow-Up-Type" style="display: none;">
                   <label for="FollowUpType">Follow-Up Type</label>
                   <input type="text" class="form-control-plaintext" id="FollowUpType">
                </div>
+               <div class="invalid-feedback" id="follow-type-feedback"></div>
+
                <div class="form-group col-md-4" id="FollowUpDate" style="display: none;">
                   <label for="FollowUpDate" id="lblFollowUpDate">Follow-Up Expected Date</label>
                   <input type="date" class="form-control" id="FollowUpDate">
                </div>
+               <div class="invalid-feedback" id="followup-date-feedback"></div>
                <!-- Purchasing Name & Date -->
                <div class="row g-3">
                   <div class="form-group col-md-6">
