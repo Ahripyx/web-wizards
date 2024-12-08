@@ -5,13 +5,6 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const ncrId = parseInt(urlParams.get("id"));
-// details.js
-function generatePDF() {
-    // PDF generation code goes here
-    const doc = new jsPDF();
-    doc.text("This is the generated PDF report.", 10, 10);
-    doc.save("ncr-report.pdf");
-}
 
 // set all statuses to closed
 document
@@ -35,16 +28,15 @@ document
                 { method: "PUT" }
             );
     
-            // Fetch the updated data after PUT requests
             getData();
         }
 
         //Handle the modal options
         document.getElementById("btnYes").addEventListener("click", function () {
             if (!modalClosed) {
-                performPutRequests();  // Perform the PUT requests
-                modalClosed = true; // Mark modal interaction as completed
-                $('#confirmationModal').modal('hide'); // Close the modal
+                performPutRequests();
+                modalClosed = true;
+                $('#confirmationModal').modal('hide');
                 generatePDF();
             }
         });
