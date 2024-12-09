@@ -7,17 +7,16 @@
    <title>Web Wizards</title>
 
    <!-- Scripts -->
-   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="../public/scripts/notification.js" type="module"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
    <script src="../public/scripts/validation.js"></script>
 
    <!-- Email -->
    <script src="../public/scripts/emailHandler.js"></script>
-   <script type="text/javascript"
-         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
    </script>
-   <script type="text/javascript">
+   <script>
       (function(){
          emailjs.init({
             publicKey: "HlgfFqCilsFOOF8bV",
@@ -64,10 +63,10 @@
          <div class="container">
             <a href="index.html" class="navbar-brand" tabindex="1">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                  alt="A blue logo saying Crossfire with a flame in the middle" tabindex="-1">
+                  alt="A blue logo saying Crossfire with a flame in the middle">
             </a>
             <ul class="nav navbar-nav navbar-right">
-               <li class="nav-item" tabindex="-1" data-toggle="tooltip" role="button" data-placement="bottom"
+               <li class="nav-item" tabindex="-1" data-toggle="tooltip" data-placement="bottom"
                   data-trigger="hover focus" title="Information">
                   <a href="info.html" tabindex="2" aria-label="Information">
                      <i class="fa-solid fa-circle-info"></i>
@@ -101,17 +100,16 @@
          </div>
          <div class="alt-style">
             <div class="container">
-               <ul class="nav navbar-nav" role="navigation">
-                  <li class="active" tabindex="-1"><a href="index.html" tabindex="6">Dashboard</a></li>
-                  <li id="li-create" style="display: none;" tabindex="-1"><a href="create.html" tabindex="7">Create NCR</a></li>
-                  <li tabindex="-1"><a href="list.html" tabindex="8">NCR Logs</a></li>
-                  <li id="li-tools" style="display: none;" tabindex="-1"><a href="tools.html" tabindex="9">Tools</a></li>
-               </ul>
+                  <ul class="nav navbar-nav">
+                     <li class="active" tabindex="-1"><a href="index.html" tabindex="6">Dashboard</a></li>
+                     <li id="li-create" style="display: none;" tabindex="-1"><a href="create.html" tabindex="7">Create NCR</a></li>
+                     <li tabindex="-1"><a href="list.html" tabindex="8">NCR Logs</a></li>
+                     <li id="li-tools" style="display: none;" tabindex="-1"><a href="tools.html" tabindex="9">Tools</a></li>
+                  </ul>
             </div>
          </div>
          <div class="container">
-            <h1>Dashboard</h1>
-         </div>
+            <h1>Edit</h1>
          </div>
       </nav>
    </header>
@@ -154,7 +152,7 @@
          <div class="top">
             <ul>
                <li>
-                  <a href="#" id="btnNavQuality" onclick="toggleForm('ncrform_quality')">
+                  <a href="#" id="btnNavQuality" tabindex="10"  onclick="toggleForm('ncrform_quality')">
                      <i class="fa-solid fa-magnifying-glass"></i>
                      Quality
                   </a>
@@ -162,7 +160,7 @@
             </ul>
             <ul>
                <li>
-                  <a href="#" id="btnNavEngineer" onclick="toggleForm('ncrform_engineer')">
+                  <a href="#" id="btnNavEngineer" tabindex="15" onclick="toggleForm('ncrform_engineer')">
                      <i class="fa-solid fa-helmet-safety"></i>
                      Engineer
                   </a>
@@ -170,7 +168,7 @@
             </ul>
             <ul>
                <li>
-                  <a href="#" id=btnNavPurchasing onclick="toggleForm('ncrform_purchasing')">
+                  <a href="#" id=btnNavPurchasing tabindex="20" onclick="toggleForm('ncrform_purchasing')">
                      <i class="fa-solid fa-cart-shopping"></i>
                      Purchasing
                   </a>
@@ -193,36 +191,34 @@
                   <!-- NCR Number -->
                   <div class="form-group col-md-6">
                      <label for="NCRNumber" class="form-label">NCR Number</label>
-                     <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX" readonly>
+                     <input type="text" class="form-control-plaintext" id="NCRNumber" placeholder="2024-XXX" tabindex="21" readonly>
                   </div>
                   <!-- Sales Order Number -->
                   <div class="form-group col-md-6">
-                     <label for="SalesOrder" class="form-label">Sales Order Number <span class="no">*</span> </label>
-                     <input type="number" class="form-control" id="SalesOrder" min="100" max="999" aria-required="true"
-                        required>
+                     <label for="SalesOrder" class="form-label">Sales Order Number <span class="no">*</span> <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the sales order number with 3 numbers"></i> </label>
+                     <input type="number" class="form-control" id="SalesOrder" min="100" max="999" tabindex="22" required>
                   </div>
                </div>
                <div class="row g-3">
                   <!-- Supplier -->
                   <div class="form-group col-md-6">
-                     <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
+                      <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the supplier from the list"></i> </label>
                      <select class="js-example-basic-single form-select" id="SupplierID" name="SupplierID"
-                        aria-required="true" oninput="SupplierValidation()" required>
+                         oninput="SupplierValidation()" tabindex="23" required>
                         <option selected value='' disabled>Select a Supplier</option>
                      </select>
                      <div class="invalid-feedback" id="supplier-feedback">
-                        Please select a Supplier
                      </div>
                   </div>
                   <!-- Product Info -->
                   <div class="form-group col-md-6">
-                     <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
-                     <select class="form-select" id="ProductID" name="ProductID" aria-required="true"
-                        onblur="ProductValidation()" required>
+                     <label for="ProductID" class="form-label">Product <span class="no">*</span>  </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the product from the list"></i>
+                     <select class="form-select" id="ProductID" name="ProductID" 
+                        onblur="ProductValidation()" tabindex="24" required>
                         <option selected value=''>No products available</option>
                      </select>
                      <div class="invalid-feedback" id="product-feedback">
-                        Please select a Product
                      </div>
 
                      <!-- Product Number -->
@@ -233,8 +229,9 @@
                   <!-- Defect Description -->
                   <div class="form-group col-md-12">
                      <label for="Details" class="form-label">Description of Defect <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter a detailed description of the defect"></i>
                      <br>
-                     <textarea class="form-control" id="Details" name="Details" rows="3" aria-required="true"
+                     <textarea class="form-control" id="Details" name="Details" rows="3" tabindex="25"
                         required></textarea>
                   </div>
                </div>
@@ -243,20 +240,21 @@
                   <div class="form-group col-md-6">
                      <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span>
                      </label>
-                     <input type="number" class="form-control" id="QuantityReceived" min="1" aria-required="true"
-                        onblur="QuantityRecValidation()" required>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the quantity received"></i>
+                     <input type="number" class="form-control" id="QuantityReceived" min="1" 
+                        onblur="QuantityRecValidation()" tabindex="26" required>
                      <div class="invalid-feedback" id="received-invalid">
-                        Please enter a valid quantity
+                        
                      </div>
                   </div>
                   <!-- Quantity Defective -->
                   <div class="form-group col-md-6">
                      <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span>
                      </label>
-                     <input type="number" class="form-control" id="QuantityDefective" min="1" aria-required="true"
-                        onblur="QuantityDefValidation()" required>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the quantity defective"></i>
+                     <input type="number" class="form-control" id="QuantityDefective" min="1" 
+                        onblur="QuantityDefValidation()" required tabindex="27">
                      <div class="invalid-feedback" id="defective-invalid">
-                        Please enter a valid quantity
                      </div>
 
                   </div>
@@ -265,15 +263,16 @@
                   <!-- Identify Process Applicable -->
                   <div class="form-group col-md-6">
                      <label id="ProcessApplicable">Identify Process Applicable <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the process applicable"></i>
                      <div>
-                        <div class="form-check form-check-inline">
-                           <input name="processes" id="ProcessApplicable_0" type="radio" aria-required="true"
+                        <div class="form-check form-check-inline" tabindex="28">
+                           <input name="processes" id="ProcessApplicable_0" type="radio" 
                               required="required" class="form-check-input" value="WorkInProgress"
-                              aria-labelledby="ProcessApplicable">
+                              aria-labelledby="ProcessApplicable" >
                            <label for="ProcessApplicable_0" class="form-check-label">Work In Progress</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="processes" id="ProcessApplicable_1" type="radio" aria-required="true"
+                           <input name="processes" id="ProcessApplicable_1" type="radio" 
                               required="required" class="form-check-input" value="SRInspection"
                               aria-labelledby="ProcessApplicable">
                            <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving
@@ -284,15 +283,16 @@
                   <!-- Is Non-Conformance -->
                   <div class="form-group col-md-6">
                      <Label id="item-non-conforming">Is Item Non-Conforming? <span class="no">*</span> </Label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if the item is non-conforming"></i>
                      <div>
-                        <div class="form-check form-check-inline">
-                           <input name="nonconforming" id="IsNonConforming_0" type="radio" aria-required="true"
+                        <div class="form-check form-check-inline" tabindex="29">
+                           <input name="nonconforming" id="IsNonConforming_0" type="radio" 
                               required="required" class="form-check-input" value="Yes"
-                              aria-labelledby="item-non-conforming">
+                              aria-labelledby="item-non-conforming" >
                            <label for="IsNonConforming_0" class="form-check-label">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="nonconforming" id="IsNonConforming_1" type="radio" aria-required="true"
+                           <input name="nonconforming" id="IsNonConforming_1" type="radio" 
                               required="required" class="form-check-input" value="No"
                               aria-labelledby="item-non-conforming">
                            <label for="IsNonConforming_1" class="form-check-label">No</label>
@@ -303,21 +303,21 @@
                <div class="row g-3">
                   <div class="form-group col-md-6">
                      <label for="QLTName">Quality Representative </label>
-                     <input type="text" class="form-control-plaintext" id="QLTName" readonly>
+                     <input type="text" class="form-control-plaintext" id="QLTName" tabindex="30" readonly>
                   </div>
                   <div class="form-group col-md-6">
                      <label for="QLTDate">Date </label>
-                     <input type="date" class="form-control" id="QLTDate" readonly>
+                     <input type="date" class="form-control" id="QLTDate" tabindex="31" readonly>
                   </div>
                </div>
                <!-- Submit Button -->
                <div class="row g-3">
                   <div class="col-md-3" style="display: flex; justify-content:space-around;">
-                     <button type="submit" class="yes"  id="QLTClose">Submit NCR</button>
-                     <button type="submit" class="info" id="QLTOpen">Save NCR</button>
+                     <button type="submit" class="yes"  id="QLTClose" tabindex="32" >Submit NCR</button>
+                     <button type="submit" class="info" id="QLTOpen" tabindex="33" >Save NCR</button>
                   </div>
                   <div>
-                     <button type="button" class="info" id="btnSeedQA">Seed Data</button>
+                     <button type="button" class="info" id="btnSeedQA" tabindex="34" >Seed Data</button>
                   </div>
                </div>
             </fieldset>
@@ -331,24 +331,25 @@
                   <!-- Review by CF Engineering -->
                   <div class="form-group col-md-6">
                      <label>Review by CF Engineering <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the review by CF Engineering"></i>
                      <div>
-                        <div class="form-check form-check-inline">
-                           <input name="Review" id="Review_0" type="radio" required="required" aria-required="true"
-                              class="form-check-input" value="Use As Is">
+                        <div class="form-check form-check-inline" tabindex="35"  >
+                           <input name="Review" id="Review_0" type="radio" required="required" 
+                              class="form-check-input" value="Use As Is" >
                            <label for="Review_0" class="form-check-label">Use As Is</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="Review" id="Review_1" type="radio" required="required" aria-required="true"
+                           <input name="Review" id="Review_1" type="radio" required="required" 
                               class="form-check-input" value="Repair">
                            <label for="Review_1" class="form-check-label">Repair</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="Review" id="Review_2" type="radio" required="required" aria-required="true"
+                           <input name="Review" id="Review_2" type="radio" required="required" 
                               class="form-check-input" value="Rework">
                            <label for="Review_2" class="form-check-label">Rework</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="Review" id="Review_3" type="radio" required="required" aria-required="true"
+                           <input name="Review" id="Review_3" type="radio" required="required" 
                               class="form-check-input" value="Scrap">
                            <label for="Review_3" class="form-check-label">Scrap</label>
                         </div>
@@ -357,15 +358,16 @@
                   <!-- Customer Notification -->
                   <div class="form-group col-md-6">
                      <label>Notify customer of NCR <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if the customer should be notified"></i>
                      <div>
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline" tabindex="36">
                            <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required"
-                              aria-required="true" class="form-check-input" value="Yes">
+                               class="form-check-input" value="Yes" >
                            <label for="NotifyCustomer_0" class="form-check-label">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
                            <input name="NotifyCustomer" id="NotifyCustomer_1" type="radio" required="required"
-                              aria-required="true" class="form-check-input" value="No">
+                               class="form-check-input" value="No">
                            <label for="NotifyCustomer_1" class="form-check-label">No</label>
                         </div>
                      </div>
@@ -375,23 +377,25 @@
                <div class="row g-3">
                   <div class="form-group col-md-12">
                      <label for="Disposition">Disposition <span class="no">*</span> </label>
-                     <textarea class="form-control" id="Disposition" name="Disposition" rows="3" required
-                        aria-required="true"></textarea>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the disposition"></i>
+                     <textarea class="form-control" id="Disposition" name="Disposition" rows="3" tabindex="37" required
+                        ></textarea>
                   </div>
                </div>
                <!-- Drawing Requires Updating -->
                <div class="row g-3">
                   <div class="form-group col-md-6">
                      <label>Does the drawing require updating </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if the drawing requires updating"></i>
                      <div>
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline" tabindex="38">
                            <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_0" type="radio"
                               class="form-check-input" value="1">
                            <label for="DrawingUpdateRequired_0" class="form-check-label">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
                            <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_1" type="radio"
-                              class="form-check-input" value="0" checked="true">
+                              class="form-check-input" value="0">
                            <label for="DrawingUpdateRequired_1" class="form-check-label">No</label>
                         </div>
                      </div>
@@ -401,35 +405,35 @@
                   <!-- Revision Information -->
                   <div class="form-group col-md-4">
                      <label for="RevisionNumber">Rev. Number</label>
-                     <input type="text" class="form-control-plaintext" id="RevisionNumber" placeholder="N/A" readonly>
+                     <input type="text" class="form-control-plaintext" id="RevisionNumber" placeholder="N/A" tabindex="39" readonly>
                   </div>
                   <div class="form-group col-md-4" id="NewRevNum" style="display: none;">
                      <label for="NewRevisionNumber">Updated Rev. Number</label>
-                     <input type="text" class="form-control-plaintext" id="NewRevisionNumber" readonly>
+                     <input type="text" class="form-control-plaintext" id="NewRevisionNumber" readonly tabindex="40">
                   </div>
                   <div class="form-group col-md-4" id="NewRevDate" style="display: none;">
                      <label for="RevisionDate" id="lblRevisionDate">Revision Date</label>
-                     <input type="date" class="form-control" id="RevisionDate">
+                     <input type="date" class="form-control" id="RevisionDate" tabindex="41">
                   </div>
                </div>
                <div class="row g-3">
                   <div class="form-group col-md-6">
                      <label for="ENGName" class="form-group col-md-4">Engineer</label>
-                     <input type="text" class="form-control-plaintext" id="ENGName" readonly>
+                     <input type="text" class="form-control-plaintext" id="ENGName" readonly tabindex="42">
                   </div>
                   <div class="form-group col-md-6">
                      <label for="ENGDate">Date</label>
-                     <input type="date" class="form-control" id="ENGDate" readonly>
+                     <input type="date" class="form-control" id="ENGDate" readonly tabindex="43">
                   </div>
                </div>
                <!-- Submit Button -->
                <div class="row g-3">
                   <div class="col-md-3" style="display: flex; justify-content:space-around;">
-                     <button type="submit" class="yes" onclick="emailToPurchasing()" id="ENGClose">Submit NCR</button>
-                     <button type="submit" class="info" id="ENGOpen">Save NCR</button>
+                     <button type="submit" class="yes" onclick="emailToPurchasing()" id="ENGClose" tabindex="44">Submit NCR</button>
+                     <button type="submit" class="info" id="ENGOpen" tabindex="45">Save NCR</button>
                   </div>
                   <div>
-                     <button type="button" class="info" id="btnSeedEng">Seed Data</button>
+                     <button type="button" class="info" id="btnSeedEng" tabindex="46">Seed Data</button>
                   </div>
                </div>
             </fieldset>
@@ -444,24 +448,24 @@
                   <div class="form-group col-md-6">
                      <label>Preliminary Decision <span class="no">*</span> </label>
                      <div>
-                        <div class="form-check form-check-inline">
-                           <input name="Decision" id="Decision_0" type="radio" required="required" aria-required="true"
-                              class="form-check-input" value="Return To Supplier">
+                        <div class="form-check form-check-inline" tabindex="47">
+                           <input name="Decision" id="Decision_0" type="radio" required="required" 
+                              class="form-check-input" value="Return To Supplier" >
                            <label for="Decision_0" class="form-check-label">Return To Supplier</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="Decision" id="Decision_1" type="radio" required="required" aria-required="true"
+                           <input name="Decision" id="Decision_1" type="radio" required="required" 
                               class="form-check-input" value="Rework In House">
                            <label for="Decision_1" class="form-check-label">Rework In House</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="Decision" id="Decision_2" type="radio" required="required" aria-required="true"
-                              class="form-check-input" value="Scrap">
+                           <input name="Decision" id="Decision_2" type="radio" required="required" 
+                              class="form-check-input" value="Scrap" >
                            <label for="Decision_2" class="form-check-label">Scrap</label>
                         </div>
                         <div class="form-check form-check-inline">
-                           <input name="Decision" id="Decision_3" type="radio" required="required" aria-required="true"
-                              class="form-check-input" value="Defer for HBC Engineering Review">
+                           <input name="Decision" id="Decision_3" type="radio" required="required" 
+                              class="form-check-input" value="Defer for HBC Engineering Review" tabindex="48">
                            <label for="Decision_3" class="form-check-label">Defer for HBC Engineering Review</label>
                         </div>
                      </div>
@@ -471,14 +475,14 @@
                   <div class="form-group col-md-6">
                      <label>Was a CAR Raised? <span class="no">*</span> </label>
                      <div>
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline" tabindex="49">
                            <input name="CarRaised" id="CarRaised_0" type="radio" required="required"
-                              aria-required="true" class="form-check-input" value="Yes">
+                               class="form-check-input" value="Yes" >
                            <label for="CarRaised_0" class="form-check-label">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
                            <input name="CarRaised" id="CarRaised_1" type="radio" required="required"
-                              aria-required="true" class="form-check-input" value="No">
+                               class="form-check-input" value="No">
                            <label for="CarRaised_1" class="form-check-label">No</label>
                         </div>
                      </div>
@@ -489,13 +493,13 @@
                <div class="form-group col-md-6">
                   <label>Follow-Up Required? <span class="no">*</span> </label>
                   <div>
-                     <div class="form-check form-check-inline">
-                        <input name="FollowUp" id="FollowUp_0" type="radio" required="required" aria-required="true"
-                           class="form-check-input" value="Yes">
+                     <div class="form-check form-check-inline" tabindex="50">
+                        <input name="FollowUp" id="FollowUp_0" type="radio" required="required" 
+                           class="form-check-input" value="Yes" >
                         <label for="FollowUp_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="FollowUp" id="FollowUp_1" type="radio" required="required" aria-required="true"
+                        <input name="FollowUp" id="FollowUp_1" type="radio" required="required" 
                            class="form-check-input" value="No">
                         <label for="FollowUp_1" class="form-check-label">No</label>
                      </div>
@@ -503,45 +507,45 @@
                   </div>
                </div>
                <!-- CAR Number-->
-               <div class="form-group col-md-4" id="CARNumber" style="display: none;">
+               <div class="form-group col-md-4" id="CARNumberContainer" style="display: block;" >
                   <label for="CARNumber">Car Number</label>
-                  <input type="text" class="form-control-plaintext" id="CARNumber">
+                  <input type="text" class="form-control-plaintext" id="CARNumber" tabindex="51">
                   <div class="invalid feedback" id="car-number-feedback"></div>
                </div>
                <!-- Follow up Type & Date -->
-               <div class="form-group col-md-4" id="Follow-Up-Type" style="display: none;">
+               <div class="form-group col-md-4" id="FollowUpTypeContainer" style="display: none;">
                   <label for="FollowUpType">Follow-Up Type</label>
-                  <input type="text" class="form-control-plaintext" id="FollowUpType">
+                  <input type="text" class="form-control-plaintext" id="FollowUpType" tabindex="52">
                </div>
                <div class="invalid-feedback" id="follow-type-feedback"></div>
 
-               <div class="form-group col-md-4" id="FollowUpDate" style="display: none;">
+               <div class="form-group col-md-4" id="FollowUpDateContainer" style="display: none;">
                   <label for="FollowUpDate" id="lblFollowUpDate">Follow-Up Expected Date</label>
-                  <input type="date" class="form-control" id="FollowUpDate">
+                  <input type="date" class="form-control" id="FollowUpDate" tabindex="53">
                </div>
                <div class="invalid-feedback" id="followup-date-feedback"></div>
                <!-- Purchasing Name & Date -->
                <div class="row g-3">
                   <div class="form-group col-md-6">
                      <label for="PURName" class="form-group col-md-4">Operations Manager</label>
-                     <input type="text" class="form-control-plaintext" id="PURName" readonly>
+                     <input type="text" class="form-control-plaintext" id="PURName" readonly tabindex="54">
                   </div>
                   <div class="form-group col-md-6">
                      <label for="PURDate">Date</label>
-                     <input type="date" class="form-control" id="PURDate" readonly>
+                     <input type="date" class="form-control" id="PURDate" readonly tabindex="55">
                   </div>
                </div>
                <!-- Submit Button -->
                <div class="row g-3">
                   <div class="col-md-3" style="display: flex; justify-content:space-around;">
-                     <button type="submit" class="yes" id="PURClose">Submit NCR</button>
-                     <button type="submit" class="info" id="PUROpen">Save NCR</button>
+                     <button type="submit" class="yes" id="PURClose" tabindex="56">Submit NCR</button>
+                     <button type="submit" class="info" id="PUROpen" tabindex="57">Save NCR</button>
                   </div>
                   <div>
-                     <button type="button" class="info" id="btnSeedPUR">Seed Data</button>
+                     <button type="button" class="info" id="btnSeedPUR" tabindex="58">Seed Data</button>
                   </div>
                </div>
-            </fieldset>
+            </fieldset> 
          </form>
       </div>
    </div>
@@ -591,7 +595,7 @@
       }
 
    </script>
-  <!-- <<script src="/public/scripts/autofill.js"></script>-->
+   <script src="/public/scripts/autofill.js"></script>
    <script src="../public/scripts/navigate.js"></script>
 </body>
 

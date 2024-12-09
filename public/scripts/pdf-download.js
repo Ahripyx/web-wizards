@@ -1,7 +1,5 @@
-//Written by: Damion Murcell
-//Purpose: Generate a PDF report of an NCR Form using an external source called jsPDF
-
-document.getElementById('btnGenPDF').addEventListener('click', async function() {
+//PDF Generation
+async function downloadPDF(ncrId) {
     const pdf = new jsPDF(); 
 
     const ncrRes = await fetch(`http://localhost:5500/ncrFromID?ncrID=${ncrId}`);
@@ -38,9 +36,9 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
     pdf.roundedRect(5, 35, 200, 1, 1, 1, 'F'); 
 
     //Light blue background for QA
-    pdf.setFillColor(84,172,207);  
+    pdf.setFillColor(84,172,207); 
     pdf.roundedRect(10, 40, 60, 30, 1, 1, 'F'); 
-    pdf.setFillColor(84,172,207);  
+    pdf.setFillColor(84,172,207); 
     pdf.roundedRect(10, 50, 190, formHeight, 1, 1, 'F'); 
     
     //Inputing QA Info
@@ -72,7 +70,7 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
     }
 
     //light green background for Engineering
-    pdf.setFillColor(31,189,31);
+    pdf.setFillColor(31,189,31); 
     pdf.roundedRect(10, 125, 60, 30, 1, 1, 'F'); 
     pdf.setFillColor(31,189,31); 
     pdf.roundedRect(10, 135, 190, formHeight, 1, 1, 'F'); 
@@ -99,9 +97,9 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
     }
 
     //light pink background for Purchasing
-    pdf.setFillColor(255,143,162);  
+    pdf.setFillColor(255,143,162); 
     pdf.roundedRect(10, 210, 60, 30, 1, 1, 'F'); 
-    pdf.setFillColor(255,143,162);
+    pdf.setFillColor(255,143,162); 
     pdf.roundedRect(10, 220, 190, formHeight, 1, 1, 'F'); 
 
     pdf.setFontSize(16);
@@ -120,14 +118,14 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
         pdf.text(100, 250, `Follow Up Date: ${pur.FollowUpDate}`);
         pdf.text(20, 260, `Purchasing Status: ${pur.PurchasingStatus}`);
         pdf.text(100, 260, `Last Modified by Purchasing: ${pur.LastModified}`);
+        //ISSUE: Unknown error is happening when even one of these values are being displayed
+        //in preview.html, only works when it's downloading
     } else {
         pdf.setFontSize(12);
         pdf.setFont('helvetica', 'normal');
         pdf.text(60, 250, `Purchasing data has not been filled out yet`);
     }
-
-    const pdfDataUri = pdf.output('datauristring');
-
-    //Redirect to the preview page and pass the PDF data via URL
-    window.location.href = `preview.html?pdf=${encodeURIComponent(pdfDataUri)}`;
-});
+    
+    pdf.save(`NCR-${qa.NCRNumber}`)
+    //return pdf.output('datauristring');
+}

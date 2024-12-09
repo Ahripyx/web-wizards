@@ -54,7 +54,10 @@ function updateNotification() {
                 const pf = JSON.parse(value);
 
                 const list = listSelect(pf);
-                list.innerHTML = '';
+                try {
+                    list.innerHTML = '';
+                
+                
 
                 const currentYear = new Date().getFullYear();
                 const ncrNumber = `${currentYear}-${String(pf.NCRFormID).padStart(3, '0')}`;
@@ -120,7 +123,9 @@ function updateNotification() {
                 div.appendChild(a);
 
                 list.appendChild(div);
+            } catch {}
                 }
+
             }
             if (unreadCount > 0)
                 document.getElementById('unread-count').textContent = unreadCount;

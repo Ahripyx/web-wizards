@@ -95,16 +95,25 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("Disposition").value = disposition
         }
         document.getElementById('btnSeedEng').addEventListener('click', function(){
-            populateEditEng("Very nice disposition descripition.");
+           
+            document.querySelector('input[name="Review"][value="Repair"]').checked = true; 
+       
+            document.querySelector('input[name="NotifyCustomer"][value="Yes"]').checked = true; 
+       
+            document.getElementById("Disposition").value = "Very nice disposition description.";
+
+            document.querySelector('input[name="DrawingUpdateRequired"][value="1"]').checked = true; 
         });
 
         //Purchasing
-        function populateEditPur(){
-            document.getElementById("CarRaised_1").checked = true
-        }
+        document.getElementById('btnSeedPUR').addEventListener('click', function(){
+            document.getElementById("CarRaised_1").checked = true;
+            
+            document.getElementById("FollowUp_1").checked = true;
 
-        document.getElementById('btnSeedPur').addEventListener('click', function(){
-            populateEditPur()
+            document.getElementById("Decision_0").checked = true;
+
+            document.getElementById("CARNumber").value = "12345";
         })
         
     }

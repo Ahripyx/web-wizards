@@ -26,9 +26,10 @@ router.get("/purchasing/:id", (req, res) => {
 router.post("/purchasing/:NCRFormID", (req, res) => {
     const { NCRFormID } = req.params;
     const {
-        Decision,
-        CarRaised,
-        FollowUp,
+        
+        PreliminaryDecision,
+        CARRaised,
+        FollowUpRequired,
         CARNumber,
         FollowUpType,
         FollowUpDate,
@@ -41,9 +42,10 @@ router.post("/purchasing/:NCRFormID", (req, res) => {
             "INSERT INTO Purchasing (NCRFormID, PreliminaryDecision, CARRaised, CARNumber, FollowUpRequired, FollowUpType, FollowUpDate, PurchasingStatus, LastModified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         const result = stmt.run(
-            Decision,
-            CarRaised,
-            FollowUp,
+            NCRFormID,
+            PreliminaryDecision,
+            CARRaised,
+            FollowUpRequired,
             CARNumber,
             FollowUpType,
             FollowUpDate,
@@ -60,7 +62,7 @@ router.post("/purchasing/:NCRFormID", (req, res) => {
         // Set up the notification properties we'd like to display
         result.type = "Purchasing";
         result.Status = PurchasingStatus;
-        result.Decision = Decision;
+        result.PreliminaryDecision = PreliminaryDecision;
         result.LastModified = LastModified;
         result.NewOrEdit = "New";
         result.NCRFormID = NCRFormID;
@@ -68,7 +70,7 @@ router.post("/purchasing/:NCRFormID", (req, res) => {
 
         res.json({ form: result });
         //res.status(200).send("Purchasing record inserted successfully!");
-    } catch (error) {
+    } catch (error) {    
         console.error("Database error:", error);
         res.status(500).send("Failed to insert purchasing record.");
     }
@@ -78,9 +80,9 @@ router.post("/purchasing/:NCRFormID", (req, res) => {
 router.put("/purchasing/:NCRFormID", (req, res) => {
     const { NCRFormID } = req.params;
     const {
-        Decision,
-        CarRaised,
-        FollowUp,
+        PreliminaryDecision,
+        CARRaised,
+        FollowUpRequired,
         CARNumber,
         FollowUpType,
         FollowUpDate,
@@ -90,30 +92,49 @@ router.put("/purchasing/:NCRFormID", (req, res) => {
     try {
         const LastModified = new Date().toISOString().split("T")[0];
         const stmt = db.prepare(
-            "UPDATE Purchasing SET Decision = ?, CarRaised = ?, CARNumber = ?, FollowUpType = ?, FollowUpDate = ?, LastModified = ? WHERE NCRFormID = ?"
+            "UPDATE Purchasing SET PreliminaryDecision = ?, CARRaised = ?, CARNumber = ?, FollowUpRequired = ?, FollowUpType = ?, FollowUpDate = ?, PurchasingStatus = ?, LastModified = ? WHERE NCRFormID = ?"
         );
-        const result = stmt.run(
-            Decision,
-            CarRaised,
-            FollowUp,
+        console.log("Parameters:", {
+            PreliminaryDecision,
+            CARRaised,
             CARNumber,
+            FollowUpRequired,
             FollowUpType,
             FollowUpDate,
             PurchasingStatus,
             LastModified,
             NCRFormID
+        });
+        const result = stmt.run(
+            PreliminaryDecision,
+            CARRaised,
+            CARNumber,
+            FollowUpRequired,
+            FollowUpType,
+            FollowUpDate,
+            PurchasingStatus,
+            LastModified,
+            NCRFormID,
         );
         if (result.changes > 0) {
-            // Create the formusers relation
+                // Create the formusers relation
+            // Check if the user already exists for the given form
+        const existingRecord = db.prepare(
+            "SELECT * FROM FormUsers WHERE NCRForm_id = ? AND User_id = ?"
+        ).get(NCRFormID, User_id);
+
+        if (!existingRecord) {
+            console.log("FormUsers record not found. Inserting new record.");
             const formUsersStmt = db.prepare(
                 "INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)"
             );
             formUsersStmt.run(NCRFormID, User_id);
+        }
 
             // Set up the notification properties we'd like to display
             result.type = "Purchasing";
             result.Status = PurchasingStatus;
-            result.Decision = Decision;
+            result.PreliminaryDecision = PreliminaryDecision;
             result.LastModified = LastModified;
             result.NewOrEdit = "Edit";
             result.NCRFormID = NCRFormID;

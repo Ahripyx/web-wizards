@@ -8,13 +8,13 @@
    <title>Web Wizards</title>
    
    <!-- Scripts -->
-   <script src="../public/scripts/forms/formHandler.js" type="module" defer></script>
-   <script src="../public/scripts/notification.js" type="module" defer></script>
+   <script src="../public/scripts/forms/formHandler.js" type="module" ></script>
+   <script src="../public/scripts/notification.js" type="module" ></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
    <script src="../public/scripts/validation.js"></script>
 
    
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    
@@ -41,10 +41,10 @@
          <div class="container">
             <a href="index.html" class="navbar-brand" tabindex="1">
                <img src="../public/images/Crossfire_Logo_no_bkgd.png"
-                  alt="A blue logo saying Crossfire with a flame in the middle" tabindex="-1">
+                  alt="A blue logo saying Crossfire with a flame in the middle">
             </a>
             <ul class="nav navbar-nav navbar-right">
-               <li class="nav-item" tabindex="-1" data-toggle="tooltip" role="button" data-placement="bottom"
+               <li class="nav-item" tabindex="-1" data-toggle="tooltip" data-placement="bottom"
                   data-trigger="hover focus" title="Information">
                   <a href="info.html" tabindex="2" aria-label="Information">
                      <i class="fa-solid fa-circle-info"></i>
@@ -78,7 +78,7 @@
          </div>
          <div class="alt-style">
             <div class="container">
-               <ul class="nav navbar-nav" role="navigation">
+               <ul class="nav navbar-nav">
                   <li class="active" tabindex="-1"><a href="index.html" tabindex="6">Dashboard</a></li>
                   <li id="li-create" style="display: none;" tabindex="-1"><a href="create.html" tabindex="7">Create NCR</a></li>
                   <li tabindex="-1"><a href="list.html" tabindex="8">NCR Logs</a></li>
@@ -88,7 +88,6 @@
          </div>
          <div class="container">
             <h1>Create</h1>
-         </div>
          </div>
       </nav>
    </header>
@@ -215,13 +214,13 @@
                   <label id="ProcessApplicable">Identify Process Applicable <span class="no">*</span> </label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="processes" id="ProcessApplicable_0" type="radio" aria-required="true"
+                        <input name="processes" id="ProcessApplicable_0" type="radio" 
                            required="required" class="form-check-input" value="WorkInProgress"
                            aria-labelledby="ProcessApplicable">
                         <label for="ProcessApplicable_0" class="form-check-label">Work In Progress</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="processes" id="ProcessApplicable_1" type="radio" aria-required="true"
+                        <input name="processes" id="ProcessApplicable_1" type="radio" 
                            required="required" class="form-check-input" value="SRInspection"
                            aria-labelledby="ProcessApplicable">
                         <label for="ProcessApplicable_1" class="form-check-label">Supplier or Receiving
@@ -234,13 +233,13 @@
                   <Label id="item-non-conforming">Is Item Non-Conforming? <span class="no">*</span> </Label>
                   <div>
                      <div class="form-check form-check-inline">
-                        <input name="nonconforming" id="IsNonConforming_0" type="radio" aria-required="true"
+                        <input name="nonconforming" id="IsNonConforming_0" type="radio" 
                            required="required" class="form-check-input" value="Yes"
                            aria-labelledby="item-non-conforming">
                         <label for="IsNonConforming_0" class="form-check-label">Yes</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input name="nonconforming" id="IsNonConforming_1" type="radio" aria-required="true"
+                        <input name="nonconforming" id="IsNonConforming_1" type="radio" 
                            required="required" class="form-check-input" value="No"
                            aria-labelledby="item-non-conforming">
                         <label for="IsNonConforming_1" class="form-check-label">No</label>
