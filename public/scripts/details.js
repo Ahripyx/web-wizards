@@ -256,6 +256,14 @@ async function checkStatus() {
     ) {
         if (user.RoleID == 4) btn.style.display = "block";
     }
+
+    // may as well hide "close" and "archive" options too
+    if (user.RoleID != 1){
+        document.getElementById("btnClose").style.display = "none";
+        document.getElementById("btnArchive").style.display = "none";
+    }
 }
 
 checkStatus();
+
+
