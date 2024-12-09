@@ -195,14 +195,14 @@
                   </div>
                   <!-- Sales Order Number -->
                   <div class="form-group col-md-6">
-                     <label for="SalesOrder" class="form-label">Sales Order Number <span class="no">*</span> </label>
+                     <label for="SalesOrder" class="form-label">Sales Order Number <span class="no">*</span> <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the sales order number with 3 numbers"></i> </label>
                      <input type="number" class="form-control" id="SalesOrder" min="100" max="999" tabindex="22" required>
                   </div>
                </div>
                <div class="row g-3">
                   <!-- Supplier -->
                   <div class="form-group col-md-6">
-                     <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> </label>
+                      <label for="SupplierID" class="form-label">Supplier <span class="no">*</span> <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the supplier from the list"></i> </label>
                      <select class="js-example-basic-single form-select" id="SupplierID" name="SupplierID"
                          oninput="SupplierValidation()" tabindex="23" required>
                         <option selected value='' disabled>Select a Supplier</option>
@@ -212,7 +212,8 @@
                   </div>
                   <!-- Product Info -->
                   <div class="form-group col-md-6">
-                     <label for="ProductID" class="form-label">Product <span class="no">*</span> </label>
+                     <label for="ProductID" class="form-label">Product <span class="no">*</span>  </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the product from the list"></i>
                      <select class="form-select" id="ProductID" name="ProductID" 
                         onblur="ProductValidation()" tabindex="24" required>
                         <option selected value=''>No products available</option>
@@ -228,6 +229,7 @@
                   <!-- Defect Description -->
                   <div class="form-group col-md-12">
                      <label for="Details" class="form-label">Description of Defect <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter a detailed description of the defect"></i>
                      <br>
                      <textarea class="form-control" id="Details" name="Details" rows="3" tabindex="25"
                         required></textarea>
@@ -238,6 +240,7 @@
                   <div class="form-group col-md-6">
                      <label for="QuantityReceived" class="form-label">Quantity Received <span class="no">*</span>
                      </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the quantity received"></i>
                      <input type="number" class="form-control" id="QuantityReceived" min="1" 
                         onblur="QuantityRecValidation()" tabindex="26" required>
                      <div class="invalid-feedback" id="received-invalid">
@@ -248,6 +251,7 @@
                   <div class="form-group col-md-6">
                      <label for="QuantityDefective" class="form-label">Quantity Defective <span class="no">*</span>
                      </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the quantity defective"></i>
                      <input type="number" class="form-control" id="QuantityDefective" min="1" 
                         onblur="QuantityDefValidation()" required tabindex="27">
                      <div class="invalid-feedback" id="defective-invalid">
@@ -259,6 +263,7 @@
                   <!-- Identify Process Applicable -->
                   <div class="form-group col-md-6">
                      <label id="ProcessApplicable">Identify Process Applicable <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the process applicable"></i>
                      <div>
                         <div class="form-check form-check-inline" tabindex="28">
                            <input name="processes" id="ProcessApplicable_0" type="radio" 
@@ -278,6 +283,7 @@
                   <!-- Is Non-Conformance -->
                   <div class="form-group col-md-6">
                      <Label id="item-non-conforming">Is Item Non-Conforming? <span class="no">*</span> </Label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if the item is non-conforming"></i>
                      <div>
                         <div class="form-check form-check-inline" tabindex="29">
                            <input name="nonconforming" id="IsNonConforming_0" type="radio" 
@@ -325,6 +331,7 @@
                   <!-- Review by CF Engineering -->
                   <div class="form-group col-md-6">
                      <label>Review by CF Engineering <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the review by CF Engineering"></i>
                      <div>
                         <div class="form-check form-check-inline" tabindex="35"  >
                            <input name="Review" id="Review_0" type="radio" required="required" 
@@ -351,6 +358,7 @@
                   <!-- Customer Notification -->
                   <div class="form-group col-md-6">
                      <label>Notify customer of NCR <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if the customer should be notified"></i>
                      <div>
                         <div class="form-check form-check-inline" tabindex="36">
                            <input name="NotifyCustomer" id="NotifyCustomer_0" type="radio" required="required"
@@ -369,6 +377,7 @@
                <div class="row g-3">
                   <div class="form-group col-md-12">
                      <label for="Disposition">Disposition <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Enter the disposition"></i>
                      <textarea class="form-control" id="Disposition" name="Disposition" rows="3" tabindex="37" required
                         ></textarea>
                   </div>
@@ -377,6 +386,7 @@
                <div class="row g-3">
                   <div class="form-group col-md-6">
                      <label>Does the drawing require updating </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if the drawing requires updating"></i>
                      <div>
                         <div class="form-check form-check-inline" tabindex="38">
                            <input name="DrawingUpdateRequired" id="DrawingUpdateRequired_0" type="radio"
