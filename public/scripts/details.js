@@ -10,7 +10,7 @@ const ncrId = parseInt(urlParams.get("id"));
 document
     .getElementById("btnClose")
     .addEventListener("click", async function () {
-        $('#confirmationModal').modal('show');
+        $("#confirmationModal").modal("show");
 
         let modalClosed = false;
 
@@ -27,24 +27,26 @@ document
                 `http://localhost:5500/UpdateEngineerStatus?newStatus=Closed&id=${ncrId}`,
                 { method: "PUT" }
             );
-    
+
             getData();
         }
 
         //Handle the modal options
-        document.getElementById("btnYes").addEventListener("click", function () {
+        document
+            .getElementById("btnYes")
+            .addEventListener("click", function () {
+                if (!modalClosed) {
+                    performPutRequests();
+                    modalClosed = true;
+                    $("#confirmationModal").modal("hide");
+                    generatePDF();
+                }
+            });
+
+        document.getElementById("btnNo").addEventListener("click", function () {
             if (!modalClosed) {
                 performPutRequests();
                 modalClosed = true;
-                $('#confirmationModal').modal('hide');
-                generatePDF();
-            }
-        });
-    
-        document.getElementById("btnNo").addEventListener("click", function () {
-            if (!modalClosed) {
-                performPutRequests(); 
-                modalClosed = true; 
             }
         });
     });
@@ -225,21 +227,35 @@ async function checkStatus() {
     if (purResponse.ok) purJson = await purResponse.json();
     let btn = document.getElementById("btnEdit");
     btn.style.display = "none";
-    if (qaJson)
-        {
-            if ((user.RoleID == 2 || user.RoleID == 1) && qaJson.QualityStatus == "Open")
-                btn.style.display = "block";
-        }
-        if (engJson)
-        {
-            if ((user.RoleID == 3 || user.RoleID == 1) && engJson.EngineerStatus == "Open")
-                btn.style.display = "block";
-        }
-        if (purJson)
-        {
-            if ((user.RoleID == 4 || user.RoleID == 1) && purJson.PurchasingStatus == "Open")
-                btn.style.display = "block";
-        }
+    if (qaJson) {
+        if (
+            (user.RoleID == 2 || user.RoleID == 1) &&
+            qaJson.QualityStatus == "Open"
+        )
+            btn.style.display = "block";
+    }
+    if (engJson) {
+        if (
+            (user.RoleID == 3 || user.RoleID == 1) &&
+            engJson.EngineerStatus == "Open"
+        )
+            btn.style.display = "block";
+    } else if (engJson == null && qaJson.QualityStatus == "Closed") {
+        if (user.RoleID == 3) btn.style.display = "block";
+    }
+    if (purJson) {
+        if (
+            (user.RoleID == 4 || user.RoleID == 1) &&
+            purJson.PurchasingStatus == "Open"
+        )
+            btn.style.display = "block";
+    } else if (
+        purJson == null &&
+        engJson &&
+        engJson.EngineerStatus == "Closed"
+    ) {
+        if (user.RoleID == 4) btn.style.display = "block";
+    }
 }
 
 checkStatus();
