@@ -827,10 +827,15 @@ width: 200px;
     }
     .home-nav {
         max-width: 100%;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto auto;
+        justify-items: center;
     }
-    .home-nav div {
-        width: 125px;
+    .home-nav div:nth-child(3) {
+        grid-column: span 1;
+        text-align: center;
     }
+
     .home-nav img {
         height: auto;
         width: 125px;
@@ -861,9 +866,7 @@ width: 200px;
 
 /* Mobile M*/
 @media screen and (max-width: 375px) {
-    .home-nav div {
-        width: 100px;
-    }
+
     .home-nav img {
         width: 100px;
         padding: 10px;
@@ -878,9 +881,7 @@ width: 200px;
     .logo img {
         width: 175px;
     }
-    .home-nav div {
-        width: 75px;
-    }
+
     .home-nav img {
         width: 75px;
         padding: 5px;
