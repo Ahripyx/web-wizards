@@ -34,12 +34,12 @@ document
         //Handle the modal options
         document
             .getElementById("btnYes")
-            .addEventListener("click", function () {
+            .addEventListener("click", async function () {
                 if (!modalClosed) {
                     performPutRequests();
                     modalClosed = true;
                     $("#confirmationModal").modal("hide");
-                    generatePDF();
+                    await downloadPDF(ncrId);
                 }
             });
 
