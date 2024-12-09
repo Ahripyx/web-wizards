@@ -447,6 +447,7 @@
                   <!-- Purchasings Preliminary Decision -->
                   <div class="form-group col-md-6">
                      <label>Preliminary Decision <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the Preliminary Decision"></i>
                      <div>
                         <div class="form-check form-check-inline" tabindex="47">
                            <input name="Decision" id="Decision_0" type="radio" required="required" 
@@ -475,6 +476,7 @@
                   <div class="row g-3">
                   <div class="form-group col-md-6">
                      <label>Was a CAR Raised? <span class="no">*</span> </label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if a Car Number is required"></i>
                      <div>
                         <div class="form-check form-check-inline" tabindex="49">
                            <input name="CarRaised" id="CarRaised_0" type="radio" required="required"
@@ -493,6 +495,7 @@
                <!-- Follow-up Required? -->
                <div class="form-group col-md-6">
                   <label>Follow-Up Required? <span class="no">*</span> </label>
+                  <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select if a follow up is required"></i>
                   <div>
                      <div class="form-check form-check-inline" tabindex="50">
                         <input name="FollowUp" id="FollowUp_0" type="radio" required="required" 
@@ -512,18 +515,21 @@
                   <!-- Follow up Type & Date -->
                   <div class="form-group col-md-4" id="FollowUpTypeContainer" style="display: none;">
                      <label for="FollowUpType">Follow-Up Type</label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="What type of follow up?"></i>
                      <input type="text" class="form-control-plaintext" id="FollowUpType" tabindex="52">
                   </div>
                   <div class="invalid-feedback" id="follow-type-feedback"></div>
 
                   <div class="form-group col-md-4" id="FollowUpDateContainer" style="display: none;">
                      <label for="FollowUpDate" id="lblFollowUpDate">Follow-Up Expected Date</label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Select the date of the follow up"></i>
                      <input type="date" class="form-control" id="FollowUpDate" tabindex="53">
                   </div>
                   <div class="invalid-feedback" id="followup-date-feedback"></div>
                   <!-- CAR Number-->
                   <div class="form-group col-md-4" id="CARNumberContainer" style="display: none;" >
                      <label for="CARNumber">Car Number</label>
+                     <i class="fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="Fill in the Car Number Raised"></i>
                      <input type="text" class="form-control-plaintext" id="CARNumber" tabindex="51">
                      <div class="invalid feedback" id="car-number-feedback"></div>
                   </div>
