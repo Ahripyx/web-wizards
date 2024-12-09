@@ -104,11 +104,19 @@ router.put("/engineer/:NCRFormID", (req, res) => {
             NCRFormID
         );
         if (result.changes > 0) {
-            // Create the formusers relation
+                // Create the formusers relation
+            // Check if the user already exists for the given form
+        const existingRecord = db.prepare(
+            "SELECT * FROM FormUsers WHERE NCRForm_id = ? AND User_id = ?"
+        ).get(NCRFormID, User_id);
+
+        if (!existingRecord) {
+            console.log("FormUsers record not found. Inserting new record.");
             const formUsersStmt = db.prepare(
                 "INSERT INTO FormUsers (NCRForm_id, User_id) VALUES (?, ?)"
             );
             formUsersStmt.run(NCRFormID, User_id);
+        }
 
             // Set up the notification properties we'd like to display
             result.type = "Engineer";
