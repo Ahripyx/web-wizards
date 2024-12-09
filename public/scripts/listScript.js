@@ -11,9 +11,9 @@ async function filltables(data, table){
     table.innerHTML = ` 
     <tr class="shaded-cells">
         <th>NCR</th>
-        <th>Supplier</th>                
+        <th>Date</th>                
+        <th>Supplier</th>
         <th>Status</th>
-        <th>Date</th>
         <th></th>
         <th></th>
         <th></th>
@@ -39,9 +39,9 @@ async function filltables(data, table){
         tablerow.innerHTML =
             `
             <td class="table-borders" tabindex="${tabindex++}">${element.NCRNumber}</td>
+            <td class="table-borders" tabindex="${tabindex++}">${element.CreationDate}</td>
             <td class="table-borders" tabindex="${tabindex++}">${element.SupplierName}</td>
             <td class="table-borders" tabindex="${tabindex++}">${element.FormStatus}</td>
-            <td class="table-borders" tabindex="${tabindex++}">${element.CreationDate}</td>
             <td class="table-borders"><a href="details.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabindex++}">Details</button></a></td>
             <td class="table-borders">${checkEdit(element.id, tabindex)}</td>
             <td class="table-borders">${downloadButtonHTML}</td>

@@ -24,12 +24,13 @@ async function getData() {
 
         // Populate the row with NCR details
         tablerow.innerHTML = `
-            <td class="table-borders" tabindex="${tabIndex++}">${element.NCRNumber}</td>            
-            <td class="table-borders" tabindex="${tabIndex++}">${element.SupplierName}</td>
-            <td class="table-borders" tabindex="${tabIndex++}">${element.FormStatus}</td>
-            <td class="table-borders" tabindex="${tabIndex++}">${new Date(element.LastModified).toLocaleDateString()}</td>
-            <td class="table-borders"><a href="details.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabIndex++}">Details</button></a></td>
-            <td class="table-borders"><a href="edit.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabIndex++}">Edit</button></a></td>
+            <td tabindex="${tabIndex++}">${element.NCRNumber}</td>  
+            <td tabindex="${tabIndex++}">${new Date(element.LastModified).toLocaleDateString()}</td>          
+            <td tabindex="${tabIndex++}">${element.SupplierName}</td>
+            <td tabindex="${tabIndex++}">${element.FormStatus}</td>
+            
+            <td><a href="details.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabIndex++}">Details</button></a></td>
+            <td><a href="edit.html?id=${element.id}" tabindex="-1"><button class="info" tabindex="${tabIndex++}">Edit</button></a></td>
         `;
         row++;
     });
