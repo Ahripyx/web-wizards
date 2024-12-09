@@ -90,7 +90,7 @@ router.put("/engineer/:NCRFormID", (req, res) => {
     try {
         const LastModified = new Date().toISOString().split("T")[0];
         const stmt = db.prepare(
-            "UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, UpdateDrawing = ?, RevisionNumber = ?, RevisionDate = ?, LastModified = ? WHERE NCRFormID = ?"
+            "UPDATE Engineer SET Review = ?, NotifyCustomer = ?, Disposition = ?, UpdateDrawing = ?, RevisionNumber = ?, RevisionDate = ?, EngineerStatus = ?, LastModified = ? WHERE NCRFormID = ?"
         );
         const result = stmt.run(
             Review,

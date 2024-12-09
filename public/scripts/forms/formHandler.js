@@ -136,8 +136,6 @@ async function loadFormData(id) {
             }
         }
 
-        
-
         toggleForms();
     } catch (error) {
         console.error("Failed to load form data:", error);
@@ -211,9 +209,11 @@ function populatePurchasing() {
         e.PreliminaryDecision === "Return To Supplier";
     PURCHASING_CONTROLS.Decision_1.checked =
         e.PreliminaryDecision === "Rework In House";
-    PURCHASING_CONTROLS.Decision_2.checked = e.PreliminaryDecision === "Scrap";
+    PURCHASING_CONTROLS.Decision_2.checked = 
+        e.PreliminaryDecision === "Scrap";
     PURCHASING_CONTROLS.Decision_3.checked =
         e.PreliminaryDecision === "Defer For HBC Engineering Review";
+    if (e.CARRaised)
     PURCHASING_CONTROLS.CarRaised_0.checked = e.CARRaised === 1;
     PURCHASING_CONTROLS.CarRaised_1.checked = e.CARRaised === 0;
     PURCHASING_CONTROLS.CARNumber.value = e.CARNumber;
@@ -357,8 +357,12 @@ function setupEventListeners() {
 
     // If purchasing form exists, add event listener
     if (purForm) {
-        if (PURCHASING_CONTROLS.CarRaised) handleCAR();
-        if (PURCHASING_CONTROLS.FollowUp) handleFollowUp();
+        if (PURCHASING_CONTROLS.CarRaised_0.checked || PURCHASING_CONTROLS.CarRaised_1.checked) {
+            handleCAR();
+        }
+        if (PURCHASING_CONTROLS.FollowUp_0.checked || PURCHASING_CONTROLS.FollowUp_1.checked) {
+            handleFollowUp();
+        }
 
         purForm.addEventListener("submit", async (event) => {
             const submitButton = event.submitter;
@@ -411,7 +415,7 @@ async function handleSubmit(CONTROLS, status) {
         else if (CONTROLS === ENGINEER_CONTROLS)
             await crudEngineer(engMethod, form, status, data.id);
         else if (CONTROLS === PURCHASING_CONTROLS)
-            await crudPurchase(purMethod, form, status, data.id);
+            await crudPurchasing(purMethod, form, status, data.id);
     } catch (error) {
         console.error("Failed to submit form:", error);
     }
@@ -490,39 +494,41 @@ function populateControls(fs, controls) {
 }
 
 async function handleFollowUp() {
-    document
-        .getElementById("FollowUp_0")
-        .addEventListener("click", function () {
-            if (this.checked) {
-                FollowUpType.style.display = "block";
-                FollowUpDate.style.display = "block";
-            }
-        });
-    document
-        .getElementById("FollowUp_1")
-        .addEventListener("click", function () {
-            if (this.checked) {
-                FollowUpType.style.display = "none";
-                FollowUpDate.style.display = "none";
-            }
-        });
+    const followUp0 = document.getElementById("FollowUp_0");
+    const followUp1 = document.getElementById("FollowUp_1");
+
+    function updateFollowUpDisplay() {
+        if (followUp0.checked) {
+            FollowUpTypeContainer.style.display = "block";
+            FollowUpDateContainer.style.display = "block";
+        } else if (followUp1.checked) {
+            FollowUpTypeContainer.style.display = "none";
+            FollowUpDateContainer.style.display = "none";
+        }
+    }
+
+    updateFollowUpDisplay();
+
+    followUp0.addEventListener("change", updateFollowUpDisplay);
+    followUp1.addEventListener("change", updateFollowUpDisplay);
 }
 
 async function handleCAR() {
-    document
-        .getElementById("CarRaised_0")
-        .addEventListener("click", function () {
-            if (this.checked) {
-                CARNumber.style.display = "block";
-            }
-        });
-    document
-        .getElementById("CarRaised_1")
-        .addEventListener("click", function () {
-            if (this.checked) {
-                CARNumber.style.display = "none";
-            }
-        });
+    const carRasied0 = document.getElementById("CarRaised_0")
+    const carRasied1 = document.getElementById("CarRaised_1")
+    
+    function updateCarRasiedDisplay() {
+        if(carRasied0.checked) {
+            CARNumberContainer.style.display = "block"
+        }
+        else if (carRasied1.checked) {
+            CARNumberContainer.style.display = "none"
+        }
+    }
+    updateCarRasiedDisplay();
+    
+    carRasied0.addEventListener("change", updateCarRasiedDisplay);
+    carRasied1.addEventListener("change", updateCarRasiedDisplay);
 }
 
 //initForm();

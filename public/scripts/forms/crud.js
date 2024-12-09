@@ -203,9 +203,10 @@ export async function crudPurchasing(method, form, status, id = '') {
             form.Decision_3.checked ? "Defer For HBC Engineering Review" : undefined;
 
         const purchasing = {
-            Decision: review,
-            CarRaised: form.CarRaised_0.checked ? 1 : 0,
-            FollowUp: form.FollowUp_0.checked ? 1 : 0,
+            
+            PreliminaryDecision: review,
+            CARRaised: form.CarRaised_0.checked ? 1 : 0,
+            FollowUpRequired: form.FollowUp_0.checked ? 1 : 0,
             CARNumber: form.CARNumber.value,
             FollowUpType: form.FollowUpType.value,
             FollowUpDate: form.FollowUpDate.value,
@@ -217,13 +218,12 @@ export async function crudPurchasing(method, form, status, id = '') {
 
         // If we are creating a new form
         if (method === 'POST') {
-            
+
         }
 
         if (!id) id = '';
         
         let result = await throwData(`http://localhost:5500/purchasing/${id}`, purchasing, method);
-        
         // Send a notification
         handleNewNotification(result.form);
 
@@ -248,6 +248,7 @@ export async function fetchData(url) {
 
 export async function throwData(url, data, method) {
     try {
+
         const response = await fetch(url, {
             method: method,
             headers: {
@@ -265,6 +266,7 @@ export async function throwData(url, data, method) {
             try {
                 result = JSON.parse(responseText);
             } catch (error) {
+                console.error("Failed to parse JSON:", error);
                 result = responseText;
             }
             return await result;
