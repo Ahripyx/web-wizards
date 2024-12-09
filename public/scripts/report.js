@@ -38,9 +38,9 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
     pdf.roundedRect(5, 35, 200, 1, 1, 1, 'F'); 
 
     //Light blue background for QA
-    pdf.setFillColor(173, 216, 230); 
+    pdf.setFillColor(84,172,207);  
     pdf.roundedRect(10, 40, 60, 30, 1, 1, 'F'); 
-    pdf.setFillColor(173, 216, 230); 
+    pdf.setFillColor(84,172,207);  
     pdf.roundedRect(10, 50, 190, formHeight, 1, 1, 'F'); 
     
     //Inputing QA Info
@@ -72,9 +72,9 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
     }
 
     //light green background for Engineering
-    pdf.setFillColor(144, 238, 144); 
+    pdf.setFillColor(31,189,31);
     pdf.roundedRect(10, 125, 60, 30, 1, 1, 'F'); 
-    pdf.setFillColor(144, 238, 144); 
+    pdf.setFillColor(31,189,31); 
     pdf.roundedRect(10, 135, 190, formHeight, 1, 1, 'F'); 
 
     pdf.setFontSize(16);
@@ -99,9 +99,9 @@ document.getElementById('btnGenPDF').addEventListener('click', async function() 
     }
 
     //light pink background for Purchasing
-    pdf.setFillColor(255, 192, 203); 
+    pdf.setFillColor(255,143,162);  
     pdf.roundedRect(10, 210, 60, 30, 1, 1, 'F'); 
-    pdf.setFillColor(255, 192, 203); 
+    pdf.setFillColor(255,143,162);
     pdf.roundedRect(10, 220, 190, formHeight, 1, 1, 'F'); 
 
     pdf.setFontSize(16);

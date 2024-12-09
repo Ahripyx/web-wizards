@@ -574,9 +574,9 @@ form input[type="date"]:focus {
 
 .grid-item{ padding: 10px }
 
-.blue-grid{ background-color: lightblue; }
-.green-grid{ background-color: lightgreen; }
-.pink-grid{ background-color: pink; }
+.blue-grid{ background-color: #54ACCF; }
+.green-grid{ background-color: #1FBD1F; }
+.pink-grid{ background-color: #FF8FA2; }
 
 .grid-tab{
     border-top-left-radius: 1em;
@@ -689,6 +689,15 @@ form input[type="date"]:focus {
 canvas{
     display: block;
     border: 4px solid black;
+}
+
+.download-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+  }
+#pdfDownload{
+width: 200px;
 }
 /*========================
         Login
