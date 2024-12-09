@@ -36,17 +36,17 @@ async function filltables(data, table) {
                   }" tabindex=${tabindex + 15}>Download</button>`
                 : "";
         tablerow.innerHTML = `
-            <td class="table-borders" tabindex="${tabindex++}">${
+            <td tabindex="${tabindex++}">${
             element.NCRNumber
         }</td>
-            <td class="table-borders" tabindex="${tabindex++}">${
+            <td tabindex="${tabindex++}">${
+            element.CreationDate
+        }</td>
+            <td tabindex="${tabindex++}">${
             element.SupplierName
         }</td>
-            <td class="table-borders" tabindex="${tabindex++}">${
+            <td tabindex="${tabindex++}">${
             element.FormStatus
-        }</td>
-            <td class="table-borders" tabindex="${tabindex++}">${
-            element.CreationDate
         }</td>
             <td class="table-borders"><a href="details.html?id=${
                 element.id
