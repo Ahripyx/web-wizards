@@ -95,16 +95,28 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById("Disposition").value = disposition
         }
         document.getElementById('btnSeedEng').addEventListener('click', function(){
-            populateEditEng("Very nice disposition descripition.");
+             // Set the radio button for "Review by CF Engineering" to "Repair"
+            document.querySelector('input[name="Review"][value="Repair"]').checked = true;  // Selecting 'Repair'
+
+            // Set the radio button for "Notify customer of NCR" to "Yes"
+            document.querySelector('input[name="NotifyCustomer"][value="Yes"]').checked = true;  // Selecting 'Yes'
+
+            // Set the "Disposition" field with a sample description
+            document.getElementById("Disposition").value = "Very nice disposition description."; // Example text
+
+            // Set the radio button for "Does the drawing require updating" to "Yes"
+            document.querySelector('input[name="DrawingUpdateRequired"][value="1"]').checked = true;  // Selecting 'Yes'
         });
 
         //Purchasing
-        function populateEditPur(){
-            document.getElementById("CarRaised_1").checked = true
-        }
+        document.getElementById('btnSeedPUR').addEventListener('click', function(){
+            document.getElementById("CarRaised_1").checked = true;
+            
+            document.getElementById("FollowUp_1").checked = true;
 
-        document.getElementById('btnSeedPur').addEventListener('click', function(){
-            populateEditPur()
+            document.getElementById("Decision_0").checked = true;
+
+            document.getElementById("CARNumber").value = "12345";
         })
         
     }
