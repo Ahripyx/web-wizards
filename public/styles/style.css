@@ -574,9 +574,9 @@ form input[type="date"]:focus {
 
 .grid-item{ padding: 10px }
 
-.blue-grid{ background-color: #54ACCF; }
-.green-grid{ background-color: #1FBD1F; }
-.pink-grid{ background-color: #FF8FA2; }
+.blue-grid{ background-color: #B9DFE9; }
+.green-grid{ background-color: #AAF3AA; }
+.pink-grid{ background-color: #FFC7CE; }
 
 .grid-tab{
     border-top-left-radius: 1em;
