@@ -485,6 +485,10 @@ span.no {
     color: #c1121f;
 }
 
+button.btn.yes.btn-lg {
+    color: white;
+}
+
 /*====================
     WCAG Compliance
 ====================*/
