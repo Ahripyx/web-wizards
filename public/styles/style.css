@@ -129,7 +129,7 @@ nav.header-nav ul li {
 
 .home-nav {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: auto auto;
     justify-items: center;
 }
 
