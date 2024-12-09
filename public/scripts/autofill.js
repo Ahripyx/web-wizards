@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
         document.getElementById('btnSeedQA').addEventListener('click', function(){
-            populateCreate(300, 15, 1, 'A very nice description', 20, 10)
+            populateCreate(300, 15, 1, "There are visible signs of physical damage or weaknesses in the product's structure. Examples include cracks in the casing and loose or missing components.", 20, 10)
             console.log('test')
         });
     }
