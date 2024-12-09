@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
         document.getElementById('btnSeedQA').addEventListener('click', function(){
-            populateEdit(300, 15, 1, 'A very nice description', 20, 10)
+            populateEdit(300, 15, 1, "There are visible signs of physical damage or weaknesses in the product's structure. Examples include cracks in the casing and loose or missing components.", 20, 10)
             console.log('test')
         });
 
@@ -100,9 +100,12 @@ document.addEventListener('DOMContentLoaded', function(){
        
             document.querySelector('input[name="NotifyCustomer"][value="Yes"]').checked = true; 
        
-            document.getElementById("Disposition").value = "Very nice disposition description.";
+            document.getElementById("Disposition").value = 
+                "1. Affected batches have been identified and isolated."+
+                "2. Review and enhance the component assembly process to ensure adherence to specifications."+
+                "3. Implement additional quality control checks at critical stages.";
 
-            document.querySelector('input[name="DrawingUpdateRequired"][value="1"]').checked = true; 
+            document.querySelector('input[name="DrawingUpdateRequired"][value="0"]').checked = true; 
         });
 
         //Purchasing
